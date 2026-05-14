@@ -1,0 +1,11 @@
+go 1.25.4
+
+use (
+	./pkg/billing
+	./pkg/domain
+	./pkg/server
+	./pkg/shared
+	./services/ai
+	./services/api
+	./services/stats_consumer
+)

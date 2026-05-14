@@ -1,0 +1,68 @@
+#!/bin/bash
+
+commit_msg=$(cat "$1")
+
+# Skip generated messages
+echo "$commit_msg" | grep -qE "^(Merge|Revert|WIP)" && exit 0
+
+# ── 1. Subject line format (Conventional Commits) ────────────────────────────
+pattern="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?(!)?: .{10,}"
+
+if ! echo "$commit_msg" | head -1 | grep -qE "$pattern"; then
+    echo ""
+    echo "❌ Invalid commit message format!"
+    echo ""
+    echo "Your message:  $(echo "$commit_msg" | head -1)"
+    echo ""
+    echo "Expected:  <type>(<scope>): <description>  (min 10 chars)"
+    echo "           <type>!: <description>           (breaking change)"
+    echo ""
+    echo "Types: feat  fix  docs  style  refactor  test  chore  perf  ci  build  revert"
+    echo ""
+    echo "Examples:"
+    echo "  feat(api): add pagination to list endpoint"
+    echo "  fix(auth): handle expired token edge case"
+    echo "  feat!: remove deprecated v1 endpoints"
+    echo "  chore: update dependencies"
+    echo ""
+    echo "To skip: git commit --no-verify"
+    echo ""
+    exit 1
+fi
+
+# ── 2. Subject line length ────────────────────────────────────────────────────
+SUBJECT=$(echo "$commit_msg" | head -1)
+if [ ${#SUBJECT} -gt 72 ]; then
+    echo ""
+    echo "❌ Subject line too long (${#SUBJECT} chars, max 72)."
+    echo "   Move details into the commit body."
+    echo ""
+    exit 1
+fi
+
+# ── 3. Blank line between subject and body ───────────────────────────────────
+LINE_COUNT=$(echo "$commit_msg" | wc -l)
+if [ "$LINE_COUNT" -gt 1 ]; then
+    SECOND_LINE=$(echo "$commit_msg" | sed -n '2p')
+    if [ -n "$SECOND_LINE" ]; then
+        echo ""
+        echo "❌ Missing blank line between subject and body."
+        echo "   Git requires an empty second line when a body is present."
+        echo ""
+        exit 1
+    fi
+fi
+
+# ── 4. Scope suggestion from branch name (informational) ─────────────────────
+CURRENT_SCOPE=$(echo "$SUBJECT" | grep -oP '(?<=\().*(?=\))' || true)
+if [ -z "$CURRENT_SCOPE" ]; then
+    BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+    # Patterns: feat/api/add-endpoint  →  api
+    #           fix/auth-bug           →  (no scope, single segment)
+    SUGGESTED=$(echo "$BRANCH" | awk -F'/' 'NF>=3{print $2}')
+    if [ -n "$SUGGESTED" ]; then
+        echo "💡 Tip: branch suggests scope '($SUGGESTED)' — e.g., feat($SUGGESTED): ..."
+    fi
+fi
+
+exit 0

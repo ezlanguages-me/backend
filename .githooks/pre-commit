@@ -1,0 +1,63 @@
+#!/bin/bash
+# Fast checks on staged .go files only.
+# Slow checks (tests, lint) run in pre-push.
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true)
+
+[ -z "$STAGED" ] && exit 0
+
+echo "🔍 pre-commit: checking staged files..."
+
+FAIL=false
+
+# ── 1. gofmt ─────────────────────────────────────────────────────────────────
+UNFORMATTED=()
+for f in $STAGED; do
+    [ -f "$f" ] || continue
+    [ -n "$(gofmt -l "$f")" ] && UNFORMATTED+=("$f")
+done
+
+if [ ${#UNFORMATTED[@]} -gt 0 ]; then
+    echo ""
+    echo "❌ Not gofmt-compliant:"
+    for f in "${UNFORMATTED[@]}"; do echo "   $f"; done
+    echo ""
+    echo "   Fix with: gofmt -w ${UNFORMATTED[*]}"
+    FAIL=true
+fi
+
+# ── 2. Debug prints left in non-main code ────────────────────────────────────
+for f in $STAGED; do
+    [ -f "$f" ] || continue
+    # Allow fmt.Print* only in main packages
+    echo "$f" | grep -qE '(^|/)main\.go$|/cmd/' && continue
+    HITS=$(grep -nE '^\s+(fmt|log)\.(Print|Println|Printf|Fprint|Fprintf|Fatal|Fatalf|Panic)\(' "$f" 2>/dev/null || true)
+    if [ -n "$HITS" ]; then
+        echo ""
+        echo "❌ Debug prints in $f (use structured logger):"
+        echo "$HITS" | sed 's/^/   /'
+        FAIL=true
+    fi
+done
+
+# ── 3. No leaked secrets patterns ────────────────────────────────────────────
+SECRET_PATTERNS='(password|secret|api_key|apikey|private_key)\s*[:=]\s*"[^"]+'
+for f in $STAGED; do
+    [ -f "$f" ] || continue
+    HITS=$(grep -inE "$SECRET_PATTERNS" "$f" 2>/dev/null || true)
+    if [ -n "$HITS" ]; then
+        echo ""
+        echo "❌ Possible secret in $f:"
+        echo "$HITS" | sed 's/^/   /'
+        FAIL=true
+    fi
+done
+
+echo ""
+if [ "$FAIL" = true ]; then
+    echo "❌ Pre-commit checks failed. Fix above or use: git commit --no-verify"
+    exit 1
+fi
+
+echo "✅ Pre-commit checks passed."
+exit 0

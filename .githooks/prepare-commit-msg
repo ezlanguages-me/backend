@@ -1,0 +1,54 @@
+#!/bin/bash
+# Pre-populate commit message template from branch name.
+# Only runs for blank new commits (not amend, merge, squash, etc.).
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2   # empty = new commit, "message" = -m flag, "commit" = amend, etc.
+
+# Don't touch non-blank or generated commits
+[ -n "$COMMIT_SOURCE" ] && exit 0
+# Don't overwrite if editor already has content (e.g., re-edit after failed hook)
+EXISTING=$(grep -v '^#' "$COMMIT_MSG_FILE" | tr -d '[:space:]')
+[ -n "$EXISTING" ] && exit 0
+
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+TYPE=""
+SCOPE=""
+PREFIX=""
+
+# Parse branch patterns:
+#   feat/api/add-endpoint   → type=feat, scope=api
+#   fix/auth-expired-token  → type=fix,  scope=(none)
+#   chore/deps              → type=chore, scope=(none)
+if echo "$BRANCH" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|ci|build)/"; then
+    TYPE=$(echo "$BRANCH" | cut -d'/' -f1)
+    REST=$(echo "$BRANCH" | cut -d'/' -f2-)
+    if echo "$REST" | grep -q '/'; then
+        SCOPE=$(echo "$REST" | cut -d'/' -f1)
+    fi
+fi
+
+if   [ -n "$TYPE" ] && [ -n "$SCOPE" ]; then PREFIX="${TYPE}(${SCOPE}): "
+elif [ -n "$TYPE" ];                        then PREFIX="${TYPE}: "
+fi
+
+cat > "$COMMIT_MSG_FILE" <<EOF
+${PREFIX}
+# Conventional Commits — <type>(<scope>): <description>
+#
+# Types : feat  fix  docs  style  refactor  test  chore  perf  ci  build  revert
+# Scope : optional module/area (api, ai, auth, billing, …)
+# Break : add '!' → feat(api)!: or include BREAKING CHANGE in footer
+#
+# ── Body (optional) — leave ONE blank line after subject ──────────────────────
+#
+#
+# ── Footer (optional) ─────────────────────────────────────────────────────────
+#
+#   BREAKING CHANGE: description of what broke and how to migrate
+#   Closes #<issue>
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# Version label reminder (for deploy bump on merge):
+#   Add one of these labels to the PR:  major  minor  patch
+EOF

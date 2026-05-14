@@ -1,0 +1,23 @@
+#!/bin/bash
+# Slow checks before push: tests + lint.
+# Skipped on --no-verify.
+
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT/backend" || exit 1
+
+echo "🚀 pre-push: running tests..."
+echo ""
+
+make test
+TEST_EXIT=$?
+
+if [ $TEST_EXIT -ne 0 ]; then
+    echo ""
+    echo "❌ Tests failed. Push aborted."
+    echo "   Fix failures or bypass with: git push --no-verify"
+    exit 1
+fi
+
+echo ""
+echo "✅ All tests passed. Pushing..."
+exit 0

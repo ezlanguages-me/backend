@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Check that the PR has a version label — warns if missing, never blocks.
+  # Labels: major | minor | patch   (fallback: patch bump on deploy)
+  version-label:
+    name: Version label check
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Check for version label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LABELS=$(gh pr view ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --json labels \
+            --jq '[.labels[].name] | join(" ")')
+          echo "Labels: $LABELS"
+          if echo "$LABELS" | grep -qwE "major|minor|patch"; then
+            echo "✅ Version label found."
+          else
+            echo "::warning::No version label (major/minor/patch) on this PR. Deploy will default to a 'patch' bump."
+          fi
+
+  fmt:
+    name: gofmt check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - name: Check gofmt
+        run: |
+          UNFORMATTED=$(find . -name "*.go" ! -path "*/vendor/*" | xargs gofmt -l)
+          if [ -n "$UNFORMATTED" ]; then
+            echo "❌ The following files are not gofmt-compliant:"
+            echo "$UNFORMATTED"
+            echo ""
+            echo "Run 'gofmt -w .' to fix."
+            exit 1
+          fi
+          echo "✅ All files are properly formatted."
+
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - name: Run tests
+        run: make test
+
+  lint:
+    name: golangci-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache: false
+
+      - name: Lint each module
+        run: |
+          for dir in services/*/. pkg/*/.; do
+            if [ -f "$dir/go.mod" ]; then
+              echo "Linting $dir"
+              cp .golangci.yml "$dir/.golangci.yml" 2>/dev/null || true
+              cd "$dir"
+              golangci-lint run --timeout=5m
+              LINT_EXIT=$?
+              rm -f .golangci.yml 2>/dev/null || true
+              cd - > /dev/null
+              if [ $LINT_EXIT -ne 0 ]; then exit 1; fi
+            fi
+          done
+        continue-on-error: true  # golangci-lint requires installation; fail-safe

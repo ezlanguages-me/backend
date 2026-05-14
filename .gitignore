@@ -1,0 +1,24 @@
+error.log
+**/.env
+.env
+tmp/
+.venv/
+
+# AI IDE tool directories
+.agents/
+.claude/
+.cline/
+.codebuddy/
+.continue/
+.junie/
+.kiro/
+skills-lock.json
+
+# Compiled Go binaries
+services/api/api
+services/ai/ai
+services/stats_consumer/stats_consumer
+
+# Go build cache / test artifacts
+*.test
+*.out
