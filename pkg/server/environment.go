@@ -2,21 +2,17 @@ package server
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
-
-	"github.com/joho/godotenv"
 )
 
-// LoadEnvironmentVariables loads environment variables from .env file and unmarshalls them into the provided structure
-// The structure parameter must be a pointer to a struct
-// Struct fields should have `env:"VAR_NAME"` tags to map environment variables
+// LoadEnvironmentVariables reads environment variables from the process environment
+// and unmarshals them into the provided structure.
+// In development, use _ "github.com/joho/godotenv/autoload" in main.go to load a .env file first.
+// The structure parameter must be a pointer to a struct.
+// Struct fields should have `env:"VAR_NAME"` tags to map environment variables.
 func LoadEnvironmentVariables(structure interface{}) error {
-	myEnv, err := godotenv.Read()
-	if err != nil {
-		return fmt.Errorf("failed to read .env file: %w", err)
-	}
-
 	// Validate that structure is a pointer to a struct
 	v := reflect.ValueOf(structure)
 	if v.Kind() != reflect.Ptr {
@@ -50,10 +46,9 @@ func LoadEnvironmentVariables(structure interface{}) error {
 		// Check if required tag is set
 		required := fieldType.Tag.Get("required") == "true"
 
-		// Get value from environment map
-		value, exists := myEnv[envKey]
+		value := os.Getenv(envKey)
 
-		if !exists || value == "" {
+		if value == "" {
 			if required {
 				return fmt.Errorf("required environment variable %s is missing or empty", envKey)
 			}

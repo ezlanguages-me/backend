@@ -4,8 +4,6 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 
@@ -105,18 +103,9 @@ func TestSetup_HealthEndpoint(t *testing.T) {
 }
 
 func TestLoadEnvironmentVariables(t *testing.T) {
-	// godotenv.Read() with no args looks for ".env" in CWD — chdir to a
-	// temp dir so the test is hermetic and never picks up a developer's
-	// local .env.
-	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, ".env"), []byte("HOST=localhost\nPORT=8080\nOPTIONAL=val\n"), 0o600); err != nil {
-		t.Fatal(err)
-	}
-	cwd, _ := os.Getwd()
-	t.Cleanup(func() { _ = os.Chdir(cwd) })
-	if err := os.Chdir(dir); err != nil {
-		t.Fatal(err)
-	}
+	t.Setenv("HOST", "localhost")
+	t.Setenv("PORT", "8080")
+	t.Setenv("OPTIONAL", "val")
 
 	type cfg struct {
 		Host     string `env:"HOST" required:"true"`
@@ -137,23 +126,14 @@ func TestLoadEnvironmentVariables(t *testing.T) {
 }
 
 func TestLoadEnvironmentVariables_Errors(t *testing.T) {
-	dir := t.TempDir()
-	cwd, _ := os.Getwd()
-	t.Cleanup(func() { _ = os.Chdir(cwd) })
-	if err := os.Chdir(dir); err != nil {
-		t.Fatal(err)
-	}
-
-	t.Run("missing .env file", func(t *testing.T) {
+	t.Run("missing .env file no longer errors", func(t *testing.T) {
+		// LoadEnvironmentVariables now reads from process env, not .env file.
+		// An empty struct with no required fields should always succeed.
 		var v struct{}
-		if err := LoadEnvironmentVariables(&v); err == nil {
-			t.Fatal("expected error when .env missing")
+		if err := LoadEnvironmentVariables(&v); err != nil {
+			t.Fatalf("unexpected error: %v", err)
 		}
 	})
-
-	if err := os.WriteFile(filepath.Join(dir, ".env"), []byte("X=1\n"), 0o600); err != nil {
-		t.Fatal(err)
-	}
 
 	t.Run("non pointer rejected", func(t *testing.T) {
 		var v struct{ X string }
@@ -171,7 +151,7 @@ func TestLoadEnvironmentVariables_Errors(t *testing.T) {
 
 	t.Run("missing required errors", func(t *testing.T) {
 		type v struct {
-			Y string `env:"Y" required:"true"`
+			Y string `env:"REQUIRED_BUT_MISSING_XYZ" required:"true"`
 		}
 		var c v
 		if err := LoadEnvironmentVariables(&c); err == nil {
@@ -180,8 +160,9 @@ func TestLoadEnvironmentVariables_Errors(t *testing.T) {
 	})
 
 	t.Run("unsupported field type rejected", func(t *testing.T) {
+		t.Setenv("SOME_INT", "1")
 		type v struct {
-			N int `env:"X"`
+			N int `env:"SOME_INT"`
 		}
 		var c v
 		if err := LoadEnvironmentVariables(&c); err == nil {
@@ -190,7 +171,7 @@ func TestLoadEnvironmentVariables_Errors(t *testing.T) {
 	})
 
 	t.Run("falls back to uppercase field name", func(t *testing.T) {
-		// .env contains X=1, so an untagged field named X should pick it up.
+		t.Setenv("X", "1")
 		type v struct {
 			X string
 		}
