@@ -3,6 +3,12 @@ name: Deploy
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      services:
+        description: 'Services to deploy (comma-separated: api,ai,stats_consumer) or "all"'
+        required: false
+        default: 'all'
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────
@@ -28,10 +34,6 @@ jobs:
       - name: Determine affected services
         id: detect
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD)
-          echo "Changed files:"
-          echo "$CHANGED"
-
           declare -A SEEN
           SERVICES=()
 
@@ -43,23 +45,47 @@ jobs:
             fi
           }
 
-          # Shared packages that affect every service
-          if echo "$CHANGED" | grep -qE '^pkg/(domain|server|shared)/'; then
-            add_service api
-            add_service ai
-            add_service stats_consumer
-          fi
+          # workflow_dispatch: deploy specified services or all
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            INPUT="${{ github.event.inputs.services }}"
+            if [ "$INPUT" = "all" ] || [ -z "$INPUT" ]; then
+              add_service api
+              add_service ai
+              add_service stats_consumer
+            else
+              IFS=',' read -ra SVCS <<< "$INPUT"
+              for svc in "${SVCS[@]}"; do
+                add_service "$(echo "$svc" | tr -d ' ')"
+              done
+            fi
+          else
+            # First commit has no parent — diff against the commit itself
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              CHANGED=$(git diff --name-only HEAD~1 HEAD)
+            else
+              CHANGED=$(git diff-tree --no-commit-id -r --name-only HEAD)
+            fi
+            echo "Changed files:"
+            echo "$CHANGED"
 
-          # billing affects api + ai only
-          if echo "$CHANGED" | grep -qE '^pkg/billing/'; then
-            add_service api
-            add_service ai
-          fi
+            # Shared packages that affect every service
+            if echo "$CHANGED" | grep -qE '^pkg/(domain|server|shared)/'; then
+              add_service api
+              add_service ai
+              add_service stats_consumer
+            fi
 
-          # Per-service changes
-          echo "$CHANGED" | grep -qE '^services/api/'            && add_service api           || true
-          echo "$CHANGED" | grep -qE '^services/ai/'             && add_service ai            || true
-          echo "$CHANGED" | grep -qE '^services/stats_consumer/' && add_service stats_consumer || true
+            # billing affects api + ai only
+            if echo "$CHANGED" | grep -qE '^pkg/billing/'; then
+              add_service api
+              add_service ai
+            fi
+
+            # Per-service changes
+            echo "$CHANGED" | grep -qE '^services/api/'            && add_service api            || true
+            echo "$CHANGED" | grep -qE '^services/ai/'             && add_service ai             || true
+            echo "$CHANGED" | grep -qE '^services/stats_consumer/' && add_service stats_consumer || true
+          fi
 
           if [ ${#SERVICES[@]} -eq 0 ]; then
             echo "services=[]" >> $GITHUB_OUTPUT
