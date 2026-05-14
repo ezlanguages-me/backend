@@ -1,8 +1,6 @@
 package environment
 
 type Environment struct {
-	HOST                 string `env:"HOST" required:"true"`
-	PORT                 string `env:"PORT" required:"true"`
 	DB_USER              string `env:"DB_USER" required:"true"`
 	DB_PASSWORD          string `env:"DB_PASSWORD" required:"true"`
 	DB_NAME              string `env:"DB_NAME" required:"true"`

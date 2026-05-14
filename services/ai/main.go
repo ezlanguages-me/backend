@@ -26,5 +26,5 @@ func main() {
 	cleanup2 := CreateContainer(app)
 	defer cleanup2()
 
-	server.StartServerWithGracefulShutdown(app)
+	server.StartServerWithGracefulShutdown(app, "0.0.0.0:3001")
 }

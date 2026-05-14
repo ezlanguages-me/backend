@@ -1,8 +1,6 @@
 package environment
 
 type Environment struct {
-	HOST           string `env:"HOST" required:"true"`
-	PORT           string `env:"PORT" required:"true"`
 	GEMINI_API_KEY string `env:"GEMINI_API_KEY" required:"true"`
 
 	// Postgres — needed because the ai service owns token consumption

@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"os"
 	"os/signal"
 
@@ -20,7 +19,7 @@ func Setup() *fiber.App {
 	return app
 }
 
-func StartServerWithGracefulShutdown(app *fiber.App) {
+func StartServerWithGracefulShutdown(app *fiber.App, addr string) {
 	idleConnsClosed := make(chan struct{})
 
 	go func() {
@@ -35,7 +34,7 @@ func StartServerWithGracefulShutdown(app *fiber.App) {
 		close(idleConnsClosed)
 	}()
 
-	fiberConnURL := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
+	fiberConnURL := addr
 
 	if err := app.Listen(fiberConnURL); err != nil {
 		log.Error("Server Start Failed: %v", err)
@@ -44,8 +43,6 @@ func StartServerWithGracefulShutdown(app *fiber.App) {
 	<-idleConnsClosed
 }
 
-func StartServer(app *fiber.App) error {
-	fiberConnURL := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
-
-	return app.Listen(fiberConnURL)
+func StartServer(app *fiber.App, addr string) error {
+	return app.Listen(addr)
 }
