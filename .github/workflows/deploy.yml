@@ -285,5 +285,3 @@ jobs:
             echo "🚨 All Nomad nodes failed. Check cluster status."
             exit 1
           fi
-        env:
-          NOMAD_ADDR: ${{ secrets.NOMAD_ADDR }}
