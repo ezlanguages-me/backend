@@ -22,6 +22,17 @@ job "worker" {
     task "app" {
       driver = "raw_exec"
 
+      # Read secrets from: nomad var put secrets/app
+      template {
+        data        = <<EOF
+{{ with nomadVar "secrets/app" }}
+{{ range $k, $v := . }}{{ $k }}={{ $v }}
+{{ end }}{{ end }}
+EOF
+        destination = "local/.env"
+        env         = true
+      }
+
       template {
         data = <<EOF
 #!/bin/bash
