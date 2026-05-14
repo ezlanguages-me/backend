@@ -3,7 +3,7 @@
 # Skipped on --no-verify.
 
 ROOT=$(git rev-parse --show-toplevel)
-cd "$ROOT/backend" || exit 1
+cd "$ROOT" || exit 1
 
 echo "🚀 pre-push: running tests..."
 echo ""
