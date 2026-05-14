@@ -66,13 +66,26 @@ EOF
 #!/bin/bash
 set -e
 
-ASSET_URL=$(curl -s -L \
+echo "[run.sh] Starting service=${var.service_name} version=${var.version}"
+
+RELEASE_JSON=$(curl -s -L \
   -H "Authorization: Bearer ${var.github_token}" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  "https://api.github.com/repos/ezlanguages-me/backend/releases/tags/${var.service_name}-${var.version}" \
+  "https://api.github.com/repos/ezlanguages-me/backend/releases/tags/${var.service_name}-${var.version}")
+
+echo "[run.sh] Release JSON: $${RELEASE_JSON:0:300}"
+
+ASSET_URL=$(echo "$RELEASE_JSON" \
   | grep -o '"url": "https://api.github.com/repos/ezlanguages-me/backend/releases/assets/[0-9]*"' \
   | head -n 1 \
   | cut -d '"' -f 4)
+
+echo "[run.sh] ASSET_URL=$ASSET_URL"
+
+if [ -z "$ASSET_URL" ]; then
+  echo "[run.sh] ERROR: could not find asset URL" >&2
+  exit 1
+fi
 
 curl -L \
   -H "Accept: application/octet-stream" \
@@ -81,7 +94,9 @@ curl -L \
   "$ASSET_URL" \
   -o ./app
 
+echo "[run.sh] file type: $$(file ./app | cut -d: -f2)"
 chmod +x ./app
+echo "[run.sh] Launching binary..."
 exec ./app
 EOF
         destination = "local/run.sh"
