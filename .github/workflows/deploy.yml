@@ -108,6 +108,10 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.services != '[]' && needs.changes.outputs.services != '' }}
     runs-on: ubuntu-latest
+    # Prevent concurrent deployments of the same service
+    concurrency:
+      group: deploy-${{ matrix.service }}
+      cancel-in-progress: false
     permissions:
       contents: write
       id-token: write
@@ -272,7 +276,10 @@ jobs:
             )
             [ "$PORT" -gt 0 ] && NOMAD_ARGS+=(-var="port=$PORT")
 
-            if nomad job run "${NOMAD_ARGS[@]}" "$TEMPLATE"; then
+            # Replace hardcoded job name with service name so api/ai don't conflict
+            # -detach submits the job and returns immediately (no blocking on health checks)
+            if sed -E "s/^job \"(service|worker)\"/job \"$SERVICE\"/" "$TEMPLATE" \
+               | nomad job run -detach "${NOMAD_ARGS[@]}" -; then
               echo "✅ Deployed $SERVICE $VERSION to $IP"
               DEPLOY_SUCCESS=true
               break
