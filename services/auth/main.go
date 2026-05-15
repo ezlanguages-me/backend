@@ -40,6 +40,13 @@ func healthHandler(w http.ResponseWriter, _ *http.Request) {
 // request. It validates the Clerk JWT and, on success, sets X-User-Email so
 // Traefik can forward it to the downstream service.
 func verifyHandler(w http.ResponseWriter, r *http.Request) {
+	// CORS preflight requests carry no credentials — let them through so the
+	// backend's own CORS middleware can respond with the correct headers.
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	auth := r.Header.Get("Authorization")
 	tokenStr, found := strings.CutPrefix(auth, "Bearer ")
 	if !found || tokenStr == "" {
