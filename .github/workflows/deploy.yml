@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       services:
-        description: 'Services to deploy (comma-separated: api,ai,stats_consumer) or "all"'
+        description: 'Services to deploy (comma-separated: api,ai,auth,stats_consumer) or "all"'
         required: false
         default: 'all'
 
@@ -19,6 +19,7 @@ jobs:
   #   pkg/billing                            →  api + ai
   #   services/api/**                        →  api
   #   services/ai/**                         →  ai
+  #   services/auth/**                       →  auth
   #   services/stats_consumer/**             →  stats_consumer
   # ─────────────────────────────────────────────────────────────────────────
   changes:
@@ -51,6 +52,7 @@ jobs:
             if [ "$INPUT" = "all" ] || [ -z "$INPUT" ]; then
               add_service api
               add_service ai
+              add_service auth
               add_service stats_consumer
             else
               IFS=',' read -ra SVCS <<< "$INPUT"
@@ -84,6 +86,7 @@ jobs:
             # Per-service changes
             echo "$CHANGED" | grep -qE '^services/api/'            && add_service api            || true
             echo "$CHANGED" | grep -qE '^services/ai/'             && add_service ai             || true
+            echo "$CHANGED" | grep -qE '^services/auth/'           && add_service auth           || true
             echo "$CHANGED" | grep -qE '^services/stats_consumer/' && add_service stats_consumer || true
           fi
 
@@ -258,7 +261,8 @@ jobs:
           case $SERVICE in
             api)             PORT=3000; TEMPLATE=deployments/microservice.nomad ;;
             ai)              PORT=3001; TEMPLATE=deployments/microservice.nomad ;;
-            stats_consumer)  PORT=0;    TEMPLATE=deployments/worker.nomad ;;
+            auth)            PORT=3002; TEMPLATE=deployments/auth.nomad         ;;
+            stats_consumer)  PORT=0;    TEMPLATE=deployments/worker.nomad       ;;
             *)
               echo "Unknown service: $SERVICE"
               exit 1

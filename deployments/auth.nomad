@@ -19,8 +19,8 @@ job "service" {
     count = 2
 
     constraint {
-      operator  = "distinct_hosts"
-      value     = "true"
+      operator = "distinct_hosts"
+      value    = "true"
     }
 
     network {
@@ -28,24 +28,9 @@ job "service" {
     }
 
     service {
-      name = var.service_name
-      port = "http"
-      tags = [
-        "traefik.enable=true",
-
-        # Main router — protected by Clerk JWT
-        "traefik.http.routers.${var.service_name}.rule=Host(`${var.service_name}.ezlanguages.me`)",
-        "traefik.http.routers.${var.service_name}.entrypoints=websecure",
-        "traefik.http.routers.${var.service_name}.middlewares=clerk-jwt@file",
-        "traefik.http.routers.${var.service_name}.tls.certresolver=letsencrypt",
-        "traefik.http.routers.${var.service_name}.priority=10",
-
-        # Health check router — no auth, higher priority
-        "traefik.http.routers.${var.service_name}-health.rule=Host(`${var.service_name}.ezlanguages.me`) && Path(`/health`)",
-        "traefik.http.routers.${var.service_name}-health.entrypoints=websecure",
-        "traefik.http.routers.${var.service_name}-health.tls.certresolver=letsencrypt",
-        "traefik.http.routers.${var.service_name}-health.priority=20"
-      ]
+      name     = var.service_name
+      port     = "http"
+      provider = "consul"
       check {
         type     = "http"
         path     = "/health"
@@ -57,10 +42,9 @@ job "service" {
     task "app" {
       driver = "raw_exec"
 
-      # Read secrets from: nomad var put secrets/app
       template {
         data        = <<EOF
-{{ with nomadVar "secrets/app" }}
+{{ with nomadVar "secrets/auth" }}
 {{ range $k, $v := . }}{{ $k }}={{ $v }}
 {{ end }}{{ end }}
 EOF
@@ -80,14 +64,10 @@ RELEASE_JSON=$(curl -s -L \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   "https://api.github.com/repos/ezlanguages-me/backend/releases/tags/${var.service_name}-${var.version}")
 
-echo "[run.sh] Release JSON: $${RELEASE_JSON:0:300}"
-
 ASSET_URL=$(echo "$RELEASE_JSON" \
   | grep -o '"url": "https://api.github.com/repos/ezlanguages-me/backend/releases/assets/[0-9]*"' \
   | head -n 1 \
   | cut -d '"' -f 4)
-
-echo "[run.sh] ASSET_URL=$ASSET_URL"
 
 if [ -z "$ASSET_URL" ]; then
   echo "[run.sh] ERROR: could not find asset URL" >&2
@@ -101,13 +81,11 @@ curl -L \
   "$ASSET_URL" \
   -o ./app
 
-echo "[run.sh] file type: $$(file ./app | cut -d: -f2)"
 chmod +x ./app
-echo "[run.sh] Launching binary..."
 exec ./app
 EOF
         destination = "local/run.sh"
-        perms = "755"
+        perms       = "755"
       }
 
       config {
@@ -115,8 +93,8 @@ EOF
       }
 
       resources {
-        cpu    = 1000
-        memory = 1024
+        cpu    = 100
+        memory = 64
       }
     }
   }

@@ -7,5 +7,6 @@ use (
 	./pkg/shared
 	./services/ai
 	./services/api
+	./services/auth
 	./services/stats_consumer
 )
