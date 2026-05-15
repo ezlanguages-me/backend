@@ -36,7 +36,7 @@ job "service" {
         # Main router — protected by Clerk JWT
         "traefik.http.routers.${var.service_name}.rule=Host(`${var.service_name}.ezlanguages.me`)",
         "traefik.http.routers.${var.service_name}.entrypoints=websecure",
-        "traefik.http.routers.${var.service_name}.middlewares=clerk-jwt@file",
+        "traefik.http.routers.${var.service_name}.middlewares=clerk-jwt@consulcatalog",
         "traefik.http.routers.${var.service_name}.tls.certresolver=letsencrypt",
         "traefik.http.routers.${var.service_name}.priority=10",
 
