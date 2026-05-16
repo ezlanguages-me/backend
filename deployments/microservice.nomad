@@ -50,7 +50,14 @@ job "service" {
         "traefik.http.routers.${var.service_name}-public-users.rule=Host(`${var.service_name}.ezlanguages.me`) && Path(`/api/v1/users`) && Method(`POST`)",
         "traefik.http.routers.${var.service_name}-public-users.entrypoints=websecure",
         "traefik.http.routers.${var.service_name}-public-users.tls.certresolver=letsencrypt",
-        "traefik.http.routers.${var.service_name}-public-users.priority=20"
+        "traefik.http.routers.${var.service_name}-public-users.priority=20",
+
+        # CORS preflight router — OPTIONS requests must bypass auth so the browser
+        # receives proper CORS headers from Fiber's cors middleware.
+        "traefik.http.routers.${var.service_name}-options.rule=Host(`${var.service_name}.ezlanguages.me`) && Method(`OPTIONS`)",
+        "traefik.http.routers.${var.service_name}-options.entrypoints=websecure",
+        "traefik.http.routers.${var.service_name}-options.tls.certresolver=letsencrypt",
+        "traefik.http.routers.${var.service_name}-options.priority=30"
       ]
       check {
         type     = "http"
