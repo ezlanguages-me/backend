@@ -33,10 +33,19 @@ job "service" {
       tags = [
         "traefik.enable=true",
 
-        # Main router — protected by Clerk JWT
+        # CORS headers middleware — applied to ALL responses (including 401 from
+        # ForwardAuth) so the browser never sees a CORS error on auth failures.
+        "traefik.http.middlewares.${var.service_name}-cors.headers.accesscontrolalloworiginlist=https://app.ezlanguages.me,https://front.juancarloslucenamonje.workers.dev,http://localhost:8081",
+        "traefik.http.middlewares.${var.service_name}-cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,PATCH,OPTIONS",
+        "traefik.http.middlewares.${var.service_name}-cors.headers.accesscontrolallowheaders=Origin,Content-Type,Accept,Authorization,X-User-Email",
+        "traefik.http.middlewares.${var.service_name}-cors.headers.accesscontrolexposeheaders=X-User-Email",
+        "traefik.http.middlewares.${var.service_name}-cors.headers.accesscontrolmaxage=86400",
+
+        # Main router — protected by Clerk JWT.
+        # cors middleware listed first so it wraps the response even on 401.
         "traefik.http.routers.${var.service_name}.rule=Host(`${var.service_name}.ezlanguages.me`)",
         "traefik.http.routers.${var.service_name}.entrypoints=websecure",
-        "traefik.http.routers.${var.service_name}.middlewares=clerk-jwt@consulcatalog",
+        "traefik.http.routers.${var.service_name}.middlewares=${var.service_name}-cors@consulcatalog,clerk-jwt@consulcatalog",
         "traefik.http.routers.${var.service_name}.tls.certresolver=letsencrypt",
         "traefik.http.routers.${var.service_name}.priority=10",
 
