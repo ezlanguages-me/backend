@@ -12,7 +12,10 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwks keyfunc.Keyfunc
+var (
+	jwks    keyfunc.Keyfunc
+	version string
+)
 
 func main() {
 	jwksURL := mustEnv("CLERK_JWKS_URL")
@@ -33,7 +36,8 @@ func main() {
 }
 
 func healthHandler(w http.ResponseWriter, _ *http.Request) {
-	fmt.Fprint(w, "OK")
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, `{"status":"ok","version":%q}`, version)
 }
 
 // verifyHandler is called by Traefik's forwardAuth middleware for every protected

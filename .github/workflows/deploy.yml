@@ -279,10 +279,11 @@ jobs:
             )
             [ "$PORT" -gt 0 ] && NOMAD_ARGS+=(-var="port=$PORT")
 
-            # Replace hardcoded job name with service name so api/ai don't conflict
-            # -detach submits the job and returns immediately (no blocking on health checks)
+            # Replace hardcoded job name with service name so api/ai don't conflict.
+            # Without -detach, nomad job run blocks until the deployment is healthy
+            # (all allocations pass their health checks) or fails (auto-revert triggered).
             if sed -E "s/^job \"(service|worker)\"/job \"$SERVICE\"/" "$TEMPLATE" \
-               | nomad job run -detach "${NOMAD_ARGS[@]}" -; then
+               | nomad job run "${NOMAD_ARGS[@]}" -; then
               echo "✅ Deployed $SERVICE $VERSION to $IP"
               DEPLOY_SUCCESS=true
               break

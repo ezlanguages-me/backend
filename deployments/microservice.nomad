@@ -44,7 +44,13 @@ job "service" {
         "traefik.http.routers.${var.service_name}-health.rule=Host(`${var.service_name}.ezlanguages.me`) && Path(`/health`)",
         "traefik.http.routers.${var.service_name}-health.entrypoints=websecure",
         "traefik.http.routers.${var.service_name}-health.tls.certresolver=letsencrypt",
-        "traefik.http.routers.${var.service_name}-health.priority=20"
+        "traefik.http.routers.${var.service_name}-health.priority=20",
+
+        # Public router for POST /api/v1/users (user registration — no auth required)
+        "traefik.http.routers.${var.service_name}-public-users.rule=Host(`${var.service_name}.ezlanguages.me`) && Path(`/api/v1/users`) && Method(`POST`)",
+        "traefik.http.routers.${var.service_name}-public-users.entrypoints=websecure",
+        "traefik.http.routers.${var.service_name}-public-users.tls.certresolver=letsencrypt",
+        "traefik.http.routers.${var.service_name}-public-users.priority=20"
       ]
       check {
         type     = "http"

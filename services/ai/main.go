@@ -10,7 +10,11 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
+var version string
+
 func main() {
+	server.SetVersion(version)
+
 	app := server.Setup()
 
 	cleanup, err := server.ConfigureLogging(app, "error.log")
