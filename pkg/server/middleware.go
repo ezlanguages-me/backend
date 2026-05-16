@@ -17,7 +17,7 @@ func AddFiberMiddleware(app *fiber.App) {
 		cors.New(cors.Config{
 			AllowOrigins: "*",
 			AllowMethods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
-			AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+			AllowHeaders: "Origin, Content-Type, Accept, Authorization, X-User-Email",
 		}),
 		logger.New(),
 		helmet.New(),
