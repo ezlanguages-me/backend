@@ -121,11 +121,12 @@ curl -L \
   -H "Authorization: Bearer ${var.github_token}" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   "$ASSET_URL" \
-  -o ./app
+  -o "$NOMAD_TASK_DIR/app"
 
 echo "[run.sh] file type: $$(file ./app | cut -d: -f2)"
-chmod +x ./app
+chmod +x "$NOMAD_TASK_DIR/app"
 echo "[run.sh] Launching binary..."
+cd "$NOMAD_TASK_DIR"
 exec ./app
 EOF
         destination = "local/run.sh"
