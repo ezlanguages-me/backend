@@ -49,10 +49,13 @@ func LoadEnvironmentVariables(structure interface{}) error {
 		value := os.Getenv(envKey)
 
 		if value == "" {
-			if required {
+			if defaultVal := fieldType.Tag.Get("envDefault"); defaultVal != "" {
+				value = defaultVal
+			} else if required {
 				return fmt.Errorf("required environment variable %s is missing or empty", envKey)
+			} else {
+				continue
 			}
-			continue
 		}
 
 		// Set the field value

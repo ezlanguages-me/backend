@@ -123,7 +123,7 @@ curl -L \
   "$ASSET_URL" \
   -o "$NOMAD_TASK_DIR/app"
 
-echo "[run.sh] file type: $$(file ./app | cut -d: -f2)"
+echo "[run.sh] file type: $$(file $NOMAD_TASK_DIR/app | cut -d: -f2)"
 chmod +x "$NOMAD_TASK_DIR/app"
 echo "[run.sh] Launching binary..."
 cd "$NOMAD_TASK_DIR"
