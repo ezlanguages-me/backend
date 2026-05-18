@@ -108,9 +108,21 @@ ok "Done"
 
 # ── 2. Drop database ──────────────────────────────────────────────────────────
 step "Dropping database '$DB_NAME'..."
-"${PSQL[@]}" postgres -c "DROP DATABASE IF EXISTS \"$DB_NAME\";" \
-    || fail "Could not drop database. Check credentials and host."
-ok "Dropped"
+# Try WITH (FORCE) first (PostgreSQL 13+) — terminates any lingering sessions.
+# Fall back to a retry loop for older Postgres versions.
+if "${PSQL[@]}" postgres -c "DROP DATABASE IF EXISTS \"$DB_NAME\" WITH (FORCE);" 2>/dev/null; then
+    ok "Dropped"
+else
+    # Wait up to 5 s for terminated connections to fully close, then retry.
+    for i in 1 2 3 4 5; do
+        sleep 1
+        if "${PSQL[@]}" postgres -c "DROP DATABASE IF EXISTS \"$DB_NAME\";" 2>/dev/null; then
+            ok "Dropped (after ${i}s)"
+            break
+        fi
+        [[ $i -eq 5 ]] && fail "Could not drop database after retrying. Check for long-running connections."
+    done
+fi
 
 # ── 3. Create database ────────────────────────────────────────────────────────
 step "Creating database '$DB_NAME'..."
