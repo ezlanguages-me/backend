@@ -1,4 +1,4 @@
-.PHONY: fmt lint test build clean db-reset db-seed db-fresh db-backup
+.PHONY: fmt lint test build clean db-reset db-seed db-fresh db-backup db-migrate
 
 fmt:
 	@echo "Formatting code..."
@@ -65,6 +65,10 @@ db-fresh:
 # Manual backup to R2 (requires R2_* env vars)
 db-backup:
 	@../devops/scripts/db-backup.sh
+
+# Apply pending migrations without dropping the DB (safe on live data)
+db-migrate:
+	@./scripts/db-migrate.sh
 
 
 install-tools:

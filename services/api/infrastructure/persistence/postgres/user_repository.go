@@ -29,7 +29,8 @@ func (ur *UserRepository) Create(user *domain.User) error {
 		ON CONFLICT (email) DO UPDATE
 			SET name = EXCLUDED.name,
 			    time_zone = EXCLUDED.time_zone,
-			    language = EXCLUDED.language
+			    language = EXCLUDED.language,
+			    birth_year = COALESCE(EXCLUDED.birth_year, users.birth_year)
 		RETURNING uuid, created_at
 	`, user.Name, user.Email, user.TimeZone, user.Language, birthYear).Scan(&user.UUID, &user.CreatedAt)
 
