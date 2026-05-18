@@ -46,5 +46,26 @@ VALUES (
         ]
     }'::jsonb
 );
+
+INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+VALUES (
+    v_writing_id,
+    'de',
+    'E-Mail an deine Gastfamilie',
+    '',
+    '{
+        "scenario": "Du wirst nächsten Monat als Austauschschüler in die USA fahren. Schreib eine kurze, einfache E-Mail, um dich deiner neuen Gastfamilie (Host Family) vorzustellen. Es ist der erste Kontakt mit dir, also erzähl ihnen das Wichtigste über dich, deine Familie und dein Leben.",
+        "tasks": [
+            "Beginne die E-Mail mit einer passenden Anrede (z.B. Dear Host Family,).",
+            "Stell dich vor: Nenne deinen vollständigen Namen, dein Alter und woher du kommst (Stadt und Land).",
+            "Beschreibe kurz, wie deine Stadt oder dein Land ist (ein oder zwei einfache Sätze).",
+            "Erzähl von deiner Familie: wie viele Personen ihr seid, wie sie heißen und was sie machen.",
+            "Erwähne mindestens ein Hobby oder etwas, das du in deiner Freizeit gerne machst.",
+            "Erzähl von deiner Ausbildung: was du lernst und was dein Lieblingsfach ist.",
+            "Sag etwas, worauf du dich freust oder was du tun möchtest, wenn du in den USA ankommst.",
+            "Beende die E-Mail mit einer höflichen Verabschiedung und deinem Namen."
+        ]
+    }'::jsonb
+);
 END;
 $seed$;

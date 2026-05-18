@@ -3,8 +3,8 @@
 #
 # Usage:
 #   ./scripts/db-reset.sh              # schema + views only
-#   ./scripts/db-reset.sh --seed       # schema + views + all seed data
-#   ./scripts/db-reset.sh --seed=en/a0-es  # schema + views + specific path
+#   ./scripts/db-reset.sh --seed       # schema + data + views
+#   ./scripts/db-reset.sh --seed=en/a0-es  # schema + specific data + views
 #
 # Override any variable via env or CLI flag:
 #   DB_HOST=localhost ./scripts/db-reset.sh --seed
@@ -94,7 +94,7 @@ if [[ -z "${CI:-}" && -z "${FORCE:-}" ]]; then
     [[ "$CONFIRM" == "$DB_NAME" ]] || { echo "Aborted."; exit 1; }
 fi
 
-# ── 1–5: Reset + schema + views (skipped with --seed-only) ───────────────────
+# ── 1–4: Reset + schema (skipped with --seed-only) ───────────────────────────
 if [[ "$SEED_ONLY" == false ]]; then
 
 # ── 1. Kill active connections ────────────────────────────────────────────────
@@ -124,15 +124,9 @@ step "Applying schema..."
     || fail "Schema failed — check $DB_DIR/schema.sql"
 ok "Schema applied"
 
-# ── 5. Apply views ────────────────────────────────────────────────────────────
-step "Applying views..."
-"${PSQL[@]}" "$DB_NAME" < "$DB_DIR/views.sql" \
-    || fail "Views failed — check $DB_DIR/views.sql"
-ok "Views applied"
-
 fi # end SEED_ONLY=false block
 
-# ── 6. Seed data (optional) ───────────────────────────────────────────────────
+# ── 5. Seed data (optional) ───────────────────────────────────────────────────
 if [[ "$SEED" == true ]]; then
 
     if [[ -n "$SEED_PATH" ]]; then
@@ -171,13 +165,21 @@ if [[ "$SEED" == true ]]; then
     done
 fi
 
+# ── 6. Apply views (skipped with --seed-only) ─────────────────────────────────
+if [[ "$SEED_ONLY" == false ]]; then
+    step "Applying views..."
+    "${PSQL[@]}" "$DB_NAME" < "$DB_DIR/views.sql" \
+        || fail "Views failed — check $DB_DIR/views.sql"
+    ok "Views applied"
+fi
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 printf '\n\033[1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m\n'
 printf '  \033[0;32m✅ Done!\033[0m\n'
 if [[ "$SEED_ONLY" == true ]]; then
     printf '     Seed data loaded into \033[1m%s\033[0m (schema untouched)\n' "$DB_NAME"
 elif [[ "$SEED" == true ]]; then
-    printf '     Schema + Views + Seed data loaded into \033[1m%s\033[0m\n' "$DB_NAME"
+    printf '     Schema + Data + Views loaded into \033[1m%s\033[0m\n' "$DB_NAME"
 else
     printf '     Schema + Views loaded into \033[1m%s\033[0m\n' "$DB_NAME"
     printf '     Add \033[1m--seed\033[0m to also load content data\n'

@@ -46,5 +46,26 @@ VALUES (
         ]
     }'::jsonb
 );
+
+INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+VALUES (
+    v_speaking_id,
+    'de',
+    'Gespräch mit deiner Gastfamilie',
+    '',
+    '{
+        "scenario": "Du wirst eine Sprachnachricht aufnehmen und an Sarah schicken, deine zukünftige Gastmutter in Boston, bevor du ankommst. Sie kennt dich noch nicht und möchte wissen, wer du bist. In der Nachricht sollst du dich vorstellen und ihr die Fragen stellen, die du über die Familie und das Haus hast. Sprich zusammenhängend, als wäre es eine Sprachnachricht.",
+        "tasks": [
+            "Begrüße sie und stell dich vor: Nenne deinen vollständigen Namen und woher du kommst.",
+            "Erzähl ihr kurz etwas über dich (dein Alter, was du studierst oder was du beruflich machst).",
+            "Frag sie, wie viele Personen im Haus wohnen und wie sie heißen.",
+            "Frag, ob es Kinder in der Familie gibt und wie alt sie sind.",
+            "Frag, wie das Haus aufgeteilt ist: wie viele Stockwerke (floors) es hat und wo dein Zimmer (bedroom) ist.",
+            "Frag, wo das Bad (bathroom) ist, das du benutzen kannst.",
+            "Frag, zu welcher Uhrzeit die Mahlzeiten (meals) zu Hause stattfinden.",
+            "Verabschiede dich höflich und sag, dass du es kaum erwarten kannst anzukommen."
+        ]
+    }'::jsonb
+);
 END;
 $seed$;

@@ -21,6 +21,9 @@ BEGIN
   INSERT INTO deck_translation (deck_uuid, language, title, description)
   VALUES (v_deck_uuid, 'es', 'El Abecedario', '');
 
+  INSERT INTO deck_translation (deck_uuid, language, title, description)
+  VALUES (v_deck_uuid, 'de', 'Das Alphabet', '');
+
   WITH inserted_words AS (
     INSERT INTO word (term, is_root, source_language) VALUES
       ('a', true, 'en'),
@@ -88,5 +91,40 @@ BEGIN
       WHEN 'z' THEN '/zi/'
     END
   FROM inserted_words;
+
+  -- German letter pronunciations
+  INSERT INTO word_translation (word_uuid, language, pronunciation)
+  SELECT dw.word_uuid, 'de',
+    CASE w.term
+      WHEN 'a' THEN '/EJ/'
+      WHEN 'b' THEN '/BIE/'
+      WHEN 'c' THEN '/SIE/'
+      WHEN 'd' THEN '/DIE/'
+      WHEN 'e' THEN '/IE/'
+      WHEN 'f' THEN '/EF/'
+      WHEN 'g' THEN '/DSCHIE/'
+      WHEN 'h' THEN '/EJ-TSCH/'
+      WHEN 'i' THEN '/AI/'
+      WHEN 'j' THEN '/DSCHEJ/'
+      WHEN 'k' THEN '/KEJ/'
+      WHEN 'l' THEN '/EL/'
+      WHEN 'm' THEN '/EM/'
+      WHEN 'n' THEN '/EN/'
+      WHEN 'o' THEN '/OU/'
+      WHEN 'p' THEN '/PIE/'
+      WHEN 'q' THEN '/KJUH/'
+      WHEN 'r' THEN '/AAR/'
+      WHEN 's' THEN '/ES/'
+      WHEN 't' THEN '/TIE/'
+      WHEN 'u' THEN '/JUH/'
+      WHEN 'v' THEN '/WIE/'
+      WHEN 'w' THEN '/DAB-öl-JUH/'
+      WHEN 'x' THEN '/EKS/'
+      WHEN 'y' THEN '/WAI/'
+      WHEN 'z' THEN '/SED/'
+    END
+  FROM deck_words dw
+  JOIN word w ON dw.word_uuid = w.uuid
+  WHERE dw.deck_uuid = v_deck_uuid;
 END;
 $seed$;

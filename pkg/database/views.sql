@@ -510,10 +510,9 @@ SELECT
 FROM exercise e
 JOIN grammar g ON g.uuid = e.target_uuid
 LEFT JOIN exercise_translation et ON et.exercise_uuid = e.uuid
-LEFT JOIN grammar_translation gt ON gt.grammar_uuid = g.uuid
+LEFT JOIN grammar_translation gt ON gt.grammar_uuid = g.uuid AND gt.language = et.language
 LEFT JOIN grammar_rule gr ON gr.uuid = e.grammar_rule_uuid
 LEFT JOIN grammar_rule_translation grt ON grt.grammar_rule_uuid = gr.uuid
-    AND gt.language = et.language
     AND grt.language = et.language;
 
 

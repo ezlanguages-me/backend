@@ -4,6 +4,12 @@ error.log
 tmp/
 .venv/
 
+# editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
 # AI IDE tool directories
 .agents/
 .claude/

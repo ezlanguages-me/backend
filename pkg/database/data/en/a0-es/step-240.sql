@@ -41,5 +41,25 @@ VALUES (
     }'::jsonb
 );
 
+INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+VALUES (
+    v_speaking_id,
+    'de',
+    'Stell dein Land und deine Familie vor',
+    '',
+    '{
+        "scenario": "Sarah, deine Gastmutter in Boston, hat dich gebeten, eine Sprachnachricht aufzunehmen, bevor du ankommst. Sie möchte sie mit dem Rest der Familie teilen, damit alle wissen, wer du bist. Sprich zusammenhängend wie in einer Sprachnachricht und decke die drei großen Themen ab: dein Land, deine Familie und deine Schule.",
+        "tasks": [
+            "Sag aus welchem Land und welcher Stadt du kommst und beschreibe es kurz (groß oder klein, das Wetter, etwas das dir daran gefällt).",
+            "Erkläre wie dein Land ist: ein oder zwei typische oder interessante Dinge, die du erzählen möchtest.",
+            "Erzähl von deiner Familie: wie viele Personen ihr seid, wie sie heißen und was sie machen (Beruf oder Ausbildung).",
+            "Beschreibe ein Familienmitglied genauer: sein/ihr Alter, Persönlichkeit oder Hobby.",
+            "Erzähl von deiner Schule oder Universität: wo sie ist, wie viele Schüler es ungefähr gibt und was du lernst.",
+            "Sag welches dein Lieblingsfach ist und warum.",
+            "Verabschiede dich und sag, dass du dich sehr darauf freust, sie persönlich kennenzulernen."
+        ]
+    }'::jsonb
+);
+
 END;
 $seed$;

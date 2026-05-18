@@ -23,8 +23,8 @@ func NewPostgresRepository(ctx context.Context) (*PostgresRepository, error) {
 	env := environment.Env
 
 	masterURL := fmt.Sprintf(
-		"postgres://%s:%s@%s:5432/%s?statement_timeout=8000&lock_timeout=3000",
-		env.DB_USER, env.DB_PASSWORD, env.MASTER_POSTGRES_DNS, env.DB_NAME,
+		"postgres://%s:%s@%s:%s/%s?statement_timeout=8000&lock_timeout=3000",
+		env.DB_USER, env.DB_PASSWORD, env.MASTER_POSTGRES_DNS, env.DB_PORT, env.DB_NAME,
 	)
 	masterConfig, err := pgxpool.ParseConfig(masterURL)
 	if err != nil {
@@ -53,8 +53,8 @@ func NewPostgresRepository(ctx context.Context) (*PostgresRepository, error) {
 	var replicas []*pgxpool.Pool
 	for _, ip := range replicaIPs {
 		replicaURL := fmt.Sprintf(
-			"postgres://%s:%s@%s:5432/%s?statement_timeout=8000&lock_timeout=3000",
-			env.DB_USER, env.DB_PASSWORD, ip, env.DB_NAME,
+			"postgres://%s:%s@%s:%s/%s?statement_timeout=8000&lock_timeout=3000",
+			env.DB_USER, env.DB_PASSWORD, ip, env.DB_PORT, env.DB_NAME,
 		)
 		config, _ := pgxpool.ParseConfig(replicaURL)
 		config.MaxConns = 20
