@@ -4,7 +4,7 @@ CREATE TABLE users (
     email TEXT UNIQUE NOT NULL,
     time_zone TEXT NOT NULL,
     language TEXT NOT NULL,
-    age INT,
+    birth_year INT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -365,8 +365,17 @@ CREATE INDEX idx_word_root ON word(root_word) WHERE root_word IS NOT NULL;
 -- Índice compuesto para study_records: permite paginación eficiente
 CREATE INDEX idx_study_records_user_time ON study_records(user_uuid, last_review DESC);
 
--- Idempotent migration: extend users with onboarding fields
-ALTER TABLE users ADD COLUMN IF NOT EXISTS age INT;
+-- Idempotent migration: rename age → birth_year if the old column still exists
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'users' AND column_name = 'age'
+    ) THEN
+        ALTER TABLE users RENAME COLUMN age TO birth_year;
+    END IF;
+END $$;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_year INT;
 
 -- Subscriptions: per-user monthly token quota. Future plans (pro, etc.)
 -- can override monthly_token_limit and active.

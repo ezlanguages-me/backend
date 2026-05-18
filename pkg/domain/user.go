@@ -10,7 +10,7 @@ type User struct {
 	Email               string          `json:"email" validate:"required,email"`
 	TimeZone            string          `json:"time_zone" validate:"omitempty,timezone"`
 	Language            string          `json:"language" validate:"omitempty,bcp47_language_tag"`
-	Age                 int             `json:"age" validate:"omitempty,gte=0,lte=120"`
+	BirthYear           int             `json:"birth_year" validate:"omitempty,gte=1900"`
 	CreatedAt           time.Time       `json:"created_at" validate:"omitempty"`
 	StudyRecords        []*StudyRecord  `json:"study_records" validate:"omitempty,dive"`
 	RuleStats           []*RuleStat     `json:"rule_stats" validate:"omitempty,dive"`

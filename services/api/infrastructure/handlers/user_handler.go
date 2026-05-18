@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"time"
 
 	"pkg/domain"
 	"pkg/server"
@@ -58,12 +59,38 @@ type UserHandler struct {
 	App application.UserApplication
 }
 
+// userRequest is the API input shape. Callers still send age (not birth_year);
+// the handler converts age → birth_year before touching the domain.
+type userRequest struct {
+	UUID     string `json:"uuid"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	TimeZone string `json:"time_zone"`
+	Language string `json:"language"`
+	Age      int    `json:"age"`
+}
+
+func (r *userRequest) toUser() *domain.User {
+	u := &domain.User{
+		UUID:     r.UUID,
+		Name:     r.Name,
+		Email:    r.Email,
+		TimeZone: r.TimeZone,
+		Language: r.Language,
+	}
+	if r.Age > 0 {
+		u.BirthYear = time.Now().Year() - r.Age
+	}
+	return u
+}
+
 func (uh *UserHandler) Create(ctx *fiber.Ctx) error {
-	var user *domain.User
-	if err := ctx.BodyParser(&user); err != nil {
+	var req userRequest
+	if err := ctx.BodyParser(&req); err != nil {
 		return server.NewErrResponse(ctx, ErrInvalidRequestBody(err))
 	}
 
+	user := req.toUser()
 	err := shared.Validate.Struct(user)
 	if err != nil {
 		return server.NewErrResponse(ctx, ErrInvalidUserData(err))
@@ -92,10 +119,11 @@ func (uh *UserHandler) Get(ctx *fiber.Ctx) error {
 
 func (uh *UserHandler) Update(ctx *fiber.Ctx) error {
 	id := ctx.Params("id")
-	var user *domain.User
-	if err := ctx.BodyParser(&user); err != nil {
+	var req userRequest
+	if err := ctx.BodyParser(&req); err != nil {
 		return server.NewErrResponse(ctx, ErrInvalidRequestBody(err))
 	}
+	user := req.toUser()
 	user.UUID = id
 
 	err := shared.Validate.Struct(user)
