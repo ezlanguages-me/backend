@@ -16,7 +16,7 @@ job "service" {
   }
 
   group "instances" {
-    count = 2
+    count = 4
 
     constraint {
       operator  = "distinct_hosts"
