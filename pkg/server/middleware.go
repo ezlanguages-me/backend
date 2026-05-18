@@ -4,6 +4,7 @@ import (
 	"log"
 	"log/slog"
 	"os"
+	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -27,6 +28,13 @@ func AddFiberMiddleware(app *fiber.App) {
 
 // ConfigureLogging sets up error logging to file and request logging to stdout
 func ConfigureLogging(app *fiber.App, errorLogPath string) (func(), error) {
+	// Resolve relative paths against NOMAD_TASK_DIR when running under Nomad
+	if !filepath.IsAbs(errorLogPath) {
+		if taskDir := os.Getenv("NOMAD_TASK_DIR"); taskDir != "" {
+			errorLogPath = filepath.Join(taskDir, errorLogPath)
+		}
+	}
+
 	// Setup error log file
 	// #nosec G304 -- errorLogPath is controlled by the application
 	errorLogFile, err := os.OpenFile(errorLogPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0600)
