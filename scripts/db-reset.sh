@@ -35,6 +35,9 @@ DB_HOST="${DB_HOST:-${MASTER_POSTGRES_DNS:-localhost}}"
 DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-postgres}"
 DB_NAME="${DB_NAME:-ezlanguages}"
+# APP_USER: the role that will own all DB objects and that the API connects as.
+# Defaults to DB_APP_USER (from .env), falling back to DB_USER if not set.
+APP_USER="${APP_USER:-${DB_APP_USER:-$DB_USER}}"
 export PGPASSWORD="${DB_PASSWORD:-}"
 
 # ── Parse flags ───────────────────────────────────────────────────────────────
@@ -183,6 +186,15 @@ if [[ "$SEED_ONLY" == false ]]; then
     "${PSQL[@]}" "$DB_NAME" < "$DB_DIR/views.sql" \
         || fail "Views failed — check $DB_DIR/views.sql"
     ok "Views applied"
+fi
+
+# ── 7. Grant access to app user ────────────────────────────────────────────────
+if [[ "$SEED_ONLY" == false && "$APP_USER" != "$DB_USER" ]]; then
+    step "Granting access to '$APP_USER'..."
+    "${PSQL[@]}" postgres -c "GRANT CONNECT ON DATABASE \"$DB_NAME\" TO \"$APP_USER\";" > /dev/null
+    "${PSQL[@]}" "$DB_NAME" -v app_user="$APP_USER" -f "$DB_DIR/grants.sql" > /dev/null \
+        || fail "Grants failed — check $DB_DIR/grants.sql"
+    ok "Access granted to '$APP_USER'"
 fi
 
 # ── Summary ───────────────────────────────────────────────────────────────────

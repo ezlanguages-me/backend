@@ -39,27 +39,23 @@ BEGIN
 SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 
 -- 2. Insertar el Reading en el Step 210
-INSERT INTO reading (path_uuid, step_order, source_language, type, category) 
-VALUES (v_path_id, 210, 'en', 'reading', 'social') 
+INSERT INTO reading (path_uuid, step_order, source_language, type, category, content) 
+VALUES (v_path_id, 210, 'en', 'reading', 'social', 'Hi everyone!\n\nMy name is Alex and I am an exchange student. I want to tell you a little bit about myself, my family, and my home country.\n\nI am from Spain. It is a beautiful country in southern Europe. The weather there is usually sunny and warm. \n\nIn my family, there are four people: my parents, my younger sister, and me. My mom is a nurse and my dad is an engineer. My sister is 12 years old and she loves playing soccer.\n\nBack in Spain, I go to a large high school in Madrid. My favorite subjects are History and English. I also play the guitar in the school band.\n\nI am very happy to be here in the United States and I hope we can be good friends. If you have any questions about my country, just ask!') 
 RETURNING uuid INTO v_reading_id;
 
 -- 3. Insertar Traducción y Contenido del Reading
-INSERT INTO reading_translation (reading_uuid, language, title, description, content) 
+INSERT INTO reading_translation (reading_uuid, language, title) 
 VALUES (
     v_reading_id, 
     'es', 
-    'Presentación Personal', 
-    '', 
-    'Hi everyone!\n\nMy name is Alex and I am an exchange student. I want to tell you a little bit about myself, my family, and my home country.\n\nI am from Spain. It is a beautiful country in southern Europe. The weather there is usually sunny and warm. \n\nIn my family, there are four people: my parents, my younger sister, and me. My mom is a nurse and my dad is an engineer. My sister is 12 years old and she loves playing soccer.\n\nBack in Spain, I go to a large high school in Madrid. My favorite subjects are History and English. I also play the guitar in the school band.\n\nI am very happy to be here in the United States and I hope we can be good friends. If you have any questions about my country, just ask!'
+    'Presentación Personal'
 );
 
-INSERT INTO reading_translation (reading_uuid, language, title, description, content)
+INSERT INTO reading_translation (reading_uuid, language, title)
 VALUES (
     v_reading_id,
     'de',
-    'Persönliche Vorstellung',
-    '',
-    'Hi everyone!\n\nMy name is Alex and I am an exchange student. I want to tell you a little bit about myself, my family, and my home country.\n\nI am from Spain. It is a beautiful country in southern Europe. The weather there is usually sunny and warm. \n\nIn my family, there are four people: my parents, my younger sister, and me. My mom is a nurse and my dad is an engineer. My sister is 12 years old and she loves playing soccer.\n\nBack in Spain, I go to a large high school in Madrid. My favorite subjects are History and English. I also play the guitar in the school band.\n\nI am very happy to be here in the United States and I hope we can be good friends. If you have any questions about my country, just ask!'
+    'Persönliche Vorstellung'
 );
 
 -- 4. Bucle para insertar los 12 ejercicios vinculados al target_uuid (el Reading)

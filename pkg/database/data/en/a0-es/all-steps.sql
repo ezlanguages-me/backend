@@ -38,7 +38,6 @@ WHERE NOT EXISTS (SELECT 1 FROM path WHERE source_language = 'en');
 \ir step-240.sql
 \ir step-245.sql
 \ir step-250.sql
-/*
 \ir step-260.sql
 \ir step-270.sql
 \ir step-280.sql
@@ -989,5 +988,4 @@ WHERE NOT EXISTS (SELECT 1 FROM path WHERE source_language = 'en');
 \ir step-9740.sql
 \ir step-9750.sql
 \ir step-9760.sql
-*/
 COMMIT;

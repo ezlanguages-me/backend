@@ -156,7 +156,7 @@ SELECT
                         'step_order',  l.step_order,
                         'title',       lt.title,
                         'description', lt.description,
-                        'transcript',  lt.transcript,
+                        'transcript',  l.transcript,
                         'exercises', NULLIF(COALESCE(
                             (
                                 SELECT jsonb_agg(jsonb_strip_nulls(jsonb_build_object(
@@ -189,7 +189,7 @@ SELECT
                         'step_order',  r.step_order,
                         'title',       rt.title,
                         'description', rt.description,
-                        'content',     rt.content,
+                        'content',     r.content,
                         'exercises', NULLIF(COALESCE(
                             (
                                 SELECT jsonb_agg(jsonb_strip_nulls(jsonb_build_object(
@@ -449,10 +449,10 @@ SELECT
     l.path_uuid,
     l.source_language,
     l.step_order,
+    l.transcript,
     lt.language,
     lt.title,
-    lt.description,
-    lt.transcript
+    lt.description
 FROM listening l
 LEFT JOIN listening_translation lt ON lt.listening_uuid = l.uuid;
 
@@ -476,10 +476,10 @@ SELECT
     r.path_uuid,
     r.source_language,
     r.step_order,
+    r.content,
     rt.language,
     rt.title,
-    rt.description,
-    rt.content
+    rt.description
 FROM reading r
 LEFT JOIN reading_translation rt ON rt.reading_uuid = r.uuid;
 

@@ -1,30 +1,22 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 7280 – Dialogue – express opinions on abstract/cultural matters in a limited way (Convivencia (Host Families y Vida Social))
+-- Seed: A0 English Path – STEP 7280 – Speaking – compose a personal email message (Comunicación Telefónica y Correspondencia Personal)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID;
+    v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 7280 AND path_uuid = v_path_id;
 
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 7280, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 7280, 'en', 'speaking', 'communication')
+    RETURNING uuid INTO v_speaking_id;
 
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'express opinions on abstract/cultural matters in a limited way (Convivencia (Host Families y Vida Social))', 'Práctica guiada de diálogo: express opinions on abstract/cultural matters in a limited way (Convivencia (Host Families y Vida Social)).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES
+        (v_speaking_id, 'es', 'Compón un correo personal', 'Practica cómo crear un correo personal breve, claro y amable.', '{"scenario": "Tu amigo te ha escrito para invitarte a pasar un fin de semana en su ciudad. Ahora vas a componer un correo personal de respuesta con información práctica, noticias y un tono cercano.", "tasks": ["Escribe una línea de asunto breve y clara.", "Empieza con un saludo natural usando el nombre de tu amigo.", "Da las gracias por la invitación o por el mensaje recibido.", "Di claramente si aceptas, dudas o no puedes ir.", "Añade dos detalles prácticos, por ejemplo fecha, hora o transporte.", "Cuenta una noticia personal corta para que el correo suene cercano.", "Haz una pregunta sencilla para continuar la conversación.", "Cierra con una despedida amable y tu nombre, y luego léelo en voz alta una vez."]}'::jsonb),
+        (v_speaking_id, 'de', 'Verfasse eine persönliche E-Mail', 'Übe, wie man eine kurze, klare und freundliche persönliche E-Mail schreibt.', '{"scenario": "Dein Freund hat dir geschrieben und dich eingeladen, ein Wochenende in seiner Stadt zu verbringen. Jetzt verfasst du eine persönliche Antwort-E-Mail mit praktischen Informationen, Neuigkeiten und einem nahen Ton.", "tasks": ["Schreibe eine kurze und klare Betreffzeile.", "Beginne mit einer natürlichen Begrüßung und dem Namen deines Freundes.", "Bedanke dich für die Einladung oder für die erhaltene Nachricht.", "Sage klar, ob du zusagst, unsicher bist oder nicht kommen kannst.", "Füge zwei praktische Details hinzu, zum Beispiel Datum, Uhrzeit oder Verkehrsmittel.", "Berichte eine kurze persönliche Neuigkeit, damit die E-Mail nah wirkt.", "Stelle eine einfache Frage, um das Gespräch fortzusetzen.", "Beende die E-Mail mit einer freundlichen Verabschiedung und deinem Namen und lies sie danach einmal laut vor."]}'::jsonb);
 END;
 $seed$;

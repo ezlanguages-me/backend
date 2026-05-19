@@ -24,7 +24,7 @@ func (r *ReadingRepository) Get(uuid, language string) (*domain.Reading, error) 
 	err := pool.QueryRow(context.Background(), `
 		SELECT
 			r.uuid, r.source_language, r.step_order, r.type, r.category,
-			rt.title, rt.description, rt.content,
+			rt.title, rt.description, r.content,
 			p.uuid, p.source_language
 		FROM reading r
 		JOIN reading_translation rt ON rt.reading_uuid = r.uuid AND rt.language = $1

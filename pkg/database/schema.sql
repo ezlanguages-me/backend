@@ -236,7 +236,8 @@ CREATE TABLE listening (
     source_language TEXT NOT NULL,
     step_order SMALLINT NOT NULL,
     type TEXT NOT NULL,
-    category TEXT
+    category TEXT,
+    transcript TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE listening_translation (
@@ -244,7 +245,6 @@ CREATE TABLE listening_translation (
     language TEXT NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
-    transcript TEXT NOT NULL,
     PRIMARY KEY (listening_uuid, language)
 );
 
@@ -296,7 +296,8 @@ CREATE TABLE reading (
     source_language TEXT NOT NULL,
     step_order SMALLINT NOT NULL,
     type TEXT NOT NULL,
-    category TEXT
+    category TEXT,
+    content TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE reading_translation (
@@ -304,7 +305,6 @@ CREATE TABLE reading_translation (
     language TEXT NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
-    content TEXT NOT NULL,
     PRIMARY KEY (reading_uuid, language)
 );
 

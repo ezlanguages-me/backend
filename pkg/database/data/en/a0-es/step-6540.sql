@@ -1,30 +1,25 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 6540 – Dialogue – answer questions of a routine nature and provide simple explanations (Turismo y Entretenimiento)
+-- Seed: A0 English Path – STEP 6540 – Speaking – recommend city attractions (Turismo y Entretenimiento)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID; v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 6540, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
-
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'answer questions of a routine nature and provide simple explanations (Turismo y Entretenimiento)', 'Práctica guiada de diálogo: answer questions of a routine nature and provide simple explanations (Turismo y Entretenimiento).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
-END;
-$seed$;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order=6540 AND path_uuid=v_path_id);
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order=6540 AND path_uuid=v_path_id);
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order=6540 AND path_uuid=v_path_id);
+    DELETE FROM reading WHERE step_order=6540 AND path_uuid=v_path_id;
+    DELETE FROM listening WHERE step_order=6540 AND path_uuid=v_path_id;
+    DELETE FROM dialogue WHERE step_order=6540 AND path_uuid=v_path_id;
+    DELETE FROM speaking WHERE step_order=6540 AND path_uuid=v_path_id;
+    DELETE FROM writing WHERE step_order=6540 AND path_uuid=v_path_id;
+    INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
+    VALUES (v_path_id,6540,'en','speaking','tourism')
+    RETURNING uuid INTO v_speaking_id;
+    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+    VALUES (v_speaking_id,'es','Recomendar lugares de Port Vista','Recomienda lugares de la ciudad.','{"scenario": "Estás hablando sobre Port Vista con otra persona.", "tasks": ["Di dónde está el lugar.", "Di cuándo empieza la visita.", "Di dónde empieza.", "Di cuánto dura.", "Di el precio o coste.", "Nombra el primer punto destacado.", "Nombra el segundo punto destacado.", "Da un consejo útil para visitantes."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+    VALUES (v_speaking_id,'de','Sehenswürdigkeiten in Port Vista empfehlen','Empfiehl Sehenswürdigkeiten der Stadt.','{"scenario": "Du sprichst mit einer anderen Person über Port Vista.", "tasks": ["Sage, wo der Ort ist.", "Sage, wann der Besuch beginnt.", "Sage, wo er beginnt.", "Sage, wie lange er dauert.", "Nenne den Preis oder die Kosten.", "Nenne den ersten Höhepunkt.", "Nenne den zweiten Höhepunkt.", "Gib einen nützlichen Tipp für Besucher."]}'::jsonb);
+END; $seed$;

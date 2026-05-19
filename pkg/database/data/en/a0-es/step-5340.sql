@@ -1,30 +1,22 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 5340 – Dialogue – understand and answer simple predictable questions (Conferencias, Seminarios y Clases)
+-- Seed: A0 English Path – STEP 5340 – Speaking – give presentation on familiar topic answering questions (Conferencias, Seminarios y Clases)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID;
+    v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 5340 AND path_uuid = v_path_id;
 
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 5340, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 5340, 'en', 'speaking', 'academic')
+    RETURNING uuid INTO v_speaking_id;
 
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'understand and answer simple predictable questions (Conferencias, Seminarios y Clases)', 'Práctica guiada de diálogo: understand and answer simple predictable questions (Conferencias, Seminarios y Clases).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'es', 'Presentar un tema conocido y responder preguntas', '', '{"scenario": "Vas a presentar un tema familiar de clase y después responderás preguntas previsibles o factuales del público.", "tasks": ["Presenta el tema de forma clara desde el inicio.", "Organiza tu explicación en varias partes fáciles de seguir.", "Da uno o dos datos o ejemplos sencillos.", "Señala tu conclusión principal antes del final.", "Invita a preguntas del público.", "Escucha una pregunta y repítela si hace falta.", "Responde con una información breve y clara.", "Cierra la actividad con una despedida amable y segura."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'de', 'Ein vertrautes Thema präsentieren und Fragen beantworten', '', '{"scenario": "Du präsentierst ein vertrautes Thema aus dem Unterricht und beantwortest danach vorhersehbare oder sachliche Fragen aus dem Publikum.", "tasks": ["Stell das Thema von Anfang an klar vor.", "Ordne deine Erklärung in mehrere leicht verständliche Teile.", "Gib ein oder zwei einfache Daten oder Beispiele.", "Nenne deine Hauptschlussfolgerung vor dem Ende.", "Lade das Publikum zu Fragen ein.", "Höre eine Frage an und wiederhole sie wenn nötig.", "Antworte kurz und klar mit Fakten.", "Beende den Beitrag freundlich und sicher."]}'::jsonb);
 END;
 $seed$;

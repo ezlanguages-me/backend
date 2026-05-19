@@ -1,30 +1,22 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 5180 – Dialogue – make decisions about what to note down and what to omit as the lecture proceeds (Conferencias, Seminarios y Clases)
+-- Seed: A0 English Path – STEP 5180 – Speaking – ask detailed questions (Conferencias, Seminarios y Clases)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID;
+    v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 5180 AND path_uuid = v_path_id;
 
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 5180, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 5180, 'en', 'speaking', 'academic')
+    RETURNING uuid INTO v_speaking_id;
 
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'make decisions about what to note down and what to omit as the lecture proceeds (Conferencias, Seminarios y Clases)', 'Práctica guiada de diálogo: make decisions about what to note down and what to omit as the lecture proceeds (Conferencias, Seminarios y Clases).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'es', 'Hacer preguntas detalladas', '', '{"scenario": "Después de leer un texto o escuchar una exposición académica, quieres hacer preguntas más detalladas sobre datos, método, límites y siguientes pasos.", "tasks": ["Presenta brevemente a qué estudio o presentación te refieres.", "Pregunta por un número, porcentaje o dato concreto.", "Pregunta cómo se obtuvo ese dato.", "Pide un ejemplo que apoye la conclusión.", "Pregunta por una limitación del estudio o del proyecto.", "Pregunta qué comparación sería útil en el futuro.", "Resume con una frase lo que has entendido antes de seguir.", "Cierra con una última pregunta o un agradecimiento."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'de', 'Detaillierte Fragen stellen', '', '{"scenario": "Nach einem Text oder einer akademischen Präsentation möchtest du detailliertere Fragen zu Daten, Methode, Grenzen und nächsten Schritten stellen.", "tasks": ["Sag kurz, auf welche Studie oder Präsentation du dich beziehst.", "Frag nach einer Zahl, einem Prozentsatz oder einer konkreten Information.", "Frag, wie diese Information gewonnen wurde.", "Bitte um ein Beispiel, das die Schlussfolgerung stützt.", "Frag nach einer Grenze der Studie oder des Projekts.", "Frag, welcher Vergleich in Zukunft nützlich wäre.", "Fass mit einem Satz zusammen, was du verstanden hast.", "Beende deinen Beitrag mit einer letzten Frage oder einem Dank."]}'::jsonb);
 END;
 $seed$;

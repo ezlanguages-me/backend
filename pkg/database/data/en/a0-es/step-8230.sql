@@ -1,20 +1,25 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 8230 – Reading – ask for clarification, but this needs to be given sympathetically in order for it to be understood (Conferencias, Seminarios y Clases)
+-- Seed: A0 English Path – STEP 8230 – Speaking – justify an academic position (Conferencias, Seminarios y Clases)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
-DO $seed$
-DECLARE
-  v_path_uuid UUID;
-  v_reading_uuid UUID;
-BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO reading (path_uuid, step_order, source_language)
-  VALUES (v_path_uuid, 8230, 'en')
-  RETURNING uuid INTO v_reading_uuid;
-
-  INSERT INTO reading_translation (reading_uuid, language, title, description, content)
-  VALUES (v_reading_uuid, 'es', 'ask for clarification, but this needs to be given sympathetically in order for it to be understood (Conferencias, Seminarios y Clases)', 'Práctica guiada de reading: ask for clarification, but this needs to be given sympathetically in order for it to be understood (Conferencias, Seminarios y Clases).', '{"instruction":"ask for clarification, but this needs to be given sympathetically in order for it to be understood (Conferencias, Seminarios y Clases)","passage":"Reading content pending.","notes":"Contenido pendiente."}'::jsonb);
-END;
-$seed$;
+    DO $seed$
+    DECLARE
+        v_path_id UUID; v_speaking_id UUID;
+    BEGIN
+        SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order=8230 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order=8230 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order=8230 AND path_uuid=v_path_id);
+DELETE FROM reading WHERE step_order=8230 AND path_uuid=v_path_id;
+DELETE FROM listening WHERE step_order=8230 AND path_uuid=v_path_id;
+DELETE FROM dialogue WHERE step_order=8230 AND path_uuid=v_path_id;
+DELETE FROM speaking WHERE step_order=8230 AND path_uuid=v_path_id;
+DELETE FROM writing WHERE step_order=8230 AND path_uuid=v_path_id;
+        INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
+        VALUES (v_path_id,8230,'en','speaking','academic')
+        RETURNING uuid INTO v_speaking_id;
+        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+        VALUES (v_speaking_id,'es','justify an academic position','Habla siguiendo las tareas indicadas.','{"scenario": "Debes trabajar en inglés sobre este tema: whether remote lab sessions should stay after the pilot year. El contexto es a tutorial on science teaching.", "tasks": ["Presenta el tema central.", "Explica el contexto académico o profesional.", "Resume la idea principal.", "Añade una evidencia o detalle importante.", "Menciona una objeción o alternativa.", "Responde a esa objeción.", "Formula una conclusión clara.", "Cierra con una recomendación breve."]}'::jsonb);
+        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+        VALUES (v_speaking_id,'de','justify an academic position','Sprich anhand der angegebenen Aufgaben.','{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: whether remote lab sessions should stay after the pilot year. Der Kontext ist a tutorial on science teaching.", "tasks": ["Stelle das zentrale Thema vor.", "Erkläre den akademischen oder beruflichen Kontext.", "Fasse die Hauptidee zusammen.", "Nenne einen wichtigen Beleg oder ein Detail.", "Erwähne einen Einwand oder eine Alternative.", "Reagiere auf diesen Einwand.", "Formuliere eine klare Schlussfolgerung.", "Beende mit einer kurzen Empfehlung."]}'::jsonb);
+    END; $seed$;

@@ -1,30 +1,20 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 3870 – Dialogue – ask questions of a fact-finding nature, for example establishing what is wrong with a machine, and understand simple replies (Servicios Laborales (Petición y Prestación))
+-- Seed: A0 English Path – STEP 3870 – Speaking – place a professional order (Servicios Laborales (Petición y Prestación))
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
+
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID;
+    v_item_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 3870, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
-
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'ask questions of a fact-finding nature, for example establishing what is wrong with a machine, and understand simple replies (Servicios Laborales (Petición y Prestación))', 'Práctica guiada de diálogo: ask questions of a fact-finding nature, for example establishing what is wrong with a machine, and understand simple replies (Servicios Laborales (Petición y Prestación)).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 3870 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'speaking';
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 3870, 'en', 'speaking', 'professional') RETURNING uuid INTO v_item_id;
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES
+        (v_item_id, 'es', 'Haz un pedido profesional', 'Practica un pedido profesional completo con producto, cantidad, fecha y datos de entrega.', '{"scenario": "Vas a llamar a un proveedor para hacer un pedido para tu empresa. Quieres practicar una versión clara y profesional antes de la llamada real.", "tasks": ["Saluda y di tu nombre y empresa.", "Indica qué producto quieres pedir.", "Di la cantidad exacta.", "Añade detalles como tamaño, color o referencia.", "Indica la fecha o franja de entrega que necesitas.", "Da la dirección o el punto exacto de entrega.", "Pide confirmación del precio o de la disponibilidad.", "Cierra el pedido con una despedida profesional."]}'::jsonb),
+        (v_item_id, 'de', 'Gib eine berufliche Bestellung auf', 'Übe eine vollständige berufliche Bestellung mit Produkt, Menge, Termin und Lieferdaten.', '{"scenario": "Du willst einen Lieferanten anrufen, um eine Bestellung für deine Firma aufzugeben. Du möchtest vorher eine klare und professionelle Version üben.", "tasks": ["Begrüße die Person und nenne deinen Namen und deine Firma.", "Sag, welches Produkt du bestellen möchtest.", "Nenne die genaue Menge.", "Füge Details wie Größe, Farbe oder Referenz hinzu.", "Nenne das gewünschte Lieferdatum oder Lieferfenster.", "Gib die genaue Lieferadresse oder den Lieferpunkt an.", "Bitte um Bestätigung von Preis oder Verfügbarkeit.", "Beende die Bestellung mit einer professionellen Verabschiedung."]}'::jsonb);
 END;
 $seed$;

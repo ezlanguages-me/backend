@@ -1,20 +1,23 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 5930 – Listening – argue/complain effectively about most problem areas that are likely to occur (Alojamiento)
+-- Seed: A0 English Path – STEP 5930 – Speaking – Alojamiento
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_listening_uuid UUID;
+    v_path_id UUID;
+    v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 5930 AND path_uuid = v_path_id;
 
-  INSERT INTO listening (path_uuid, step_order, source_language)
-  VALUES (v_path_uuid, 5930, 'en')
-  RETURNING uuid INTO v_listening_uuid;
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 5930, 'en', 'speaking', 'Alojamiento')
+    RETURNING uuid INTO v_speaking_id;
 
-  INSERT INTO listening_translation (listening_uuid, language, title, description, transcript)
-  VALUES (v_listening_uuid, 'es', 'argue/complain effectively about most problem areas that are likely to occur (Alojamiento)', 'Práctica de listening: argue/complain effectively about most problem areas that are likely to occur (Alojamiento).', '[{"speaker":"Guide","text":"Listening content pending.","translation":"Contenido pendiente."}]'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES
+        (v_speaking_id, 'es', 'Habla sobre situaciones en el hotel', 'Practica cómo responder y pedir ayuda en recepción, en la habitación y en el restaurante del hotel.', '{"scenario": "You are staying in a hotel and need help with simple problems. Ask about breakfast, the room key, messages, and late arrival.", "tasks": ["Greet the receptionist politely.", "Say you have a booking.", "Ask where breakfast is served.", "Ask what time breakfast starts.", "Ask for a wake-up call.", "Ask about Wi-Fi or the room key.", "Ask if someone can take a message for you.", "Finish politely and thank the staff."]}'::jsonb),
+        (v_speaking_id, 'de', 'Sprich über Hotelsituationen', 'Übe, wie man an der Rezeption, im Zimmer und im Hotelrestaurant reagiert und um Hilfe bittet.', '{"scenario": "Du übernachtest in einem Hotel und brauchst Hilfe bei einfachen Problemen. Frage nach Frühstück, Zimmerschlüssel, Nachrichten und später Ankunft.", "tasks": ["Begrüße die Rezeption höflich.", "Sage, dass du eine Buchung hast.", "Frage, wo das Frühstück serviert wird.", "Frage, wann das Frühstück beginnt.", "Bitte um einen Weckruf.", "Frage nach WLAN oder dem Zimmerschlüssel.", "Frage, ob jemand eine Nachricht für dich aufnehmen kann.", "Beende das Gespräch höflich und bedanke dich."]}'::jsonb);
 END;
 $seed$;
+

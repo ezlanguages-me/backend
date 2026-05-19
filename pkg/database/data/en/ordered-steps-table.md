@@ -8,17 +8,18 @@
 | 30 | step-030.sql | deck | VERBOS (Lista maestra en posición temprana: verbos de acción, estados y necesidades básicas) | ready |
 | 40 | step-040.sql | deck | CONECTORES Y CONJUNCIONES (Posición temprana: lista unificada para empezar a enlazar ideas) | ready |
 | 50 | step-050.sql | deck | El Individuo I (Información Personal) | ready |
-| 60 | step-060.sql | writing | complete most forms related to personal information (Alojamiento / Alquileres) | ready |
-| 70 | step-070.sql | writing | fill in personal details on forms, e.g. to join a bank (Servicios Financieros y Postales) | ready |
-| 80 | step-080.sql | writing | fill in a post office form (Servicios Financieros y Postales) | ready |
+| 55 | step-055.sql | deck | Expresiones Cotidianas y Fórmulas Sociales | done |
+| 60 | step-060.sql | grammar | Presente Simple | ready |
+| 65 | step-065.sql | grammar | Preguntas WH-? y HOW…? | ready |
 | 90 | step-090.sql | grammar | Artículos (A, An, The) | ready |
 | 100 | step-100.sql | grammar | Adjetivos Posesivos | ready |
 | 110 | step-110.sql | deck | El Individuo II (Familia y Relaciones) | ready |
-| 115 | step-115.sql | deck | Profesiones y Oficios | pending |
+| 115 | step-115.sql | deck | Profesiones y Oficios | done |
 | 120 | step-120.sql | grammar | Expresando Posesión (Genitivo Sajón) | ready |
 | 130 | step-130.sql | grammar | Formación Plural | ready |
 | 140 | step-140.sql | grammar | Demostrativos (This, That, These, Those) | ready |
 | 150 | step-150.sql | grammar | Adjetivos (Reglas gramaticales y posición) | ready |
+| 155 | step-155.sql | deck | Los Fundamentos (El Tiempo, fechas, horas y frecuencia) | ready |
 | 160 | step-160.sql | deck | ADJETIVOS (Colores, descripción física, personalidad y estados de ánimo) | ready |
 | 165 | step-165.sql | deck | El Entorno Inmediato I (El Hogar: habitaciones, objetos y mobiliario) | ready |
 | 170 | step-170.sql | reading | understand straightforward explanations of, for example, the members of the host family and the layout of the house (Convivencia (Host Families y Vida Social)) | ready |
@@ -29,7 +30,7 @@
 | 220 | step-220.sql | listening | take part in a conversation of a basic factual nature on a predictable topic, i.e. her/his home country, family, school, etc (Convivencia (Host Families y Vida Social)) | ready |
 | 230 | step-230.sql | dialogue | take part in a conversation of a basic factual nature on a predictable topic, i.e. her/his home country, family, school, etc (Convivencia (Host Families y Vida Social)) | ready |
 | 240 | step-240.sql | speaking | take part in a conversation of a basic factual nature on a predictable topic, i.e. her/his home country, family, school, etc (Convivencia (Host Families y Vida Social)) | ready |
-| 245 | step-245.sql | deck | Deportes, Hobbies y Tiempo Libre | pending |
+| 245 | step-245.sql | deck | Deportes, Hobbies y Tiempo Libre | done |
 | 250 | step-250.sql | writing | write a short, simple letter introducing her/himself to a host/exchange family containing basic, factual information (Convivencia (Host Families y Vida Social)) | ready |
 | 260 | step-260.sql | reading | understand simple information, for example, from a prospective pen friend (Comunicación Telefónica y Correspondencia Personal) | ready |
 | 270 | step-270.sql | writing | write simple letters of the 'Thank you' type (Comunicación Telefónica y Correspondencia Personal) | ready |
@@ -37,8 +38,9 @@
 | 290 | step-290.sql | writing | express opinions of the 'I don't like..' type (Comunicación Telefónica y Correspondencia Personal) | ready |
 | 300 | step-300.sql | writing | write letters of a generally routine nature (Comunicación Telefónica y Correspondencia Personal) | ready |
 | 310 | step-310.sql | writing | write simple letters relating facts and events (Comunicación Telefónica y Correspondencia Personal) | ready |
+| 315 | step-315.sql | grammar | Habilidad y Capacidad (Can, Could) | ready |
 | 320 | step-320.sql | grammar | Descripciones (There is / There are) | ready |
-| 330 | step-330.sql | deck | Alojamiento y Hoteles | pending |
+| 330 | step-330.sql | deck | Alojamiento y Hoteles | done |
 | 340 | step-340.sql | reading | ask simple questions of a factual nature and understand the answers (Alojamiento) | ready |
 | 350 | step-350.sql | listening | ask simple questions of a factual nature and understand the answers (Alojamiento) | ready |
 | 360 | step-360.sql | dialogue | ask simple questions of a factual nature and understand the answers (Alojamiento) | ready |
@@ -63,18 +65,16 @@
 | 550 | step-550.sql | listening | understand, and ask questions about, house rules/conventions, such as the time of meals (Convivencia (Host Families y Vida Social)) | ready |
 | 560 | step-560.sql | dialogue | understand, and ask questions about, house rules/conventions, such as the time of meals (Convivencia (Host Families y Vida Social)) | ready |
 | 570 | step-570.sql | speaking | understand, and ask questions about, house rules/conventions, such as the time of meals (Convivencia (Host Families y Vida Social)) | ready |
+| 575 | step-575.sql | deck | Sentimientos y Emociones | done |
 | 580 | step-580.sql | reading | express opinions in a limited way (Convivencia (Host Families y Vida Social)) | ready |
 | 590 | step-590.sql | listening | express opinions in a limited way (Convivencia (Host Families y Vida Social)) | ready |
 | 600 | step-600.sql | dialogue | express opinions in a limited way (Convivencia (Host Families y Vida Social)) | ready |
 | 610 | step-610.sql | speaking | express opinions in a limited way (Convivencia (Host Families y Vida Social)) | ready |
 | 620 | step-620.sql | writing | leave a simple message for host family saying, for example, where (s)he has gone, what time (s)he will be back (Convivencia (Host Families y Vida Social)) | ready |
-| 630 | step-630.sql | deck | Los Fundamentos (El Tiempo, fechas, horas y frecuencia) | ready |
-| 640 | step-640.sql | grammar | Presente Simple | ready |
-| 650 | step-650.sql | grammar | Preguntas WH-? y HOW…? | ready |
 | 660 | step-660.sql | reading | understand basic hotel rules and signs, for example 'Dining-room' (Alojamiento) | ready |
 | 670 | step-670.sql | reading | understand basic hotel information, for example, times when meals are served (Alojamiento) | ready |
 | 680 | step-680.sql | reading | understand timetables, flight arrival and departure screens, etc (Viajes y Transporte) | ready |
-| 685 | step-685.sql | deck | Teléfono, Correo y Comunicaciones | pending |
+| 685 | step-685.sql | deck | Teléfono, Correo y Comunicaciones | done |
 | 690 | step-690.sql | reading | understand simple phone messages, e.g. 'We're arriving tomorrow at half past four' (Comunicación Telefónica y Correspondencia Personal) | ready |
 | 700 | step-700.sql | listening | understand simple phone messages, e.g. 'We're arriving tomorrow at half past four' (Comunicación Telefónica y Correspondencia Personal) | ready |
 | 710 | step-710.sql | dialogue | understand simple phone messages, e.g. 'We're arriving tomorrow at half past four' (Comunicación Telefónica y Correspondencia Personal) | ready |
@@ -92,7 +92,7 @@
 | 830 | step-830.sql | listening | make an outgoing call and pass on simple, prepared messages (Teléfono Profesional) | ready |
 | 840 | step-840.sql | dialogue | make an outgoing call and pass on simple, prepared messages (Teléfono Profesional) | ready |
 | 850 | step-850.sql | speaking | make an outgoing call and pass on simple, prepared messages (Teléfono Profesional) | ready |
-| 855 | step-855.sql | deck | La Escuela y la Universidad | pending |
+| 855 | step-855.sql | deck | La Escuela y la Universidad | done |
 | 860 | step-860.sql | reading | understand basic instructions on class times, dates and room numbers, and on assignments to be carried out (Gestión del Estudio y Trámites) | ready |
 | 870 | step-870.sql | listening | understand basic instructions on class times, dates and room numbers, and on assignments to be carried out (Gestión del Estudio y Trámites) | ready |
 | 880 | step-880.sql | dialogue | understand basic instructions on class times, dates and room numbers, and on assignments to be carried out (Gestión del Estudio y Trámites) | ready |
@@ -117,29 +117,29 @@
 | 1070 | step-1070.sql | writing | write down details of all standard arrangements for assignments to be handed in, etc., as given verbally or in notices by teachers and lecturers (Gestión del Estudio y Trámites) | ready |
 | 1080 | step-1080.sql | deck | El Entorno Inmediato II (Tareas Domésticas) | ready |
 | 1090 | step-1090.sql | grammar | Preposiciones (In, On, At para tiempo y lugar) | ready |
-| 1100 | step-1100.sql | deck | PREPOSICIONES DE LUGAR Y MOVIMIENTO (Behind, opposite, between, etc.) | ready |
-| 1110 | step-1110.sql | deck | Vida en Sociedad I (La Ciudad, edificios y direcciones) | ready |
-| 1115 | step-1115.sql | deck | Compras y Tiendas | pending |
-| 1120 | step-1120.sql | reading | go to a department store or other shop where goods are on display and ask for what (s)he wants (Compras y Transacciones) | ready |
-| 1130 | step-1130.sql | listening | go to a department store or other shop where goods are on display and ask for what (s)he wants (Compras y Transacciones) | ready |
-| 1140 | step-1140.sql | dialogue | go to a department store or other shop where goods are on display and ask for what (s)he wants (Compras y Transacciones) | ready |
-| 1150 | step-1150.sql | speaking | go to a department store or other shop where goods are on display and ask for what (s)he wants (Compras y Transacciones) | ready |
-| 1160 | step-1160.sql | reading | ask for what is required, if it is something which the shopkeeper can readily understand (Compras y Transacciones) | ready |
-| 1170 | step-1170.sql | listening | ask for what is required, if it is something which the shopkeeper can readily understand (Compras y Transacciones) | ready |
-| 1180 | step-1180.sql | dialogue | ask for what is required, if it is something which the shopkeeper can readily understand (Compras y Transacciones) | ready |
-| 1190 | step-1190.sql | speaking | ask for what is required, if it is something which the shopkeeper can readily understand (Compras y Transacciones) | ready |
-| 1200 | step-1200.sql | reading | exchange basic information, related to place in the queue, etc., with other customers (Compras y Transacciones) | ready |
-| 1210 | step-1210.sql | listening | exchange basic information, related to place in the queue, etc., with other customers (Compras y Transacciones) | ready |
-| 1220 | step-1220.sql | dialogue | exchange basic information, related to place in the queue, etc., with other customers (Compras y Transacciones) | ready |
-| 1230 | step-1230.sql | speaking | exchange basic information, related to place in the queue, etc., with other customers (Compras y Transacciones) | ready |
-| 1240 | step-1240.sql | reading | go to a counter service shop and ask for most of what (s)he wants (Compras y Transacciones) | ready |
-| 1250 | step-1250.sql | listening | go to a counter service shop and ask for most of what (s)he wants (Compras y Transacciones) | ready |
-| 1260 | step-1260.sql | dialogue | go to a counter service shop and ask for most of what (s)he wants (Compras y Transacciones) | ready |
-| 1270 | step-1270.sql | speaking | go to a counter service shop and ask for most of what (s)he wants (Compras y Transacciones) | ready |
-| 1280 | step-1280.sql | reading | understand where the shopkeeper explains the difference between two or more products all serving the same basic purpose (Compras y Transacciones) | ready |
-| 1290 | step-1290.sql | listening | understand where the shopkeeper explains the difference between two or more products all serving the same basic purpose (Compras y Transacciones) | ready |
-| 1300 | step-1300.sql | dialogue | understand where the shopkeeper explains the difference between two or more products all serving the same basic purpose (Compras y Transacciones) | ready |
-| 1310 | step-1310.sql | speaking | understand where the shopkeeper explains the difference between two or more products all serving the same basic purpose (Compras y Transacciones) | ready |
+| 1100 | step-1100.sql | deck | Preposiciones de Lugar y Movimiento | ready |
+| 1110 | step-1110.sql | deck | Vida en Sociedad I (La Ciudad) | ready |
+| 1115 | step-1115.sql | deck | Compras y Tiendas | ready |
+| 1120 | step-1120.sql | reading | go to a department store to buy what is required (Compras y Transacciones) | ready |
+| 1130 | step-1130.sql | listening | go to a department store to buy what is required (Compras y Transacciones) | ready |
+| 1140 | step-1140.sql | dialogue | go to a department store to buy what is required (Compras y Transacciones) | ready |
+| 1150 | step-1150.sql | speaking | go to a department store to buy what is required (Compras y Transacciones) | ready |
+| 1160 | step-1160.sql | reading | ask for what is required in a shop and understand the reply (Compras y Transacciones) | ready |
+| 1170 | step-1170.sql | listening | ask for what is required in a shop and understand the reply (Compras y Transacciones) | ready |
+| 1180 | step-1180.sql | dialogue | ask for what is required in a shop and understand the reply (Compras y Transacciones) | ready |
+| 1190 | step-1190.sql | speaking | ask for what is required in a shop and understand the reply (Compras y Transacciones) | ready |
+| 1200 | step-1200.sql | reading | exchange simple information with other customers in a queue (Compras y Transacciones) | ready |
+| 1210 | step-1210.sql | listening | exchange simple information with other customers in a queue (Compras y Transacciones) | ready |
+| 1220 | step-1220.sql | dialogue | exchange simple information with other customers in a queue (Compras y Transacciones) | ready |
+| 1230 | step-1230.sql | speaking | exchange simple information with other customers in a queue (Compras y Transacciones) | ready |
+| 1240 | step-1240.sql | reading | understand a counter-service shop where items are requested and served by a shopkeeper (Compras y Transacciones) | ready |
+| 1250 | step-1250.sql | listening | understand a counter-service shop where items are requested and served by a shopkeeper (Compras y Transacciones) | ready |
+| 1260 | step-1260.sql | dialogue | understand a counter-service shop where items are requested and served by a shopkeeper (Compras y Transacciones) | ready |
+| 1270 | step-1270.sql | speaking | understand a counter-service shop where items are requested and served by a shopkeeper (Compras y Transacciones) | ready |
+| 1280 | step-1280.sql | reading | understand where the shopkeeper explains the difference between two or more products (Compras y Transacciones) | ready |
+| 1290 | step-1290.sql | listening | understand where the shopkeeper explains the difference between two or more products (Compras y Transacciones) | ready |
+| 1300 | step-1300.sql | dialogue | understand where the shopkeeper explains the difference between two or more products (Compras y Transacciones) | ready |
+| 1310 | step-1310.sql | speaking | understand where the shopkeeper explains the difference between two or more products (Compras y Transacciones) | ready |
 | 1315 | step-1315.sql | deck | Banco, Dinero y Correos (Servicios Financieros) | pending |
 | 1320 | step-1320.sql | reading | ask for simple post office services (Servicios Financieros y Postales) | ready |
 | 1330 | step-1330.sql | listening | ask for simple post office services (Servicios Financieros y Postales) | ready |
@@ -259,7 +259,6 @@
 | 2460 | step-2460.sql | reading | understand bills, e.g. whether service is included (Restauración) | ready |
 | 2470 | step-2470.sql | reading | understand a fairly wide range of items on a standard restaurant menu (Restauración) | ready |
 | 2480 | step-2480.sql | reading | understand a restaurant menu including a wide range of culinary terms (Restauración) | ready |
-| 2490 | step-2490.sql | grammar | Habilidad y Capacidad (Can, Could) | ready |
 | 2500 | step-2500.sql | grammar | Órdenes y Sugerencias | ready |
 | 2510 | step-2510.sql | deck | Supervivencia II (Salud, Cuerpo Humano y Enfermedades) | ready |
 | 2520 | step-2520.sql | writing | enquire about the availability of services, for example facilities for the disabled, or special diets (Alojamiento) | ready |
@@ -352,6 +351,7 @@
 | 3380 | step-3380.sql | grammar | Comparativos | ready |
 | 3390 | step-3390.sql | grammar | Superlativos | ready |
 | 3400 | step-3400.sql | deck | El Mundo Natural (Animales, Plantas, Geografía y Clima) | ready |
+| 3405 | step-3405.sql | deck | El Trabajo y la Oficina | pending |
 | 3410 | step-3410.sql | reading | exchange opinions on familiar, predictable matters, for example, involving straightforward discussions of the 'This is better because...' type (Servicios Laborales (Petición y Prestación)) | ready |
 | 3420 | step-3420.sql | listening | exchange opinions on familiar, predictable matters, for example, involving straightforward discussions of the 'This is better because...' type (Servicios Laborales (Petición y Prestación)) | ready |
 | 3430 | step-3430.sql | dialogue | exchange opinions on familiar, predictable matters, for example, involving straightforward discussions of the 'This is better because...' type (Servicios Laborales (Petición y Prestación)) | ready |

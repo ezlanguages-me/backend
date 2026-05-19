@@ -1,20 +1,25 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 8610 – Writing – display sensitivity to the conventions of presentation and 'politeness' (impersonal style, appropriate use of modality to reflect the degree of confidence with which the conclusions are presented) (Textos, Ensayos e Investigación)
+-- Seed: A0 English Path – STEP 8610 – Writing – display sensitivity to the conventions of presentation and 'politeness' (impersonal style, appropriate use of modality) (Textos, Ensayos e Investigación)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
-DO $seed$
-DECLARE
-  v_path_uuid UUID;
-  v_writing_uuid UUID;
-BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO writing (path_uuid, step_order, source_language)
-  VALUES (v_path_uuid, 8610, 'en')
-  RETURNING uuid INTO v_writing_uuid;
-
-  INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
-  VALUES (v_writing_uuid, 'es', 'display sensitivity to the conventions of presentation and ''politeness'' (impersonal style, appropriate use of modality to reflect the degree of confidence with which the conclusions are presented) (Textos, Ensayos e Investigación)', 'Práctica guiada de writing: display sensitivity to the conventions of presentation and ''politeness'' (impersonal style, appropriate use of modality to reflect the degree of confidence with which the conclusions are presented) (Textos, Ensayos e Investigación).', '{"instruction":"display sensitivity to the conventions of presentation and ''politeness'' (impersonal style, appropriate use of modality to reflect the degree of confidence with which the conclusions are presented) (Textos, Ensayos e Investigación)","context":"Contenido pendiente.","language":"es"}'::jsonb);
-END;
-$seed$;
+    DO $seed$
+    DECLARE
+        v_path_id UUID; v_writing_id UUID;
+    BEGIN
+        SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order=8610 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order=8610 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order=8610 AND path_uuid=v_path_id);
+DELETE FROM reading WHERE step_order=8610 AND path_uuid=v_path_id;
+DELETE FROM listening WHERE step_order=8610 AND path_uuid=v_path_id;
+DELETE FROM dialogue WHERE step_order=8610 AND path_uuid=v_path_id;
+DELETE FROM speaking WHERE step_order=8610 AND path_uuid=v_path_id;
+DELETE FROM writing WHERE step_order=8610 AND path_uuid=v_path_id;
+        INSERT INTO writing (path_uuid,step_order,source_language,type,category)
+        VALUES (v_path_id,8610,'en','writing','academic')
+        RETURNING uuid INTO v_writing_id;
+        INSERT INTO writing_translation (writing_uuid,language,title,description,prompt)
+        VALUES (v_writing_id,'es','display sensitivity to the conventions of presentation and ''politeness'' (impersonal style, appropriate use of modality)','Produce la respuesta siguiendo las tareas indicadas.','{"scenario": "Debes trabajar en inglés sobre este tema: a short academic report on peer discussion and quiz results. El contexto es a study skills module.", "tasks": ["Presenta el tema central.", "Explica el contexto académico o profesional.", "Resume la idea principal.", "Añade una evidencia o detalle importante.", "Menciona una objeción o alternativa.", "Responde a esa objeción.", "Formula una conclusión clara.", "Cierra con una recomendación breve."]}'::jsonb);
+        INSERT INTO writing_translation (writing_uuid,language,title,description,prompt)
+        VALUES (v_writing_id,'de','display sensitivity to the conventions of presentation and ''politeness'' (impersonal style, appropriate use of modality)','Erstelle die Antwort anhand der angegebenen Aufgaben.','{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: a short academic report on peer discussion and quiz results. Der Kontext ist a study skills module.", "tasks": ["Stelle das zentrale Thema vor.", "Erkläre den akademischen oder beruflichen Kontext.", "Fasse die Hauptidee zusammen.", "Nenne einen wichtigen Beleg oder ein Detail.", "Erwähne einen Einwand oder eine Alternative.", "Reagiere auf diesen Einwand.", "Formuliere eine klare Schlussfolgerung.", "Beende mit einer kurzen Empfehlung."]}'::jsonb);
+    END; $seed$;

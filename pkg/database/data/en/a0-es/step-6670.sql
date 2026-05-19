@@ -1,20 +1,25 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 6670 – Speaking – show visitors round and give a detailed description of a place (Turismo y Entretenimiento)
+-- Seed: A0 English Path – STEP 6670 – Speaking – explain and clarify tourist information (Turismo y Entretenimiento)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_speaking_uuid UUID;
+    v_path_id UUID; v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO speaking (path_uuid, step_order, source_language)
-  VALUES (v_path_uuid, 6670, 'en')
-  RETURNING uuid INTO v_speaking_uuid;
-
-  INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
-  VALUES (v_speaking_uuid, 'es', 'show visitors round and give a detailed description of a place (Turismo y Entretenimiento)', 'Práctica guiada de speaking: show visitors round and give a detailed description of a place (Turismo y Entretenimiento).', '{"instruction":"show visitors round and give a detailed description of a place (Turismo y Entretenimiento)","context":"Contenido pendiente.","language":"es"}'::jsonb);
-END;
-$seed$;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order=6670 AND path_uuid=v_path_id);
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order=6670 AND path_uuid=v_path_id);
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order=6670 AND path_uuid=v_path_id);
+    DELETE FROM reading WHERE step_order=6670 AND path_uuid=v_path_id;
+    DELETE FROM listening WHERE step_order=6670 AND path_uuid=v_path_id;
+    DELETE FROM dialogue WHERE step_order=6670 AND path_uuid=v_path_id;
+    DELETE FROM speaking WHERE step_order=6670 AND path_uuid=v_path_id;
+    DELETE FROM writing WHERE step_order=6670 AND path_uuid=v_path_id;
+    INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
+    VALUES (v_path_id,6670,'en','speaking','tourism')
+    RETURNING uuid INTO v_speaking_id;
+    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+    VALUES (v_speaking_id,'es','Explicar la información del Old Quarter','Explica y aclara la información al visitante.','{"scenario": "Estás hablando sobre Old Quarter Visitor Info con otra persona.", "tasks": ["Di dónde está el lugar.", "Di cuándo empieza la visita.", "Di dónde empieza.", "Di cuánto dura.", "Di el precio o coste.", "Nombra el primer punto destacado.", "Nombra el segundo punto destacado.", "Da un consejo útil para visitantes."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+    VALUES (v_speaking_id,'de','Informationen zum Old Quarter erklären','Erkläre und kläre die Informationen für den Besucher.','{"scenario": "Du sprichst mit einer anderen Person über Old Quarter Visitor Info.", "tasks": ["Sage, wo der Ort ist.", "Sage, wann der Besuch beginnt.", "Sage, wo er beginnt.", "Sage, wie lange er dauert.", "Nenne den Preis oder die Kosten.", "Nenne den ersten Höhepunkt.", "Nenne den zweiten Höhepunkt.", "Gib einen nützlichen Tipp für Besucher."]}'::jsonb);
+END; $seed$;

@@ -10,8 +10,8 @@ DECLARE
 BEGIN
   SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
 
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 4360, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
+  INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+  VALUES (v_path_uuid, 4360, 'en', 'dialogue', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
   RETURNING uuid INTO v_dialogue_uuid;
 
   INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)

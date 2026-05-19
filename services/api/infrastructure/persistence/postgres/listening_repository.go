@@ -24,7 +24,7 @@ func (r *ListeningRepository) Get(uuid, language string) (*domain.Listening, err
 	err := pool.QueryRow(context.Background(), `
 		SELECT
 			l.uuid, l.source_language, l.step_order, l.type, l.category,
-			lt.title, lt.description, lt.transcript,
+			lt.title, lt.description, l.transcript,
 			p.uuid, p.source_language
 		FROM listening l
 		JOIN listening_translation lt ON lt.listening_uuid = l.uuid AND lt.language = $1

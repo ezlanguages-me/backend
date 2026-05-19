@@ -1,20 +1,25 @@
--- ============================================================
--- Seed: A0 English Path – STEP 9710 – Speaking – get the point of jokes or allusions with cultural content (Conferencias, Seminarios y Clases)
--- Source language: Spanish
--- Generated from ordered-steps-table.md
--- ============================================================
-DO $seed$
-DECLARE
-  v_path_uuid UUID;
-  v_speaking_uuid UUID;
-BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
-
-  INSERT INTO speaking (path_uuid, step_order, source_language)
-  VALUES (v_path_uuid, 9710, 'en')
-  RETURNING uuid INTO v_speaking_uuid;
-
-  INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
-  VALUES (v_speaking_uuid, 'es', 'get the point of jokes or allusions with cultural content (Conferencias, Seminarios y Clases)', 'Práctica guiada de speaking: get the point of jokes or allusions with cultural content (Conferencias, Seminarios y Clases).', '{"instruction":"get the point of jokes or allusions with cultural content (Conferencias, Seminarios y Clases)","context":"Contenido pendiente.","language":"es"}'::jsonb);
-END;
-$seed$;
+    -- ============================================================
+    -- Seed: A0 English Path – STEP 9710 – Speaking – get the point of jokes or allusions with cultural content (Conferencias, Seminarios y Clases)
+    -- Source language: Spanish
+    -- ============================================================
+    DO $seed$
+    DECLARE
+        v_path_id UUID; v_speaking_id UUID;
+    BEGIN
+        SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order=9710 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order=9710 AND path_uuid=v_path_id);
+DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order=9710 AND path_uuid=v_path_id);
+DELETE FROM reading WHERE step_order=9710 AND path_uuid=v_path_id;
+DELETE FROM listening WHERE step_order=9710 AND path_uuid=v_path_id;
+DELETE FROM dialogue WHERE step_order=9710 AND path_uuid=v_path_id;
+DELETE FROM speaking WHERE step_order=9710 AND path_uuid=v_path_id;
+DELETE FROM writing WHERE step_order=9710 AND path_uuid=v_path_id;
+        INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
+        VALUES (v_path_id,9710,'en','speaking','social')
+        RETURNING uuid INTO v_speaking_id;
+        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+        VALUES (v_speaking_id,'es','get the point of jokes or allusions with cultural content','Habla siguiendo las tareas indicadas.','{"scenario": "Debes trabajar en inglés sobre este tema: a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote. El contexto es a dinner party in a private home.", "tasks": ["Describe la situación social o cultural.", "Explica el elemento de humor, ironía o referencia cultural.", "Interpreta el significado implícito.", "Menciona cómo lo entendería un hablante nativo.", "Explica por qué puede ser difícil para alguien de otra cultura.", "Da otro ejemplo similar.", "Resume qué has aprendido sobre el uso del inglés en este contexto.", "Cierra con una reflexión personal o recomendación."]}'::jsonb);
+        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
+        VALUES (v_speaking_id,'de','get the point of jokes or allusions with cultural content','Sprich anhand der angegebenen Aufgaben.','{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote. Der Kontext ist a dinner party in a private home.", "tasks": ["Beschreibe die soziale oder kulturelle Situation.", "Erkläre das Element des Humors, der Ironie oder der Kulturanspielung.", "Interpretiere die implizite Bedeutung.", "Erkläre, wie ein Muttersprachler es verstehen würde.", "Erkläre, warum es für jemanden aus einer anderen Kultur schwierig sein könnte.", "Gib ein weiteres ähnliches Beispiel.", "Fasse zusammen, was du über den Sprachgebrauch gelernt hast.", "Beende mit einer persönlichen Reflexion oder Empfehlung."]}'::jsonb);
+    END; $seed$;

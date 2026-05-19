@@ -78,28 +78,24 @@ BEGIN
 SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 
 -- 2. Insertar el Reading en el Step 170
-INSERT INTO reading (path_uuid, step_order, source_language, type, category) 
-VALUES (v_path_id, 170, 'en', 'reading', 'social') 
+INSERT INTO reading (path_uuid, step_order, source_language, type, category, content) 
+VALUES (v_path_id, 170, 'en', 'reading', 'social', 'Dear Alex,\n\nWe are so excited to welcome you to our home in Seattle! Before you arrive, we want to tell you a little bit about our family and our house.\n\nI am Sarah, your host mom, and my husband is Mark. We have two kids: our son Leo is 10, and our daughter Mia is 14. We also have a very friendly dog named Buster.\n\nOur house has two floors. On the first floor, we have a large living room, a kitchen, a dining room, and a half bathroom. There is also a laundry room where you can wash your clothes.\n\nYour bedroom is on the second floor, right next to Leo''s room. You will share the full bathroom on the second floor with Leo and Mia.\n\nWe have a few simple house rules. We usually eat dinner together at 6:30 PM, so please try to be home by then. Also, we ask everyone to take off their shoes when they enter the house to keep the floors clean.\n\nWe can''t wait to meet you!\n\nBest,\nThe Miller Family') 
 RETURNING uuid INTO v_reading_id;
 
 -- 3. Insertar Traducción y Contenido del Reading (Solo el texto base)
-INSERT INTO reading_translation (reading_uuid, language, title, description, content) 
+INSERT INTO reading_translation (reading_uuid, language, title) 
 VALUES (
     v_reading_id, 
     'es', 
-    'Nueva familia anfitriona',
-    '', 
-    'Dear Alex,\n\nWe are so excited to welcome you to our home in Seattle! Before you arrive, we want to tell you a little bit about our family and our house.\n\nI am Sarah, your host mom, and my husband is Mark. We have two kids: our son Leo is 10, and our daughter Mia is 14. We also have a very friendly dog named Buster.\n\nOur house has two floors. On the first floor, we have a large living room, a kitchen, a dining room, and a half bathroom. There is also a laundry room where you can wash your clothes.\n\nYour bedroom is on the second floor, right next to Leo''s room. You will share the full bathroom on the second floor with Leo and Mia.\n\nWe have a few simple house rules. We usually eat dinner together at 6:30 PM, so please try to be home by then. Also, we ask everyone to take off their shoes when they enter the house to keep the floors clean.\n\nWe can''t wait to meet you!\n\nBest,\nThe Miller Family'
+    'Nueva familia anfitriona'
 );
 
 -- 3b. Insertar Traducción Alemana del Reading
-INSERT INTO reading_translation (reading_uuid, language, title, description, content) 
+INSERT INTO reading_translation (reading_uuid, language, title) 
 VALUES (
     v_reading_id, 
     'de', 
-    'Neue Gastfamilie',
-    '', 
-    'Dear Alex,\n\nWe are so excited to welcome you to our home in Seattle! Before you arrive, we want to tell you a little bit about our family and our house.\n\nI am Sarah, your host mom, and my husband is Mark. We have two kids: our son Leo is 10, and our daughter Mia is 14. We also have a very friendly dog named Buster.\n\nOur house has two floors. On the first floor, we have a large living room, a kitchen, a dining room, and a half bathroom. There is also a laundry room where you can wash your clothes.\n\nYour bedroom is on the second floor, right next to Leo''s room. You will share the full bathroom on the second floor with Leo and Mia.\n\nWe have a few simple house rules. We usually eat dinner together at 6:30 PM, so please try to be home by then. Also, we ask everyone to take off their shoes when they enter the house to keep the floors clean.\n\nWe can''t wait to meet you!\n\nBest,\nThe Miller Family'
+    'Neue Gastfamilie'
 );
 
 -- 4. Bucle para insertar los ejercicios vinculados al target_uuid (el Reading)

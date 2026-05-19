@@ -1,30 +1,22 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 5140 – Dialogue – follow much of what is said in a lecture, presentation or demonstration (Conferencias, Seminarios y Clases)
+-- Seed: A0 English Path – STEP 5140 – Speaking – contribute opinion to discussion (Conferencias, Seminarios y Clases)
 -- Source language: Spanish
--- Generated from ordered-steps-table.md
 -- ============================================================
 DO $seed$
 DECLARE
-  v_path_uuid UUID;
-  v_dialogue_uuid UUID;
+    v_path_id UUID;
+    v_speaking_id UUID;
 BEGIN
-  SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
+    SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM speaking WHERE step_order = 5140 AND path_uuid = v_path_id;
 
-  INSERT INTO dialogue (path_uuid, step_order, source_language, category, characters)
-  VALUES (v_path_uuid, 5140, 'en', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 5140, 'en', 'speaking', 'academic')
+    RETURNING uuid INTO v_speaking_id;
 
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'follow much of what is said in a lecture, presentation or demonstration (Conferencias, Seminarios y Clases)', 'Práctica guiada de diálogo: follow much of what is said in a lecture, presentation or demonstration (Conferencias, Seminarios y Clases).');
-
-  INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-  VALUES
-    (v_dialogue_uuid, 0, 'Guide', 'Let''s practice this situation.'),
-    (v_dialogue_uuid, 1, 'Learner', 'Okay, I am ready.');
-
-  INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
-  VALUES
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 0), 'es', '[{"translations":[{"languageCode":"es","translation":"Practiquemos esta situación."}]}]'::jsonb),
-    ((SELECT uuid FROM dialogue_lines WHERE dialogue_uuid = v_dialogue_uuid AND line_order = 1), 'es', '[{"translations":[{"languageCode":"es","translation":"Vale, estoy listo."}]}]'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'es', 'Dar una opinión en una discusión académica', '', '{"scenario": "Participas en una discusión de clase y quieres expresar una opinión simple, compararla con otra y reaccionar a lo que dicen los demás.", "tasks": ["Di brevemente cuál es tu opinión general.", "Da una razón sencilla para esa opinión.", "Compara tu idea con otra postura del grupo.", "Usa una expresión simple como I agree o I do not agree.", "Añade un ejemplo corto de clase o de tu experiencia.", "Pregunta qué piensan los demás.", "Responde a una opinión diferente con educación.", "Cierra tu intervención con una frase breve."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+    VALUES (v_speaking_id, 'de', 'Eine Meinung in eine akademische Diskussion einbringen', '', '{"scenario": "Du nimmst an einer Unterrichtsdiskussion teil und möchtest eine einfache Meinung äußern, sie vergleichen und auf andere reagieren.", "tasks": ["Sag kurz, was deine allgemeine Meinung ist.", "Gib einen einfachen Grund für diese Meinung.", "Vergleiche deine Idee mit einer anderen Position in der Gruppe.", "Verwende einen einfachen Ausdruck wie I agree oder I do not agree.", "Füge ein kurzes Beispiel aus dem Unterricht oder deiner Erfahrung hinzu.", "Frag, was die anderen denken.", "Reagiere höflich auf eine andere Meinung.", "Beende deinen Beitrag mit einem kurzen Satz."]}'::jsonb);
 END;
 $seed$;
