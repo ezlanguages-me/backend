@@ -15,11 +15,10 @@ DELETE FROM listening WHERE step_order=8270 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=8270 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=8270 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=8270 AND path_uuid=v_path_id;
-        INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
-        VALUES (v_path_id,8270,'en','speaking','academic')
-        RETURNING uuid INTO v_speaking_id;
-        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-        VALUES (v_speaking_id,'es','present and support own arguments','Habla siguiendo las tareas indicadas.','{"scenario": "Debes trabajar en inglés sobre este tema: a peer review of a short report on sleep and memory. El contexto es a psychology methods class.", "tasks": ["Presenta el tema central.", "Explica el contexto académico o profesional.", "Resume la idea principal.", "Añade una evidencia o detalle importante.", "Menciona una objeción o alternativa.", "Responde a esa objeción.", "Formula una conclusión clara.", "Cierra con una recomendación breve."]}'::jsonb);
-        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-        VALUES (v_speaking_id,'de','present and support own arguments','Sprich anhand der angegebenen Aufgaben.','{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: a peer review of a short report on sleep and memory. Der Kontext ist a psychology methods class.", "tasks": ["Stelle das zentrale Thema vor.", "Erkläre den akademischen oder beruflichen Kontext.", "Fasse die Hauptidee zusammen.", "Nenne einen wichtigen Beleg oder ein Detail.", "Erwähne einen Einwand oder eine Alternative.", "Reagiere auf diesen Einwand.", "Formuliere eine klare Schlussfolgerung.", "Beende mit einer kurzen Empfehlung."]}'::jsonb);
+        INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+        VALUES (v_path_id, 8270, 'en', 'speaking', 'academic')RETURNING uuid INTO v_speaking_id;
+        INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+        VALUES (v_speaking_id, 'es', 'And support own arguments', '{"scenario": "Debes trabajar en inglés sobre este tema: a peer review of a short report on sleep and memory. El contexto es a psychology methods class.", "tasks": ["Presenta el tema central.", "Explica el contexto académico o profesional.", "Resume la idea principal.", "Añade una evidencia o detalle importante.", "Menciona una objeción o alternativa.", "Responde a esa objeción.", "Formula una conclusión clara.", "Cierra con una recomendación breve."]}'::jsonb);
+        INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+        VALUES (v_speaking_id, 'de', 'And support own arguments', '{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: a peer review of a short report on sleep and memory. Der Kontext ist a psychology methods class.", "tasks": ["Stelle das zentrale Thema vor.", "Erkläre den akademischen oder beruflichen Kontext.", "Fasse die Hauptidee zusammen.", "Nenne einen wichtigen Beleg oder ein Detail.", "Erwähne einen Einwand oder eine Alternative.", "Reagiere auf diesen Einwand.", "Formuliere eine klare Schlussfolgerung.", "Beende mit einer kurzen Empfehlung."]}'::jsonb);
     END; $seed$;

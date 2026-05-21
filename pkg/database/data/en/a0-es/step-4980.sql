@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 4980 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 4980, 'en', 'reading', 'academic', 'Lecture notes: Sleep and Memory. Adults usually need seven to nine hours of sleep. Good sleep helps the brain store new information after study.
+    VALUES (
+    v_path_id,
+    4980,
+    'en',
+    'reading',
+    'academic',
+    'Lecture notes: Sleep and Memory. Adults usually need seven to nine hours of sleep. Good sleep helps the brain store new information after study.
 
 The notes say that bright phone screens before bed can delay sleep. A short nap of about twenty minutes may help attention, but long naps can make students feel slow.
 
-The lecturer also notes that coffee late in the evening can reduce sleep quality. One final point says that a short review on the same day helps memory before sleep.')
-    RETURNING uuid INTO v_reading_id;
+The lecturer also notes that coffee late in the evening can reduce sleep quality. One final point says that a short review on the same day helps memory before sleep.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Apuntes de clase sobre sueño y memoria', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Vorlesungsnotizen über Schlaf und Gedächtnis', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Apuntes de clase sobre sueño');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Vorlesungsnotizen über Schlaf');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

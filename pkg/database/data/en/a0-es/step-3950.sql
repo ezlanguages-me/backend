@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3950 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3950 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3950, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3950,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Elena, a customer calling about a damaged delivery
 ## "There Is a Problem with Order 671"
 
@@ -56,12 +62,11 @@ Accent: Neutral accent.
 [urgent] Customer: We need the replacement before Friday because our event is on Friday afternoon.
 [practical] Customer: Please do not close the case yet.
 [final] Customer: We will keep the damaged boxes for collection, and the invoice is on hold until the new goods arrive.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una queja sobre mercancía', 'Escucha una llamada de cliente sobre cajas dañadas, artículos faltantes y reposición urgente.'),
-            (v_listening_id, 'de', 'Höre eine Beschwerde über Waren', 'Höre einen Kundenanruf über beschädigte Kartons, fehlende Artikel und eine dringende Ersatzlieferung.');
+            (v_listening_id, 'es', 'Una queja sobre mercancía'), (v_listening_id, 'de', 'Eine Beschwerde über Waren');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

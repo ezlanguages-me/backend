@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2570 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2570, 'en', 'reading', 'health', 'Urgent Care Symptom Card
+    VALUES (
+    v_path_id,
+    2570,
+    'en',
+    'reading',
+    'health',
+    'Urgent Care Symptom Card
 
 Please point to the place with pain. Circle one or more words: head, throat, chest, stomach, back, arm, leg. Write left or right if the pain is on one side.
 
 Tick the symptoms you have now: fever, cough, nausea, dizziness. Write when the problem started.
 
-If the pain is strong, tell the nurse now. If you cannot walk or breathe well, ask for help immediately.')
-    RETURNING uuid INTO v_reading_id;
+If the pain is strong, tell the nurse now. If you cannot walk or breathe well, ask for help immediately.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee una ficha para indicar el problema', 'Lee una ficha de triaje con instrucciones simples para decir qué te pasa.'),
-        (v_reading_id, 'de', 'Lies eine Karte, um das Problem anzugeben', 'Lies eine Triage-Karte mit einfachen Anweisungen, um dein Problem zu beschreiben.');
+        (v_reading_id, 'es', 'Ficha para indicar el problema'), (v_reading_id, 'de', 'Karte, um das Problem');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

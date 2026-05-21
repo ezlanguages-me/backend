@@ -33,17 +33,22 @@ BEGIN
     DELETE FROM reading WHERE step_order = 6340 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 6340, 'en', 'reading', 'Convivencia', 'In some places, people greet each other with a handshake, while in others a smile or a small bow is more common. When you visit a home, it may be polite to take off your shoes and bring a small gift.
+    VALUES (
+    v_path_id,
+    6340,
+    'en',
+    'reading',
+    'social',
+    'In some places, people greet each other with a handshake, while in others a smile or a small bow is more common. When you visit a home, it may be polite to take off your shoes and bring a small gift.
 
 Meal times can be different too. In some countries, people eat earlier or later than you expect. It is useful to ask before serving food and to follow the host''s habits. Speaking very loudly in public may be normal in one place but rude in another.
 
-When you travel, watch carefully, listen politely, and ask simple questions if you are not sure.')
-    RETURNING uuid INTO v_reading_id;
+When you travel, watch carefully, listen politely, and ask simple questions if you are not sure.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'lee sobre costumbres culturales', 'Lee un texto breve sobre algunas costumbres que pueden variar entre países y hogares.'),
-        (v_reading_id, 'de', 'lies über kulturelle Gepflogenheiten', 'Lies einen kurzen Text über einige Gepflogenheiten, die zwischen Ländern und Haushalten variieren können.');
+        (v_reading_id, 'es', 'Costumbres culturales'), (v_reading_id, 'de', 'Kulturelle Gepflogenheiten');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

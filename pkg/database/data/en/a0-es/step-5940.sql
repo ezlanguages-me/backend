@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5940 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5940, 'en', 'reading', 'Alojamiento', $reading$
+    VALUES (
+    v_path_id,
+    5940,
+    'en',
+    'reading',
+    'alojamiento',
+    $reading$
 Riverside Hotel services
 
 Room service is available from 6 PM to 10 PM. Laundry service is open every day, but you must hand in clothes before noon.
@@ -42,13 +48,12 @@ The gym is on the third floor and opens at 6 AM. The swimming pool is on the fir
 Hot drinks are free in the lounge between 4 PM and 6 PM. Guests can ask reception for extra towels, a wake-up call, or taxi help.
 
 Free parking is behind the hotel. The lift is next to reception and works to all floors.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee la descripción de los servicios del hotel', 'Lee una descripción breve de los servicios, instalaciones y horarios del hotel.'),
-        (v_reading_id, 'de', 'Lies die Beschreibung der Hotelleistungen', 'Lies eine kurze Beschreibung der Hotelservices, Einrichtungen und Zeiten.');
+        (v_reading_id, 'es', 'Descripción de los servicios'), (v_reading_id, 'de', 'Hotelleistungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

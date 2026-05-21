@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5840 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5840, 'en', 'reading', 'Gestión del Estudio y Trámites', $reading$
+    VALUES (
+    v_path_id,
+    5840,
+    'en',
+    'reading',
+    'academic',
+    $reading$
 East Hall Library is open from 8 AM to 8 PM on weekdays.
 
 Please speak quietly in the silent study room. Mobile phones must be on silent.
@@ -42,13 +48,12 @@ You can borrow up to four books for three weeks. Renew books online before the d
 Laptops are allowed in the computer area, but food and drinks are not allowed anywhere in the library.
 
 Return books at the front desk or in the book box near the entrance.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee las normas de la biblioteca', 'Lee un aviso con las normas básicas de uso, préstamo y silencio en la biblioteca.'),
-        (v_reading_id, 'de', 'Lies die Bibliotheksregeln', 'Lies einen Aushang mit grundlegenden Regeln für Nutzung, Ausleihe und Ruhe in der Bibliothek.');
+        (v_reading_id, 'es', 'Las normas de la biblioteca'), (v_reading_id, 'de', 'Lies die Bibliotheksregeln');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

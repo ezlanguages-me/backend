@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7810 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7810, 'en', 'reading', 'meetings', 'Q&A Session Transcript
+    VALUES (
+    v_path_id,
+    7810,
+    'en',
+    'reading',
+    'meetings',
+    'Q&A Session Transcript
 Topic: Quiet Study Room Signs\n\nModerator: We have time for four short questions.
 Audience Member 1: How many rooms were in the test?
 Speaker: Three rooms were in the test.
@@ -42,13 +48,12 @@ Audience Member 3: What did the yellow sign mean?
 Speaker: It meant the room was busy.
 Audience Member 4: Were the signs paper or plastic?
 Speaker: They were paper cards.
-Moderator: Thank you everyone.')
-    RETURNING uuid INTO v_reading_id;
+Moderator: Thank you everyone.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Leer la transcripción de una sesión de preguntas y respuestas', 'Lee una transcripción breve de un turno de preguntas después de una presentación.'),
-        (v_reading_id, 'de', 'Ein Transkript einer Fragerunde lesen', 'Lies ein kurzes Transkript einer Fragerunde nach einer Präsentation.');
+        (v_reading_id, 'es', 'Transcripción de una sesión'), (v_reading_id, 'de', 'Transkript einer Fragerunde');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

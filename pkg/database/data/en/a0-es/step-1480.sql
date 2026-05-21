@@ -32,20 +32,26 @@
         DELETE FROM reading WHERE step_order = 1480 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1480, 'en', 'reading', 'banking', 'Dear Customer,
+        VALUES (
+    v_path_id,
+    1480,
+    'en',
+    'reading',
+    'banking',
+    'Dear Customer,
 
 Your monthly account statement is issued on the first business day of every month and sent by email. If you prefer a paper statement, please visit the branch. The paper copy costs 2 euros.
 
 For withdrawals from your savings account above 500 euros, we need two working days notice. Please call the branch or complete the request form at the counter.
 
-Bring your ID when you collect the money. Thank you for banking with us.')
-        RETURNING uuid INTO v_reading_id;
+Bring your ID when you collect the money. Thank you for banking with us.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Carta del banco sobre extractos y avisos de retirada', 'Lee una carta del banco con explicaciones rutinarias sobre extractos y retiradas.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Banco sobre extractos y avisos');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Bankbrief über Kontoauszüge und Auszahlungsfrist', 'Lies einen Bankbrief mit routinemäßigen Erklärungen zu Auszügen und Auszahlungen.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Bankbrief über Kontoauszüge');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

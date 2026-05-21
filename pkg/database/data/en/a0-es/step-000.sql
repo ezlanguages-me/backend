@@ -18,13 +18,13 @@ BEGIN
   VALUES (v_path_uuid, 0, 'en', 'deck')
   RETURNING uuid INTO v_deck_uuid;
 
-  INSERT INTO deck_translation (deck_uuid, language, title, description)
-  VALUES (v_deck_uuid, 'es', 'El Abecedario', '');
+  INSERT INTO deck_translation (deck_uuid, language, title)
+  VALUES (v_deck_uuid, 'es', 'El Abecedario');
 
-  INSERT INTO deck_translation (deck_uuid, language, title, description)
-  VALUES (v_deck_uuid, 'de', 'Das Alphabet', '');
+  INSERT INTO deck_translation (deck_uuid, language, title)
+  VALUES (v_deck_uuid, 'de', 'Das Alphabet');
 
-  WITH inserted_words AS (
+  WITH upserted_words AS (
     INSERT INTO word (term, is_root, source_language) VALUES
       ('a', true, 'en'),
       ('b', true, 'en'),
@@ -52,11 +52,24 @@ BEGIN
       ('x', true, 'en'),
       ('y', true, 'en'),
       ('z', true, 'en')
+    ON CONFLICT (term, source_language) WHERE is_root = TRUE DO NOTHING
     RETURNING uuid, term
+  ),
+  existing_words AS (
+    SELECT w.uuid, w.term FROM word w
+    WHERE w.term = ANY(ARRAY['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+      AND w.source_language = 'en' AND w.is_root = TRUE
+      AND w.uuid NOT IN (SELECT uuid FROM upserted_words)
+  ),
+  all_words AS (
+    SELECT uuid, term FROM upserted_words
+    UNION ALL
+    SELECT uuid, term FROM existing_words
   ),
   deck_links AS (
     INSERT INTO deck_words (deck_uuid, word_uuid)
-    SELECT v_deck_uuid, uuid FROM inserted_words
+    SELECT v_deck_uuid, uuid FROM all_words
+    ON CONFLICT DO NOTHING
   )
   INSERT INTO word_translation (word_uuid, language, pronunciation)
   SELECT
@@ -90,7 +103,8 @@ BEGIN
       WHEN 'y' THEN '/uái/'
       WHEN 'z' THEN '/zi/'
     END
-  FROM inserted_words;
+  FROM all_words
+  ON CONFLICT DO NOTHING;
 
   -- German letter pronunciations
   INSERT INTO word_translation (word_uuid, language, pronunciation)
@@ -125,6 +139,7 @@ BEGIN
     END
   FROM deck_words dw
   JOIN word w ON dw.word_uuid = w.uuid
-  WHERE dw.deck_uuid = v_deck_uuid;
+  WHERE dw.deck_uuid = v_deck_uuid
+  ON CONFLICT DO NOTHING;
 END;
 $seed$;

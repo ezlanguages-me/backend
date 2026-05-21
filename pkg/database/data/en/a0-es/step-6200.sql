@@ -42,13 +42,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 6200 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 6200, 'en', 'dialogue', 'Convivencia', '[{"name": "Ava","gender": "female","avatarURL": "https://example.com/avatars/student-1.png"},{"name": "Leo","gender": "male","avatarURL": "https://example.com/avatars/student-2.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 6200, 'en', 'dialogue', 'social', '[{"name": "Ava","gender": "female","avatarURL": "https://example.com/avatars/student-1.png"},{"name": "Leo","gender": "male","avatarURL": "https://example.com/avatars/student-2.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'toma parte en una charla informal con compañeros', 'Practica un diálogo breve y natural para saludar, comentar la clase y hablar de planes sencillos.'),
-        (v_dialogue_id, 'de', 'halte Smalltalk mit Mitschülern', 'Übe einen kurzen, natürlichen Dialog, um zu grüßen, über den Unterricht zu sprechen und einfache Pläne zu machen.');
+        (v_dialogue_id, 'es', 'Charla informal con compañeros'), (v_dialogue_id, 'de', 'Smalltalk mit Mitschülern');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

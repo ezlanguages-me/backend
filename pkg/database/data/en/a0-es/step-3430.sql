@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3430 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3430, 'en', 'listening', 'nature', $transcript$# AUDIO PROFILE: Documentary narrator
+    VALUES (
+    v_path_id,
+    3430,
+    'en',
+    'listening',
+    'nature',
+    $transcript$# AUDIO PROFILE: Documentary narrator
 ## "Morning in the Wetland"
 
 ## THE SCENE: Sunrise over a protected wetland.
@@ -58,14 +64,14 @@ Learners practise understanding a simple nature documentary with animals, plants
 [clear] As the sun gets higher, insects rise above the water.
 [lively] Small birds fly low and eat the insects.
 [informative] The wetland gives food and shelter to many animals.
-[positive] Protected areas like this help nature stay healthy.$transcript$)
-    RETURNING uuid INTO v_listening_id;
+[positive] Protected areas like this help nature stay healthy.$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Escuchar un audio estilo documental de naturaleza', 'Escucha una narración sencilla sobre un humedal, animales y hábitats naturales.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Escuchar un audio estilo');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Naturdokumentation im Hörtext verstehen', 'Höre eine einfache Erzählung über ein Feuchtgebiet, Tiere und natürliche Lebensräume.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Naturdokumentation im Hörtext');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

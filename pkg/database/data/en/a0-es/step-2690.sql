@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2690 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2690, 'en', 'reading', 'health', 'Medicine Instructions
+    VALUES (
+    v_path_id,
+    2690,
+    'en',
+    'reading',
+    'health',
+    'Medicine Instructions
 
 Take one tablet twice a day after food for seven days. Swallow the tablet with water.
 
 Do not take the medicine with alcohol. Finish all the tablets, even if you feel better. Keep the box below 25°C.
 
-If you miss one dose, take it when you remember, but do not take two tablets together.')
-    RETURNING uuid INTO v_reading_id;
+If you miss one dose, take it when you remember, but do not take two tablets together.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee instrucciones de un medicamento', 'Lee una hoja simple con las instrucciones básicas de una medicina.'),
-        (v_reading_id, 'de', 'Lies Anweisungen zu einem Medikament', 'Lies ein einfaches Blatt mit den Grundanweisungen zu einem Medikament.');
+        (v_reading_id, 'es', 'Instrucciones'), (v_reading_id, 'de', 'Anweisungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

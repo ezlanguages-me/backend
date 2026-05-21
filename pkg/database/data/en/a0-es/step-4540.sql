@@ -15,21 +15,13 @@
               AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 4540, 'en', 'writing', 'professional')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 4540, 'en', 'writing', 'professional')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'es',
-                'Escribe una carta de queja sobre un pedido',
-                '',
+                'Carta de queja sobre un pedido',
                 '{
     "scenario": "Ha recibido un pedido de material de oficina con artículos incorrectos y algunos dañados. Escribe una carta de queja formal al proveedor explicando el problema con datos concretos.",
     "tasks": [
@@ -45,18 +37,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'de',
-                'Schreibe einen Beschwerdebrief über eine Bestellung',
-                '',
+                'Beschwerdebrief',
                 '{
     "scenario": "Sie haben eine Bestellung mit falschen und beschädigten Artikeln erhalten. Schreiben Sie einen formellen Beschwerdebrief mit konkreten Informationen.",
     "tasks": [

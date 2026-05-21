@@ -42,13 +42,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 6260 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 6260, 'en', 'dialogue', 'Convivencia', '[{"name": "Marta","gender": "female","avatarURL": "https://example.com/avatars/student-3.png"},{"name": "Jon","gender": "male","avatarURL": "https://example.com/avatars/student-4.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 6260, 'en', 'dialogue', 'social', '[{"name": "Marta","gender": "female","avatarURL": "https://example.com/avatars/student-3.png"},{"name": "Jon","gender": "male","avatarURL": "https://example.com/avatars/student-4.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'habla sobre planes y actividades sociales', 'Practica un diálogo para organizar una salida social y decidir dónde y cuándo verse.'),
-        (v_dialogue_id, 'de', 'sprich über soziale Pläne und Aktivitäten', 'Übe einen Dialog, um einen sozialen Ausflug zu planen und Ort sowie Zeit festzulegen.');
+        (v_dialogue_id, 'es', 'Planes y actividades sociales'), (v_dialogue_id, 'de', 'Soziale Pläne und Aktivitäten');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

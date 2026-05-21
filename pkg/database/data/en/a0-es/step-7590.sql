@@ -32,13 +32,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7590 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7590, 'en', 'reading', 'meetings', 'Presentation brief. Speaker: Helen Grant. Topic: How the new support desk works. Audience: new team members and visiting managers. Length: eight minutes plus two minutes for questions. Use four slides only. Slide one introduces the problem. Slides two and three show the new process and one short example. Slide four gives the main result and next step.\n\nThe brief asks for clear visuals, short sentences, and no detailed budget table. The presenter should stand near the screen, speak at a steady pace, and finish with one action for the audience: test the new desk form this week.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 7590, 'en', 'reading', 'meetings', 'Presentation brief. Speaker: Helen Grant. Topic: How the new support desk works. Audience: new team members and visiting managers. Length: eight minutes plus two minutes for questions. Use four slides only. Slide one introduces the problem. Slides two and three show the new process and one short example. Slide four gives the main result and next step.\n\nThe brief asks for clear visuals, short sentences, and no detailed budget table. The presenter should stand near the screen, speak at a steady pace, and finish with one action for the audience: test the new desk form this week.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Comprende un briefing de presentación', 'Lee un encargo breve con tema, público, duración y pautas para una presentación.'),
-        (v_reading_id, 'de', 'Verstehe ein Präsentationsbriefing', 'Lies einen kurzen Auftrag mit Thema, Publikum, Dauer und Vorgaben für eine Präsentation.');
+        (v_reading_id, 'es', 'Briefing de presentación'), (v_reading_id, 'de', 'Präsentationsbriefing');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

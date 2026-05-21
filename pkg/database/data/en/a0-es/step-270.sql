@@ -13,12 +13,13 @@
             DELETE FROM writing WHERE step_order = 270 AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 270, 'en', 'writing', 'correspondence')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 270, 'en', 'writing', 'correspondence')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'es', 'Carta de agradecimiento', '',
+                v_writing_id,
+                'es',
+                'Carta de agradecimiento',
                 '{
     "scenario": "Un amigo te ayudó durante un viaje corto y quieres darle las gracias por mensaje. Escribe una carta breve, amable y muy simple.",
     "tasks": [
@@ -32,9 +33,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'de', 'Einfacher Dankesbrief', '',
+                v_writing_id,
+                'de',
+                'Einfacher Dankesbrief',
                 '{
     "scenario": "Ein Freund hat dir auf einer kurzen Reise geholfen, und du möchtest ihm mit einer Nachricht danken. Schreib einen kurzen, freundlichen und sehr einfachen Brief.",
     "tasks": [

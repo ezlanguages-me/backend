@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3420 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3420, 'en', 'reading', 'nature', $reading$Plants in the School Garden
+    VALUES (
+    v_path_id,
+    3420,
+    'en',
+    'reading',
+    'nature',
+    $reading$Plants in the School Garden
 
 The sunflower is tall and yellow. It likes full sun and grows quickly in summer.
 
@@ -40,14 +46,14 @@ The fern is short and green. It likes shade and wet soil, so it grows near the w
 
 The cactus is small but strong. It needs little water and stands in the hottest corner.
 
-The mint plant has small leaves and a fresh smell. Students use it for tea in spring.$reading$)
-    RETURNING uuid INTO v_reading_id;
+The mint plant has small leaves and a fresh smell. Students use it for tea in spring.$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comprender descripciones de plantas', 'Lee descripciones simples de varias plantas y sus necesidades básicas.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Comprender descripciones');
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Pflanzenbeschreibungen verstehen', 'Lies einfache Beschreibungen verschiedener Pflanzen und ihrer Grundbedürfnisse.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Pflanzenbeschreibungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

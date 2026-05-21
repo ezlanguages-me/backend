@@ -23,12 +23,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 130, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar1_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'es', 
-    'Formación del Plural', 
-    '', 
+    v_grammar1_id,
+    'es',
+    'Formación del Plural',
     to_jsonb('## Formación del Plural
 En inglés, el plural de los sustantivos se forma generalmente añadiendo una "S", pero existen varias reglas ortográficas importantes y algunas excepciones irregulares que cambian la palabra por completo.
 
@@ -72,12 +71,11 @@ Algunas palabras **no cambian** en plural. Se usan igual en singular y plural. E
 *   *one species / several species* (una especie / varias especies)'::text)
 );
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+INSERT INTO grammar_translation (grammar_uuid, language, title, content)
 VALUES (
     v_grammar1_id,
     'de',
     'Pluralbildung',
-    '',
     to_jsonb('## Pluralbildung
 Im Englischen wird der Plural der Nomen in der Regel durch Anhängen eines "S" gebildet, aber es gibt wichtige Rechtschreibregeln und einige unregelmäßige Ausnahmen.
 

@@ -43,13 +43,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 7670 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 7670, 'en', 'dialogue', 'meetings', '[{"name": "Olivia", "gender": "female", "avatarURL": "https://example.com/avatars/olivia.png"}, {"name": "Sam", "gender": "male", "avatarURL": "https://example.com/avatars/sam.png"}, {"name": "Petra", "gender": "female", "avatarURL": "https://example.com/avatars/petra.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 7670, 'en', 'dialogue', 'meetings', '[{"name": "Olivia", "gender": "female", "avatarURL": "https://example.com/avatars/olivia.png"}, {"name": "Sam", "gender": "male", "avatarURL": "https://example.com/avatars/sam.png"}, {"name": "Petra", "gender": "female", "avatarURL": "https://example.com/avatars/petra.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Participa en una discusión más larga', 'Sigue una discusión con tres personas que negocian formato, tiempos y cierre de una reunión mensual.'),
-        (v_dialogue_id, 'de', 'Nimm an einer längeren Diskussion teil', 'Folge einer Diskussion mit drei Personen, die Format, Zeiten und Abschluss eines Monatstreffens aushandeln.');
+        (v_dialogue_id, 'es', 'Participar en una discusión'), (v_dialogue_id, 'de', 'An Diskussion teilnehmen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

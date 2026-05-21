@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4700, 'en', 'reading', 'professional', $content$OPERATING MANUAL – ProCopy 600
+        VALUES (
+    v_path_id,
+    4700,
+    'en',
+    'reading',
+    'professional',
+    $content$OPERATING MANUAL – ProCopy 600
 
 Section 3 explains how to copy documents on the ProCopy 600. First, place the original document face-down on the glass and align it with the top-left corner. Then close the document cover. On the control panel, press the Copy button to open the standard copying menu.
 
 Use the plus and minus buttons to choose the number of copies between 1 and 99. Select either A4 or A3 paper size with the Size button. When the settings are correct, press the green Start button and collect the finished copies from the output tray.
 
-If a paper jam occurs, open the front panel door and remove the jammed paper carefully. Do not pull it by force. If jams continue to happen, call the service number 0800-123-456 for assistance.$content$)
-        RETURNING uuid INTO v_reading_id;
+If a paper jam occurs, open the front panel door and remove the jammed paper carefully. Do not pull it by force. If jams continue to happen, call the service number 0800-123-456 for assistance.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee la sección de un manual de fotocopiadora', 'Lee una sección de manual con pasos de uso y solución de atascos.'),
-            (v_reading_id, 'de', 'Lies den Abschnitt eines Fotokopiererhandbuchs', 'Lies einen Handbuchabschnitt mit Bedienungsschritten und Stauhinweisen.');
+            (v_reading_id, 'es', 'Manual de fotocopiadora'), (v_reading_id, 'de', 'Eines Fotokopiererhandbuchs');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

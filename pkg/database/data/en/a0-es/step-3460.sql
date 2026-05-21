@@ -32,20 +32,26 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3460 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3460, 'en', 'reading', 'nature', $reading$Town Weather Forecast
+    VALUES (
+    v_path_id,
+    3460,
+    'en',
+    'reading',
+    'nature',
+    $reading$Town Weather Forecast
 
 Monday: sunny in the morning, 22°C. Light clouds in the afternoon.
 Tuesday: windy and cooler, 17°C. No rain.
 Wednesday: rain from midday to evening, 15°C.
 Thursday: cloudy early, then bright and dry, 19°C.
-Friday: storm near the coast at night. Inland areas stay warm at 21°C.$reading$)
-    RETURNING uuid INTO v_reading_id;
+Friday: storm near the coast at night. Inland areas stay warm at 21°C.$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comprender previsiones del tiempo', 'Lee una previsión sencilla con días, temperaturas y cambios del tiempo.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Comprender previsiones');
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Wettervorhersagen verstehen', 'Lies eine einfache Vorhersage mit Tagen, Temperaturen und Wetteränderungen.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Wettervorhersagen verstehen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

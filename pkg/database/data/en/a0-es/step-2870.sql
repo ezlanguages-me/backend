@@ -145,9 +145,13 @@ BEGIN
     VALUES (v_path_id, 2870, 'en', 'grammar')
     RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Formación -ED', '', to_jsonb($content_es$
+        (
+    v_grammar_id,
+    'es',
+    'Formación -ED',
+    to_jsonb($content_es$
 ## Formación del pasado regular con -ed
 
 Para muchos verbos regulares en inglés, el pasado se forma con **-ed**. Esta terminación cambia un poco según la última letra del verbo.
@@ -189,8 +193,13 @@ Si el verbo termina en consonante + **y**, cambiamos **y** por **i** y añadimos
 
 ### Idea clave
 Mira siempre la última letra del verbo antes de añadir la terminación del pasado.
-$content_es$::text)),
-        (v_grammar_id, 'de', '-ED-Bildung', '', to_jsonb($content_de$
+$content_es$::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'ED-Bildung',
+    to_jsonb($content_de$
 ## Bildung der regelmäßigen Vergangenheit mit -ed
 
 Bei vielen regelmäßigen englischen Verben bildet man die Vergangenheit mit **-ed**. Diese Endung verändert sich leicht je nach letztem Buchstaben des Verbs.
@@ -232,7 +241,8 @@ Wenn das Verb auf Konsonant + **y** endet, wird **y** zu **i** und dann kommt **
 
 ### Grundidee
 Schau immer auf den letzten Buchstaben des Verbs, bevor du die Vergangenheitsendung hinzufügst.
-$content_de$::text));
+$content_de$::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback) VALUES

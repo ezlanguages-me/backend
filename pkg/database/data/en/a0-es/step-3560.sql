@@ -36,7 +36,13 @@
         DELETE FROM listening WHERE step_order = 3560 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3560, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3560,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Daniel, a supplier calling an office assistant
 ## "Can We Move the Meeting?"
 
@@ -61,13 +67,12 @@ Accent: Neutral accent.
 [clear] Daniel: I will send the quote by email before lunch.
 [informative] Daniel: The meeting will take about thirty minutes, and I will bring two sample folders.
 [careful] Daniel: If I am late, please call Ana on 555-0178.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una llamada de negocios', 'Escucha una llamada sobre un cambio de hora, acceso al edificio y material para una reunión.'),
-            (v_listening_id, 'de', 'Höre ein Geschäftstelefonat', 'Höre ein Telefonat über eine Terminänderung, den Zugang zum Gebäude und Material für ein Treffen.');
+            (v_listening_id, 'es', 'Una llamada de negocios'), (v_listening_id, 'de', 'Höre ein Geschäftstelefonat');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

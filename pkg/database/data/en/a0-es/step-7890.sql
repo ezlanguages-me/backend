@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7890 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7890, 'en', 'reading', 'meetings', 'Conference Feedback Form\n\nSession: Easy Team Presentations
+    VALUES (
+    v_path_id,
+    7890,
+    'en',
+    'reading',
+    'meetings',
+    'Conference Feedback Form\n\nSession: Easy Team Presentations
 Room: Hall C
 Start time: 11:00
 Audio: good
@@ -43,13 +49,12 @@ Most difficult part: one chart was small
 Would you join again? Yes
 Would you recommend it? Yes
 Request for next time: five more minutes for questions
-Reviewer: Laura Kim')
-    RETURNING uuid INTO v_reading_id;
+Reviewer: Laura Kim'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Entiende un formulario de evaluación', 'Lee un formulario breve de comentarios sobre una presentación y reconoce valoraciones sencillas.'),
-        (v_reading_id, 'de', 'Verstehe ein Feedbackformular', 'Lies ein kurzes Feedbackformular zu einer Präsentation und erkenne einfache Bewertungen.');
+        (v_reading_id, 'es', 'Formulario de evaluación'), (v_reading_id, 'de', 'Verstehe ein Feedbackformular');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

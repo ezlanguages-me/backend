@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 1970 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 1970, 'en', 'listening', 'Restauración', $transcript$
+    VALUES (
+    v_path_id,
+    1970,
+    'en',
+    'listening',
+    'dining',
+    $transcript$
 # AUDIO PROFILE: A waiter and a restaurant guest
 ## "Could We Order, Please?"
 
@@ -62,11 +68,11 @@ Learners hear a simple exchange with one question about the dish.
 [waiter] Waiter: Certainly. One vegetable pasta and one still water.
 [guest] Guest: Thank you.
 [waiter] Waiter: You are welcome.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'es', 'Llamar al camarero y pedir', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'de', 'Den Kellner rufen und bestellen', '');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'es', 'Llamar al camarero y pedir');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'de', 'Kellner rufen und bestellen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

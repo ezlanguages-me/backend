@@ -44,7 +44,13 @@
           AND type = 'listening';
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4770, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4770,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 Tom: Good morning, Reed Consulting. How can I help you?
 Sandra: Good morning. My name is Sandra Petrov from South Bridge Engineering. I need to speak to Carlos Rivera.
 Tom: I'm afraid Mr. Rivera is in a meeting until noon. Can I take a message?
@@ -54,13 +60,12 @@ Sandra: Yes. He also needs to arrange on-site access for the delivery team. They
 Tom: Delivery team at 7am on Wednesday the 15th, supervisor required. Got it.
 Sandra: Also, could he confirm by email to sande.petrov@southbridge.co.uk? I'll be in meetings all afternoon.
 Tom: Of course. I'll pass on the message as soon as he is out of the meeting.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha un recado de teléfono complejo', 'Escucha una llamada en la que se deja un recado detallado sobre una entrega y una confirmación.'),
-            (v_listening_id, 'de', 'Höre eine komplexe Telefonnachricht', 'Höre einen Anruf, in dem eine detaillierte Nachricht zu einer Lieferung und Bestätigung hinterlassen wird.');
+            (v_listening_id, 'es', 'Un recado de teléfono complejo'), (v_listening_id, 'de', 'Eine komplexe Telefonnachricht');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -32,18 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2200 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2200, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2200,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 FOOD ALLERGY INFORMATION
 Please tell staff about allergies before you order.
 The noodle bowl has peanut sauce. The mushroom soup has cream.
 
 The green salad has no dairy. Gluten-free bread is available.
 The fruit cup is safe for vegans. Ask before ordering cakes.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Aviso de alergias y restricciones');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Hinweis zu Allergien und Einschränkungen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Alergias y restricciones');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Allergien und Einschränkungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

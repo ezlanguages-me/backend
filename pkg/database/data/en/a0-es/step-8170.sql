@@ -6,16 +6,16 @@
     DECLARE
         v_path_id UUID; v_dialogue_id UUID; v_ex_id UUID; ex JSONB;
         v_exercises JSONB[] := ARRAY[
-            '{"p": "Según el diálogo, marca verdadero o falso: The dialogue is about a seminar article about urban gardens and local health.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The dialogue is about a seminar article about urban gardens and local health.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: The speakers are planning a beach holiday.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: Diego explains that the article links nearby gardens with more shared activity.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: Diego explains that the article links nearby gardens with more shared activity.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: A counterpoint is that the evidence is strongest in neighbourhoods with active volunteers.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: A counterpoint is that the evidence is strongest in neighbourhoods with active volunteers.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: The conclusion is that the discussion ends with a qualified positive opinion.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The conclusion is that the discussion ends with a qualified positive opinion.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: What is the main focus?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What is the main focus?", "s": {"type": "multiple_choice", "options": ["a seminar article about urban gardens and local health", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Who gives the main explanation?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Diego", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Which detail is named?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which detail is named?", "s": {"type": "multiple_choice", "options": ["the article links nearby gardens with more shared activity", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Which counterpoint appears?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["the evidence is strongest in neighbourhoods with active volunteers", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: What conclusion do the speakers reach?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the discussion ends with a qualified positive opinion", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
+            '{"p": "The dialogue is about a seminar article about urban gardens and local health.", "p_de": "The dialogue is about a seminar article about urban gardens and local health.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "The speakers are planning a beach holiday.", "p_de": "The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+            '{"p": "Diego explains that the article links nearby gardens with more shared activity.", "p_de": "Diego explains that the article links nearby gardens with more shared activity.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "A counterpoint is that the evidence is strongest in neighbourhoods with active volunteers.", "p_de": "A counterpoint is that the evidence is strongest in neighbourhoods with active volunteers.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "The conclusion is that the discussion ends with a qualified positive opinion.", "p_de": "The conclusion is that the discussion ends with a qualified positive opinion.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "What is the main focus?", "p_de": "What is the main focus?", "s": {"type": "multiple_choice", "options": ["a seminar article about urban gardens and local health", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
+            '{"p": "Who gives the main explanation?", "p_de": "Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Diego", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
+            '{"p": "Which detail is named?", "p_de": "Which detail is named?", "s": {"type": "multiple_choice", "options": ["the article links nearby gardens with more shared activity", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
+            '{"p": "Which counterpoint appears?", "p_de": "Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["the evidence is strongest in neighbourhoods with active volunteers", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
+            '{"p": "What conclusion do the speakers reach?", "p_de": "What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the discussion ends with a qualified positive opinion", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
         ];
     BEGIN
         SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -27,11 +27,10 @@ DELETE FROM listening WHERE step_order=8170 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=8170 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=8170 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=8170 AND path_uuid=v_path_id;
-        INSERT INTO dialogue (path_uuid,step_order,source_language,type,category,characters)
-        VALUES (v_path_id,8170,'en','dialogue','academic','[{"name": "Sara", "gender": "female", "avatarURL": "https://example.com/avatars/sara.png"}, {"name": "Diego", "gender": "male", "avatarURL": "https://example.com/avatars/diego.png"}]'::jsonb)
-        RETURNING uuid INTO v_dialogue_id;
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'es','discuss seminar reading','Lee el diálogo y responde.');
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'de','discuss seminar reading','Lies den Dialog und beantworte die Fragen.');
+        INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+        VALUES (v_path_id, 8170, 'en', 'dialogue', 'academic', '[{"name": "Sara", "gender": "female", "avatarURL": "https://example.com/avatars/sara.png"}, {"name": "Diego", "gender": "male", "avatarURL": "https://example.com/avatars/diego.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Facilitar un seminario');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Seminar moderieren');
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES
             (v_dialogue_id, 0, 'Sara', 'Did you read the note about a seminar article about urban gardens and local health for a community studies seminar?'),

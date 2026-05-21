@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 1370 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 1370, 'en', 'listening', 'financial', $transcript$
+        VALUES (
+    v_path_id,
+    1370,
+    'en',
+    'listening',
+    'financial',
+    $transcript$
 # AUDIO PROFILE: Bank teller
 ## "Changing Euros into Dollars"
 
@@ -59,14 +65,14 @@ The recording is useful for simple travel money situations.
 [organized] For one hundred euros, you receive one hundred and five dollars after the five dollar fee.
 [friendly] Here are your notes and coins.
 [polite] This is your receipt. Please count the money before you leave.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'es', 'La cajera explica cómo cambiar dinero', 'Escucha una explicación sencilla del proceso para cambiar euros por dólares.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'es', 'Cajera explica cómo cambiar');
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'de', 'Die Bankangestellte erklärt den Geldwechsel', 'Höre eine einfache Erklärung des Ablaufs, um Euro in Dollar zu wechseln.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'de', 'Bankangestellte erklärt');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

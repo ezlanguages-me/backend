@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM listening_translation WHERE listening_uuid IN (SELECT uuid FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6010 AND source_language = 'en');
   DELETE FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6010 AND source_language = 'en';
   INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-  VALUES (v_path_uuid, 6010, 'en', 'listening', 'Alquileres', $transcript$
+  VALUES (
+    v_path_uuid,
+    6010,
+    'en',
+    'listening',
+    'accommodation',
+    $transcript$
 The property is a studio flat in near the tram station in the city centre. The rent is £720 a month and the deposit is £800.
 
 Bills are included. The place is unfurnished and has a shared washing machine on the landing.
 
 The contract is 6 months minimum, and you can move in on next Monday. The building is quiet and there are no parties.
-$transcript$)
-  RETURNING uuid INTO v_listening_uuid;
-  INSERT INTO listening_translation (listening_uuid, language, title, description)
-  VALUES (v_listening_uuid, 'es', 'Escucha la descripción de una vivienda de alquiler', 'Escucha a un agente describir un estudio y toma nota de los detalles.'),
-         (v_listening_uuid, 'de', 'Höre die Beschreibung einer Mietwohnung', 'Höre einen Makler, der ein Studio beschreibt, und notiere die Details.');
+$transcript$
+)RETURNING uuid INTO v_listening_uuid;
+  INSERT INTO listening_translation (listening_uuid, language, title)
+  VALUES (v_listening_uuid, 'es', 'Descripción de una vivienda'), (v_listening_uuid, 'de', 'Beschreibung einer Mietwohnung');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

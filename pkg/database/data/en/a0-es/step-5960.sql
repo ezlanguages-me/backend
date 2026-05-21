@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5960 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5960, 'en', 'dialogue', 'Alojamiento', '[{"name": "Staff", "gender": "neutral", "avatarURL": "https://example.com/avatars/staff.png"}, {"name": "Learner", "gender": "neutral", "avatarURL": "https://example.com/avatars/learner.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5960, 'en', 'dialogue', 'alojamiento', '[{"name": "Staff", "gender": "neutral", "avatarURL": "https://example.com/avatars/staff.png"}, {"name": "Learner", "gender": "neutral", "avatarURL": "https://example.com/avatars/learner.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pregunta por los servicios del hotel', 'Lee un diálogo en el que un huésped pregunta por desayuno, gimnasio y salida tardía.'),
-        (v_dialogue_id, 'de', 'Frag nach Hotelservices', 'Lies einen Dialog, in dem ein Gast nach Frühstück, Fitnessraum und spätem Check-out fragt.');
+        (v_dialogue_id, 'es', 'Pregunta por los servicios'), (v_dialogue_id, 'de', 'Frag nach Hotelservices');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

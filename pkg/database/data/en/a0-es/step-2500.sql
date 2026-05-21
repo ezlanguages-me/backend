@@ -13,19 +13,19 @@ DECLARE
     v_ex_id UUID;
     ex JSONB;
     v_rule1_exercises JSONB[] := ARRAY[
-        '{"p": "Completa la orden positiva: ___ the window. (open)", "p_de": "Ergänze den positiven Befehl: ___ the window. (open)", "s": {"type": "typing", "correct_answers": ["Open"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la orden: ___ down, please. (sit)", "p_de": "Ergänze den Befehl: ___ down, please. (sit)", "s": {"type": "typing", "correct_answers": ["Sit"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa con be: ___ careful.", "p_de": "Ergänze mit be: ___ careful.", "s": {"type": "typing", "correct_answers": ["Be"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la orden: ___ left at the hospital entrance. (turn)", "p_de": "Ergänze den Befehl: ___ left at the hospital entrance. (turn)", "s": {"type": "typing", "correct_answers": ["Turn"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Escribe la orden negativa: ___ the bottle. (don''t / touch)", "p_de": "Schreibe den negativen Befehl: ___ the bottle. (don''t / touch)", "s": {"type": "typing", "correct_answers": ["Don''t touch"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa: ___ late for the appointment. (don''t / be)", "p_de": "Ergänze: ___ late for the appointment. (don''t / be)", "s": {"type": "typing", "correct_answers": ["Don''t be"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Escribe la orden: ___ your hands. (wash)", "p_de": "Schreibe den Befehl: ___ your hands. (wash)", "s": {"type": "typing", "correct_answers": ["Wash"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Elige la orden correcta: ___ the door.", "p_de": "Wähle den richtigen Befehl: ___ the door.", "s": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la forma negativa correcta: ___ the medicine now.", "p_de": "Wähle die richtige negative Form: ___ the medicine now.", "s": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}}'::jsonb,
+        '{"p": "___ the window. (open).", "p_de": "___ the window. (open).", "s": {"type": "typing", "correct_answers": ["Open"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ down, please. (sit).", "p_de": "___ down, please. (sit).", "s": {"type": "typing", "correct_answers": ["Sit"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ careful.", "p_de": "___ careful.", "s": {"type": "typing", "correct_answers": ["Be"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ left at the hospital entrance. (turn).", "p_de": "___ left at the hospital entrance. (turn).", "s": {"type": "typing", "correct_answers": ["Turn"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Escribe la orden negativa: ___ the bottle. (don''t / touch).", "p_de": "Schreibe den negativen Befehl: ___ the bottle. (don''t / touch).", "s": {"type": "typing", "correct_answers": ["Don''t touch"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ late for the appointment. (don''t / be).", "p_de": "___ late for the appointment. (don''t / be).", "s": {"type": "typing", "correct_answers": ["Don''t be"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Escribe la orden: ___ your hands. (wash).", "p_de": "Schreibe den Befehl: ___ your hands. (wash).", "s": {"type": "typing", "correct_answers": ["Wash"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Elige la orden correcta: ___ the door.", "p_de": "___ the door.", "s": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Open", "Opens", "Opening"], "answer": 0}}'::jsonb,
+        '{"p": "Elige la forma negativa correcta: ___ the medicine now.", "p_de": "___ the medicine now.", "s": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Don''t take", "Not take", "Doesn''t take"], "answer": 0}}'::jsonb,
         '{"p": "Elige la advertencia correcta.", "p_de": "Wähle die richtige Warnung.", "s": {"type": "multiple_choice", "options": ["Be careful", "Careful be", "Are careful"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Be careful", "Careful be", "Are careful"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Be careful", "Careful be", "Are careful"], "answer": 0}}'::jsonb,
         '{"p": "En un cartel del hospital: ___ here.", "p_de": "Auf einem Schild im Krankenhaus: ___ here.", "s": {"type": "multiple_choice", "options": ["Wait", "Waits", "Waiting"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Wait", "Waits", "Waiting"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Wait", "Waits", "Waiting"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la orden correcta: ___ the nurse.", "p_de": "Wähle den richtigen Befehl: ___ the nurse.", "s": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la orden correcta: ___ on the bed.", "p_de": "Wähle den richtigen Befehl: ___ on the bed.", "s": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}}'::jsonb,
+        '{"p": "Elige la orden correcta: ___ the nurse.", "p_de": "___ the nurse.", "s": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Ask", "Asks", "Asked"], "answer": 0}}'::jsonb,
+        '{"p": "Elige la orden correcta: ___ on the bed.", "p_de": "___ on the bed.", "s": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Sit", "Sits", "Sitting"], "answer": 0}}'::jsonb,
         '{"p": "Elige la advertencia correcta para algo caliente.", "p_de": "Wähle die richtige Warnung für etwas Heißes.", "s": {"type": "multiple_choice", "options": ["Don''t touch", "No touch", "Not touching"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Don''t touch", "No touch", "Not touching"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Don''t touch", "No touch", "Not touching"], "answer": 0}}'::jsonb,
         '{"p": "En las órdenes usamos normalmente el verbo base.", "p_de": "In Befehlen benutzen wir normalerweise das Grundverb.", "s": {"type": "true_false", "answer": true}, "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "Open the door es un imperativo correcto.", "p_de": "Open the door ist ein korrekter Imperativ.", "s": {"type": "true_false", "answer": true}, "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
@@ -43,13 +43,13 @@ DECLARE
         '{"p": "Ordena la frase.", "p_de": "Ordne den Satz.", "s": {"type": "scramble", "chunks": ["Don''t", "be", "late."], "correct_order": [0, 1, 2]}}'::jsonb
     ];
     v_rule2_exercises JSONB[] := ARRAY[
-        '{"p": "Completa la sugerencia: ___ go to the clinic now.", "p_de": "Ergänze den Vorschlag: ___ go to the clinic now.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa: Let''s ___ this cream.", "p_de": "Ergänze: Let''s ___ this cream.", "s": {"type": "typing", "correct_answers": ["try"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la sugerencia: ___ wait here for the nurse.", "p_de": "Ergänze den Vorschlag: ___ wait here for the nurse.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa: Let''s ___ some water.", "p_de": "Ergänze: Let''s ___ some water.", "s": {"type": "typing", "correct_answers": ["drink"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la sugerencia: ___ take a taxi to the hospital.", "p_de": "Ergänze den Vorschlag: ___ take a taxi to the hospital.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa: Let''s ___ the receptionist.", "p_de": "Ergänze: Let''s ___ the receptionist.", "s": {"type": "typing", "correct_answers": ["ask"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la sugerencia: ___ sit down for a minute.", "p_de": "Ergänze den Vorschlag: ___ sit down for a minute.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ go to the clinic now.", "p_de": "___ go to the clinic now.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Let''s ___ this cream.", "p_de": "Let''s ___ this cream.", "s": {"type": "typing", "correct_answers": ["try"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ wait here for the nurse.", "p_de": "___ wait here for the nurse.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Let''s ___ some water.", "p_de": "Let''s ___ some water.", "s": {"type": "typing", "correct_answers": ["drink"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ take a taxi to the hospital.", "p_de": "___ take a taxi to the hospital.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
+        '{"p": "Let''s ___ the receptionist.", "p_de": "Let''s ___ the receptionist.", "s": {"type": "typing", "correct_answers": ["ask"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ sit down for a minute.", "p_de": "___ sit down for a minute.", "s": {"type": "typing", "correct_answers": ["Let''s"], "case_sensitive": false}}'::jsonb,
         '{"p": "Elige la sugerencia correcta.", "p_de": "Wähle den richtigen Vorschlag.", "s": {"type": "multiple_choice", "options": ["Let''s call the doctor.", "Let''s calls the doctor.", "Let us to call the doctor."], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Let''s call the doctor.", "Let''s calls the doctor.", "Let us to call the doctor."], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Let''s call the doctor.", "Let''s calls the doctor.", "Let us to call the doctor."], "answer": 0}}'::jsonb,
         '{"p": "Elige la forma correcta después de Let''s.", "p_de": "Wähle die richtige Form nach Let''s.", "s": {"type": "multiple_choice", "options": ["Let''s go home.", "Let''s goes home.", "Let''s to go home."], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Let''s go home.", "Let''s goes home.", "Let''s to go home."], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Let''s go home.", "Let''s goes home.", "Let''s to go home."], "answer": 0}}'::jsonb,
         '{"p": "Elige la sugerencia correcta.", "p_de": "Wähle den richtigen Vorschlag.", "s": {"type": "multiple_choice", "options": ["Let''s try this medicine.", "Let''s tries this medicine.", "Let''s to try this medicine."], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Let''s try this medicine.", "Let''s tries this medicine.", "Let''s to try this medicine."], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Let''s try this medicine.", "Let''s tries this medicine.", "Let''s to try this medicine."], "answer": 0}}'::jsonb,
@@ -103,20 +103,20 @@ DECLARE
         '{"p": "Ordena la sugerencia.", "p_de": "Ordne den Vorschlag.", "s": {"type": "scramble", "chunks": ["Why", "don''t", "you", "ask", "the", "pharmacist?"], "correct_order": [0, 1, 2, 3, 4, 5]}}'::jsonb
     ];
     v_rule4_exercises JSONB[] := ARRAY[
-        '{"p": "Completa la recomendación: You ___ see a doctor.", "p_de": "Ergänze die Empfehlung: You ___ see a doctor.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la recomendación: We ___ rest today.", "p_de": "Ergänze die Empfehlung: We ___ rest today.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la pregunta: ___ we order now?", "p_de": "Ergänze die Frage: ___ we order now?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la recomendación: You ___ drink more water.", "p_de": "Ergänze die Empfehlung: You ___ drink more water.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la pregunta: ___ we go by bus?", "p_de": "Ergänze die Frage: ___ we go by bus?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la recomendación: He ___ stay in bed.", "p_de": "Ergänze die Empfehlung: He ___ stay in bed.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Completa la pregunta: ___ we call the clinic?", "p_de": "Ergänze die Frage: ___ we call the clinic?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
-        '{"p": "Elige la opción correcta: You ___ see a doctor.", "p_de": "Wähle die richtige Option: You ___ see a doctor.", "s": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: ___ we sit here?", "p_de": "Wähle die richtige Option: ___ we sit here?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: He ___ rest today.", "p_de": "Wähle die richtige Option: He ___ rest today.", "s": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: ___ we order the soup?", "p_de": "Wähle die richtige Option: ___ we order the soup?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: You ___ take this medicine after food.", "p_de": "Wähle die richtige Option: You ___ take this medicine after food.", "s": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: ___ we go now?", "p_de": "Wähle die richtige Option: ___ we go now?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}}'::jsonb,
-        '{"p": "Elige la opción correcta: They ___ drink more water.", "p_de": "Wähle die richtige Option: They ___ drink more water.", "s": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}}'::jsonb,
+        '{"p": "You ___ see a doctor.", "p_de": "You ___ see a doctor.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
+        '{"p": "We ___ rest today.", "p_de": "We ___ rest today.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ we order now?", "p_de": "___ we order now?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
+        '{"p": "You ___ drink more water.", "p_de": "You ___ drink more water.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ we go by bus?", "p_de": "___ we go by bus?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
+        '{"p": "He ___ stay in bed.", "p_de": "He ___ stay in bed.", "s": {"type": "typing", "correct_answers": ["should"], "case_sensitive": false}}'::jsonb,
+        '{"p": "___ we call the clinic?", "p_de": "___ we call the clinic?", "s": {"type": "typing", "correct_answers": ["Shall"], "case_sensitive": false}}'::jsonb,
+        '{"p": "You ___ see a doctor.", "p_de": "You ___ see a doctor.", "s": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "are"], "answer": 0}}'::jsonb,
+        '{"p": "___ we sit here?", "p_de": "___ we sit here?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Do"], "answer": 0}}'::jsonb,
+        '{"p": "He ___ rest today.", "p_de": "He ___ rest today.", "s": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "does"], "answer": 0}}'::jsonb,
+        '{"p": "___ we order the soup?", "p_de": "___ we order the soup?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Can"], "answer": 0}}'::jsonb,
+        '{"p": "You ___ take this medicine after food.", "p_de": "You ___ take this medicine after food.", "s": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "have"], "answer": 0}}'::jsonb,
+        '{"p": "___ we go now?", "p_de": "___ we go now?", "s": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Shall", "Should", "Are"], "answer": 0}}'::jsonb,
+        '{"p": "They ___ drink more water.", "p_de": "They ___ drink more water.", "s": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}, "s_es": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["should", "shall", "is"], "answer": 0}}'::jsonb,
         '{"p": "Should sirve para dar una recomendación.", "p_de": "Should dient dazu, eine Empfehlung zu geben.", "s": {"type": "true_false", "answer": true}, "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "Shall we...? puede hacer una propuesta conjunta.", "p_de": "Shall we...? kann einen gemeinsamen Vorschlag machen.", "s": {"type": "true_false", "answer": true}, "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "You shall see a doctor es la recomendación normal en A0.", "p_de": "You shall see a doctor ist die normale Empfehlung auf A0-Niveau.", "s": {"type": "true_false", "answer": false}, "s_es": {"type": "true_false", "answer": false}, "s_de": {"type": "true_false", "answer": false}}'::jsonb,
@@ -145,9 +145,13 @@ BEGIN
     VALUES (v_path_id, 2500, 'en', 'grammar')
     RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Órdenes y Sugerencias', '', to_jsonb($content_es$
+        (
+    v_grammar_id,
+    'es',
+    'Órdenes y Sugerencias',
+    to_jsonb($content_es$
 ## Órdenes y sugerencias
 
 En inglés usamos formas muy cortas para **dar órdenes**, **dar instrucciones** y **hacer sugerencias**.
@@ -198,8 +202,13 @@ Esta estructura hace una sugerencia más suave.
 - **Let''s** = sugerencia conjunta.
 - **Why don''t you / we...?** = sugerencia amable.
 - **Should / Shall** = recomendación o propuesta.
-$content_es$::text)),
-        (v_grammar_id, 'de', 'Befehle und Vorschläge', '', to_jsonb($content_de$
+$content_es$::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Befehle und Vorschläge',
+    to_jsonb($content_de$
 ## Befehle und Vorschläge
 
 Im Englischen verwenden wir sehr kurze Formen, um **Befehle**, **Anweisungen** und **Vorschläge** zu machen.
@@ -250,7 +259,8 @@ Diese Struktur macht einen weicheren Vorschlag.
 - **Let''s** = gemeinsamer Vorschlag.
 - **Why don''t you / we...?** = höflicher Vorschlag.
 - **Should / Shall** = Empfehlung oder Vorschlag.
-$content_de$::text));
+$content_de$::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback) VALUES

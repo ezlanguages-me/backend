@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2120 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2120, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2120,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 CITY LUNCH MENU
 Starter: carrot soup.
 Main courses: grilled chicken with rice, cheese omelette with salad, pasta with tomato sauce.
@@ -41,11 +47,11 @@ Drinks: water, apple juice, tea.
 ORDER NOTE FOR TABLE 6
 One carrot soup, one grilled chicken with rice, one water, and one apple juice.
 No dessert today.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer un pedido escrito del restaurante');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine schriftliche Restaurantbestellung lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Pedido escrito del restaurante');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Restaurantbestellung lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

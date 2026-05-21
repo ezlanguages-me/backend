@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3150 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3150, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    3150,
+    'en',
+    'reading',
+    'transport',
+    $content$
 Border Entry Form
 
 Please use block letters and a blue or black pen. Write one form for each adult traveller. Children can go on the form of one parent.
@@ -42,13 +48,12 @@ Write your family name, first name, date of birth, nationality, and passport num
 Write the address of your first night in the country. Tick yes if you bring food, plants, or more than one litre of alcohol. Tick no if you have nothing to declare.
 
 Sign and date the form at the bottom. Give the form and your passport to the officer at the desk.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee formularios de aduana y frontera', 'Lee instrucciones simples de un formulario de entrada en la frontera y entiende qué datos debes completar.'),
-        (v_reading_id, 'de', 'Lies Formulare für Zoll und Grenzkontrolle', 'Lies einfache Anweisungen zu einem Einreiseformular an der Grenze und verstehe, welche Angaben du ausfüllen musst.');
+        (v_reading_id, 'es', 'Formularios de aduana'), (v_reading_id, 'de', 'Zoll und Grenzkontrolle');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

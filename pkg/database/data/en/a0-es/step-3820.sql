@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3820 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3820 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3820, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3820,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Sara, an event supervisor giving setup instructions
 ## "Prepare Room B"
 
@@ -57,12 +63,11 @@ Accent: Neutral accent.
 [firm] Supervisor: Wear your badge during the job.
 [supportive] Supervisor: If any part is missing, call Sara in maintenance.
 [final] Supervisor: The client arrives at 2 PM.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha requisitos de trabajo', 'Escucha a un supervisor que indica material, sala, hora y normas para preparar un espacio.'),
-            (v_listening_id, 'de', 'Höre Arbeitsanforderungen', 'Höre einem Vorgesetzten zu, der Material, Raum, Zeit und Regeln für die Vorbereitung eines Raums erklärt.');
+            (v_listening_id, 'es', 'Escucha requisitos de trabajo'), (v_listening_id, 'de', 'Höre Arbeitsanforderungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

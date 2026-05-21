@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3190 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3190, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    3190,
+    'en',
+    'reading',
+    'transport',
+    $content$
 Travel Announcements
 
 Train 204 to Lake City: delayed 15 minutes. New departure time 14:25. Platform 6.
@@ -42,13 +48,12 @@ Airport bus A1 to West Airport: on time. Please wait at Stop B.
 Flight AB312 to Berlin: gate 18 is now open. Boarding closes at 09:10.
 
 Train 88 to River Town: cancelled because of staff illness. Use train 90 at 16:40 from Platform 2.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee anuncios de trenes y vuelos', 'Lee varios anuncios cortos de viaje sobre retrasos, puertas y cambios de plataforma.'),
-        (v_reading_id, 'de', 'Lies Ansagen zu Zügen und Flügen', 'Lies mehrere kurze Reiseansagen zu Verspätungen, Gates und Bahnsteigänderungen.');
+        (v_reading_id, 'es', 'Anuncios de trenes y vuelos'), (v_reading_id, 'de', 'Ansagen zu Zügen und Flügen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

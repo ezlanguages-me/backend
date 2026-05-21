@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2440 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2440, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2440,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 QUICK BITE MENU
 Cheeseburger combo: burger, fries, and a soft drink £7.50.
 Chicken nuggets box: 6 nuggets with one sauce £4.20.
@@ -40,11 +46,11 @@ Veggie wrap meal: wrap, salad, and water £6.80.
 
 Extras: large fries £2.50, apple pie £1.90, refill for soft drinks £1.
 Order and pay at the counter.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer un menú de comida rápida');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Fast-Food-Speisekarte lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Speisekarte lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

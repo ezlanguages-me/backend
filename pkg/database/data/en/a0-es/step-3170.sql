@@ -48,13 +48,11 @@ BEGIN
         'dialogue',
         'transport',
         '[{"name": "Officer", "gender": "male", "avatarURL": "https://example.com/avatars/officer.png"}, {"name": "Traveller", "gender": "female", "avatarURL": "https://example.com/avatars/traveller.png"}]'::jsonb
-    )
-    RETURNING uuid INTO v_dialogue_id;
+    )RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Diálogo en aduana o frontera', 'Lee un diálogo simple en un control de aduana con preguntas sobre la bolsa y los objetos declarados.'),
-        (v_dialogue_id, 'de', 'Dialog an Zoll oder Grenze', 'Lies einen einfachen Dialog an der Zollkontrolle mit Fragen zur Tasche und zu angemeldeten Gegenständen.');
+        (v_dialogue_id, 'es', 'Diálogo en aduana o frontera'), (v_dialogue_id, 'de', 'Dialog an Zoll oder Grenze');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

@@ -34,16 +34,21 @@
         );
         DELETE FROM reading WHERE step_order = 3590 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3590, 'en', 'reading', 'accommodation', $content$Apartment 4B, River Street. Monthly rent: £650. Deposit: £650. Pay the rent on the first day of each month by bank transfer.
+        VALUES (
+    v_path_id,
+    3590,
+    'en',
+    'reading',
+    'accommodation',
+    $content$Apartment 4B, River Street. Monthly rent: £650. Deposit: £650. Pay the rent on the first day of each month by bank transfer.
 
 Minimum stay is six months. Water is included in the rent, but electricity and internet are separate. No smoking is allowed inside the flat.
 
-Tenants must check the inventory list on the first day and report any problem within 48 hours. To leave the flat, give 30 days notice in writing.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Tenants must check the inventory list on the first day and report any problem within 48 hours. To leave the flat, give 30 days notice in writing.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un contrato de alquiler sencillo', 'Lee las condiciones básicas de un alquiler: precio, depósito, pagos y normas.'),
-            (v_reading_id, 'de', 'Lies einen einfachen Mietvertrag', 'Lies die Grundbedingungen einer Miete: Preis, Kaution, Zahlungen und Regeln.');
+            (v_reading_id, 'es', 'Contrato de alquiler sencillo'), (v_reading_id, 'de', 'Einen einfachen Mietvertrag');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 3860 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 3860 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3860, 'en', 'dialogue', 'professional', '[{"name": "Buyer", "gender": "female", "avatarURL": "https://example.com/avatars/buyer.png"}, {"name": "Supplier", "gender": "male", "avatarURL": "https://example.com/avatars/supplier.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 3860, 'en', 'dialogue', 'professional', '[{"name": "Buyer", "gender": "female", "avatarURL": "https://example.com/avatars/buyer.png"}, {"name": "Supplier", "gender": "male", "avatarURL": "https://example.com/avatars/supplier.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Aclara un pedido', 'Practica una conversación corta para confirmar cantidad, formato y lugar de entrega.'),
-        (v_dialogue_id, 'de', 'Klär eine Bestellung', 'Übe ein kurzes Gespräch, um Menge, Format und Lieferort zu bestätigen.');
+        (v_dialogue_id, 'es', 'Aclara un pedido'), (v_dialogue_id, 'de', 'Klär eine Bestellung');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

@@ -39,11 +39,10 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2260 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2260, 'en', 'dialogue', 'Restauración', '[{"name": "Guest", "gender": "male", "avatarURL": "https://example.com/avatars/guest-m.png"}, {"name": "Waiter", "gender": "male", "avatarURL": "https://example.com/avatars/waiter.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2260, 'en', 'dialogue', 'dining', '[{"name": "Guest", "gender": "male", "avatarURL": "https://example.com/avatars/guest-m.png"}, {"name": "Waiter", "gender": "male", "avatarURL": "https://example.com/avatars/waiter.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) VALUES (v_dialogue_id, 'es', 'Quejarse por un pedido incorrecto y por la cuenta', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) VALUES (v_dialogue_id, 'de', 'Sich über eine falsche Bestellung und die Rechnung beschweren', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Incorrecto y por la cuenta');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Bestellung und die Rechnung');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

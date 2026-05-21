@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4140 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4140 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4140, 'en', 'reading', 'professional', $content$CleanPro Equipment Catalogue – Spring Edition
+        VALUES (
+    v_path_id,
+    4140,
+    'en',
+    'reading',
+    'professional',
+    $content$CleanPro Equipment Catalogue – Spring Edition
 
 Industrial Vacuum Cleaners:
 • Model Basic – £149 – 20L tank – Suitable for small offices
@@ -42,12 +48,11 @@ All products include a 2-year warranty. Replacement parts can be ordered online 
 
 Free installation is available on orders over £500.
 
-See our FAQ section on the last page for common questions.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+See our FAQ section on the last page for common questions.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un catálogo de productos', 'Lee un catálogo de equipos de limpieza con modelos, precios, garantía y condiciones de pedido.'),
-            (v_reading_id, 'de', 'Lies einen Produktkatalog', 'Lies einen Reinigungsgerätekatalog mit Modellen, Preisen, Garantie und Bestellbedingungen.');
+            (v_reading_id, 'es', 'Lee un catálogo de productos'), (v_reading_id, 'de', 'Lies einen Produktkatalog');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5150 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5150, 'en', 'reading', 'academic', 'Detailed text: A campus report shows that laboratory buildings use the most water because they need special cleaning and equipment. The report also says that older toilets in two classroom buildings waste large amounts of water every week.
+    VALUES (
+    v_path_id,
+    5150,
+    'en',
+    'reading',
+    'academic',
+    'Detailed text: A campus report shows that laboratory buildings use the most water because they need special cleaning and equipment. The report also says that older toilets in two classroom buildings waste large amounts of water every week.
 
 Last year, motion sensors in one science building reduced water use by twelve percent. The gardens near the sports center now use recycled water from a storage system. Water use is highest in summer because the cooling systems work longer.
 
-The report recommends weekly water summaries for each building so that staff and students can see where problems begin.')
-    RETURNING uuid INTO v_reading_id;
+The report recommends weekly water summaries for each building so that staff and students can see where problems begin.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Texto académico sobre uso del agua en el campus', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Akademischer Text über Wasserverbrauch auf dem Campus', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Académico sobre uso del agua');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Wasserverbrauch auf dem Campus');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

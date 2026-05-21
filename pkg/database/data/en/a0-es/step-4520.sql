@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4520, 'en', 'reading', 'professional', $content$Dear Tenant,
+        VALUES (
+    v_path_id,
+    4520,
+    'en',
+    'reading',
+    'professional',
+    $content$Dear Tenant,
 
 Citywide Properties writes to inform you that the current lease for Unit 12, 44 Brook Street, will expire on 31 March. We are pleased to offer a renewal on revised terms. Under the new agreement, the annual rent will be £18,000, representing an increase of 5% on the current amount. The renewed lease will run for a period of 3 years from the commencement date.
 
@@ -54,13 +60,12 @@ If you require clarification, please contact our legal team at legal@citywidepro
 
 Yours faithfully,
 Lease Administration
-Citywide Properties$content$)
-        RETURNING uuid INTO v_reading_id;
+Citywide Properties$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una notificación legal de arrendamiento', 'Lee una notificación de renovación de arrendamiento con condiciones, plazo y consecuencias.'),
-            (v_reading_id, 'de', 'Lies eine rechtliche Mietmitteilung', 'Lies eine Mitteilung zur Mietvertragsverlängerung mit Bedingungen, Frist und Folgen.');
+            (v_reading_id, 'es', 'Legal de arrendamiento'), (v_reading_id, 'de', 'Eine rechtliche Mietmitteilung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

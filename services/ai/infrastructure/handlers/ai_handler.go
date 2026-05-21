@@ -37,6 +37,7 @@ type evaluateRequest struct {
 	TargetLanguage string   `json:"targetLanguage"`
 	Scenario       string   `json:"scenario"`
 	Tasks          []string `json:"tasks"`
+	UserLevel      string   `json:"userLevel"`
 }
 
 func (h *AIHandler) Evaluate(ctx *fiber.Ctx) error {
@@ -110,6 +111,7 @@ func (h *AIHandler) Evaluate(ctx *fiber.Ctx) error {
 			TargetLanguage: req.TargetLanguage,
 			Scenario:       req.Scenario,
 			Tasks:          req.Tasks,
+			UserLevel:      req.UserLevel,
 		})
 		if err != nil {
 			// Best-effort refund. We log refund failures but still surface
@@ -132,6 +134,7 @@ func (h *AIHandler) Evaluate(ctx *fiber.Ctx) error {
 		TargetLanguage: req.TargetLanguage,
 		Scenario:       req.Scenario,
 		Tasks:          req.Tasks,
+		UserLevel:      req.UserLevel,
 	})
 	if err != nil {
 		return server.NewErrResponse(ctx, server.ErrorResponse{

@@ -32,15 +32,21 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1920 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1920, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    1920,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 CITY BURGER MENU
 Cheeseburger meal £6.50: burger, fries, small drink. Chicken wrap meal £6.00: wrap, fries, small drink.
 
 Add cheese 50p. Add bacon £1. Kids box £4.20 with nuggets, apple slices, and water.
 
 Order at the counter. Please say size: small, medium, or large.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Menú de comida rápida');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Fast-Food-Menü');

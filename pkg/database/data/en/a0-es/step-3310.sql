@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3310 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3310, 'en', 'reading', 'emergency', $content$
+    VALUES (
+    v_path_id,
+    3310,
+    'en',
+    'reading',
+    'emergency',
+    $content$
 Dr Patel Emergency Instructions. Take one pain tablet every six hours with water. Do not drive today.
 
 Call 112 at once if you have chest pain, trouble breathing, or heavy bleeding. If you get a high fever, call the clinic emergency number 020 4550 7000.
@@ -54,13 +60,12 @@ Call 112 at once if you have chest pain, trouble breathing, or heavy bleeding. I
 Keep the bandage clean and dry. Change it tomorrow morning. Do not lift heavy bags for two days.
 
 If you feel dizzy, sit down and ask another adult to stay with you. The emergency desk is at City Clinic, Entrance C, open all night.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee las instrucciones de urgencia de un médico', 'Lee una tarjeta médica con medicación, señales de alarma y datos de una clínica de urgencias.'),
-        (v_reading_id, 'de', 'Lies die Notfallanweisungen eines Arztes', 'Lies eine ärztliche Karte mit Medikamenten, Warnzeichen und Daten einer Notfallklinik.');
+        (v_reading_id, 'es', 'Instrucciones de urgencia'), (v_reading_id, 'de', 'Notfallanweisungen eines');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

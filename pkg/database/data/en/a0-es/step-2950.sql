@@ -32,20 +32,25 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2950 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2950, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    2950,
+    'en',
+    'reading',
+    'transport',
+    $content$
 North Street Station.
 Morning trains to Greenhill.
 The first train is at 07:15 from platform 1. It is a local train and stops at Mill Road and East Park. The fast train is at 07:40 from platform 3. It arrives in Greenhill at 08:20.
 
 Another local train leaves at 08:05 from platform 1. Today this train is ten minutes late. The ticket office opens at 06:45, and the information desk closes at 09:00. If you need the last morning train, it leaves at 08:50 from platform 2.
 
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee horarios de trenes de la mañana', 'Lee un cartel sencillo con salidas, andenes y retrasos de la mañana.'),
-        (v_reading_id, 'de', 'Lies morgendliche Zugzeiten', 'Lies einen einfachen Aushang mit Abfahrten, Bahnsteigen und Verspätungen am Morgen.');
+        (v_reading_id, 'es', 'Trenes de la mañana'), (v_reading_id, 'de', 'Lies morgendliche Zugzeiten');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

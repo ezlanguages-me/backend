@@ -32,17 +32,22 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7690 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7690, 'en', 'reading', 'meetings', 'Conference Paper Abstract
+    VALUES (
+    v_path_id,
+    7690,
+    'en',
+    'reading',
+    'meetings',
+    'Conference Paper Abstract
 Title: Color Signs for Quiet Study Rooms
 Authors: Lena Ortiz and Malik Reed
 Event: City Learning Conference\n\nAbstract:
-This paper describes a simple system for quiet study rooms in a college library. The team used three door signs: green for open, yellow for busy, and red for full. They tested the signs for one week in three rooms. The paper reports that 40 students used the rooms during the test. Most students found a free room faster because they looked at the color before they opened the door. Library staff also answered fewer questions at the desk. The paper concludes that small visual signs can improve student flow in a busy study area.\n\nKeywords: library, study rooms, signs, students')
-    RETURNING uuid INTO v_reading_id;
+This paper describes a simple system for quiet study rooms in a college library. The team used three door signs: green for open, yellow for busy, and red for full. They tested the signs for one week in three rooms. The paper reports that 40 students used the rooms during the test. Most students found a free room faster because they looked at the color before they opened the door. Library staff also answered fewer questions at the desk. The paper concludes that small visual signs can improve student flow in a busy study area.\n\nKeywords: library, study rooms, signs, students'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Leer el resumen de una ponencia de conferencia', 'Lee el resumen breve de una ponencia sobre señales de color para salas de estudio silenciosas.'),
-        (v_reading_id, 'de', 'Lies das Abstract eines Konferenzvortrags', 'Lies ein kurzes Abstract über Farbschilder für ruhige Lernräume.');
+        (v_reading_id, 'es', 'Resumen de una ponencia'), (v_reading_id, 'de', 'Eines Konferenzvortrags');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3480 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3480, 'en', 'dialogue', 'nature', $json$[{"name": "Eva", "gender": "female", "avatarURL": "https://example.com/avatars/eva.png"}, {"name": "Mark", "gender": "male", "avatarURL": "https://example.com/avatars/mark.png"}]$json$::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3480, 'en', 'dialogue', 'nature', $json$[{"name": "Eva", "gender": "female", "avatarURL": "https://example.com/avatars/eva.png"}, {"name": "Mark", "gender": "male", "avatarURL": "https://example.com/avatars/mark.png"}]$json$::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Hablar de lo básico del cambio climático', 'Lee un diálogo simple sobre veranos más calurosos, menos lluvia y acciones posibles.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Lo básico del cambio climático');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Über die Grundlagen des Klimawandels sprechen', 'Lies einen einfachen Dialog über heißere Sommer, weniger Regen und mögliche Handlungen.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Grundlagen des Klimawandels');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

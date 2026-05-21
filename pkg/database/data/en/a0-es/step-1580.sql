@@ -32,7 +32,13 @@
         DELETE FROM reading WHERE step_order = 1580 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1580, 'en', 'reading', 'banking', 'ATM SCREEN MESSAGES
+        VALUES (
+    v_path_id,
+    1580,
+    'en',
+    'reading',
+    'banking',
+    'ATM SCREEN MESSAGES
 
 Welcome. Please insert your card.
 Select language.
@@ -43,14 +49,14 @@ Processing, please wait.
 Insufficient funds.
 Take your cash.
 Would you like a receipt?
-Do not forget your card.')
-        RETURNING uuid INTO v_reading_id;
+Do not forget your card.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Mensajes de un cajero automático', 'Lee mensajes reales y frecuentes de un cajero automático.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Mensajes de un cajero');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Meldungen am Geldautomaten', 'Lies echte und häufige Meldungen eines Geldautomaten.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Meldungen am Geldautomaten');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

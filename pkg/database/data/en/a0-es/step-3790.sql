@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3790 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3790 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3790, 'en', 'reading', 'tourism', $content$River Hall Concert Program. Doors open at 7 PM. The show starts at 8 PM. Your seat is Section B, Row 12, Seat 6.
+        VALUES (
+    v_path_id,
+    3790,
+    'en',
+    'reading',
+    'tourism',
+    $content$River Hall Concert Program. Doors open at 7 PM. The show starts at 8 PM. Your seat is Section B, Row 12, Seat 6.
 
 There is a 20-minute interval after the first part. Large bags are not allowed. The merchandise desk is on the first floor.
 
-After the concert, the last tram leaves at 11:15 PM.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+After the concert, the last tram leaves at 11:15 PM.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee el programa de un concierto o espectáculo', 'Lee un programa con puertas, inicio, asientos, pausa y transporte de regreso.'),
-            (v_reading_id, 'de', 'Lies das Programm eines Konzerts oder einer Show', 'Lies ein Programm mit Einlass, Beginn, Sitzplätzen, Pause und Rückfahrt.');
+            (v_reading_id, 'es', 'Programa de un concierto'), (v_reading_id, 'de', 'Eines Konzerts oder einer Show');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

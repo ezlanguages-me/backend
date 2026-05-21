@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4570, 'en', 'reading', 'professional', $content$Monthly Sales Summary – October
+        VALUES (
+    v_path_id,
+    4570,
+    'en',
+    'reading',
+    'professional',
+    $content$Monthly Sales Summary – October
 
 October was a positive month for the sales team. Total sales reached £45,000, supported by strong regional performance and steady online demand. Our best-selling product was the ergonomic chair range, with 120 units sold during the month. The North region generated £20,000 in sales, while the South region performed even better with £25,000.
 
 Online orders increased by 15% compared with September, which suggests that the recent website campaign is working well. The team also signed up three new corporate clients, creating promising opportunities for repeat business in the coming quarter. One existing client cancelled a subscription worth £2,000, which slightly reduced the final result.
 
-The sales target for November has been set at £50,000. Managers will review progress weekly to keep the team on track.$content$)
-        RETURNING uuid INTO v_reading_id;
+The sales target for November has been set at £50,000. Managers will review progress weekly to keep the team on track.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un resumen de ventas mensual', 'Lee un resumen mensual de ventas con cifras, clientes y objetivos.'),
-            (v_reading_id, 'de', 'Lies einen monatlichen Verkaufsbericht', 'Lies eine monatliche Verkaufsübersicht mit Zahlen, Kunden und Zielen.');
+            (v_reading_id, 'es', 'Un resumen de ventas mensual'), (v_reading_id, 'de', 'Monatlichen Verkaufsbericht');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

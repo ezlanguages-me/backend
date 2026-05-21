@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2550 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2550, 'en', 'dialogue', 'health', '[{"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}, {"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2550, 'en', 'dialogue', 'health', '[{"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}, {"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pide una cita médica cara a cara', 'Sigue un diálogo breve entre una paciente y la recepción para pedir una cita médica.'),
-        (v_dialogue_id, 'de', 'Einen Arzttermin persönlich vereinbaren', 'Verfolge einen kurzen Dialog zwischen einer Patientin und der Rezeption, um einen Arzttermin zu vereinbaren.');
+        (v_dialogue_id, 'es', 'Pide una cita médica cara'), (v_dialogue_id, 'de', 'Persönlich vereinbaren');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

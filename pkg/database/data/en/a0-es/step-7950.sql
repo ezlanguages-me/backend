@@ -32,18 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7950 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7950, 'en', 'reading', 'meetings', 'Guide: Common Question Types After a Short Talk\n\nTime questions: When does it start? How long is it?
+    VALUES (
+    v_path_id,
+    7950,
+    'en',
+    'reading',
+    'meetings',
+    'Guide: Common Question Types After a Short Talk\n\nTime questions: When does it start? How long is it?
 Place questions: Where is the room? Where are the handouts?
 People questions: Who is the speaker? Who is the audience?
 Purpose questions: Why is this useful? Why now?
 Detail questions: How many slides? What is the next step?
-Short answers help: Monday at 10, Room B, five slides, students, and send notes tomorrow.')
-    RETURNING uuid INTO v_reading_id;
+Short answers help: Monday at 10, Room B, five slides, students, and send notes tomorrow.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee tipos comunes de preguntas', 'Lee una guía breve sobre tipos de preguntas habituales después de una presentación corta.'),
-        (v_reading_id, 'de', 'Lies häufige Fragetypen', 'Lies einen kurzen Leitfaden zu typischen Fragetypen nach einer kurzen Präsentation.');
+        (v_reading_id, 'es', 'Tipos comunes de preguntas'), (v_reading_id, 'de', 'Häufige Fragetypen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3890 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3890 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3890, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3890,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Nina, a sales representative explaining a printer
 ## "PrintMax 200"
 
@@ -57,12 +63,11 @@ Accent: Neutral accent.
 [technical] Sales rep: It uses standard 220-volt power.
 [reassuring] Sales rep: The warranty is for two years.
 [final] Sales rep: A starter toner comes in the box.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha especificaciones de producto', 'Escucha una explicación breve sobre velocidad, capacidad, conexiones y garantía de una impresora.'),
-            (v_listening_id, 'de', 'Höre Produktspezifikationen', 'Höre eine kurze Erklärung zu Geschwindigkeit, Kapazität, Anschlüssen und Garantie eines Druckers.');
+            (v_listening_id, 'es', 'Especificaciones de producto'), (v_listening_id, 'de', 'Höre Produktspezifikationen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

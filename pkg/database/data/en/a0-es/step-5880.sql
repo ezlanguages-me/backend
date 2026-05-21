@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5880 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5880, 'en', 'reading', 'Gestión del Estudio y Trámites', $reading$
+    VALUES (
+    v_path_id,
+    5880,
+    'en',
+    'reading',
+    'academic',
+    $reading$
 Student Handbook Section 4: Attendance, deadlines, and support.
 
 You must attend at least 80% of your classes. If you miss a class, email your tutor on the same day.
@@ -42,13 +48,12 @@ Coursework deadlines are shown on the course page. If you need more time, ask fo
 If you are ill, bring a note from a doctor or email the student office.
 
 For extra help, visit the study support room on the first floor or book a short meeting with your tutor during office hours.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee la sección del manual del estudiante', 'Lee un apartado del manual con asistencia, plazos y apoyo académico.'),
-        (v_reading_id, 'de', 'Lies den Abschnitt im Studierendenhandbuch', 'Lies einen Abschnitt des Handbuchs zu Anwesenheit, Fristen und akademischer Unterstützung.');
+        (v_reading_id, 'es', 'Manual del estudiante'), (v_reading_id, 'de', 'Studierendenhandbuch');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

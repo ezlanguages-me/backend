@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2910 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2910, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    2910,
+    'en',
+    'reading',
+    'transport',
+    $content$
 Central Station Travel Centre.
 Buy your ticket before you go to platform 4. The ticket machines are near the main entrance. Press English on the screen first. Then choose your destination and choose a single ticket or a return ticket.
 
@@ -40,13 +46,12 @@ Today many visitors travel to River Town for the market. A single ticket to Rive
 
 Keep your ticket in your hand or bag. A conductor checks tickets on the train. If you need help, the ticket office opens at 8:00 AM.
 
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee cómo comprar un billete en una máquina', 'Lee un aviso sencillo de estación sobre billetes, precios y formas de pago.'),
-        (v_reading_id, 'de', 'Lies, wie man eine Fahrkarte am Automaten kauft', 'Lies einen einfachen Bahnhofshinweis zu Fahrkarten, Preisen und Bezahlung.');
+        (v_reading_id, 'es', 'Billete en una máquina'), (v_reading_id, 'de', 'Fahrkarte am Automaten kauft');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -32,13 +32,11 @@
             DELETE FROM reading WHERE step_order = 7250 AND path_uuid = v_path_id;
 
             INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-            VALUES (v_path_id, 7250, 'en', 'reading', 'communication', 'Email Tips for Friends and Family\n\nUse a clear subject line, like Weekend Visit or Photos from Sunday. Begin with a greeting, for example Hi Marta or Dear Uncle Luis.\n\nKeep your message short and friendly. Put your main news in the first lines. If you ask questions, make them easy to answer. Use paragraphs if the email is longer.\n\nDo not write in ALL CAPITAL LETTERS because it can look angry. Check names, dates, and attachments before you send the email. If you promise photos or a document, make sure the file is there.\n\nFinish with a polite closing such as Best wishes, Love, or See you soon. Try to reply within two days when the message is personal and important.')
-            RETURNING uuid INTO v_reading_id;
+            VALUES (v_path_id, 7250, 'en', 'reading', 'communication', 'Email Tips for Friends and Family\n\nUse a clear subject line, like Weekend Visit or Photos from Sunday. Begin with a greeting, for example Hi Marta or Dear Uncle Luis.\n\nKeep your message short and friendly. Put your main news in the first lines. If you ask questions, make them easy to answer. Use paragraphs if the email is longer.\n\nDo not write in ALL CAPITAL LETTERS because it can look angry. Check names, dates, and attachments before you send the email. If you promise photos or a document, make sure the file is there.\n\nFinish with a polite closing such as Best wishes, Love, or See you soon. Try to reply within two days when the message is personal and important.')RETURNING uuid INTO v_reading_id;
 
-            INSERT INTO reading_translation (reading_uuid, language, title, description)
+            INSERT INTO reading_translation (reading_uuid, language, title)
             VALUES
-                (v_reading_id, 'es', 'Lee consejos sobre la etiqueta del correo electrónico', 'Lee recomendaciones sencillas para escribir correos personales claros, amables y educados.'),
-                (v_reading_id, 'de', 'Lies Tipps zur E-Mail-Etikette', 'Lies einfache Hinweise, wie man klare, freundliche und höfliche persönliche E-Mails schreibt.');
+                (v_reading_id, 'es', 'Consejos sobre la etiqueta'), (v_reading_id, 'de', 'Lies Tipps zur E-Mail-Etikette');
 
             FOREACH ex IN ARRAY v_exercises LOOP
                 INSERT INTO exercise (target_uuid, grammar_rule_uuid)

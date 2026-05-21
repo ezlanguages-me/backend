@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1890 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1890, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1890,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 ORANGE JUICE CONCENTRATE
 Shake well before use. Keep in the fridge after opening. Use within 3 days of opening.
 
@@ -41,10 +47,10 @@ Boil in water for 10 minutes. Do not open the bag before cooking.
 
 FACE CREAM
 Store in a cool, dry place. Keep away from children.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Instrucciones simples de envases');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Instrucciones simples');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Einfache Packungsanweisungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP

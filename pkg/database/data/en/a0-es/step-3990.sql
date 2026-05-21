@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3990 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3990 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3990, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3990,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Felix, an account manager explaining service terms
 ## "Support and Booking Terms"
 
@@ -56,12 +62,11 @@ Accent: Neutral accent.
 [specific] Manager: Replacement parts are charged separately.
 [helpful] Manager: You can book normal visits online or by phone.
 [final] Manager: Emergency visits usually start within two hours on weekdays.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha la explicación de condiciones de servicio', 'Escucha una explicación con horario de soporte, recargo, cancelación y facturación.'),
-            (v_listening_id, 'de', 'Höre eine Erklärung der Servicebedingungen', 'Höre eine Erklärung mit Supportzeiten, Zuschlag, Stornierung und Rechnungsstellung.');
+            (v_listening_id, 'es', 'Explicación de condiciones'), (v_listening_id, 'de', 'Servicebedingungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

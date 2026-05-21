@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2770 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2770, 'en', 'reading', 'health', 'Riverside Health Centre Services
+    VALUES (
+    v_path_id,
+    2770,
+    'en',
+    'reading',
+    'health',
+    'Riverside Health Centre Services
 
 GP appointments are available from Monday to Friday. The nurse clinic offers vaccines, blood pressure checks, and wound care. Urgent care is for strong pain, fever, or breathing problems.
 
 An interpreter service is free if you book it first. Bring ID, your address, and your health card when you register.
 
-Children under 16 can use the nurse clinic with a parent or guardian.')
-    RETURNING uuid INTO v_reading_id;
+Children under 16 can use the nurse clinic with a parent or guardian.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee información sobre servicios de salud', 'Lee un folleto corto sobre servicios, derechos y registro en un centro de salud.'),
-        (v_reading_id, 'de', 'Lies Informationen über Gesundheitsdienste', 'Lies ein kurzes Faltblatt über Dienste, Ansprüche und Anmeldung in einem Gesundheitszentrum.');
+        (v_reading_id, 'es', 'Servicios de salud'), (v_reading_id, 'de', 'Gesundheitsdienste');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5660 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5660, 'en', 'reading', 'academic', 'A bilingual dictionary helps you connect an unfamiliar concrete word with a first language equivalent. Start with the headword, which is the main form listed in alphabetical order. Then notice the part of speech, such as noun, verb, or adjective, because one word can have more than one function.
+    VALUES (
+    v_path_id,
+    5660,
+    'en',
+    'reading',
+    'academic',
+    'A bilingual dictionary helps you connect an unfamiliar concrete word with a first language equivalent. Start with the headword, which is the main form listed in alphabetical order. Then notice the part of speech, such as noun, verb, or adjective, because one word can have more than one function.
 
 Dictionary entries also include translation options, example sentences, and sometimes labels such as formal, informal, or technical. Example sentences show how the word works in context and can prevent a wrong choice. A concrete word like bank can mean a place for money or the side of a river.
 
-To choose the right translation, check the sentence you are reading and ask what object, action, or situation is meant. Compare the example sentences with your text before selecting the first language equivalent. The best translation is the one that fits the context, not always the first one in the list.')
-    RETURNING uuid INTO v_reading_id;
+To choose the right translation, check the sentence you are reading and ask what object, action, or situation is meant. Compare the example sentences with your text before selecting the first language equivalent. The best translation is the one that fits the context, not always the first one in the list.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Usar un diccionario bilingüe para palabras concretas', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Ein zweisprachiges Wörterbuch für konkrete Wörter nutzen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Usar un diccionario bilingüe');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Wörterbuch für konkrete Wörter');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

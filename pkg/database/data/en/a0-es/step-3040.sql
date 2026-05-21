@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3040 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3040, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    3040,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Nina, a rental agent on the phone
 ## "A Small Car for Sunday"
 
@@ -62,13 +68,12 @@ The recording focuses on day rate, office location, return time, and one optiona
 [question] Customer: Can I return it in the evening?
 [clear] Agent: Yes, please bring it back by seven p.m. A child seat is five pounds extra.
 [confirming] Customer: Fine. I will bring my driving licence and card.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una llamada para reservar un coche de alquiler', 'Escucha una llamada sencilla con tipo de coche, precio por día, recogida, devolución y un extra.'),
-        (v_listening_id, 'de', 'Höre ein Telefongespräch zur Buchung eines Mietwagens', 'Höre ein einfaches Telefongespräch mit Fahrzeugtyp, Tagespreis, Abholung, Rückgabe und einer Zusatzoption.');
+        (v_listening_id, 'es', 'Llamada para reservar un coche'), (v_listening_id, 'de', 'Telefongespräch zur Buchung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

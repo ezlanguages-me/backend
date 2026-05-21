@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4730, 'en', 'reading', 'professional', $content$FORKLIFT SAFETY INSTRUCTIONS – WAREHOUSE STAFF
+        VALUES (
+    v_path_id,
+    4730,
+    'en',
+    'reading',
+    'professional',
+    $content$FORKLIFT SAFETY INSTRUCTIONS – WAREHOUSE STAFF
 
 Only authorised and trained operators may drive the forklift. Before use, operators must wear a high-visibility vest and safety boots, and they must check the brakes, horn, lights and tyres. Loads must stay below the maximum capacity of 2,000 kg. Speed must be reduced on wet or uneven surfaces, and the vehicle must never exceed 8 km/h in pedestrian areas.
 
 Forklifts must never carry passengers. Operators must also avoid using a forklift near open loading bays unless a banksman is present. If the forklift has any fault, it must not be used under any circumstances. The driver must park it in the designated bay and report the issue to the site supervisor immediately.
 
-Failure to follow these instructions may result in serious injury or dismissal.$content$)
-        RETURNING uuid INTO v_reading_id;
+Failure to follow these instructions may result in serious injury or dismissal.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee las instrucciones de seguridad para carretillas elevadoras', 'Lee instrucciones detalladas con advertencias, límites y condiciones para conducir una carretilla.'),
-            (v_reading_id, 'de', 'Lies die Gabelstaplersicherheitsanweisungen', 'Lies detaillierte Anweisungen mit Warnungen, Grenzen und Bedingungen für das Fahren eines Gabelstaplers.');
+            (v_reading_id, 'es', 'Instrucciones de seguridad'), (v_reading_id, 'de', 'Die');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

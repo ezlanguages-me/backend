@@ -6,16 +6,16 @@ DO $seed$
 DECLARE
     v_path_id UUID; v_dialogue_id UUID; v_ex_id UUID; ex JSONB;
     v_exercises JSONB[] := ARRAY[
-        '{"p": "Según el material, marca verdadero o falso: The dialogue is about a personal email.", "p_de": "Laut dem Material, markiere wahr oder falsch: The dialogue is about a personal email.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el material, marca verdadero o falso: The speakers meet at 05:00 in the morning.", "p_de": "Laut dem Material, markiere wahr oder falsch: The speakers meet at 05:00 in the morning.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Según el material, marca verdadero o falso: The first speaker asks about the email message.", "p_de": "Laut dem Material, markiere wahr oder falsch: The first speaker asks about the email message.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el material, marca verdadero o falso: The second speaker says they talk about the next visit.", "p_de": "Laut dem Material, markiere wahr oder falsch: The second speaker says they talk about the next visit.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el material, marca verdadero o falso: At the end, both speakers are still confused.", "p_de": "Laut dem Material, markiere wahr oder falsch: At the end, both speakers are still confused.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Según el material, elige la respuesta correcta: Who gives the main information?", "p_de": "Laut dem Material, wähle die richtige Antwort: Who gives the main information?", "s": {"type": "multiple_choice", "options": ["Ana", "a pilot", "a football player"], "answer": 0}}'::jsonb,
-        '{"p": "Según el material, elige la respuesta correcta: What time is mentioned?", "p_de": "Laut dem Material, wähle die richtige Antwort: What time is mentioned?", "s": {"type": "multiple_choice", "options": ["18:30", "05:00", "23:50"], "answer": 0}}'::jsonb,
-        '{"p": "Según el material, elige la respuesta correcta: Which place is mentioned?", "p_de": "Laut dem Material, wähle die richtige Antwort: Which place is mentioned?", "s": {"type": "multiple_choice", "options": ["Ana''s house", "the airport tunnel", "the desert farm"], "answer": 0}}'::jsonb,
-        '{"p": "Según el material, elige la respuesta correcta: What is the main purpose of the dialogue?", "p_de": "Laut dem Material, wähle die richtige Antwort: What is the main purpose of the dialogue?", "s": {"type": "multiple_choice", "options": ["the email message", "buy a tractor", "find a lost camel"], "answer": 0}}'::jsonb,
-        '{"p": "Según el material, elige la respuesta correcta: How does the dialogue end?", "p_de": "Laut dem Material, wähle die richtige Antwort: How does the dialogue end?", "s": {"type": "multiple_choice", "options": ["with the email understood", "with a big argument", "with no clear plan"], "answer": 0}}'::jsonb
+        '{"p": "The dialogue is about a personal email.", "p_de": "The dialogue is about a personal email.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The speakers meet at 05:00 in the morning.", "p_de": "The speakers meet at 05:00 in the morning.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+        '{"p": "The first speaker asks about the email message.", "p_de": "The first speaker asks about the email message.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The second speaker says they talk about the next visit.", "p_de": "The second speaker says they talk about the next visit.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "At the end, both speakers are still confused.", "p_de": "At the end, both speakers are still confused.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+        '{"p": "Who gives the main information?", "p_de": "Who gives the main information?", "s": {"type": "multiple_choice", "options": ["Ana", "a pilot", "a football player"], "answer": 0}}'::jsonb,
+        '{"p": "What time is mentioned?", "p_de": "What time is mentioned?", "s": {"type": "multiple_choice", "options": ["18:30", "05:00", "23:50"], "answer": 0}}'::jsonb,
+        '{"p": "Which place is mentioned?", "p_de": "Which place is mentioned?", "s": {"type": "multiple_choice", "options": ["Ana''s house", "the airport tunnel", "the desert farm"], "answer": 0}}'::jsonb,
+        '{"p": "What is the main purpose of the dialogue?", "p_de": "What is the main purpose of the dialogue?", "s": {"type": "multiple_choice", "options": ["the email message", "buy a tractor", "find a lost camel"], "answer": 0}}'::jsonb,
+        '{"p": "How does the dialogue end?", "p_de": "How does the dialogue end?", "s": {"type": "multiple_choice", "options": ["with the email understood", "with a big argument", "with no clear plan"], "answer": 0}}'::jsonb
     ];
 BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -27,11 +27,10 @@ BEGIN
     DELETE FROM dialogue WHERE step_order=7130 AND path_uuid=v_path_id;
     DELETE FROM speaking WHERE step_order=7130 AND path_uuid=v_path_id;
     DELETE FROM writing WHERE step_order=7130 AND path_uuid=v_path_id;
-    INSERT INTO dialogue (path_uuid,step_order,source_language,type,category,characters)
-    VALUES (v_path_id,7130,'en','dialogue','phone_correspondence','[{"name":"Ana","gender":"female","avatarURL":"https://example.com/avatars/ana.png"},{"name":"Leo","gender":"male","avatarURL":"https://example.com/avatars/leo.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'es','Hablar sobre un correo personal','Lee el diálogo y responde.');
-    INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'de','Über eine persönliche E-Mail sprechen','Lies den Dialog und antworte.');
+    INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+    VALUES (v_path_id, 7130, 'en', 'dialogue', 'phone_correspondence', '[{"name":"Ana","gender":"female","avatarURL":"https://example.com/avatars/ana.png"},{"name":"Leo","gender":"male","avatarURL":"https://example.com/avatars/leo.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Un correo personal');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Über eine persönliche E');
     INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
     VALUES
         (v_dialogue_id, 0, 'Ana', 'Hi. Shall we meet at Ana''s house at 18:30?'),

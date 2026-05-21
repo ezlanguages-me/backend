@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 7970 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 7970, 'en', 'dialogue', 'meetings', '[{"name": "Attendee", "gender": "female", "avatarURL": "https://example.com/avatars/attendee.png"}, {"name": "Presenter", "gender": "male", "avatarURL": "https://example.com/avatars/presenter.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 7970, 'en', 'dialogue', 'meetings', '[{"name": "Attendee", "gender": "female", "avatarURL": "https://example.com/avatars/attendee.png"}, {"name": "Presenter", "gender": "male", "avatarURL": "https://example.com/avatars/presenter.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Practica un intercambio previsible de preguntas y respuestas', 'Lee una breve ronda de preguntas entre una asistente y una presentadora después de una charla.'),
-        (v_dialogue_id, 'de', 'Übe einen vorhersehbaren Frage-Antwort-Austausch', 'Lies eine kurze Fragerunde zwischen einer Teilnehmerin und einer Präsentierenden nach einem Vortrag.');
+        (v_dialogue_id, 'es', 'Practica un intercambio'), (v_dialogue_id, 'de', 'Übe einen vorhersehbaren Frage');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

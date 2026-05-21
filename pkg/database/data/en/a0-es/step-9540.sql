@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9540,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Like vs As', 'Diferencias entre like para semejanza, as para función, comparaciones irreales y expresiones fijas frecuentes.', to_jsonb('# Like vs As
+        (
+    v_grammar_id,
+    'es',
+    'Like vs As',
+    to_jsonb('# Like vs As
 
 **Like** y **as** pueden traducirse ambos como "como", pero tienen usos muy diferentes.
 
@@ -56,8 +60,13 @@ BEGIN
 - **as expected** = como se esperaba
 - **just like** = exactamente igual que
 
-"Everything went **as** planned." (no: like planned)'::text)),
-        (v_grammar_id, 'de', 'Like vs As', 'Unterschiede zwischen like für Ähnlichkeit, as für Funktion, irrealen Vergleichen und festen Wendungen.', to_jsonb('# Like vs As
+"Everything went **as** planned." (no: like planned)'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Like vs As',
+    to_jsonb('# Like vs As
 
 **Like** und **as** können beide mit „wie“ übersetzt werden, aber sie werden sehr unterschiedlich verwendet.
 
@@ -91,7 +100,8 @@ BEGIN
 - **as expected** = wie erwartet
 - **just like** = genau wie
 
-"Everything went **as** planned." (nicht: like planned)'::text));
+"Everything went **as** planned." (nicht: like planned)'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -102,13 +112,13 @@ BEGIN
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She sings ___ a professional.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She sings ___ a professional.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She sings ___ a professional.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She sings ___ a professional.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She sings ___ a professional.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She sings ___ a professional.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She sings ___ a professional.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She sings ___ a professional.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -122,13 +132,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He looks ___ his father.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He looks ___ his father.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He looks ___ his father.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He looks ___ his father.', '{"type": "typing", "correct_answers": ["like"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He looks ___ his father.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He looks ___ his father.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He looks ___ his father.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He looks ___ his father.', '{"type": "multiple_choice", "options": ["like", "as", "than"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -149,13 +159,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He works ___ a doctor in Paris.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He works ___ a doctor in Paris.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He works ___ a doctor in Paris.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He works ___ a doctor in Paris.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He works ___ a doctor in Paris.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He works ___ a doctor in Paris.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He works ___ a doctor in Paris.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He works ___ a doctor in Paris.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -169,13 +179,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: ___ I said earlier, the results are clear.', '{"type": "typing", "correct_answers": ["As"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: ___ I said earlier, the results are clear.', '{"type": "typing", "correct_answers": ["As"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', '___ I said earlier, the results are clear.', '{"type": "typing", "correct_answers": ["As"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', '___ I said earlier, the results are clear.', '{"type": "typing", "correct_answers": ["As"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: ___ I said earlier, the results are clear.', '{"type": "multiple_choice", "options": ["As", "Like", "So"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: ___ I said earlier, the results are clear.', '{"type": "multiple_choice", "options": ["As", "Like", "So"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', '___ I said earlier, the results are clear.', '{"type": "multiple_choice", "options": ["As", "Like", "So"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', '___ I said earlier, the results are clear.', '{"type": "multiple_choice", "options": ["As", "Like", "So"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -196,13 +206,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She acts ___ if she owns the place.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She acts ___ if she owns the place.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She acts ___ if she owns the place.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She acts ___ if she owns the place.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She acts ___ if she owns the place.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She acts ___ if she owns the place.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She acts ___ if she owns the place.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She acts ___ if she owns the place.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -216,13 +226,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He talked to me ___ though I were a child.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He talked to me ___ though I were a child.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He talked to me ___ though I were a child.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He talked to me ___ though I were a child.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He talked to me ___ though I were a child.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He talked to me ___ though I were a child.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He talked to me ___ though I were a child.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He talked to me ___ though I were a child.', '{"type": "multiple_choice", "options": ["as", "like", "so"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -243,13 +253,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Everything went ___ planned.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Everything went ___ planned.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Everything went ___ planned.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Everything went ___ planned.', '{"type": "typing", "correct_answers": ["as"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Everything went ___ planned.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Everything went ___ planned.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Everything went ___ planned.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Everything went ___ planned.', '{"type": "multiple_choice", "options": ["as", "like", "than"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -263,13 +273,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I told him, but he acted ___ nothing had happened.', '{"type": "typing", "correct_answers": ["as if"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I told him, but he acted ___ nothing had happened.', '{"type": "typing", "correct_answers": ["as if"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I told him, but he acted ___ nothing had happened.', '{"type": "typing", "correct_answers": ["as if"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I told him, but he acted ___ nothing had happened.', '{"type": "typing", "correct_answers": ["as if"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I told him, but he acted ___ nothing had happened.', '{"type": "multiple_choice", "options": ["as if", "like", "as"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I told him, but he acted ___ nothing had happened.', '{"type": "multiple_choice", "options": ["as if", "like", "as"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I told him, but he acted ___ nothing had happened.', '{"type": "multiple_choice", "options": ["as if", "like", "as"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I told him, but he acted ___ nothing had happened.', '{"type": "multiple_choice", "options": ["as if", "like", "as"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

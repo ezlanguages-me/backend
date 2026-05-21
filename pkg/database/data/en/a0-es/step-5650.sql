@@ -32,19 +32,25 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5650 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5650, 'en', 'reading', 'research-methodology', 'Research methodology refers to the systematic plan a researcher follows to collect and analyse data. Choosing the right methodology is one of the most important steps in any academic study.
+    VALUES (
+    v_path_id,
+    5650,
+    'en',
+    'reading',
+    'research_methodology',
+    'Research methodology refers to the systematic plan a researcher follows to collect and analyse data. Choosing the right methodology is one of the most important steps in any academic study.
 
 Qualitative research explores experiences, opinions, and meanings. Methods such as interviews, focus groups, and observations allow researchers to gain in-depth understanding of a topic. The data produced is usually descriptive rather than numerical.
 
 Quantitative research, on the other hand, collects numerical data that can be measured and statistically analysed. Surveys with rating scales, controlled experiments, and standardised tests are common tools. A larger sample size generally leads to more reliable results.
 
-Before choosing a methodology, researchers conduct a literature review to understand what is already known about the topic. They then formulate a hypothesis — a testable prediction that the study aims to confirm or disprove. Using triangulation, which means combining multiple methods or data sources, increases the credibility and reliability of the findings.')
-    RETURNING uuid INTO v_reading_id;
+Before choosing a methodology, researchers conduct a literature review to understand what is already known about the topic. They then formulate a hypothesis — a testable prediction that the study aims to confirm or disprove. Using triangulation, which means combining multiple methods or data sources, increases the credibility and reliability of the findings.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comprender la metodología de investigación', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Forschungsmethodik verstehen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Metodología de investigación');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Forschungsmethodik verstehen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

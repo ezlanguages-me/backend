@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5080 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5080, 'en', 'reading', 'academic', 'Article excerpt: The Riverside Garden Project began on an empty parking area five years ago. Today, twenty-five families use small plots there every week.
+    VALUES (
+    v_path_id,
+    5080,
+    'en',
+    'reading',
+    'academic',
+    'Article excerpt: The Riverside Garden Project began on an empty parking area five years ago. Today, twenty-five families use small plots there every week.
 
 The project does more than produce vegetables. The garden also creates regular weekend meetings, and researchers say this improves social ties between neighbors. Water for the plants comes from large rain barrels near the entrance.
 
-One problem remains: winter maintenance is difficult because fewer volunteers come in cold weather. Even so, the article argues that the garden is an important local meeting place.')
-    RETURNING uuid INTO v_reading_id;
+One problem remains: winter maintenance is difficult because fewer volunteers come in cold weather. Even so, the article argues that the garden is an important local meeting place.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Extracto de artículo sobre huertos urbanos', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Artikelausschnitt über Stadtgärten', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Artículo sobre huertos urbanos');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Artikelausschnitt');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

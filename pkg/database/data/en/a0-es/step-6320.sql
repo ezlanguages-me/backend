@@ -42,13 +42,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 6320 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 6320, 'en', 'dialogue', 'Convivencia', '[{"name": "Nina","gender": "female","avatarURL": "https://example.com/avatars/student-5.png"},{"name": "Tobias","gender": "male","avatarURL": "https://example.com/avatars/student-6.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 6320, 'en', 'dialogue', 'social', '[{"name": "Nina","gender": "female","avatarURL": "https://example.com/avatars/student-5.png"},{"name": "Tobias","gender": "male","avatarURL": "https://example.com/avatars/student-6.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'habla de preferencias de entretenimiento', 'Practica cómo preguntar y responder sobre películas, juegos y planes tranquilos con amigos.'),
-        (v_dialogue_id, 'de', 'sprich über Unterhaltungswünsche', 'Übe, wie man nach Filmen, Spielen und ruhigen Plänen mit Freunden fragt und antwortet.');
+        (v_dialogue_id, 'es', 'Habla de preferencias'), (v_dialogue_id, 'de', 'Unterhaltungswünsche');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

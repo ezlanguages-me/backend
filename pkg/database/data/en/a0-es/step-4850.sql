@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 4850 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 4850, 'en', 'listening', 'professional', $transcript$
+    VALUES (
+    v_path_id,
+    4850,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Voicemail from an event coordinator
 ## THE SCENE: A recorded message for an office team
 A coordinator leaves a clear voicemail about a training session, room details, and a callback request.
@@ -56,13 +62,13 @@ Learners practise catching times, room names, equipment requests, and callback d
 [organized] We also need twelve visitor badges at reception.
 [helpful] Please call me back on 555-0172 before five o'clock today if there is any problem.
 [friendly] Thank you. I will also send the schedule by email this afternoon.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Mensaje de voz sobre una sesión de formación', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Voicemail über eine Schulung', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Voz sobre una sesión');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Voicemail über eine Schulung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

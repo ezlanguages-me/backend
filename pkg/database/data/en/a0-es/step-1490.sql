@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 1490 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 1490, 'en', 'listening', 'banking', $transcript$
+        VALUES (
+    v_path_id,
+    1490,
+    'en',
+    'listening',
+    'banking',
+    $transcript$
 # AUDIO PROFILE: Bank advisor
 ## "Cash Withdrawal Limits"
 
@@ -59,14 +65,14 @@ The recording helps with common cash withdrawal questions.
 [practical] Please bring your ID when you collect the cash.
 [helpful] Your statements still arrive by email every month.
 [friendly] There is no fee for withdrawals at this branch.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'es', 'Explicación sobre límites de retirada', 'Escucha una explicación bancaria rutinaria sobre límites y aviso previo para retirar efectivo.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'es', 'Explicación sobre límites');
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'de', 'Erklärung zu Auszahlungslimits', 'Höre eine routinemäßige Bankerklärung zu Limits und Vorlaufzeit für Bargeldabhebungen.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'de', 'Erklärung zu Auszahlungslimits');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

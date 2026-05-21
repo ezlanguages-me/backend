@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5200 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5200, 'en', 'reading', 'academic', 'Question guide for research presentations. Good academic questions often focus on the sample, the method, or the limit of a study. One useful question asks why the speaker chose a certain group of participants.
+    VALUES (
+    v_path_id,
+    5200,
+    'en',
+    'reading',
+    'academic',
+    'Question guide for research presentations. Good academic questions often focus on the sample, the method, or the limit of a study. One useful question asks why the speaker chose a certain group of participants.
 
 Another good question asks how a key term was defined. You can also ask when the data were collected, why two groups were compared, or what the main limit of the study is.
 
-The guide recommends finishing with a forward-looking question, for example: What is the next research step? The aim is not to attack the speaker, but to understand the study more clearly.')
-    RETURNING uuid INTO v_reading_id;
+The guide recommends finishing with a forward-looking question, for example: What is the next research step? The aim is not to attack the speaker, but to understand the study more clearly.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Guía para hacer preguntas detalladas', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Leitfaden für detaillierte Fragen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Hacer preguntas detalladas');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Leitfaden für detaillierte');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

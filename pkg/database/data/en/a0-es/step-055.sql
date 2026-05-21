@@ -14,7 +14,7 @@ DECLARE
         '{"v":"Hi","es":"Hola (informal)","de":"Hi","ex":"Hi! Great to see you again!","pron":"/jái/","pron_de":"/JAI/"}',
         '{"v":"Hey","es":"Oye / Hola (coloquial)","de":"Hey","ex":"Hey! Wait for me!","pron":"/jéi/","pron_de":"/JEJ/"}',
         '{"v":"Good morning","es":"Buenos días","de":"Guten Morgen","ex":"Good morning! Did you sleep well?","pron":"/gud mór-ning/","pron_de":"/GUD MOR-ning/"}',
-        '{"v":"Good afternoon","es":"Buenas tardes","de":"Guten Tag","ex":"Good afternoon, everyone. Let''s begin the meeting.","pron":"/gud áf-ter-nuun/","pron_de":"/GUD AAF-tö-nuun/"}',
+        '{"v":"Good afternoon","es":"Buenas tardes","de":"Guten Tag","ex":"Good afternoon, everyone. Let''s begin the meeting.","pron":"/gud af-ter-núun/","pron_de":"/GUD AAF-tö-nuun/"}',
         '{"v":"Good evening","es":"Buenas tardes / noches (saludo)","de":"Guten Abend","ex":"Good evening, ladies and gentlemen. Welcome to the show.","pron":"/gud ív-ning/","pron_de":"/GUD IEV-ning/"}',
         '{"v":"Good night","es":"Buenas noches (despedida)","de":"Gute Nacht","ex":"Good night! Sleep well.","pron":"/gud náit/","pron_de":"/GUD NAIT/"}',
         '{"v":"Goodbye","es":"Adiós","de":"Auf Wiedersehen","ex":"Goodbye! See you next week.","pron":"/gud-bái/","pron_de":"/auf WIE-dö-se:n/"}',
@@ -38,12 +38,21 @@ DECLARE
         '{"v":"How are you?","es":"¿Cómo estás?","de":"Wie geht es Ihnen? / Wie geht es dir?","ex":"Hello! How are you? – I''m fine, thanks.","pron":"/jáu ar yu/","pron_de":"/wie GEJT es II-nön/"}',
         '{"v":"I''m fine, thank you","es":"Estoy bien, gracias","de":"Mir geht es gut, danke","ex":"How are you? – I''m fine, thank you. And you?","pron":"/áim fáin zánk yu/","pron_de":"/mie GEJT es GUT DAN-kö/"}',
         '{"v":"Not bad","es":"No está mal / Regular","de":"Nicht schlecht","ex":"How was your weekend? – Not bad, thanks.","pron":"/not bad/","pron_de":"/nicht SCHLECHT/"}',
-        '{"v":"What''s your name?","es":"¿Cómo te llamas? / ¿Cuál es tu nombre?","de":"Wie heißen Sie? / Wie heißt du?","ex":"Hello! What''s your name? – My name is Carlos.","pron":"/juóts yur néim/","pron_de":"/wie HAIS-ön SIE/"}',
+        '{"v":"What''s your name?","es":"¿Cómo te llamas? / ¿Cuál es tu nombre?","de":"Wie heißen Sie? / Wie heißt du?","ex":"Hello! What''s your name? – My name is Carlos.","pron":"/uáts yur néim/","pron_de":"/wie HAIS-ön SIE/"}',
         '{"v":"My name is...","es":"Me llamo... / Mi nombre es...","de":"Ich heiße... / Mein Name ist...","ex":"My name is Emma. Nice to meet you.","pron":"/mái néim is/","pron_de":"/ich HAI-sö/"}',
         '{"v":"Can you repeat that, please?","es":"¿Puedes repetir eso, por favor?","de":"Können Sie das bitte wiederholen?","ex":"I''m sorry, can you repeat that, please? I didn''t hear you.","pron":"/kan yu ri-pít dat plíis/","pron_de":"/KÖ-nön SIE das BI-tö WIE-dö-ho-lön/"}',
         '{"v":"I don''t understand","es":"No entiendo","de":"Ich verstehe nicht","ex":"I''m sorry, I don''t understand. Can you explain?","pron":"/ái dont an-der-stánd/","pron_de":"/ich fer-SCHE-ö nicht/"}',
         '{"v":"Can you speak more slowly, please?","es":"¿Puedes hablar más despacio, por favor?","de":"Können Sie bitte langsamer sprechen?","ex":"Can you speak more slowly, please? My English is not very good yet.","pron":"/kan yu spíik mor slóu-li plíis/","pron_de":"/KÖ-nön SIE BI-tö LANG-sa-mö SCHPRE-chön/"}',
-        '{"v":"How do you say ... in English?","es":"¿Cómo se dice ... en inglés?","de":"Wie sagt man ... auf Englisch?","ex":"How do you say ''lluvia'' in English? – The word is ''rain''.","pron":"/jáu du yu séi ... in íng-lish/","pron_de":"/wie SAKT man ... auf ENG-lisch/"}'
+        '{"v":"How do you say ... in English?","es":"¿Cómo se dice ... en inglés?","de":"Wie sagt man ... auf Englisch?","ex":"How do you say ''lluvia'' in English? – The word is ''rain''.","pron":"/jáu du yu séi ... in íng-lish/","pron_de":"/wie SAKT man ... auf ENG-lisch/"}',
+        '{"v":"Have a nice day!","es":"¡Que tengas un buen día!","de":"Schönen Tag noch!","ex":"Thanks for coming. Have a nice day!","pron":"/jav a náis déi/","pron_de":"/SCHÖ-nön TAAK noch/"}',
+        '{"v":"Have a good weekend!","es":"¡Que tengas un buen fin de semana!","de":"Schönes Wochenende!","ex":"It''s Friday already! Have a good weekend, everyone.","pron":"/jav a gud uík-end/","pron_de":"/SCHÖ-nös WO-chön-en-de/"}',
+        '{"v":"Same to you","es":"Igualmente","de":"Danke, gleichfalls","ex":"Have a great holiday! – Same to you, thanks!","pron":"/séim tu yu/","pron_de":"/DAN-kö GLAICH-fals/"}',
+        '{"v":"How''s it going?","es":"¿Qué tal? / ¿Cómo te va?","de":"Wie läuft es?","ex":"Hey! How''s it going? – Pretty well, thanks!","pron":"/jáus it góu-ing/","pron_de":"/wie LOYFT es/"}',
+        '{"v":"Where are you from?","es":"¿De dónde eres?","de":"Woher kommst du?","ex":"I love your accent. Where are you from?","pron":"/uer ar yu from/","pron_de":"/wo-HER KOMST duu/"}',
+        '{"v":"I''m from...","es":"Soy de...","de":"Ich komme aus...","ex":"I''m from Mexico. I moved here two years ago.","pron":"/áim from/","pron_de":"/ich KO-mö aus/"}',
+        '{"v":"Happy birthday!","es":"¡Feliz cumpleaños!","de":"Herzlichen Glückwunsch zum Geburtstag!","ex":"Happy birthday! I hope your day is wonderful.","pron":"/já-pi bérs-déi/","pron_de":"/HERTS-li-chön GLÜK-wunsch/"}',
+        '{"v":"Congratulations!","es":"¡Enhorabuena! / ¡Felicitaciones!","de":"Herzlichen Glückwunsch! / Gratulation!","ex":"Congratulations on your new job! You deserve it.","pron":"/kon-gra-tiu-léi-shons/","pron_de":"/gra-tu-la-TSION/"}',
+        '{"v":"Good luck!","es":"¡Buena suerte!","de":"Viel Glück!","ex":"Good luck with your exam tomorrow! You''ll do great.","pron":"/gud lak/","pron_de":"/fiel GLÜK/"}'
     ];
 BEGIN
 
@@ -53,22 +62,19 @@ BEGIN
     VALUES (v_path_id, 55, 'en', 'deck')
     RETURNING uuid INTO v_deck_id;
 
-    INSERT INTO deck_translation (deck_uuid, language, title, description)
+    INSERT INTO deck_translation (deck_uuid, language, title)
     VALUES (
         v_deck_id,
         'es',
-        'Expresiones Cotidianas',
-        ''
+        'Expresiones Cotidianas'
     );
 
-    INSERT INTO deck_translation (deck_uuid, language, title, description)
-    VALUES (v_deck_id, 'de', 'Alltagsausdrücke und Höflichkeitsformeln', '');
+    INSERT INTO deck_translation (deck_uuid, language, title)
+    VALUES (v_deck_id, 'de', 'Höflichkeitsformeln');
 
     FOREACH v_item IN ARRAY v_expressions
     LOOP
-        INSERT INTO word (term, is_root, source_language, example)
-        VALUES (v_item->>'v', TRUE, 'en', v_item->>'ex')
-        RETURNING uuid INTO v_root_id;
+        SELECT get_or_create_word(v_item->>'v', 'en', v_item->>'ex') INTO v_root_id;
 
         INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
         VALUES (
@@ -76,13 +82,16 @@ BEGIN
             'es',
             jsonb_build_object('translation', v_item->>'es'),
             v_item->>'pron'
-        );
+        )
+    ON CONFLICT DO NOTHING;
 
         INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-        VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+        VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
         INSERT INTO deck_words (deck_uuid, word_uuid)
-        VALUES (v_deck_id, v_root_id);
+        VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
     END LOOP;
 
 END;

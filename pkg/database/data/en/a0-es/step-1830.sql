@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 1830 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 1830, 'en', 'listening', 'Compras y Transacciones', $transcript$
+    VALUES (
+    v_path_id,
+    1830,
+    'en',
+    'listening',
+    'shopping',
+    $transcript$
 # AUDIO PROFILE: Two friends comparing prices at market stalls
 ## "Which Lamp Is the Better Buy?"
 
@@ -60,11 +66,11 @@ Learners hear how people compare value, not only the number on the tag.
 [friend 2] Leo: No, and the larger lamp there is twenty-four pounds.
 [friend 1] Eva: Then stall A is better for me.
 [friend 2] Leo: Yes, it costs more, but it is complete.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'es', 'Comparar precios de una lámpara', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'de', 'Preise für eine Lampe vergleichen', '');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'es', 'Precios de una lámpara');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'de', 'Preise für eine Lampe');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

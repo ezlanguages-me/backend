@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4590, 'en', 'reading', 'professional', $content$Internal Audit Report – Accounts Payable
+        VALUES (
+    v_path_id,
+    4590,
+    'en',
+    'reading',
+    'professional',
+    $content$Internal Audit Report – Accounts Payable
 
 This internal audit reviewed the Accounts Payable department for the period July to September. The audit found that 3 invoices, with a combined value of £7,400, were processed without the correct level of authorisation. Although the number of cases was limited, the finding shows a weakness in current approval controls.
 
 The audit also noted that 12% of supplier contracts are overdue for formal review. In addition, the electronic filing system remains incomplete for records from 2022, which makes it harder to confirm whether supporting documents are available for all transactions.
 
-The report recommends introducing dual authorisation for every invoice above £1,000. It also recommends that all overdue contract reviews be completed by the end of Q4. Management has been asked to provide an action plan within two weeks.$content$)
-        RETURNING uuid INTO v_reading_id;
+The report recommends introducing dual authorisation for every invoice above £1,000. It also recommends that all overdue contract reviews be completed by the end of Q4. Management has been asked to provide an action plan within two weeks.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un informe de auditoría interna', 'Lee las conclusiones de una auditoría interna con incidencias y recomendaciones.'),
-            (v_reading_id, 'de', 'Lies einen internen Prüfungsbericht', 'Lies die Ergebnisse einer internen Prüfung mit Feststellungen und Empfehlungen.');
+            (v_reading_id, 'es', 'Informe de auditoría interna'), (v_reading_id, 'de', 'Einen internen Prüfungsbericht');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

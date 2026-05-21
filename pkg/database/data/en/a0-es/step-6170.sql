@@ -44,11 +44,9 @@ BEGIN
   DELETE FROM dialogue_translation WHERE dialogue_uuid IN (SELECT uuid FROM dialogue WHERE path_uuid = v_path_uuid AND step_order = 6170 AND source_language = 'en');
   DELETE FROM dialogue WHERE path_uuid = v_path_uuid AND step_order = 6170 AND source_language = 'en';
   INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-  VALUES (v_path_uuid, 6170, 'en', 'dialogue', 'Alquileres', '[{"name": "Agent", "gender": "neutral", "avatarURL": "https://example.com/avatars/agent.png"}, {"name": "Tenant", "gender": "neutral", "avatarURL": "https://example.com/avatars/tenant.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'Habla de las normas de la casa', 'Lee un diálogo sobre reglas compartidas en una casa o piso compartido.'),
-         (v_dialogue_uuid, 'de', 'Sprich über die Hausregeln', 'Lies einen Dialog über gemeinsame Regeln in einer Wohngemeinschaft.');
+  VALUES (v_path_uuid, 6170, 'en', 'dialogue', 'accommodation', '[{"name": "Agent", "gender": "neutral", "avatarURL": "https://example.com/avatars/agent.png"}, {"name": "Tenant", "gender": "neutral", "avatarURL": "https://example.com/avatars/tenant.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_uuid;
+  INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+  VALUES (v_dialogue_uuid, 'es', 'Habla de las normas de la casa'), (v_dialogue_uuid, 'de', 'Sprich über die Hausregeln');
 
   FOREACH line IN ARRAY v_lines LOOP
     INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

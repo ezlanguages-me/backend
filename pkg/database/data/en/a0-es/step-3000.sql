@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3000 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3000, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    3000,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Bike hire assistant
 ## "Prices for One Hour or One Day"
 
@@ -64,13 +70,12 @@ The recording also includes one extra item and a simple return rule.
 [deciding] Customer: Great. I want one standard bike for the whole day.
 [practical] Assistant: Fine. Please bring it back before 7 PM.
 
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha precios por hora y por día en un alquiler de bicis', 'Escucha una conversación simple sobre precios de alquiler por hora o por día.'),
-        (v_listening_id, 'de', 'Höre Preise pro Stunde und pro Tag beim Fahrradverleih', 'Höre ein einfaches Gespräch über Mietpreise pro Stunde oder pro Tag.');
+        (v_listening_id, 'es', 'Hora y por día en un alquiler'), (v_listening_id, 'de', 'Preise pro Stunde und pro Tag');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

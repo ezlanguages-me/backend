@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 4880 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 4880, 'en', 'reading', 'professional', 'Support desk phone protocol. Start every call with the company name and your own name. Then ask, ''How can I help you today?''
+    VALUES (
+    v_path_id,
+    4880,
+    'en',
+    'reading',
+    'professional',
+    'Support desk phone protocol. Start every call with the company name and your own name. Then ask, ''How can I help you today?''
 
 If the right person is not available, say that clearly and offer to take a message. Write down the caller''s name, company, phone number, and reason for calling.
 
-Before the call ends, repeat the important details, including any deadline. Tell the caller what will happen next, thank them for calling, and close the conversation politely.')
-    RETURNING uuid INTO v_reading_id;
+Before the call ends, repeat the important details, including any deadline. Tell the caller what will happen next, thank them for calling, and close the conversation politely.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Protocolo para responder llamadas', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Telefonleitfaden für Anrufe', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Protocolo para responder');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Telefonleitfaden für Anrufe');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

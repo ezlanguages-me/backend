@@ -59,8 +59,16 @@ db-seed:
 	@./scripts/db-reset.sh --seed-only
 
 # Full reset: drop + recreate + schema + views + all seed data
+# PgBouncer is stopped first (it holds connections that prevent DROP DATABASE)
+# and restarted automatically at the end, even if the reset fails.
 db-fresh:
-	@./scripts/db-reset.sh --seed
+	@echo "⏸  Stopping pgbouncer (to release DB connections)..."
+	@nomad job stop pgbouncer 2>/dev/null || true
+	@sleep 2
+	@./scripts/db-reset.sh --seed; EXIT=$$?; \
+	  echo "▶  Starting pgbouncer..."; \
+	  nomad job run ../devops/nomad/pgbouncer.hcl > /dev/null 2>&1 || true; \
+	  exit $$EXIT
 
 # Manual backup to R2 (requires R2_* env vars)
 db-backup:

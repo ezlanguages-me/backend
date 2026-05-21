@@ -44,17 +44,22 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4630, 'en', 'reading', 'professional', $content$Office Floor Plan – Floor 2, Building A
+        VALUES (
+    v_path_id,
+    4630,
+    'en',
+    'reading',
+    'professional',
+    $content$Office Floor Plan – Floor 2, Building A
 
 Floor 2 of Building A is organised into six main spaces. Room 1 is Reception and has capacity for 4 desks. Room 2 is the open plan office, which is the largest area on the floor and holds 18 desks for general staff. Room 3 is Meeting Room A. It has space for 8 people and is equipped with both a projector and a whiteboard. Room 4 is Meeting Room B, a smaller room for 4 people with a TV screen.
 
-Room 5 is the kitchen and includes a microwave, fridge and kettle for staff use. Room 6 is the manager’s private office and contains 1 desk. The fire exit is located at the end of the main corridor. The lift is near reception, while the stairs are positioned close to the kitchen.$content$)
-        RETURNING uuid INTO v_reading_id;
+Room 5 is the kitchen and includes a microwave, fridge and kettle for staff use. Room 6 is the manager’s private office and contains 1 desk. The fire exit is located at the end of the main corridor. The lift is near reception, while the stairs are positioned close to the kitchen.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un plano de planta de oficina', 'Lee un plano de oficinas con salas, equipamiento y salidas.'),
-            (v_reading_id, 'de', 'Lies einen Bürogrundriss', 'Lies einen Bürogrundriss mit Räumen, Ausstattung und Ausgängen.');
+            (v_reading_id, 'es', 'Un plano de planta de oficina'), (v_reading_id, 'de', 'Lies einen Bürogrundriss');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -10,26 +10,28 @@
             v_ex_id UUID;
             ex JSONB;
             v_exercises JSONB[] := ARRAY[
-                '{"p": "La recepción está abierta todo el día.", "p_de": "Die Rezeption ist den ganzen Tag geöffnet.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "El check-in es antes de las 11:00.", "p_de": "Der Check-in ist vor 11:00 Uhr.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Una habitación individual cuesta 55 libras por noche.", "p_de": "Ein Einzelzimmer kostet 55 Pfund pro Nacht.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "El desayuno termina a las 11:00.", "p_de": "Das Frühstück endet um 11:00 Uhr.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "El Wi‑Fi es gratis en todas las habitaciones.", "p_de": "Das WLAN ist in allen Zimmern kostenlos.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "El aparcamiento está delante del hotel.", "p_de": "Der Parkplatz ist vor dem Hotel.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "El aparcamiento cuesta 5 libras al día.", "p_de": "Der Parkplatz kostet 5 Pfund pro Tag.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "No hay ascensor en el hotel.", "p_de": "Es gibt keinen Aufzug im Hotel.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Los huéspedes reciben una llave en el bar.", "p_de": "Die Gäste bekommen einen Schlüssel an der Bar.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Puedes pedir toallas extra en recepción.", "p_de": "Man kann an der Rezeption zusätzliche Handtücher verlangen.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "¿A qué hora empieza el check-in?", "p_de": "Um wie viel Uhr beginnt der Check-in?", "s": {"type": "multiple_choice", "options": ["A las 2:00 p.m.", "A las 11:00 a.m.", "A las 7:00 a.m."], "answer": 0}}'::jsonb,
-        '{"p": "¿Cuánto cuesta una habitación doble?", "p_de": "Wie viel kostet ein Doppelzimmer?", "s": {"type": "multiple_choice", "options": ["80 libras por noche", "55 libras por noche", "5 libras por día"], "answer": 0}}'::jsonb,
-        '{"p": "¿Dónde se sirve el desayuno?", "p_de": "Wo wird das Frühstück serviert?", "s": {"type": "multiple_choice", "options": ["En el comedor", "En recepción", "En el aparcamiento"], "answer": 0}}'::jsonb,
-        '{"p": "¿A qué hora termina el desayuno?", "p_de": "Um wie viel Uhr endet das Frühstück?", "s": {"type": "multiple_choice", "options": ["A las 10:00 a.m.", "A las 9:00 a.m.", "A las 11:00 a.m."], "answer": 0}}'::jsonb,
-        '{"p": "¿Qué servicio es gratis?", "p_de": "Welcher Service ist kostenlos?", "s": {"type": "multiple_choice", "options": ["El Wi‑Fi", "El aparcamiento", "Las toallas extra"], "answer": 0}}'::jsonb,
-        '{"p": "¿Dónde está el aparcamiento?", "p_de": "Wo ist der Parkplatz?", "s": {"type": "multiple_choice", "options": ["Detrás del hotel", "Delante del hotel", "Debajo del hotel"], "answer": 0}}'::jsonb,
-        '{"p": "¿Qué usan los huéspedes para abrir la habitación?", "p_de": "Womit öffnen die Gäste das Zimmer?", "s": {"type": "multiple_choice", "options": ["Una tarjeta llave", "Una llave grande", "Un código en el teléfono"], "answer": 0}}'::jsonb,
-        '{"p": "¿Qué pisos tienen acceso por ascensor?", "p_de": "Welche Stockwerke sind mit dem Aufzug erreichbar?", "s": {"type": "multiple_choice", "options": ["El primero y el segundo", "Solo el segundo", "Solo el primero"], "answer": 0}}'::jsonb,
-        '{"p": "¿Dónde consigues información o toallas extra?", "p_de": "Wo bekommt man Informationen oder zusätzliche Handtücher?", "s": {"type": "multiple_choice", "options": ["En la recepción", "En el comedor", "En el ascensor"], "answer": 0}}'::jsonb,
-        '{"p": "¿Qué tipo de habitación cuesta 55 libras?", "p_de": "Welcher Zimmertyp kostet 55 Pfund?", "s": {"type": "multiple_choice", "options": ["La habitación individual", "La habitación doble", "La suite"], "answer": 0}}'::jsonb
+                -- TRUE / FALSE (10 exercises)
+                '{"p": "La recepción está abierta los 7 días de la semana.", "p_de": "Die Rezeption ist an 7 Tagen die Woche geöffnet.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+                '{"p": "El check-in empieza a las 11:00 a.m.", "p_de": "Der Check-in beginnt um 11:00 Uhr.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+                '{"p": "Una habitación familiar para cuatro personas cuesta 110 libras por noche.", "p_de": "Ein Familienzimmer für vier Personen kostet 110 Pfund pro Nacht.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+                '{"p": "El desayuno está incluido en el precio de la habitación.", "p_de": "Das Frühstück ist im Zimmerpreis inbegriffen.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+                '{"p": "El restaurante sirve cena hasta las 9:30 p.m.", "p_de": "Das Restaurant serviert das Abendessen bis 21:30 Uhr.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+                '{"p": "El Wi-Fi es gratis solo en las habitaciones, no en las zonas comunes.", "p_de": "Das WLAN ist nur in den Zimmern kostenlos, nicht in den öffentlichen Bereichen.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+                '{"p": "El aparcamiento está detrás del hotel.", "p_de": "Der Parkplatz befindet sich hinter dem Hotel.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+                '{"p": "El gimnasio está en la tercera planta.", "p_de": "Das Fitnessstudio befindet sich im dritten Stock.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+                '{"p": "El hotel tiene piscina.", "p_de": "Das Hotel hat ein Schwimmbad.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+                '{"p": "Se permiten mascotas en el hotel.", "p_de": "Haustiere sind im Hotel erlaubt.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+                -- MULTIPLE CHOICE (10 exercises) – answers distributed across positions 0, 1 and 2
+                '{"p": "¿Cuánto cuesta una habitación individual por noche?", "p_de": "Wie viel kostet ein Einzelzimmer pro Nacht?", "s": {"type": "multiple_choice", "options": ["55 libras", "80 libras", "110 libras"], "answer": 0}}'::jsonb,
+                '{"p": "¿Dónde se sirve el desayuno?", "p_de": "Wo wird das Frühstück serviert?", "s": {"type": "multiple_choice", "options": ["En el comedor", "En el restaurante", "En recepción"], "answer": 0}}'::jsonb,
+                '{"p": "¿Cuánto cuesta el aparcamiento por día?", "p_de": "Was kostet der Parkplatz pro Tag?", "s": {"type": "multiple_choice", "options": ["5 libras", "10 libras", "2 libras"], "answer": 0}}'::jsonb,
+                '{"p": "¿A qué hora termina el desayuno?", "p_de": "Um wie viel Uhr endet das Frühstück?", "s": {"type": "multiple_choice", "options": ["A las 9:00 a.m.", "A las 10:00 a.m.", "A las 11:00 a.m."], "answer": 1}}'::jsonb,
+                '{"p": "¿En qué planta está el gimnasio?", "p_de": "In welchem Stockwerk befindet sich das Fitnessstudio?", "s": {"type": "multiple_choice", "options": ["En la primera", "En la segunda", "En la tercera"], "answer": 2}}'::jsonb,
+                '{"p": "¿Hasta qué hora está abierto el gimnasio?", "p_de": "Bis wie viel Uhr ist das Fitnessstudio geöffnet?", "s": {"type": "multiple_choice", "options": ["Hasta las 9:00 p.m.", "Hasta las 10:00 p.m.", "Hasta las 8:00 p.m."], "answer": 1}}'::jsonb,
+                '{"p": "¿Qué reciben los huéspedes al llegar al hotel?", "p_de": "Was erhalten die Gäste bei ihrer Ankunft im Hotel?", "s": {"type": "multiple_choice", "options": ["Una llave tradicional", "Un código de acceso", "Una tarjeta llave"], "answer": 2}}'::jsonb,
+                '{"p": "¿A qué hora empieza el almuerzo en el restaurante?", "p_de": "Um wie viel Uhr beginnt das Mittagessen im Restaurant?", "s": {"type": "multiple_choice", "options": ["A las 11:00 a.m.", "A las 12:00", "A las 2:30 p.m."], "answer": 1}}'::jsonb,
+                '{"p": "¿Qué instalación NO tiene el hotel?", "p_de": "Welche Einrichtung hat das Hotel NICHT?", "s": {"type": "multiple_choice", "options": ["Restaurante", "Piscina", "Gimnasio"], "answer": 1}}'::jsonb,
+                '{"p": "¿A qué hora comienza el check-in?", "p_de": "Um wie viel Uhr beginnt der Check-in?", "s": {"type": "multiple_choice", "options": ["A las 11:00 a.m.", "A las 12:00 p.m.", "A las 2:00 p.m."], "answer": 2}}'::jsonb
             ];
         BEGIN
             SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -40,20 +42,32 @@
             DELETE FROM reading WHERE step_order = 340 AND path_uuid = v_path_id;
 
             INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-            VALUES (v_path_id, 340, 'en', 'reading', 'accommodation', 'Blue Star Hotel
+            VALUES (
+    v_path_id,
+    340,
+    'en',
+    'reading',
+    'accommodation',
+    'Blue Star Hotel – Guest Information
 
-Reception is open 24 hours a day. Check-in is from 2:00 p.m. and check-out is before 11:00 a.m. A single room is £55 per night, and a double room is £80 per night.
+Reception is open 24 hours a day, seven days a week. Check-in starts at 2:00 p.m. and check-out is before 11:00 a.m. For an early check-in or late check-out, please ask at reception.
 
-Breakfast is in the dining room from 7:00 to 10:00 a.m. Free Wi-Fi is available in all rooms. There is a small car park behind the hotel. Parking costs £5 per day.
+Room prices: a single room is £55 per night, a double room is £80 per night, and a family room for four people is £110 per night. Breakfast is not included in the room price.
 
-Rooms on the first and second floors are accessible by elevator. Guests get a key card at reception. If you need extra towels or information, please ask at the reception desk.')
-            RETURNING uuid INTO v_reading_id;
+Breakfast is served in the dining room on the ground floor from 7:00 a.m. to 10:00 a.m. The hotel restaurant is open for lunch from 12:00 to 2:30 p.m. and for dinner from 6:30 to 9:30 p.m.
+
+Free Wi-Fi is available in all rooms and public areas. There is a small car park behind the hotel. Parking costs £5 per day.
+
+The hotel has a gym on the third floor. The gym is open from 6:00 a.m. to 10:00 p.m. There is no swimming pool.
+
+Guests receive a key card at reception. Rooms on the first and second floors are accessible by elevator. The hotel is non-smoking. Pets are not allowed. For extra towels, pillows, or any other requests, please contact reception.'
+)RETURNING uuid INTO v_reading_id;
 
             INSERT INTO reading_translation (reading_uuid, language, title)
             VALUES (v_reading_id, 'es', 'Información del hotel Blue Star');
 
             INSERT INTO reading_translation (reading_uuid, language, title)
-            VALUES (v_reading_id, 'de', 'Informationen zum Blue-Star-Hotel');
+            VALUES (v_reading_id, 'de', 'Informationen zum Blue Star Hotel');
 
             FOREACH ex IN ARRAY v_exercises LOOP
                 INSERT INTO exercise (target_uuid, grammar_rule_uuid)

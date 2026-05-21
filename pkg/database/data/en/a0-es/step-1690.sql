@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1690 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1690, 'en', 'reading', 'Viajes y Transporte', $reading$
+    VALUES (
+    v_path_id,
+    1690,
+    'en',
+    'reading',
+    'transport',
+    $reading$
 TRAVEL INFORMATION BOARD
 From North Station to Lake Bus Terminal:
 Option A: Bus 12 from Stop C every 20 minutes. Journey time: 15 minutes. Get off at Lake Square.
@@ -40,11 +46,11 @@ Option A: Bus 12 from Stop C every 20 minutes. Journey time: 15 minutes. Get off
 Option B: Train L2 to Riverside, then Bus 5 to Lake Bus Terminal. Total time: 25 minutes. Buy one combined ticket at the machine.
 
 Information Centre opening hours: 06:30-20:00. Maps and printed timetables are available at Desk 2.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Panel de información de viajes en la estación');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Reiseinformationstafel im Bahnhof');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Panel de información de viajes');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Reiseinformationstafel');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5490 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5490, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    5490,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Two students with different views
 ## THE SCENE: A short exchange of contrasting opinions
 Two students give different opinions about recording lectures.
@@ -56,13 +62,13 @@ Learners practise identifying contrasting opinions and the reasons behind them.
 [critical] Student 2: That is true, but discussion in the room is still important.
 [balanced] Student 1: Maybe short summary videos could work.
 [closing] Student 2: Yes, that could be a better middle option.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Opiniones opuestas sobre grabar clases', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Gegensätzliche Meinungen zum Aufzeichnen von Vorlesungen', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Opuestas sobre grabar clases');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Aufzeichnen von Vorlesungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

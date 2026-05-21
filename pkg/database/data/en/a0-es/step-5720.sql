@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5720 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5720, 'en', 'reading', 'academic', 'Different academic questions require different source types. Textbooks give overview and definitions, journal articles provide focused research, and conference papers often show recent work before it appears in a journal.
+    VALUES (
+    v_path_id,
+    5720,
+    'en',
+    'reading',
+    'academic',
+    'Different academic questions require different source types. Textbooks give overview and definitions, journal articles provide focused research, and conference papers often show recent work before it appears in a journal.
 
 To reach these sources quickly, use the right access point. A library catalogue is best for books and ebooks. Subject databases, JSTOR, and Google Scholar help you find articles and conference papers, while citation links can lead from one useful source to another.
 
-Reliable access also means checking availability and access route. Some items open directly online, some require institutional login, and some printed materials must be collected by call number from the library. Knowing which tool matches each source type saves time during study.')
-    RETURNING uuid INTO v_reading_id;
+Reliable access also means checking availability and access route. Some items open directly online, some require institutional login, and some printed materials must be collected by call number from the library. Knowing which tool matches each source type saves time during study.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Acceder a fuentes académicas con rapidez y fiabilidad', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Schnell und zuverlässig auf akademische Quellen zugreifen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Acceso rápido a fuentes');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Schneller Quellenzugang');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

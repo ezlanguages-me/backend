@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5680 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5680, 'en', 'reading', 'academic', 'To judge relevance in your subject area, start with publication date. In fast moving fields, a recent source can be more useful than an old overview. Date does not decide everything, but it can show whether the evidence is current enough for your topic.
+    VALUES (
+    v_path_id,
+    5680,
+    'en',
+    'reading',
+    'academic',
+    'To judge relevance in your subject area, start with publication date. In fast moving fields, a recent source can be more useful than an old overview. Date does not decide everything, but it can show whether the evidence is current enough for your topic.
 
 Then check who wrote the source and where it was published. Author credentials, institutional affiliation, and journal reputation can indicate how trustworthy the material is. A specialist journal usually gives stronger support than an unknown website or a magazine article.
 
-Finally, compare the source with your research question. Ask whether the text studies the same variables, population, or case that you need. A source can be high quality and still be irrelevant if it does not answer your question.')
-    RETURNING uuid INTO v_reading_id;
+Finally, compare the source with your research question. Ask whether the text studies the same variables, population, or case that you need. A source can be high quality and still be irrelevant if it does not answer your question.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Evaluar la relevancia de libros y artículos', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Die Relevanz von Lehrbüchern und Artikeln einschätzen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Evaluar la relevancia');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Relevanz von Lehrbüchern');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

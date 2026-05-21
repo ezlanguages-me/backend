@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2650 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2650, 'en', 'reading', 'health', 'Doctor''s Advice
+    VALUES (
+    v_path_id,
+    2650,
+    'en',
+    'reading',
+    'health',
+    'Doctor''s Advice
 
 Rest at home for two days. Drink warm water often. Take the antibiotic after breakfast and after dinner.
 
 Do not go to the gym this week. Call the clinic if your breathing gets worse or if your fever goes over 39°C.
 
-If the cough is not better, come back on Monday.')
-    RETURNING uuid INTO v_reading_id;
+If the cough is not better, come back on Monday.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee los consejos del médico', 'Lee una nota breve con los consejos principales del médico después de una consulta.'),
-        (v_reading_id, 'de', 'Lies die Ratschläge des Arztes', 'Lies eine kurze Notiz mit den wichtigsten Ratschlägen des Arztes nach einer Untersuchung.');
+        (v_reading_id, 'es', 'Lee los consejos del médico'), (v_reading_id, 'de', 'Lies die Ratschläge des Arztes');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

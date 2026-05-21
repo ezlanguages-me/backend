@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5010 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5010, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    5010,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Lecturer giving signposted points
 ## THE SCENE: A lecture with clearly numbered ideas
 A lecturer gives three key points about effective review habits and signals what students should note down.
@@ -56,13 +62,13 @@ Learners practise catching key points, short examples, and signposting language 
 [informative] In one class study, students who used short review sessions remembered more after one week.
 [helpful] Many students also write two or three key words in the margin to find important ideas quickly.
 [concluding] These simple habits make note-taking and revision more useful.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Tomar notas durante una clase', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Während einer Vorlesung Notizen machen', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Tomar notas durante una clase');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Vorlesung Notizen machen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

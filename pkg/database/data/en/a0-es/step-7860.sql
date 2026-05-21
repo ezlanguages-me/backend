@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 7860 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 7860, 'en', 'listening', 'meetings', $transcript$
+    VALUES (
+    v_path_id,
+    7860,
+    'en',
+    'listening',
+    'meetings',
+    $transcript$
 # AUDIO PROFILE: Session chair and presenter after a conference talk
 ## "Session Wrap-Up at the Conference"
 
@@ -63,13 +69,12 @@ Learners hear simple language for ending a conference session, repeating the mai
 [positive] Mia: Yes, and I will email the slides today.
 [closing] Chair: Good. The next session starts in ten minutes.
 [ready] Mia: Great. I can stay near the door for one more question.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Sigue el cierre de una sesión de conferencia', 'Escucha cómo un moderador y una ponente repasan una sesión, las preguntas del público y el siguiente paso.'),
-        (v_listening_id, 'de', 'Verfolge den Abschluss einer Konferenzsitzung', 'Höre, wie ein Moderator und eine Sprecherin eine Sitzung, die Publikumsfragen und den nächsten Schritt zusammenfassen.');
+        (v_listening_id, 'es', 'Sigue el cierre de una sesión'), (v_listening_id, 'de', 'Verfolge den Abschluss');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

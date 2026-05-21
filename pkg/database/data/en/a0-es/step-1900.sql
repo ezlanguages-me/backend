@@ -32,18 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1900 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1900, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1900,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 EASY SHAVE 200
 Charge the razor for 8 hours before first use. Press the power button once to start.
 
 Use on dry skin only. Clean the head after each use with the small brush. Do not wash the main unit in water.
 
 Turn off after use and keep the razor in a safe, dry place. Replace the head every 12 months.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Instrucciones de una afeitadora eléctrica');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Anleitung für einen Elektrorasierer');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Afeitadora eléctrica');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Elektrorasierer');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

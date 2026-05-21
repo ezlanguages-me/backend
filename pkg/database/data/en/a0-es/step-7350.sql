@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 7350 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 7350, 'en', 'listening', 'social', $transcript$
+        VALUES (
+    v_path_id,
+    7350,
+    'en',
+    'listening',
+    'social',
+    $transcript$
     # AUDIO PROFILE: Nora and Samir, two friends walking home after a workshop
 ## "How People Show Respect"
 
@@ -62,13 +68,12 @@ Learners hear vocabulary for communication styles, respect, titles, eye contact,
 [calm] Samir: While others look directly at you to show attention.
 [warm] Nora: I think the best idea was to ask simple questions instead of making fast judgments.
 [confident] Samir: Exactly. Curiosity is more helpful than assuming one habit is the only normal one.
-    $transcript$)
-        RETURNING uuid INTO v_listening_id;
+    $transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una conversación sobre temas culturales', 'Escucha a dos amigos hablar de respeto, lenguaje directo, títulos y contacto visual después de un taller.'),
-            (v_listening_id, 'de', 'Höre ein Gespräch über kulturelle Themen', 'Höre zwei Freunde, die nach einem Workshop über Respekt, direkte Sprache, Titel und Blickkontakt sprechen.');
+            (v_listening_id, 'es', 'Conversación sobre temas'), (v_listening_id, 'de', 'Gespräch über kulturelle');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM listening_translation WHERE listening_uuid IN (SELECT uuid FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6160 AND source_language = 'en');
   DELETE FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6160 AND source_language = 'en';
   INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-  VALUES (v_path_uuid, 6160, 'en', 'listening', 'Alquileres', $transcript$
+  VALUES (
+    v_path_uuid,
+    6160,
+    'en',
+    'listening',
+    'accommodation',
+    $transcript$
 Building rules: weekday quiet time starts at 9:30 PM and weekend quiet time starts at 11 PM.
 
 No loud music in the hallway. Parcels are left at reception, parking is only in marked bays, and balcony doors should stay closed after dark.
 
 Dogs must be on a leash in the lobby. Use the lift for moving boxes only with a booking, and return keys at the checkout desk.
-$transcript$)
-  RETURNING uuid INTO v_listening_uuid;
-  INSERT INTO listening_translation (listening_uuid, language, title, description)
-  VALUES (v_listening_uuid, 'es', 'Escucha las normas del edificio y del vecindario', 'Escucha a un encargado explicar las reglas del edificio.'),
-         (v_listening_uuid, 'de', 'Höre die Regeln für Nachbarn und das Gebäude', 'Höre, wie ein Hausmeister die Regeln des Gebäudes erklärt.');
+$transcript$
+)RETURNING uuid INTO v_listening_uuid;
+  INSERT INTO listening_translation (listening_uuid, language, title)
+  VALUES (v_listening_uuid, 'es', 'Edificio y del vecindario'), (v_listening_uuid, 'de', 'Nachbarn und das Gebäude');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -23,9 +23,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,8680,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Intensificadores y mitigadores', 'Cómo reforzar o suavizar adjetivos y adverbios, y cómo combinar intensificadores con adjetivos gradables y no gradables.', to_jsonb('# Intensificadores y mitigadores
+        (
+    v_grammar_id,
+    'es',
+    'Intensificadores y mitigadores',
+    to_jsonb('# Intensificadores y mitigadores
 
 Los **intensificadores** suben el grado de una idea. Los **mitigadores** la suavizan.
 
@@ -58,8 +62,13 @@ Algunos adjetivos aceptan grados claros (**cold, dirty, hungry**). Otros ya son 
 - absolutely perfect
 
 ### Consejo
-Aprende la combinación completa, no solo el adjetivo. En inglés muchas combinaciones suenan naturales y otras no.'::text)),
-        (v_grammar_id, 'de', 'Verstärker und Abschwächer', 'Wie man Adjektive und Adverbien verstärkt oder abschwächt und welche Intensivierer zu gradierbaren oder nicht gradierbaren Adjektiven passen.', to_jsonb('# Verstärker und Abschwächer
+Aprende la combinación completa, no solo el adjetivo. En inglés muchas combinaciones suenan naturales y otras no.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Verstärker und Abschwächer',
+    to_jsonb('# Verstärker und Abschwächer
 
 **Verstärker** erhöhen den Grad einer Aussage. **Abschwächer** machen sie weicher.
 
@@ -92,7 +101,8 @@ Manche Adjektive lassen klare Abstufungen zu (**cold, dirty, hungry**). Andere s
 - absolutely perfect
 
 ### Tipp
-Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manche Kombinationen sehr natürlich und andere nicht.'::text));
+Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manche Kombinationen sehr natürlich und andere nicht.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -103,14 +113,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: After the marathon, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: After the marathon, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'After the marathon, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'After the marathon, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: After the marathon, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "fairly", "a bit"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: After the marathon, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "fairly", "a bit"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'After the marathon, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "fairly", "a bit"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'After the marathon, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "fairly", "a bit"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -127,14 +137,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: The glass is ___ full.', '{"type": "typing", "correct_answers": ["completely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: The glass is ___ full.', '{"type": "typing", "correct_answers": ["completely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The glass is ___ full.', '{"type": "typing", "correct_answers": ["completely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The glass is ___ full.', '{"type": "typing", "correct_answers": ["completely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The glass is ___ full.', '{"type": "multiple_choice", "options": ["completely", "slightly", "pretty"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The glass is ___ full.', '{"type": "multiple_choice", "options": ["completely", "slightly", "pretty"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The glass is ___ full.', '{"type": "multiple_choice", "options": ["completely", "slightly", "pretty"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The glass is ___ full.', '{"type": "multiple_choice", "options": ["completely", "slightly", "pretty"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -151,14 +161,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: This plan is ___ impossible.', '{"type": "typing", "correct_answers": ["totally"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: This plan is ___ impossible.', '{"type": "typing", "correct_answers": ["totally"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This plan is ___ impossible.', '{"type": "typing", "correct_answers": ["totally"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This plan is ___ impossible.', '{"type": "typing", "correct_answers": ["totally"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This plan is ___ impossible.', '{"type": "multiple_choice", "options": ["totally", "fairly", "a little"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This plan is ___ impossible.', '{"type": "multiple_choice", "options": ["totally", "fairly", "a little"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This plan is ___ impossible.', '{"type": "multiple_choice", "options": ["totally", "fairly", "a little"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This plan is ___ impossible.', '{"type": "multiple_choice", "options": ["totally", "fairly", "a little"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -175,14 +185,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: His excuse sounded ___ ridiculous.', '{"type": "typing", "correct_answers": ["utterly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: His excuse sounded ___ ridiculous.', '{"type": "typing", "correct_answers": ["utterly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'His excuse sounded ___ ridiculous.', '{"type": "typing", "correct_answers": ["utterly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'His excuse sounded ___ ridiculous.', '{"type": "typing", "correct_answers": ["utterly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: His excuse sounded ___ ridiculous.', '{"type": "multiple_choice", "options": ["utterly", "kind of", "slightly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: His excuse sounded ___ ridiculous.', '{"type": "multiple_choice", "options": ["utterly", "kind of", "slightly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'His excuse sounded ___ ridiculous.', '{"type": "multiple_choice", "options": ["utterly", "kind of", "slightly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'His excuse sounded ___ ridiculous.', '{"type": "multiple_choice", "options": ["utterly", "kind of", "slightly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -199,14 +209,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: The instructions are ___ clear.', '{"type": "typing", "correct_answers": ["perfectly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: The instructions are ___ clear.', '{"type": "typing", "correct_answers": ["perfectly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The instructions are ___ clear.', '{"type": "typing", "correct_answers": ["perfectly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The instructions are ___ clear.', '{"type": "typing", "correct_answers": ["perfectly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The instructions are ___ clear.', '{"type": "multiple_choice", "options": ["perfectly", "a bit", "rather"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The instructions are ___ clear.', '{"type": "multiple_choice", "options": ["perfectly", "a bit", "rather"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The instructions are ___ clear.', '{"type": "multiple_choice", "options": ["perfectly", "a bit", "rather"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The instructions are ___ clear.', '{"type": "multiple_choice", "options": ["perfectly", "a bit", "rather"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -223,14 +233,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: I am ___ sorry for the delay.', '{"type": "typing", "correct_answers": ["deeply"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: I am ___ sorry for the delay.', '{"type": "typing", "correct_answers": ["deeply"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I am ___ sorry for the delay.', '{"type": "typing", "correct_answers": ["deeply"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I am ___ sorry for the delay.', '{"type": "typing", "correct_answers": ["deeply"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: I am ___ sorry for the delay.', '{"type": "multiple_choice", "options": ["deeply", "pretty", "fairly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: I am ___ sorry for the delay.', '{"type": "multiple_choice", "options": ["deeply", "pretty", "fairly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I am ___ sorry for the delay.', '{"type": "multiple_choice", "options": ["deeply", "pretty", "fairly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I am ___ sorry for the delay.', '{"type": "multiple_choice", "options": ["deeply", "pretty", "fairly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -247,14 +257,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador fuerte correcto: The water was ___ freezing.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen starken Verstärker: The water was ___ freezing.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The water was ___ freezing.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The water was ___ freezing.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The water was ___ freezing.', '{"type": "multiple_choice", "options": ["absolutely", "somewhat", "a little"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The water was ___ freezing.', '{"type": "multiple_choice", "options": ["absolutely", "somewhat", "a little"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The water was ___ freezing.', '{"type": "multiple_choice", "options": ["absolutely", "somewhat", "a little"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The water was ___ freezing.', '{"type": "multiple_choice", "options": ["absolutely", "somewhat", "a little"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -277,14 +287,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: I''m ___ tired today.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: I''m ___ tired today.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I''m ___ tired today.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I''m ___ tired today.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: I''m ___ tired today.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "utterly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: I''m ___ tired today.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "utterly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I''m ___ tired today.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "utterly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I''m ___ tired today.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "utterly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -301,14 +311,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: The test was ___ easy.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: The test was ___ easy.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The test was ___ easy.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The test was ___ easy.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The test was ___ easy.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "absolutely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The test was ___ easy.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "absolutely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The test was ___ easy.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "absolutely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The test was ___ easy.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "absolutely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -325,14 +335,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: She is ___ busy this week.', '{"type": "typing", "correct_answers": ["quite"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: She is ___ busy this week.', '{"type": "typing", "correct_answers": ["quite"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She is ___ busy this week.', '{"type": "typing", "correct_answers": ["quite"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She is ___ busy this week.', '{"type": "typing", "correct_answers": ["quite"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She is ___ busy this week.', '{"type": "multiple_choice", "options": ["quite", "totally", "utterly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She is ___ busy this week.', '{"type": "multiple_choice", "options": ["quite", "totally", "utterly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She is ___ busy this week.', '{"type": "multiple_choice", "options": ["quite", "totally", "utterly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She is ___ busy this week.', '{"type": "multiple_choice", "options": ["quite", "totally", "utterly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -349,14 +359,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: It is ___ cold outside.', '{"type": "typing", "correct_answers": ["rather"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: It is ___ cold outside.', '{"type": "typing", "correct_answers": ["rather"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'It is ___ cold outside.', '{"type": "typing", "correct_answers": ["rather"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'It is ___ cold outside.', '{"type": "typing", "correct_answers": ["rather"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: It is ___ cold outside.', '{"type": "multiple_choice", "options": ["rather", "absolutely", "deeply"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: It is ___ cold outside.', '{"type": "multiple_choice", "options": ["rather", "absolutely", "deeply"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'It is ___ cold outside.', '{"type": "multiple_choice", "options": ["rather", "absolutely", "deeply"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'It is ___ cold outside.', '{"type": "multiple_choice", "options": ["rather", "absolutely", "deeply"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -373,14 +383,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: This hotel is ___ cheap.', '{"type": "typing", "correct_answers": ["reasonably"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: This hotel is ___ cheap.', '{"type": "typing", "correct_answers": ["reasonably"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This hotel is ___ cheap.', '{"type": "typing", "correct_answers": ["reasonably"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This hotel is ___ cheap.', '{"type": "typing", "correct_answers": ["reasonably"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This hotel is ___ cheap.', '{"type": "multiple_choice", "options": ["reasonably", "utterly", "completely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This hotel is ___ cheap.', '{"type": "multiple_choice", "options": ["reasonably", "utterly", "completely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This hotel is ___ cheap.', '{"type": "multiple_choice", "options": ["reasonably", "utterly", "completely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This hotel is ___ cheap.', '{"type": "multiple_choice", "options": ["reasonably", "utterly", "completely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -397,14 +407,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: The film was ___ interesting.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: The film was ___ interesting.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The film was ___ interesting.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The film was ___ interesting.', '{"type": "typing", "correct_answers": ["pretty"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The film was ___ interesting.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "totally"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The film was ___ interesting.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "totally"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The film was ___ interesting.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "totally"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The film was ___ interesting.', '{"type": "multiple_choice", "options": ["pretty", "absolutely", "totally"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -421,14 +431,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador moderado correcto: The street is ___ quiet at night.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen mittleren Verstärker: The street is ___ quiet at night.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The street is ___ quiet at night.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The street is ___ quiet at night.', '{"type": "typing", "correct_answers": ["fairly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The street is ___ quiet at night.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "perfectly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The street is ___ quiet at night.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "perfectly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The street is ___ quiet at night.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "perfectly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The street is ___ quiet at night.', '{"type": "multiple_choice", "options": ["fairly", "utterly", "perfectly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -451,14 +461,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: I''m ___ tired after the flight.', '{"type": "typing", "correct_answers": ["a bit"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: I''m ___ tired after the flight.', '{"type": "typing", "correct_answers": ["a bit"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I''m ___ tired after the flight.', '{"type": "typing", "correct_answers": ["a bit"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I''m ___ tired after the flight.', '{"type": "typing", "correct_answers": ["a bit"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: I''m ___ tired after the flight.', '{"type": "multiple_choice", "options": ["a bit", "absolutely", "totally"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: I''m ___ tired after the flight.', '{"type": "multiple_choice", "options": ["a bit", "absolutely", "totally"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I''m ___ tired after the flight.', '{"type": "multiple_choice", "options": ["a bit", "absolutely", "totally"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I''m ___ tired after the flight.', '{"type": "multiple_choice", "options": ["a bit", "absolutely", "totally"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -475,14 +485,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: We are ___ late for the meeting.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: We are ___ late for the meeting.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We are ___ late for the meeting.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We are ___ late for the meeting.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We are ___ late for the meeting.', '{"type": "multiple_choice", "options": ["a little", "utterly", "completely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We are ___ late for the meeting.', '{"type": "multiple_choice", "options": ["a little", "utterly", "completely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We are ___ late for the meeting.', '{"type": "multiple_choice", "options": ["a little", "utterly", "completely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We are ___ late for the meeting.', '{"type": "multiple_choice", "options": ["a little", "utterly", "completely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -499,14 +509,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: This version is ___ different.', '{"type": "typing", "correct_answers": ["slightly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: This version is ___ different.', '{"type": "typing", "correct_answers": ["slightly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This version is ___ different.', '{"type": "typing", "correct_answers": ["slightly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This version is ___ different.', '{"type": "typing", "correct_answers": ["slightly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This version is ___ different.', '{"type": "multiple_choice", "options": ["slightly", "absolutely", "deeply"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This version is ___ different.', '{"type": "multiple_choice", "options": ["slightly", "absolutely", "deeply"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This version is ___ different.', '{"type": "multiple_choice", "options": ["slightly", "absolutely", "deeply"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This version is ___ different.', '{"type": "multiple_choice", "options": ["slightly", "absolutely", "deeply"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -523,14 +533,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: He is ___ hungry yet.', '{"type": "typing", "correct_answers": ["not very"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: He is ___ hungry yet.', '{"type": "typing", "correct_answers": ["not very"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He is ___ hungry yet.', '{"type": "typing", "correct_answers": ["not very"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He is ___ hungry yet.', '{"type": "typing", "correct_answers": ["not very"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He is ___ hungry yet.', '{"type": "multiple_choice", "options": ["not very", "utterly", "perfectly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He is ___ hungry yet.', '{"type": "multiple_choice", "options": ["not very", "utterly", "perfectly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He is ___ hungry yet.', '{"type": "multiple_choice", "options": ["not very", "utterly", "perfectly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He is ___ hungry yet.', '{"type": "multiple_choice", "options": ["not very", "utterly", "perfectly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -547,14 +557,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: That explanation is ___ strange.', '{"type": "typing", "correct_answers": ["kind of"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: That explanation is ___ strange.', '{"type": "typing", "correct_answers": ["kind of"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'That explanation is ___ strange.', '{"type": "typing", "correct_answers": ["kind of"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'That explanation is ___ strange.', '{"type": "typing", "correct_answers": ["kind of"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: That explanation is ___ strange.', '{"type": "multiple_choice", "options": ["kind of", "absolutely", "entirely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: That explanation is ___ strange.', '{"type": "multiple_choice", "options": ["kind of", "absolutely", "entirely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'That explanation is ___ strange.', '{"type": "multiple_choice", "options": ["kind of", "absolutely", "entirely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'That explanation is ___ strange.', '{"type": "multiple_choice", "options": ["kind of", "absolutely", "entirely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -571,14 +581,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: The room is ___ noisy.', '{"type": "typing", "correct_answers": ["somewhat"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: The room is ___ noisy.', '{"type": "typing", "correct_answers": ["somewhat"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The room is ___ noisy.', '{"type": "typing", "correct_answers": ["somewhat"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The room is ___ noisy.', '{"type": "typing", "correct_answers": ["somewhat"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The room is ___ noisy.', '{"type": "multiple_choice", "options": ["somewhat", "totally", "completely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The room is ___ noisy.', '{"type": "multiple_choice", "options": ["somewhat", "totally", "completely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The room is ___ noisy.', '{"type": "multiple_choice", "options": ["somewhat", "totally", "completely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The room is ___ noisy.', '{"type": "multiple_choice", "options": ["somewhat", "totally", "completely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -595,14 +605,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el mitigador correcto: She looked ___ disappointed.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Abschwächer: She looked ___ disappointed.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She looked ___ disappointed.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She looked ___ disappointed.', '{"type": "typing", "correct_answers": ["a little"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She looked ___ disappointed.', '{"type": "multiple_choice", "options": ["a little", "utterly", "perfectly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She looked ___ disappointed.', '{"type": "multiple_choice", "options": ["a little", "utterly", "perfectly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She looked ___ disappointed.', '{"type": "multiple_choice", "options": ["a little", "utterly", "perfectly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She looked ___ disappointed.', '{"type": "multiple_choice", "options": ["a little", "utterly", "perfectly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -625,14 +635,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: The water is ___ cold today.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: The water is ___ cold today.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The water is ___ cold today.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The water is ___ cold today.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The water is ___ cold today.', '{"type": "multiple_choice", "options": ["very", "absolutely", "totally"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The water is ___ cold today.', '{"type": "multiple_choice", "options": ["very", "absolutely", "totally"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The water is ___ cold today.', '{"type": "multiple_choice", "options": ["very", "absolutely", "totally"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The water is ___ cold today.', '{"type": "multiple_choice", "options": ["very", "absolutely", "totally"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -649,14 +659,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: After the hike, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: After the hike, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'After the hike, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'After the hike, we were ___ exhausted.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: After the hike, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "very", "fairly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: After the hike, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "very", "fairly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'After the hike, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "very", "fairly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'After the hike, we were ___ exhausted.', '{"type": "multiple_choice", "options": ["absolutely", "very", "fairly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -673,14 +683,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: The kitchen is ___ dirty.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: The kitchen is ___ dirty.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The kitchen is ___ dirty.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The kitchen is ___ dirty.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The kitchen is ___ dirty.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The kitchen is ___ dirty.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The kitchen is ___ dirty.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The kitchen is ___ dirty.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -697,14 +707,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: Their house is ___ enormous.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: Their house is ___ enormous.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Their house is ___ enormous.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Their house is ___ enormous.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Their house is ___ enormous.', '{"type": "multiple_choice", "options": ["absolutely", "very", "a bit"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Their house is ___ enormous.', '{"type": "multiple_choice", "options": ["absolutely", "very", "a bit"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Their house is ___ enormous.', '{"type": "multiple_choice", "options": ["absolutely", "very", "a bit"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Their house is ___ enormous.', '{"type": "multiple_choice", "options": ["absolutely", "very", "a bit"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -721,14 +731,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: The results were ___ surprising.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: The results were ___ surprising.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The results were ___ surprising.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The results were ___ surprising.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The results were ___ surprising.', '{"type": "multiple_choice", "options": ["very", "completely", "a bit"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The results were ___ surprising.', '{"type": "multiple_choice", "options": ["very", "completely", "a bit"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The results were ___ surprising.', '{"type": "multiple_choice", "options": ["very", "completely", "a bit"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The results were ___ surprising.', '{"type": "multiple_choice", "options": ["very", "completely", "a bit"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -745,14 +755,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: Her answer was ___ perfect.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: Her answer was ___ perfect.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Her answer was ___ perfect.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Her answer was ___ perfect.', '{"type": "typing", "correct_answers": ["absolutely"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Her answer was ___ perfect.', '{"type": "multiple_choice", "options": ["absolutely", "very", "rather"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Her answer was ___ perfect.', '{"type": "multiple_choice", "options": ["absolutely", "very", "rather"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Her answer was ___ perfect.', '{"type": "multiple_choice", "options": ["absolutely", "very", "rather"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Her answer was ___ perfect.', '{"type": "multiple_choice", "options": ["absolutely", "very", "rather"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -769,14 +779,14 @@ Lerne die ganze Kombination, nicht nur das Adjektiv. Im Englischen klingen manch
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con el intensificador natural: The child is ___ hungry.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem natürlichen Verstärker: The child is ___ hungry.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The child is ___ hungry.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The child is ___ hungry.', '{"type": "typing", "correct_answers": ["very"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The child is ___ hungry.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The child is ___ hungry.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The child is ___ hungry.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The child is ___ hungry.', '{"type": "multiple_choice", "options": ["very", "absolutely", "utterly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -15,11 +15,10 @@ BEGIN
     DELETE FROM dialogue WHERE step_order=6800 AND path_uuid=v_path_id;
     DELETE FROM speaking WHERE step_order=6800 AND path_uuid=v_path_id;
     DELETE FROM writing WHERE step_order=6800 AND path_uuid=v_path_id;
-    INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
-    VALUES (v_path_id,6800,'en','speaking','socializing')
-    RETURNING uuid INTO v_speaking_id;
-    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-    VALUES (v_speaking_id,'es','Hablar en una cena de bienvenida','Participa en una conversación breve.','{"scenario": "Estás en una situación social en a welcome dinner.", "tasks": ["Saluda a la otra persona.", "Di tu nombre.", "Haz una pregunta simple.", "Di algo sobre el evento.", "Menciona la hora.", "Menciona una actividad.", "Usa una frase social amable.", "Despídete de forma natural."]}'::jsonb);
-    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-    VALUES (v_speaking_id,'de','Bei einem Willkommensabend sprechen','Nimm an einem kurzen Gespräch teil.','{"scenario": "Du bist in einer sozialen Situation bei einem Willkommensabend.", "tasks": ["Begrüße die andere Person.", "Sage deinen Namen.", "Stelle eine einfache Frage.", "Sage etwas über die Veranstaltung.", "Nenne die Uhrzeit.", "Nenne eine Aktivität.", "Benutze einen freundlichen sozialen Satz.", "Verabschiede dich natürlich."]}'::jsonb);
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 6800, 'en', 'speaking', 'socializing')RETURNING uuid INTO v_speaking_id;
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+    VALUES (v_speaking_id, 'es', 'Hablar en una cena', '{"scenario": "Estás en una situación social en a welcome dinner.", "tasks": ["Saluda a la otra persona.", "Di tu nombre.", "Haz una pregunta simple.", "Di algo sobre el evento.", "Menciona la hora.", "Menciona una actividad.", "Usa una frase social amable.", "Despídete de forma natural."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+    VALUES (v_speaking_id, 'de', 'Willkommensabend sprechen', '{"scenario": "Du bist in einer sozialen Situation bei einem Willkommensabend.", "tasks": ["Begrüße die andere Person.", "Sage deinen Namen.", "Stelle eine einfache Frage.", "Sage etwas über die Veranstaltung.", "Nenne die Uhrzeit.", "Nenne eine Aktivität.", "Benutze einen freundlichen sozialen Satz.", "Verabschiede dich natürlich."]}'::jsonb);
 END; $seed$;

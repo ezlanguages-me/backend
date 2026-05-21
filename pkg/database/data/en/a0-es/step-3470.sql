@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3470 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3470, 'en', 'listening', 'nature', $transcript$# AUDIO PROFILE: Radio weather presenter
+    VALUES (
+    v_path_id,
+    3470,
+    'en',
+    'listening',
+    'nature',
+    $transcript$# AUDIO PROFILE: Radio weather presenter
 ## "Morning Weather Report"
 
 ## THE SCENE: A short regional bulletin on the morning radio.
@@ -56,14 +62,14 @@ Learners practise understanding a basic radio weather report with regions, tempe
 [warning] Strong wind continues on the coast this afternoon.
 [informative] Mountain areas are colder, with snow above one thousand metres.
 [update] Tonight, the rain moves east and skies clear in the west.
-[forward-looking] Tomorrow morning starts bright, but showers return after lunch in the south.$transcript$)
-    RETURNING uuid INTO v_listening_id;
+[forward-looking] Tomorrow morning starts bright, but showers return after lunch in the south.$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Escuchar un parte meteorológico', 'Escucha un boletín del tiempo con regiones, lluvia, viento, nieve y temperaturas.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Parte meteorológico');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Einen Wetterbericht hören', 'Höre einen Wetterbericht mit Regionen, Regen, Wind, Schnee und Temperaturen.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Einen Wetterbericht hören');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

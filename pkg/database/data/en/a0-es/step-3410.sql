@@ -53,15 +53,12 @@ BEGIN
     VALUES (v_path_id, 3410, 'en', 'deck')
     RETURNING uuid INTO v_deck_id;
 
-    INSERT INTO deck_translation (deck_uuid, language, title, description)
+    INSERT INTO deck_translation (deck_uuid, language, title)
     VALUES
-        (v_deck_id, 'es', 'El Mundo Natural (Animales, Plantas, Geografía y Clima)', 'Vocabulario básico sobre paisajes, clima, animales, plantas y fenómenos naturales.'),
-        (v_deck_id, 'de', 'Die natürliche Welt (Tiere, Pflanzen, Geografie und Klima)', 'Grundwortschatz zu Landschaften, Klima, Tieren, Pflanzen und Naturphänomenen.');
+        (v_deck_id, 'es', 'El Mundo Natural'), (v_deck_id, 'de', 'Die natürliche Welt');
 
     FOREACH card IN ARRAY v_cards LOOP
-        INSERT INTO word (term, is_root, source_language, example)
-        VALUES (card->>'term', TRUE, 'en', card->>'ex')
-        RETURNING uuid INTO v_word_id;
+        SELECT get_or_create_word(card->>'term', 'en', card->>'ex') INTO v_word_id;
 
         INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
         VALUES
@@ -69,7 +66,8 @@ BEGIN
             (v_word_id, 'de', jsonb_build_object('translation', card->>'de'), card->>'pron_de');
 
         INSERT INTO deck_words (deck_uuid, word_uuid)
-        VALUES (v_deck_id, v_word_id);
+        VALUES (v_deck_id, v_word_id)
+    ON CONFLICT DO NOTHING;
     END LOOP;
 END;
 $seed$;

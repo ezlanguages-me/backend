@@ -25,7 +25,7 @@ DECLARE
         '{"c": "Alex", "t": "Not really. There are four of us: my parents, my younger sister, and me.", "tr": "La verdad es que no. Somos cuatro: mis padres, mi hermana menor y yo.", "pron": "/not rí-li. dér ar for of as: mái pé-rents, mái ián-guer sís-ter, and mi./", "de": "Nicht wirklich. Wir sind zu viert: meine Eltern, meine jüngere Schwester und ich.", "pron_de": "NOT RII-li. dä aa FOO öv as: mai PÄ-rönts, mai JANG-ö SI-stö, änd MII."}'::jsonb,
         '{"c": "Emma", "t": "What do your parents do?", "tr": "¿A qué se dedican tus padres?", "pron": "/uót du iur pé-rents du?/", "de": "Was machen deine Eltern beruflich?", "pron_de": "UOT du joo PÄ-rönts DUU?"}'::jsonb,
         '{"c": "Alex", "t": "My mom is a nurse at a large hospital, and my dad is an engineer.", "tr": "Mi madre es enfermera en un hospital grande y mi padre es ingeniero.", "pron": "/mái mom is a ners at a lardj hós-pi-tal, and mái dad is an en-dji-nír./", "de": "Meine Mutter ist Krankenschwester in einem großen Krankenhaus und mein Vater ist Ingenieur.", "pron_de": "mai MOM is ö NÖÖS ät ö LAADSCH HOS-pi-töl, änd mai DÄD is ön en-dschö-NIÖ."}'::jsonb,
-        '{"c": "Emma", "t": "That''s interesting. My dad is a mechanic and my mom is a teacher. How old is your sister?", "tr": "Eso es interesante. Mi padre es mecánico y mi madre es profesora. ¿Cuántos años tiene tu hermana?", "pron": "/dats ín-tres-tin. mái dad is a me-ká-nik and mái mom is a tí-cher. háu ould is iur sís-ter?/", "de": "Das ist interessant. Mein Vater ist Mechaniker und meine Mutter ist Lehrerin. Wie alt ist deine Schwester?", "pron_de": "DÄTS IN-trös-ting. mai DÄD is ö mö-KÄ-nik änd mai MOM is ö TII-tschö. HAU OULD is joo SI-stö?"}'::jsonb,
+        '{"c": "Emma", "t": "That''s interesting. My dad is a mechanic and my mom is a teacher. How old is your sister?", "tr": "Eso es interesante. Mi padre es mecánico y mi madre es profesora. ¿Cuántos años tiene tu hermana?", "pron": "/dats ín-tres-ting. mái dad is a me-ká-nik and mái mom is a tí-cher. háu ould is iur sís-ter?/", "de": "Das ist interessant. Mein Vater ist Mechaniker und meine Mutter ist Lehrerin. Wie alt ist deine Schwester?", "pron_de": "DÄTS IN-trös-ting. mai DÄD is ö mö-KÄ-nik änd mai MOM is ö TII-tschö. HAU OULD is joo SI-stö?"}'::jsonb,
         '{"c": "Alex", "t": "She is 12 years old. She loves sports.", "tr": "Tiene 12 años. Le encantan los deportes.", "pron": "/shi is tuelv íers ould. shi lavs sports./", "de": "Sie ist 12 Jahre alt. Sie liebt Sport.", "pron_de": "SCHII is TUELV jiöz OULD. schii LAVZ SPORTS."}'::jsonb,
         '{"c": "Emma", "t": "Really? What is her favorite sport?", "tr": "¿De verdad? ¿Cuál es su deporte favorito?", "pron": "/rí-li? uót is her féi-vo-rit sport?/", "de": "Wirklich? Was ist ihr Lieblingssport?", "pron_de": "RII-li? UOT is hö FEJ-vö-rit SPORT?"}'::jsonb,
         '{"c": "Alex", "t": "She plays soccer every weekend. She is very good at it.", "tr": "Juega al fútbol todos los fines de semana. Es muy buena en ello.", "pron": "/shi pléis sá-ker é-ve-ri uí-kend. shi is vé-ri gud at it./", "de": "Sie spielt jedes Wochenende Fußball. Sie ist sehr gut darin.", "pron_de": "schii PLEJZ SO-kö EV-ri UII-kend. schii is VE-ri GUD ät it."}'::jsonb,
@@ -39,8 +39,8 @@ DECLARE
         '{"c": "Alex", "t": "I really like History and English. Math is a bit difficult for me.", "tr": "Me gustan mucho la Historia y el Inglés. Las Matemáticas son un poco difíciles para mí.", "pron": "/ái rí-li láik hís-to-ri and ín-glish. maz is a bit dí-fi-kalt for mi./", "de": "Ich mag wirklich Geschichte und Englisch. Mathe ist ein bisschen schwierig für mich.", "pron_de": "ai RII-li laik HIS-tö-ri änd ING-lisch. MÄS is ö bit DI-fi-költ fo MII."}'::jsonb,
         '{"c": "Emma", "t": "I can help you with Math if you want. I love numbers.", "tr": "Puedo ayudarte con Matemáticas si quieres. Me encantan los números.", "pron": "/ái kan help iu uid maz if iu uónt. ái lav nám-bers./", "de": "Ich kann dir bei Mathe helfen, wenn du möchtest. Ich liebe Zahlen.", "pron_de": "ai kän HELP juu uid MÄS if juu UONT. ai LAV NAM-böz."}'::jsonb,
         '{"c": "Alex", "t": "That would be great, thank you!", "tr": "¡Eso sería genial, gracias!", "pron": "/dat uúd bi gréit, zank iu!/", "de": "Das wäre toll, danke!", "pron_de": "dät uud bi GREJT, SSÄNK juu!"}'::jsonb,
-        '{"c": "Emma", "t": "No problem. Well, welcome to the school, Alex!", "tr": "No hay problema. Bueno, ¡bienvenido a la escuela, Alex!", "pron": "/nou pró-blem. uel, uél-kom tu de skul, bób!/", "de": "Kein Problem. Also, willkommen an der Schule, Alex!", "pron_de": "NOU PRO-blem. UEL, UEL-köm tu dö SKUUL, Ä-leks!"}'::jsonb,
-        '{"c": "Alex", "t": "Thanks, Emma. I am very happy to be here.", "tr": "Gracias, Emma. Estoy muy feliz de estar aquí.", "pron": "/zanks, é-li-s. ái am vé-ri há-pi tu bi hír./", "de": "Danke, Emma. Ich bin sehr froh, hier zu sein.", "pron_de": "SSÄNKS, E-mö. ai äm VE-ri HÄ-pi tu bi HIÖ."}'::jsonb
+        '{"c": "Emma", "t": "No problem. Well, welcome to the school, Alex!", "tr": "No hay problema. Bueno, ¡bienvenido a la escuela, Alex!", "pron": "/nou pró-blem. uel, uél-kom tu de skul, á-leks!/", "de": "Kein Problem. Also, willkommen an der Schule, Alex!", "pron_de": "NOU PRO-blem. UEL, UEL-köm tu dö SKUUL, Ä-leks!"}'::jsonb,
+        '{"c": "Alex", "t": "Thanks, Emma. I am very happy to be here.", "tr": "Gracias, Emma. Estoy muy feliz de estar aquí.", "pron": "/zanks, é-ma. ái am vé-ri há-pi tu bi hír./", "de": "Danke, Emma. Ich bin sehr froh, hier zu sein.", "pron_de": "SSÄNKS, E-mö. ai äm VE-ri HÄ-pi tu bi HIÖ."}'::jsonb
     ];
 
 BEGIN
@@ -54,28 +54,27 @@ DELETE FROM dialogue WHERE step_order = 230 AND path_uuid = v_path_id;
 -- 3. Insertar el Dialogue principal (Step 230)
 INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters) 
 VALUES (
-    v_path_id, 
-    230, 
-    'en', 
-    'dialogue', 
-    'social', 
+    v_path_id,
+    230,
+    'en',
+    'dialogue',
+    'social',
     '[ 
         {"name":"Emma","gender":"female","avatarURL":"https://example.com/avatars/Emma.png"}, 
         {"name":"Alex", "gender":"male", "avatarURL":"https://example.com/avatars/Alex.png"} 
     ]'::jsonb
-) RETURNING uuid INTO v_dialogue_id;
+)RETURNING uuid INTO v_dialogue_id;
 
 -- 4. Insertar Traducción y Metadata del Dialogue
-INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) 
+INSERT INTO dialogue_translation (dialogue_uuid, language, title) 
 VALUES (
-    v_dialogue_id, 
-    'es', 
-    'Conociendo a una nueva compañera', 
-    ''
+    v_dialogue_id,
+    'es',
+    'Conociendo a una nueva compañera'
 );
 
-INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-VALUES (v_dialogue_id, 'de', 'Eine neue Mitschülerin kennenlernen', '');
+INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+VALUES (v_dialogue_id, 'de', 'Neue Mitschülerin kennenlernen');
 
 -- 5. Bucle para insertar las líneas del diálogo, su traducción y su pronunciación
 FOREACH line IN ARRAY v_lines 

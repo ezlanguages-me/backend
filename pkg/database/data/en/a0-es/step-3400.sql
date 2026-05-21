@@ -32,20 +32,26 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3400 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3400, 'en', 'reading', 'nature', $reading$Riverland Region Guide
+    VALUES (
+    v_path_id,
+    3400,
+    'en',
+    'reading',
+    'nature',
+    $reading$Riverland Region Guide
 
 Riverland is in the north of the country. High mountains are in the east, and a long river crosses the centre from north to south.
 
 Most towns are in the wide valley near the river. The west is flat and dry, with farms and open fields.
 
-Summer is warm and sunny, with little rain. Winter is colder, and snow often falls in the mountains, but the valley usually has rain instead of snow.$reading$)
-    RETURNING uuid INTO v_reading_id;
+Summer is warm and sunny, with little rain. Winter is colder, and snow often falls in the mountains, but the valley usually has rain instead of snow.$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comprender información de geografía y clima', 'Lee una guía sencilla sobre relieve, ríos, valles y clima en una región.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Geografía y clima');
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Geografie- und Klimainformationen verstehen', 'Lies einen einfachen Text über Landschaft, Flüsse, Täler und Klima in einer Region.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Geografie und Klima');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

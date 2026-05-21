@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 4920 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 4920, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    4920,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Conference host
 ## THE SCENE: Opening remarks at the start of a conference day
 A host welcomes participants, gives practical information, and explains how the day will work.
@@ -56,13 +62,13 @@ Learners practise understanding a welcome message, room information, Wi-Fi detai
 [organized] Please ask questions at the end of each talk, not during the presentation.
 [friendly] Coffee is available in the foyer at eleven o'clock.
 [calm] Lunch will be served in the cafeteria at twelve thirty.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Introducción a una conferencia', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Einführung in eine Konferenz', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Introducción a una conferencia');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Einführung in eine Konferenz');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

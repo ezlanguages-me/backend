@@ -23,9 +23,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,8630,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Conjeturas y especulación con modales', 'Cómo expresar certeza, posibilidad e imposibilidad en presente y pasado con verbos modales.', to_jsonb('# Conjeturas y especulación con modales
+        (
+    v_grammar_id,
+    'es',
+    'Conjeturas y especulación',
+    to_jsonb('# Conjeturas y especulación con modales
 
 En inglés usamos varios **modales** para hacer conclusiones a partir de la evidencia.
 
@@ -54,8 +58,13 @@ Para especular sobre el pasado usamos **must / might / could / can''t + have + p
 - evidencia fuerte ahora → **must**
 - posibilidad → **might / could**
 - imposibilidad → **can''t**
-- especulación sobre el pasado → **modal + have + participio**'::text)),
-        (v_grammar_id, 'de', 'Vermutungen mit Modalverben', 'Wie man Gewissheit, Möglichkeit und Unmöglichkeit in Gegenwart und Vergangenheit mit Modalverben ausdrückt.', to_jsonb('# Vermutungen mit Modalverben
+- especulación sobre el pasado → **modal + have + participio**'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Vermutungen mit Modalverben',
+    to_jsonb('# Vermutungen mit Modalverben
 
 Im Englischen benutzen wir verschiedene **Modalverben**, um aus Hinweisen eine Schlussfolgerung zu ziehen.
 
@@ -84,7 +93,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
 - starke Hinweise jetzt → **must**
 - Möglichkeit → **might / could**
 - Unmöglichkeit → **can''t**
-- Vermutung über die Vergangenheit → **Modal + have + Partizip**'::text));
+- Vermutung über die Vergangenheit → **Modal + have + Partizip**'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -95,14 +105,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: The lights are on. They ___ home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: The lights are on. They ___ home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The lights are on. They ___ home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The lights are on. They ___ home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The lights are on. They ___ home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The lights are on. They ___ home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The lights are on. They ___ home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The lights are on. They ___ home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -119,14 +129,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: He has a chef''s jacket. He ___ in that restaurant.', '{"type": "typing", "correct_answers": ["must work"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: He has a chef''s jacket. He ___ in that restaurant.', '{"type": "typing", "correct_answers": ["must work"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He has a chef''s jacket. He ___ in that restaurant.', '{"type": "typing", "correct_answers": ["must work"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He has a chef''s jacket. He ___ in that restaurant.', '{"type": "typing", "correct_answers": ["must work"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He has a chef''s jacket. He ___ in that restaurant.', '{"type": "multiple_choice", "options": ["must work", "might work", "can''t work"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He has a chef''s jacket. He ___ in that restaurant.', '{"type": "multiple_choice", "options": ["must work", "might work", "can''t work"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He has a chef''s jacket. He ___ in that restaurant.', '{"type": "multiple_choice", "options": ["must work", "might work", "can''t work"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He has a chef''s jacket. He ___ in that restaurant.', '{"type": "multiple_choice", "options": ["must work", "might work", "can''t work"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -143,14 +153,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: She is yawning. She ___ tired.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: She is yawning. She ___ tired.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She is yawning. She ___ tired.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She is yawning. She ___ tired.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She is yawning. She ___ tired.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She is yawning. She ___ tired.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She is yawning. She ___ tired.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She is yawning. She ___ tired.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -167,14 +177,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: The answer is perfect. She ___ the topic well.', '{"type": "typing", "correct_answers": ["must know"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: The answer is perfect. She ___ the topic well.', '{"type": "typing", "correct_answers": ["must know"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The answer is perfect. She ___ the topic well.', '{"type": "typing", "correct_answers": ["must know"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The answer is perfect. She ___ the topic well.', '{"type": "typing", "correct_answers": ["must know"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The answer is perfect. She ___ the topic well.', '{"type": "multiple_choice", "options": ["must know", "might know", "can''t know"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The answer is perfect. She ___ the topic well.', '{"type": "multiple_choice", "options": ["must know", "might know", "can''t know"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The answer is perfect. She ___ the topic well.', '{"type": "multiple_choice", "options": ["must know", "might know", "can''t know"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The answer is perfect. She ___ the topic well.', '{"type": "multiple_choice", "options": ["must know", "might know", "can''t know"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -191,14 +201,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: He is carrying a suitcase. He ___.', '{"type": "typing", "correct_answers": ["must be travelling"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: He is carrying a suitcase. He ___.', '{"type": "typing", "correct_answers": ["must be travelling"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He is carrying a suitcase. He ___.', '{"type": "typing", "correct_answers": ["must be travelling"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He is carrying a suitcase. He ___.', '{"type": "typing", "correct_answers": ["must be travelling"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He is carrying a suitcase. He ___.', '{"type": "multiple_choice", "options": ["must be travelling", "might be travelling", "can''t be travelling"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He is carrying a suitcase. He ___.', '{"type": "multiple_choice", "options": ["must be travelling", "might be travelling", "can''t be travelling"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He is carrying a suitcase. He ___.', '{"type": "multiple_choice", "options": ["must be travelling", "might be travelling", "can''t be travelling"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He is carrying a suitcase. He ___.', '{"type": "multiple_choice", "options": ["must be travelling", "might be travelling", "can''t be travelling"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -215,14 +225,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: Their car is outside. They ___ at home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: Their car is outside. They ___ at home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Their car is outside. They ___ at home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Their car is outside. They ___ at home.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Their car is outside. They ___ at home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Their car is outside. They ___ at home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Their car is outside. They ___ at home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Their car is outside. They ___ at home.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -239,14 +249,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con must: This cake tastes amazing. You ___ a great cook.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit must: This cake tastes amazing. You ___ a great cook.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This cake tastes amazing. You ___ a great cook.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This cake tastes amazing. You ___ a great cook.', '{"type": "typing", "correct_answers": ["must be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This cake tastes amazing. You ___ a great cook.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This cake tastes amazing. You ___ a great cook.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This cake tastes amazing. You ___ a great cook.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This cake tastes amazing. You ___ a great cook.', '{"type": "multiple_choice", "options": ["must be", "might be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -269,14 +279,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: She isn''t answering. She ___ in a meeting.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: She isn''t answering. She ___ in a meeting.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She isn''t answering. She ___ in a meeting.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She isn''t answering. She ___ in a meeting.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She isn''t answering. She ___ in a meeting.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She isn''t answering. She ___ in a meeting.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She isn''t answering. She ___ in a meeting.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She isn''t answering. She ___ in a meeting.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -293,14 +303,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: The shop is closed. It ___ a holiday today.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: The shop is closed. It ___ a holiday today.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The shop is closed. It ___ a holiday today.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The shop is closed. It ___ a holiday today.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The shop is closed. It ___ a holiday today.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The shop is closed. It ___ a holiday today.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The shop is closed. It ___ a holiday today.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The shop is closed. It ___ a holiday today.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -317,14 +327,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: He looks familiar. I ___ him from college.', '{"type": "typing", "correct_answers": ["might know"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: He looks familiar. I ___ him from college.', '{"type": "typing", "correct_answers": ["might know"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He looks familiar. I ___ him from college.', '{"type": "typing", "correct_answers": ["might know"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He looks familiar. I ___ him from college.', '{"type": "typing", "correct_answers": ["might know"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He looks familiar. I ___ him from college.', '{"type": "multiple_choice", "options": ["might know", "must know", "can''t know"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He looks familiar. I ___ him from college.', '{"type": "multiple_choice", "options": ["might know", "must know", "can''t know"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He looks familiar. I ___ him from college.', '{"type": "multiple_choice", "options": ["might know", "must know", "can''t know"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He looks familiar. I ___ him from college.', '{"type": "multiple_choice", "options": ["might know", "must know", "can''t know"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -341,14 +351,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: They ___ on the wrong train.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: They ___ on the wrong train.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'They ___ on the wrong train.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'They ___ on the wrong train.', '{"type": "typing", "correct_answers": ["could be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: They ___ on the wrong train.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: They ___ on the wrong train.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'They ___ on the wrong train.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'They ___ on the wrong train.', '{"type": "multiple_choice", "options": ["could be", "must be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -365,14 +375,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: The keys ___ in your bag.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: The keys ___ in your bag.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The keys ___ in your bag.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The keys ___ in your bag.', '{"type": "typing", "correct_answers": ["might be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The keys ___ in your bag.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The keys ___ in your bag.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The keys ___ in your bag.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The keys ___ in your bag.', '{"type": "multiple_choice", "options": ["might be", "must be", "can''t be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -389,14 +399,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: This noise ___ from the kitchen.', '{"type": "typing", "correct_answers": ["could come"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: This noise ___ from the kitchen.', '{"type": "typing", "correct_answers": ["could come"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This noise ___ from the kitchen.', '{"type": "typing", "correct_answers": ["could come"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This noise ___ from the kitchen.', '{"type": "typing", "correct_answers": ["could come"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This noise ___ from the kitchen.', '{"type": "multiple_choice", "options": ["could come", "must come", "can''t come"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This noise ___ from the kitchen.', '{"type": "multiple_choice", "options": ["could come", "must come", "can''t come"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This noise ___ from the kitchen.', '{"type": "multiple_choice", "options": ["could come", "must come", "can''t come"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This noise ___ from the kitchen.', '{"type": "multiple_choice", "options": ["could come", "must come", "can''t come"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -413,14 +423,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con might o could: We ___ more time.', '{"type": "typing", "correct_answers": ["might need"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit might oder could: We ___ more time.', '{"type": "typing", "correct_answers": ["might need"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We ___ more time.', '{"type": "typing", "correct_answers": ["might need"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We ___ more time.', '{"type": "typing", "correct_answers": ["might need"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We ___ more time.', '{"type": "multiple_choice", "options": ["might need", "must need", "can''t need"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We ___ more time.', '{"type": "multiple_choice", "options": ["might need", "must need", "can''t need"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We ___ more time.', '{"type": "multiple_choice", "options": ["might need", "must need", "can''t need"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We ___ more time.', '{"type": "multiple_choice", "options": ["might need", "must need", "can''t need"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -449,8 +459,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She ___ at school; it''s Saturday.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She ___ at school; it''s Saturday.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ at school; it''s Saturday.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ at school; it''s Saturday.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -473,8 +483,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This ___ John''s coat; he never wears black.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This ___ John''s coat; he never wears black.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This ___ John''s coat; he never wears black.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This ___ John''s coat; he never wears black.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -497,8 +507,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He ___ the answer; he missed the class.', '{"type": "multiple_choice", "options": ["can''t know", "must know", "might know"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He ___ the answer; he missed the class.', '{"type": "multiple_choice", "options": ["can''t know", "must know", "might know"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He ___ the answer; he missed the class.', '{"type": "multiple_choice", "options": ["can''t know", "must know", "might know"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He ___ the answer; he missed the class.', '{"type": "multiple_choice", "options": ["can''t know", "must know", "might know"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -521,8 +531,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: They ___ hungry; they just ate lunch.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: They ___ hungry; they just ate lunch.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'They ___ hungry; they just ate lunch.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'They ___ hungry; they just ate lunch.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -545,8 +555,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: That ___ the right key; it doesn''t fit.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: That ___ the right key; it doesn''t fit.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'That ___ the right key; it doesn''t fit.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'That ___ the right key; it doesn''t fit.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -569,8 +579,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: It ___ easy to work three jobs.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: It ___ easy to work three jobs.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'It ___ easy to work three jobs.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'It ___ easy to work three jobs.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -593,8 +603,8 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She ___ asleep; the music is too loud.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She ___ asleep; the music is too loud.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ asleep; the music is too loud.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ asleep; the music is too loud.', '{"type": "multiple_choice", "options": ["can''t be", "must be", "might be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -617,14 +627,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: The lights are off and the office is empty. They ___.', '{"type": "typing", "correct_answers": ["must have left"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: The lights are off and the office is empty. They ___.', '{"type": "typing", "correct_answers": ["must have left"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The lights are off and the office is empty. They ___.', '{"type": "typing", "correct_answers": ["must have left"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The lights are off and the office is empty. They ___.', '{"type": "typing", "correct_answers": ["must have left"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The lights are off and the office is empty. They ___.', '{"type": "multiple_choice", "options": ["must have left", "must left", "must have leave"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The lights are off and the office is empty. They ___.', '{"type": "multiple_choice", "options": ["must have left", "must left", "must have leave"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The lights are off and the office is empty. They ___.', '{"type": "multiple_choice", "options": ["must have left", "must left", "must have leave"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The lights are off and the office is empty. They ___.', '{"type": "multiple_choice", "options": ["must have left", "must left", "must have leave"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -641,14 +651,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: I can''t find my phone. I ___ it on the bus.', '{"type": "typing", "correct_answers": ["might have dropped"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: I can''t find my phone. I ___ it on the bus.', '{"type": "typing", "correct_answers": ["might have dropped"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I can''t find my phone. I ___ it on the bus.', '{"type": "typing", "correct_answers": ["might have dropped"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I can''t find my phone. I ___ it on the bus.', '{"type": "typing", "correct_answers": ["might have dropped"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: I can''t find my phone. I ___ it on the bus.', '{"type": "multiple_choice", "options": ["might have dropped", "might dropped", "might have drop"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: I can''t find my phone. I ___ it on the bus.', '{"type": "multiple_choice", "options": ["might have dropped", "might dropped", "might have drop"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I can''t find my phone. I ___ it on the bus.', '{"type": "multiple_choice", "options": ["might have dropped", "might dropped", "might have drop"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I can''t find my phone. I ___ it on the bus.', '{"type": "multiple_choice", "options": ["might have dropped", "might dropped", "might have drop"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -665,14 +675,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: The cake is gone. The children ___ it.', '{"type": "typing", "correct_answers": ["could have eaten"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: The cake is gone. The children ___ it.', '{"type": "typing", "correct_answers": ["could have eaten"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The cake is gone. The children ___ it.', '{"type": "typing", "correct_answers": ["could have eaten"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The cake is gone. The children ___ it.', '{"type": "typing", "correct_answers": ["could have eaten"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The cake is gone. The children ___ it.', '{"type": "multiple_choice", "options": ["could have eaten", "could eaten", "could have eat"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The cake is gone. The children ___ it.', '{"type": "multiple_choice", "options": ["could have eaten", "could eaten", "could have eat"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The cake is gone. The children ___ it.', '{"type": "multiple_choice", "options": ["could have eaten", "could eaten", "could have eat"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The cake is gone. The children ___ it.', '{"type": "multiple_choice", "options": ["could have eaten", "could eaten", "could have eat"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -689,14 +699,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: The printer is still warm. Someone ___ it recently.', '{"type": "typing", "correct_answers": ["must have used"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: The printer is still warm. Someone ___ it recently.', '{"type": "typing", "correct_answers": ["must have used"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The printer is still warm. Someone ___ it recently.', '{"type": "typing", "correct_answers": ["must have used"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The printer is still warm. Someone ___ it recently.', '{"type": "typing", "correct_answers": ["must have used"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The printer is still warm. Someone ___ it recently.', '{"type": "multiple_choice", "options": ["must have used", "must used", "must have use"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The printer is still warm. Someone ___ it recently.', '{"type": "multiple_choice", "options": ["must have used", "must used", "must have use"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The printer is still warm. Someone ___ it recently.', '{"type": "multiple_choice", "options": ["must have used", "must used", "must have use"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The printer is still warm. Someone ___ it recently.', '{"type": "multiple_choice", "options": ["must have used", "must used", "must have use"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -713,14 +723,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: There is milk on the floor. The cat ___ the bottle.', '{"type": "typing", "correct_answers": ["might have knocked over"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: There is milk on the floor. The cat ___ the bottle.', '{"type": "typing", "correct_answers": ["might have knocked over"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'There is milk on the floor. The cat ___ the bottle.', '{"type": "typing", "correct_answers": ["might have knocked over"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'There is milk on the floor. The cat ___ the bottle.', '{"type": "typing", "correct_answers": ["might have knocked over"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: There is milk on the floor. The cat ___ the bottle.', '{"type": "multiple_choice", "options": ["might have knocked over", "might knocked over", "might have knock over"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: There is milk on the floor. The cat ___ the bottle.', '{"type": "multiple_choice", "options": ["might have knocked over", "might knocked over", "might have knock over"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'There is milk on the floor. The cat ___ the bottle.', '{"type": "multiple_choice", "options": ["might have knocked over", "might knocked over", "might have knock over"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'There is milk on the floor. The cat ___ the bottle.', '{"type": "multiple_choice", "options": ["might have knocked over", "might knocked over", "might have knock over"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -737,14 +747,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: He isn''t answering. He ___ his phone at home.', '{"type": "typing", "correct_answers": ["could have left"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: He isn''t answering. He ___ his phone at home.', '{"type": "typing", "correct_answers": ["could have left"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He isn''t answering. He ___ his phone at home.', '{"type": "typing", "correct_answers": ["could have left"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He isn''t answering. He ___ his phone at home.', '{"type": "typing", "correct_answers": ["could have left"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He isn''t answering. He ___ his phone at home.', '{"type": "multiple_choice", "options": ["could have left", "could left", "could have leave"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He isn''t answering. He ___ his phone at home.', '{"type": "multiple_choice", "options": ["could have left", "could left", "could have leave"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He isn''t answering. He ___ his phone at home.', '{"type": "multiple_choice", "options": ["could have left", "could left", "could have leave"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He isn''t answering. He ___ his phone at home.', '{"type": "multiple_choice", "options": ["could have left", "could left", "could have leave"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -761,14 +771,14 @@ Für Vermutungen über die Vergangenheit benutzen wir **must / might / could / c
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma del pasado: The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "typing", "correct_answers": ["must have blown"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Vergangenheitsform: The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "typing", "correct_answers": ["must have blown"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "typing", "correct_answers": ["must have blown"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "typing", "correct_answers": ["must have blown"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "multiple_choice", "options": ["must have blown", "must blown", "must have blow"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "multiple_choice", "options": ["must have blown", "must blown", "must have blow"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "multiple_choice", "options": ["must have blown", "must blown", "must have blow"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The window is open and the papers are everywhere. The wind ___ them off the desk.', '{"type": "multiple_choice", "options": ["must have blown", "must blown", "must have blow"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

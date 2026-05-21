@@ -32,21 +32,27 @@
         DELETE FROM reading WHERE step_order = 1600 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1600, 'en', 'reading', 'banking', 'Monthly Statement Guide
+        VALUES (
+    v_path_id,
+    1600,
+    'en',
+    'reading',
+    'banking',
+    'Monthly Statement Guide
 
 Dear Customer,
 Your monthly statement shows five main columns: Date, Description, Money In, Money Out, and Balance.
 
 The opening balance is the money in your account at the start of the month. Money In shows deposits such as salary or cash. Money Out shows card payments, transfers, and cash withdrawals.
 
-The closing balance is the total at the end of the month. If you see a fee, it appears in the Description column. Please contact the branch if you have a question about any entry.')
-        RETURNING uuid INTO v_reading_id;
+The closing balance is the total at the end of the month. If you see a fee, it appears in the Description column. Please contact the branch if you have a question about any entry.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Comunicación bancaria sobre el extracto mensual', 'Lee una comunicación bancaria rutinaria que explica cómo entender un extracto mensual.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Bancaria sobre el extracto');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Bankmitteilung zum Monatsauszug', 'Lies eine routinemäßige Bankmitteilung, die erklärt, wie man einen Monatsauszug versteht.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Bankmitteilung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

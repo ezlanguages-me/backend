@@ -23,9 +23,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,8660,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Prefixes and Suffixes', 'Cómo formar palabras con prefijos y sufijos, interpretar cambios de significado y reconocer familias léxicas.', to_jsonb('# Prefixes and Suffixes
+        (
+    v_grammar_id,
+    'es',
+    'Prefixes and Suffixes',
+    to_jsonb('# Prefixes and Suffixes
 
 Los **prefijos** van delante de una palabra base. Los **sufijos** van detrás. Ambos cambian forma, significado o categoría gramatical.
 
@@ -58,8 +62,13 @@ Aprender familias léxicas ayuda a elegir la forma correcta en contexto.
 - improve → improvement
 
 ### Consejo
-No memorices solo una palabra. Aprende la **base** y varias formas relacionadas.'::text)),
-        (v_grammar_id, 'de', 'Präfixe und Suffixe', 'Wie man Wörter mit Präfixen und Suffixen bildet, Bedeutungsänderungen versteht und Wortfamilien erkennt.', to_jsonb('# Präfixe und Suffixe
+No memorices solo una palabra. Aprende la **base** y varias formas relacionadas.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Präfixe und Suffixe',
+    to_jsonb('# Präfixe und Suffixe
 
 **Präfixe** stehen vor einem Grundwort. **Suffixe** stehen dahinter. Beide verändern Form, Bedeutung oder Wortart.
 
@@ -92,7 +101,8 @@ Wenn du Wortfamilien lernst, wählst du leichter die richtige Form im Kontext.
 - improve → improvement
 
 ### Tipp
-Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen dazu.'::text));
+Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen dazu.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -103,14 +113,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: Please ___ the email before lunch.', '{"type": "typing", "correct_answers": ["rewrite"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: Please ___ the email before lunch.', '{"type": "typing", "correct_answers": ["rewrite"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Please ___ the email before lunch.', '{"type": "typing", "correct_answers": ["rewrite"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Please ___ the email before lunch.', '{"type": "typing", "correct_answers": ["rewrite"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Please ___ the email before lunch.', '{"type": "multiple_choice", "options": ["rewrite", "unwrite", "prewrite"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Please ___ the email before lunch.', '{"type": "multiple_choice", "options": ["rewrite", "unwrite", "prewrite"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Please ___ the email before lunch.', '{"type": "multiple_choice", "options": ["rewrite", "unwrite", "prewrite"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Please ___ the email before lunch.', '{"type": "multiple_choice", "options": ["rewrite", "unwrite", "prewrite"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -127,14 +137,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: He felt ___ after the bad news.', '{"type": "typing", "correct_answers": ["unhappy"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: He felt ___ after the bad news.', '{"type": "typing", "correct_answers": ["unhappy"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He felt ___ after the bad news.', '{"type": "typing", "correct_answers": ["unhappy"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He felt ___ after the bad news.', '{"type": "typing", "correct_answers": ["unhappy"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He felt ___ after the bad news.', '{"type": "multiple_choice", "options": ["unhappy", "rehappy", "prehappy"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He felt ___ after the bad news.', '{"type": "multiple_choice", "options": ["unhappy", "rehappy", "prehappy"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He felt ___ after the bad news.', '{"type": "multiple_choice", "options": ["unhappy", "rehappy", "prehappy"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He felt ___ after the bad news.', '{"type": "multiple_choice", "options": ["unhappy", "rehappy", "prehappy"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -151,14 +161,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: We bought ___ rice for the trip.', '{"type": "typing", "correct_answers": ["precooked"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: We bought ___ rice for the trip.', '{"type": "typing", "correct_answers": ["precooked"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We bought ___ rice for the trip.', '{"type": "typing", "correct_answers": ["precooked"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We bought ___ rice for the trip.', '{"type": "typing", "correct_answers": ["precooked"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We bought ___ rice for the trip.', '{"type": "multiple_choice", "options": ["precooked", "uncooked", "recooked"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We bought ___ rice for the trip.', '{"type": "multiple_choice", "options": ["precooked", "uncooked", "recooked"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We bought ___ rice for the trip.', '{"type": "multiple_choice", "options": ["precooked", "uncooked", "recooked"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We bought ___ rice for the trip.', '{"type": "multiple_choice", "options": ["precooked", "uncooked", "recooked"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -175,14 +185,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: The company ___ the supplier by mistake.', '{"type": "typing", "correct_answers": ["overpaid"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: The company ___ the supplier by mistake.', '{"type": "typing", "correct_answers": ["overpaid"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The company ___ the supplier by mistake.', '{"type": "typing", "correct_answers": ["overpaid"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The company ___ the supplier by mistake.', '{"type": "typing", "correct_answers": ["overpaid"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The company ___ the supplier by mistake.', '{"type": "multiple_choice", "options": ["overpaid", "underpaid", "prepaid"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The company ___ the supplier by mistake.', '{"type": "multiple_choice", "options": ["overpaid", "underpaid", "prepaid"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The company ___ the supplier by mistake.', '{"type": "multiple_choice", "options": ["overpaid", "underpaid", "prepaid"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The company ___ the supplier by mistake.', '{"type": "multiple_choice", "options": ["overpaid", "underpaid", "prepaid"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -199,14 +209,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: The team is ___ for a mountain race.', '{"type": "typing", "correct_answers": ["undertrained"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: The team is ___ for a mountain race.', '{"type": "typing", "correct_answers": ["undertrained"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The team is ___ for a mountain race.', '{"type": "typing", "correct_answers": ["undertrained"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The team is ___ for a mountain race.', '{"type": "typing", "correct_answers": ["undertrained"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The team is ___ for a mountain race.', '{"type": "multiple_choice", "options": ["undertrained", "overtrained", "pretrained"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The team is ___ for a mountain race.', '{"type": "multiple_choice", "options": ["undertrained", "overtrained", "pretrained"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The team is ___ for a mountain race.', '{"type": "multiple_choice", "options": ["undertrained", "overtrained", "pretrained"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The team is ___ for a mountain race.', '{"type": "multiple_choice", "options": ["undertrained", "overtrained", "pretrained"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -223,14 +233,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: You should ___ chapter three tonight.', '{"type": "typing", "correct_answers": ["reread"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: You should ___ chapter three tonight.', '{"type": "typing", "correct_answers": ["reread"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'You should ___ chapter three tonight.', '{"type": "typing", "correct_answers": ["reread"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'You should ___ chapter three tonight.', '{"type": "typing", "correct_answers": ["reread"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: You should ___ chapter three tonight.', '{"type": "multiple_choice", "options": ["reread", "unread", "misread"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: You should ___ chapter three tonight.', '{"type": "multiple_choice", "options": ["reread", "unread", "misread"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'You should ___ chapter three tonight.', '{"type": "multiple_choice", "options": ["reread", "unread", "misread"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'You should ___ chapter three tonight.', '{"type": "multiple_choice", "options": ["reread", "unread", "misread"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -247,14 +257,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra formada correctamente: ___ children learn through play.', '{"type": "typing", "correct_answers": ["Preschool"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtig gebildeten Wort: ___ children learn through play.', '{"type": "typing", "correct_answers": ["Preschool"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', '___ children learn through play.', '{"type": "typing", "correct_answers": ["Preschool"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', '___ children learn through play.', '{"type": "typing", "correct_answers": ["Preschool"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: ___ children learn through play.', '{"type": "multiple_choice", "options": ["Preschool", "Postschool", "Unschool"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: ___ children learn through play.', '{"type": "multiple_choice", "options": ["Preschool", "Postschool", "Unschool"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', '___ children learn through play.', '{"type": "multiple_choice", "options": ["Preschool", "Postschool", "Unschool"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', '___ children learn through play.', '{"type": "multiple_choice", "options": ["Preschool", "Postschool", "Unschool"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -277,14 +287,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: My sister is a science ___.', '{"type": "typing", "correct_answers": ["teacher"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: My sister is a science ___.', '{"type": "typing", "correct_answers": ["teacher"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'My sister is a science ___.', '{"type": "typing", "correct_answers": ["teacher"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'My sister is a science ___.', '{"type": "typing", "correct_answers": ["teacher"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: My sister is a science ___.', '{"type": "multiple_choice", "options": ["teacher", "teachful", "teachment"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: My sister is a science ___.', '{"type": "multiple_choice", "options": ["teacher", "teachful", "teachment"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'My sister is a science ___.', '{"type": "multiple_choice", "options": ["teacher", "teachful", "teachment"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'My sister is a science ___.', '{"type": "multiple_choice", "options": ["teacher", "teachful", "teachment"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -301,14 +311,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: Thanks for your ___ advice.', '{"type": "typing", "correct_answers": ["helpful"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: Thanks for your ___ advice.', '{"type": "typing", "correct_answers": ["helpful"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Thanks for your ___ advice.', '{"type": "typing", "correct_answers": ["helpful"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Thanks for your ___ advice.', '{"type": "typing", "correct_answers": ["helpful"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Thanks for your ___ advice.', '{"type": "multiple_choice", "options": ["helpful", "helpless", "helply"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Thanks for your ___ advice.', '{"type": "multiple_choice", "options": ["helpful", "helpless", "helply"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Thanks for your ___ advice.', '{"type": "multiple_choice", "options": ["helpful", "helpless", "helply"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Thanks for your ___ advice.', '{"type": "multiple_choice", "options": ["helpful", "helpless", "helply"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -325,14 +335,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: The charity supports ___ families.', '{"type": "typing", "correct_answers": ["homeless"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: The charity supports ___ families.', '{"type": "typing", "correct_answers": ["homeless"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The charity supports ___ families.', '{"type": "typing", "correct_answers": ["homeless"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The charity supports ___ families.', '{"type": "typing", "correct_answers": ["homeless"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The charity supports ___ families.', '{"type": "multiple_choice", "options": ["homeless", "homeful", "homely"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The charity supports ___ families.', '{"type": "multiple_choice", "options": ["homeless", "homeful", "homely"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The charity supports ___ families.', '{"type": "multiple_choice", "options": ["homeless", "homeful", "homely"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The charity supports ___ families.', '{"type": "multiple_choice", "options": ["homeless", "homeful", "homely"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -349,14 +359,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: The app needs one more ___ stage.', '{"type": "typing", "correct_answers": ["development"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: The app needs one more ___ stage.', '{"type": "typing", "correct_answers": ["development"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The app needs one more ___ stage.', '{"type": "typing", "correct_answers": ["development"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The app needs one more ___ stage.', '{"type": "typing", "correct_answers": ["development"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The app needs one more ___ stage.', '{"type": "multiple_choice", "options": ["development", "developful", "developly"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The app needs one more ___ stage.', '{"type": "multiple_choice", "options": ["development", "developful", "developly"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The app needs one more ___ stage.', '{"type": "multiple_choice", "options": ["development", "developful", "developly"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The app needs one more ___ stage.', '{"type": "multiple_choice", "options": ["development", "developful", "developly"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -373,14 +383,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: Please drive ___ in the rain.', '{"type": "typing", "correct_answers": ["slowly"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: Please drive ___ in the rain.', '{"type": "typing", "correct_answers": ["slowly"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Please drive ___ in the rain.', '{"type": "typing", "correct_answers": ["slowly"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Please drive ___ in the rain.', '{"type": "typing", "correct_answers": ["slowly"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Please drive ___ in the rain.', '{"type": "multiple_choice", "options": ["slowly", "slowness", "slowful"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Please drive ___ in the rain.', '{"type": "multiple_choice", "options": ["slowly", "slowness", "slowful"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Please drive ___ in the rain.', '{"type": "multiple_choice", "options": ["slowly", "slowness", "slowful"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Please drive ___ in the rain.', '{"type": "multiple_choice", "options": ["slowly", "slowness", "slowful"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -397,14 +407,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: Her ___ impressed everyone.', '{"type": "typing", "correct_answers": ["kindness"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: Her ___ impressed everyone.', '{"type": "typing", "correct_answers": ["kindness"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Her ___ impressed everyone.', '{"type": "typing", "correct_answers": ["kindness"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Her ___ impressed everyone.', '{"type": "typing", "correct_answers": ["kindness"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Her ___ impressed everyone.', '{"type": "multiple_choice", "options": ["kindness", "kindly", "kindment"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Her ___ impressed everyone.', '{"type": "multiple_choice", "options": ["kindness", "kindly", "kindment"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Her ___ impressed everyone.', '{"type": "multiple_choice", "options": ["kindness", "kindly", "kindment"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Her ___ impressed everyone.', '{"type": "multiple_choice", "options": ["kindness", "kindly", "kindment"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -421,14 +431,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra derivada correcta: This bag is ___.', '{"type": "typing", "correct_answers": ["washable"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen abgeleiteten Wort: This bag is ___.', '{"type": "typing", "correct_answers": ["washable"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This bag is ___.', '{"type": "typing", "correct_answers": ["washable"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This bag is ___.', '{"type": "typing", "correct_answers": ["washable"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This bag is ___.', '{"type": "multiple_choice", "options": ["washable", "washness", "washer"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This bag is ___.', '{"type": "multiple_choice", "options": ["washable", "washness", "washer"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This bag is ___.', '{"type": "multiple_choice", "options": ["washable", "washness", "washer"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This bag is ___.', '{"type": "multiple_choice", "options": ["washable", "washness", "washer"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -451,14 +461,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: I ___ with that conclusion.', '{"type": "typing", "correct_answers": ["disagree"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I ___ with that conclusion.', '{"type": "typing", "correct_answers": ["disagree"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I ___ with that conclusion.', '{"type": "typing", "correct_answers": ["disagree"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I ___ with that conclusion.', '{"type": "typing", "correct_answers": ["disagree"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: I ___ with that conclusion.', '{"type": "multiple_choice", "options": ["disagree", "agree", "misagree"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: I ___ with that conclusion.', '{"type": "multiple_choice", "options": ["disagree", "agree", "misagree"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I ___ with that conclusion.', '{"type": "multiple_choice", "options": ["disagree", "agree", "misagree"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I ___ with that conclusion.', '{"type": "multiple_choice", "options": ["disagree", "agree", "misagree"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -475,14 +485,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: Sorry, I ___ the question.', '{"type": "typing", "correct_answers": ["misunderstood"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Sorry, I ___ the question.', '{"type": "typing", "correct_answers": ["misunderstood"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Sorry, I ___ the question.', '{"type": "typing", "correct_answers": ["misunderstood"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Sorry, I ___ the question.', '{"type": "typing", "correct_answers": ["misunderstood"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Sorry, I ___ the question.', '{"type": "multiple_choice", "options": ["misunderstood", "understood", "disunderstood"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Sorry, I ___ the question.', '{"type": "multiple_choice", "options": ["misunderstood", "understood", "disunderstood"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Sorry, I ___ the question.', '{"type": "multiple_choice", "options": ["misunderstood", "understood", "disunderstood"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Sorry, I ___ the question.', '{"type": "multiple_choice", "options": ["misunderstood", "understood", "disunderstood"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -499,14 +509,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: His comment sounded ___.', '{"type": "typing", "correct_answers": ["antisocial"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: His comment sounded ___.', '{"type": "typing", "correct_answers": ["antisocial"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'His comment sounded ___.', '{"type": "typing", "correct_answers": ["antisocial"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'His comment sounded ___.', '{"type": "typing", "correct_answers": ["antisocial"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: His comment sounded ___.', '{"type": "multiple_choice", "options": ["antisocial", "social", "presocial"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: His comment sounded ___.', '{"type": "multiple_choice", "options": ["antisocial", "social", "presocial"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'His comment sounded ___.', '{"type": "multiple_choice", "options": ["antisocial", "social", "presocial"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'His comment sounded ___.', '{"type": "multiple_choice", "options": ["antisocial", "social", "presocial"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -523,14 +533,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: This area is for ___ only.', '{"type": "typing", "correct_answers": ["nonsmokers"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: This area is for ___ only.', '{"type": "typing", "correct_answers": ["nonsmokers"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This area is for ___ only.', '{"type": "typing", "correct_answers": ["nonsmokers"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This area is for ___ only.', '{"type": "typing", "correct_answers": ["nonsmokers"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This area is for ___ only.', '{"type": "multiple_choice", "options": ["nonsmokers", "smokers", "resmokers"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This area is for ___ only.', '{"type": "multiple_choice", "options": ["nonsmokers", "smokers", "resmokers"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This area is for ___ only.', '{"type": "multiple_choice", "options": ["nonsmokers", "smokers", "resmokers"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This area is for ___ only.', '{"type": "multiple_choice", "options": ["nonsmokers", "smokers", "resmokers"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -547,14 +557,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: She still talks to her ___ sometimes.', '{"type": "typing", "correct_answers": ["ex-husband"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She still talks to her ___ sometimes.', '{"type": "typing", "correct_answers": ["ex-husband"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She still talks to her ___ sometimes.', '{"type": "typing", "correct_answers": ["ex-husband"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She still talks to her ___ sometimes.', '{"type": "typing", "correct_answers": ["ex-husband"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She still talks to her ___ sometimes.', '{"type": "multiple_choice", "options": ["ex-husband", "pre-husband", "co-husband"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She still talks to her ___ sometimes.', '{"type": "multiple_choice", "options": ["ex-husband", "pre-husband", "co-husband"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She still talks to her ___ sometimes.', '{"type": "multiple_choice", "options": ["ex-husband", "pre-husband", "co-husband"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She still talks to her ___ sometimes.', '{"type": "multiple_choice", "options": ["ex-husband", "pre-husband", "co-husband"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -571,14 +581,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: My ___ speaks three languages.', '{"type": "typing", "correct_answers": ["coworker"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: My ___ speaks three languages.', '{"type": "typing", "correct_answers": ["coworker"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'My ___ speaks three languages.', '{"type": "typing", "correct_answers": ["coworker"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'My ___ speaks three languages.', '{"type": "typing", "correct_answers": ["coworker"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: My ___ speaks three languages.', '{"type": "multiple_choice", "options": ["coworker", "reworker", "antiworker"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: My ___ speaks three languages.', '{"type": "multiple_choice", "options": ["coworker", "reworker", "antiworker"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'My ___ speaks three languages.', '{"type": "multiple_choice", "options": ["coworker", "reworker", "antiworker"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'My ___ speaks three languages.', '{"type": "multiple_choice", "options": ["coworker", "reworker", "antiworker"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -595,14 +605,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la palabra correcta: The company sells products in ___ markets.', '{"type": "typing", "correct_answers": ["international"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The company sells products in ___ markets.', '{"type": "typing", "correct_answers": ["international"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The company sells products in ___ markets.', '{"type": "typing", "correct_answers": ["international"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The company sells products in ___ markets.', '{"type": "typing", "correct_answers": ["international"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The company sells products in ___ markets.', '{"type": "multiple_choice", "options": ["international", "national", "unnational"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The company sells products in ___ markets.', '{"type": "multiple_choice", "options": ["international", "national", "unnational"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The company sells products in ___ markets.', '{"type": "multiple_choice", "options": ["international", "national", "unnational"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The company sells products in ___ markets.', '{"type": "multiple_choice", "options": ["international", "national", "unnational"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -625,14 +635,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: Her final ___ surprised the team.', '{"type": "typing", "correct_answers": ["decision"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: Her final ___ surprised the team.', '{"type": "typing", "correct_answers": ["decision"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Her final ___ surprised the team.', '{"type": "typing", "correct_answers": ["decision"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Her final ___ surprised the team.', '{"type": "typing", "correct_answers": ["decision"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Her final ___ surprised the team.', '{"type": "multiple_choice", "options": ["decision", "decide", "decisive"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Her final ___ surprised the team.', '{"type": "multiple_choice", "options": ["decision", "decide", "decisive"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Her final ___ surprised the team.', '{"type": "multiple_choice", "options": ["decision", "decide", "decisive"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Her final ___ surprised the team.', '{"type": "multiple_choice", "options": ["decision", "decide", "decisive"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -649,14 +659,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: He is a talented ___.', '{"type": "typing", "correct_answers": ["musician"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: He is a talented ___.', '{"type": "typing", "correct_answers": ["musician"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He is a talented ___.', '{"type": "typing", "correct_answers": ["musician"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He is a talented ___.', '{"type": "typing", "correct_answers": ["musician"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: He is a talented ___.', '{"type": "multiple_choice", "options": ["musician", "music", "musical"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: He is a talented ___.', '{"type": "multiple_choice", "options": ["musician", "music", "musical"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He is a talented ___.', '{"type": "multiple_choice", "options": ["musician", "music", "musical"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He is a talented ___.', '{"type": "multiple_choice", "options": ["musician", "music", "musical"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -673,14 +683,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: We need a more ___ solution.', '{"type": "typing", "correct_answers": ["creative"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: We need a more ___ solution.', '{"type": "typing", "correct_answers": ["creative"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We need a more ___ solution.', '{"type": "typing", "correct_answers": ["creative"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We need a more ___ solution.', '{"type": "typing", "correct_answers": ["creative"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We need a more ___ solution.', '{"type": "multiple_choice", "options": ["creative", "creation", "creatively"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We need a more ___ solution.', '{"type": "multiple_choice", "options": ["creative", "creation", "creatively"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We need a more ___ solution.', '{"type": "multiple_choice", "options": ["creative", "creation", "creatively"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We need a more ___ solution.', '{"type": "multiple_choice", "options": ["creative", "creation", "creatively"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -697,14 +707,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: The app shows a clear ___.', '{"type": "typing", "correct_answers": ["improvement"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: The app shows a clear ___.', '{"type": "typing", "correct_answers": ["improvement"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The app shows a clear ___.', '{"type": "typing", "correct_answers": ["improvement"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The app shows a clear ___.', '{"type": "typing", "correct_answers": ["improvement"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The app shows a clear ___.', '{"type": "multiple_choice", "options": ["improvement", "improve", "improving"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The app shows a clear ___.', '{"type": "multiple_choice", "options": ["improvement", "improve", "improving"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The app shows a clear ___.', '{"type": "multiple_choice", "options": ["improvement", "improve", "improving"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The app shows a clear ___.', '{"type": "multiple_choice", "options": ["improvement", "improve", "improving"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -721,14 +731,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: She gave a ___ answer.', '{"type": "typing", "correct_answers": ["careful"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: She gave a ___ answer.', '{"type": "typing", "correct_answers": ["careful"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She gave a ___ answer.', '{"type": "typing", "correct_answers": ["careful"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She gave a ___ answer.', '{"type": "typing", "correct_answers": ["careful"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: She gave a ___ answer.', '{"type": "multiple_choice", "options": ["careful", "carefully", "carelessness"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: She gave a ___ answer.', '{"type": "multiple_choice", "options": ["careful", "carefully", "carelessness"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She gave a ___ answer.', '{"type": "multiple_choice", "options": ["careful", "carefully", "carelessness"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She gave a ___ answer.', '{"type": "multiple_choice", "options": ["careful", "carefully", "carelessness"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -745,14 +755,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: This road is ___ in winter.', '{"type": "typing", "correct_answers": ["dangerous"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: This road is ___ in winter.', '{"type": "typing", "correct_answers": ["dangerous"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'This road is ___ in winter.', '{"type": "typing", "correct_answers": ["dangerous"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'This road is ___ in winter.', '{"type": "typing", "correct_answers": ["dangerous"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: This road is ___ in winter.', '{"type": "multiple_choice", "options": ["dangerous", "danger", "dangerously"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: This road is ___ in winter.', '{"type": "multiple_choice", "options": ["dangerous", "danger", "dangerously"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'This road is ___ in winter.', '{"type": "multiple_choice", "options": ["dangerous", "danger", "dangerously"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'This road is ___ in winter.', '{"type": "multiple_choice", "options": ["dangerous", "danger", "dangerously"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -769,14 +779,14 @@ Lerne nicht nur ein Wort. Lerne das **Grundwort** und mehrere verwandte Formen d
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta de la familia léxica: The chair is surprisingly ___.', '{"type": "typing", "correct_answers": ["comfortable"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form aus der Wortfamilie: The chair is surprisingly ___.', '{"type": "typing", "correct_answers": ["comfortable"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The chair is surprisingly ___.', '{"type": "typing", "correct_answers": ["comfortable"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The chair is surprisingly ___.', '{"type": "typing", "correct_answers": ["comfortable"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The chair is surprisingly ___.', '{"type": "multiple_choice", "options": ["comfortable", "comfortably", "comfort"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The chair is surprisingly ___.', '{"type": "multiple_choice", "options": ["comfortable", "comfortably", "comfort"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The chair is surprisingly ___.', '{"type": "multiple_choice", "options": ["comfortable", "comfortably", "comfort"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The chair is surprisingly ___.', '{"type": "multiple_choice", "options": ["comfortable", "comfortably", "comfort"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

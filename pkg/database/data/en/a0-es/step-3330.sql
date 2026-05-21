@@ -55,13 +55,11 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3330 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3330, 'en', 'dialogue', 'emergency', '[{"name": "Operator", "gender": "female", "avatarURL": "https://example.com/avatars/operator.png"}, {"name": "Driver", "gender": "male", "avatarURL": "https://example.com/avatars/driver.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3330, 'en', 'dialogue', 'emergency', '[{"name": "Operator", "gender": "female", "avatarURL": "https://example.com/avatars/operator.png"}, {"name": "Driver", "gender": "male", "avatarURL": "https://example.com/avatars/driver.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Da detalles de una avería del coche a las autoridades', 'Lee un diálogo sencillo con asistencia en carretera sobre ubicación, personas y avería.'),
-        (v_dialogue_id, 'de', 'Gib Behörden Details zu einer Fahrzeugpanne', 'Lies einen einfachen Dialog mit der Pannenhilfe über Ort, Personen und den Defekt.');
+        (v_dialogue_id, 'es', 'Da detalles de una avería'), (v_dialogue_id, 'de', 'Details zu einer Fahrzeugpanne');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

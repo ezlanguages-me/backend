@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5710 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5710, 'en', 'reading', 'academic', 'To assess appropriacy quickly, first check whether the source has been peer reviewed or edited by a reliable academic publisher. Peer review does not guarantee perfection, but it usually means the work has passed a basic quality check.
+    VALUES (
+    v_path_id,
+    5710,
+    'en',
+    'reading',
+    'academic',
+    'To assess appropriacy quickly, first check whether the source has been peer reviewed or edited by a reliable academic publisher. Peer review does not guarantee perfection, but it usually means the work has passed a basic quality check.
 
 Next, decide whether the level matches your needs. An introductory textbook is useful for background and key terms, while an advanced research article may be better for detailed evidence. A source can be good but still unsuitable if it is far above or below your current task.
 
-Finally, watch for bias, unsupported opinion, or language that pushes one position without evidence. Appropriate material presents claims carefully and makes clear where the evidence comes from. A quick check for review status, level, and bias often prevents weak source choices.')
-    RETURNING uuid INTO v_reading_id;
+Finally, watch for bias, unsupported opinion, or language that pushes one position without evidence. Appropriate material presents claims carefully and makes clear where the evidence comes from. A quick check for review status, level, and bias often prevents weak source choices.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Valorar rápidamente la adecuación de una fuente', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Die Eignung von Quellen schnell bewerten', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Rápidamente la adecuación');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Eignung von Quellen schnell');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

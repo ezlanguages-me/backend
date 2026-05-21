@@ -15,11 +15,10 @@ DELETE FROM listening WHERE step_order=9000 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=9000 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=9000 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=9000 AND path_uuid=v_path_id;
-        INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
-        VALUES (v_path_id,9000,'en','speaking','professional')
-        RETURNING uuid INTO v_speaking_id;
-        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-        VALUES (v_speaking_id,'es','answer questions outside own immediate area of work','Habla siguiendo las tareas indicadas.','{"scenario": "Debes trabajar en inglés sobre este tema: the HR officer explains the process for requesting extended leave. El contexto es an HR department office.", "tasks": ["Presenta el problema principal.", "Indica el producto o documento implicado.", "Explica un detalle concreto del caso.", "Menciona la otra preocupación o límite.", "Pide una solución clara.", "Negocia una condición o confirma un requisito.", "Resume el acuerdo o el siguiente paso.", "Cierra de forma educada y profesional."]}'::jsonb);
-        INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-        VALUES (v_speaking_id,'de','answer questions outside own immediate area of work','Sprich anhand der angegebenen Aufgaben.','{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: the HR officer explains the process for requesting extended leave. Der Kontext ist an HR department office.", "tasks": ["Stelle das Hauptproblem vor.", "Nenne das betroffene Produkt oder Dokument.", "Erkläre ein konkretes Detail des Falls.", "Erwähne die andere Sorge oder Grenze.", "Bitte um eine klare Lösung.", "Verhandle eine Bedingung oder bestätige eine Anforderung.", "Fasse die Vereinbarung oder den nächsten Schritt zusammen.", "Schließe höflich und professionell ab."]}'::jsonb);
+        INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+        VALUES (v_path_id, 9000, 'en', 'speaking', 'professional')RETURNING uuid INTO v_speaking_id;
+        INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+        VALUES (v_speaking_id, 'es', 'Outside own immediate area of', '{"scenario": "Debes trabajar en inglés sobre este tema: the HR officer explains the process for requesting extended leave. El contexto es an HR department office.", "tasks": ["Presenta el problema principal.", "Indica el producto o documento implicado.", "Explica un detalle concreto del caso.", "Menciona la otra preocupación o límite.", "Pide una solución clara.", "Negocia una condición o confirma un requisito.", "Resume el acuerdo o el siguiente paso.", "Cierra de forma educada y profesional."]}'::jsonb);
+        INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+        VALUES (v_speaking_id, 'de', 'Outside own immediate area of', '{"scenario": "Du sollst auf Englisch zu diesem Thema arbeiten: the HR officer explains the process for requesting extended leave. Der Kontext ist an HR department office.", "tasks": ["Stelle das Hauptproblem vor.", "Nenne das betroffene Produkt oder Dokument.", "Erkläre ein konkretes Detail des Falls.", "Erwähne die andere Sorge oder Grenze.", "Bitte um eine klare Lösung.", "Verhandle eine Bedingung oder bestätige eine Anforderung.", "Fasse die Vereinbarung oder den nächsten Schritt zusammen.", "Schließe höflich und professionell ab."]}'::jsonb);
     END; $seed$;

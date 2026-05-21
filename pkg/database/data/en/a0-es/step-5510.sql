@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5510 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5510, 'en', 'reading', 'academic', 'Written argument. Group projects help students practise planning, negotiation, and shared responsibility. They also allow people to combine different strengths in one task.
+    VALUES (
+    v_path_id,
+    5510,
+    'en',
+    'reading',
+    'academic',
+    'Written argument. Group projects help students practise planning, negotiation, and shared responsibility. They also allow people to combine different strengths in one task.
 
 However, group work is only effective when roles are clear. The text argues that short teacher meetings can reduce conflict, and peer assessment can make the final grade fairer.
 
-In conclusion, group projects are useful when the structure is strong. Without a plan, students may feel that the work is not shared equally.')
-    RETURNING uuid INTO v_reading_id;
+In conclusion, group projects are useful when the structure is strong. Without a plan, students may feel that the work is not shared equally.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Argumentos escritos sobre proyectos en grupo', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Schriftliche Argumente über Gruppenprojekte', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Escritos sobre proyectos');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Argumente über Gruppenprojekte');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

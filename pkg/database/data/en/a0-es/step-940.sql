@@ -9,14 +9,14 @@ DECLARE
   v_exercise_uuid UUID;
   ex JSONB;
   v_exercises JSONB[] := ARRAY[
-        '{"es": "La lectura trata de un seminario de historia.", "de": "Der Text handelt von einem Geschichtsseminar.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"es": "La lectura trata de un seminario de geografía.", "de": "Der Text handelt von einem Geographie-Seminar.", "s_es": {"type": "true_false", "answer": false}, "s_de": {"type": "true_false", "answer": false}}'::jsonb,
         '{"es": "El seminario es en el aula 18 a las 9 AM.", "de": "Das Seminar ist in Raum 18 um 9 Uhr.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
         '{"es": "Los estudiantes usan el teléfono durante la discusión.", "de": "Die Lernenden benutzen während der Diskussion das Handy.", "s_es": {"type": "true_false", "answer": false}, "s_de": {"type": "true_false", "answer": false}}'::jsonb,
         '{"es": "Primero leen un mapa en la página 40.", "de": "Zuerst lesen die Lernenden eine Karte auf Seite 40.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "Después subrayan tres fechas en el texto.", "de": "Danach unterstreichen sie drei Daten im Text.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"es": "Después subrayan cinco fechas en el texto.", "de": "Danach unterstreichen sie fünf Daten im Text.", "s_es": {"type": "true_false", "answer": false}, "s_de": {"type": "true_false", "answer": false}}'::jsonb,
         '{"es": "La tarea es subir un resumen antes del sábado a las 12 PM.", "de": "Die Hausaufgabe ist, vor Samstag um 12 Uhr eine Zusammenfassung hochzuladen.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "¿Qué llevan los estudiantes al seminario?", "de": "Was bringen die Lernenden zum Seminar mit?", "s_es": {"type": "multiple_choice", "options": ["Libro de historia, cuaderno y bolígrafo negro", "Solo una tableta", "Pinturas y tijeras"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Geschichtsbuch, Heft und schwarzen Stift", "Nur ein Tablet", "Farben und Schere"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué escriben al final en clase?", "de": "Was schreiben die Lernenden am Ende im Unterricht?", "s_es": {"type": "multiple_choice", "options": ["Cuatro frases sobre la calzada romana", "Un examen completo", "Una lista de compras"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Vier Sätze über die Römerstraße", "Eine ganze Prüfung", "Eine Einkaufsliste"], "answer": 0}}'::jsonb
+        '{"es": "¿Qué llevan los estudiantes al seminario?", "de": "Was bringen die Lernenden zum Seminar mit?", "s_es": {"type": "multiple_choice", "options": ["Solo una tableta", "Libro de historia, cuaderno y bolígrafo negro", "Pinturas y tijeras"], "answer": 1}, "s_de": {"type": "multiple_choice", "options": ["Nur ein Tablet", "Geschichtsbuch, Heft und schwarzen Stift", "Farben und Schere"], "answer": 1}}'::jsonb,
+        '{"es": "¿Qué escriben al final en clase?", "de": "Was schreiben die Lernenden am Ende im Unterricht?", "s_es": {"type": "multiple_choice", "options": ["Un examen completo", "Una lista de compras", "Cuatro frases sobre la calzada romana"], "answer": 2}, "s_de": {"type": "multiple_choice", "options": ["Eine ganze Prüfung", "Eine Einkaufsliste", "Vier Sätze über die Römerstraße"], "answer": 2}}'::jsonb
     ];
 BEGIN
   SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
@@ -26,19 +26,27 @@ BEGIN
   DELETE FROM reading WHERE path_uuid = v_path_uuid AND step_order = 940 AND source_language = 'en';
 
   INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-  VALUES (v_path_uuid, 940, 'en', 'reading', 'education', 'Hello class,
+  VALUES (
+    v_path_uuid,
+    940,
+    'en',
+    'reading',
+    'education',
+    'Hello class,
 
-Our history seminar is on Friday, 24 January, at 9 AM in Room 18. Please come at 8:50 with your history book, notebook, and a black pen.
+Our history seminar is on Friday, 24 January, at 9 AM in Room 18. This is a history class, not a geography class. Please come at 8:50 AM. Bring your history book, your notebook, and a black pen.
 
-First, read the map on page 40. Next, underline three dates in the text. Then talk with a partner about the Roman road and write four short sentences on the worksheet.
+In the seminar, we start with the map on page 40. Read it carefully. Then underline three dates in the text. Remember: only three dates, not five. After that, talk with a partner about the Roman road.
 
-Please keep your phone in your bag and speak quietly during the discussion.
+Write four short sentences on the worksheet. Write about what you read and discussed. Please keep your phone in your bag during the discussion. Speak quietly and listen to your partner.
 
-For homework, write a short summary of the road and upload it before Saturday at 12 PM. Next week, bring the same worksheet again.') RETURNING uuid INTO v_reading_uuid;
+For homework, write a short summary about the Roman road. Upload the summary to the class website before Saturday at 12 PM. Do not send it by email.
 
-  INSERT INTO reading_translation (reading_uuid, language, title, description)
-  VALUES (v_reading_uuid, 'es', 'Instrucciones para un seminario de historia', 'Lee un mensaje del profesor con hora, aula, materiales y pasos concretos para un seminario de historia.'),
-         (v_reading_uuid, 'de', 'Anweisungen für ein Geschichtsseminar', 'Lies eine Nachricht der Lehrkraft mit Uhrzeit, Raum, Material und konkreten Schritten für ein Geschichtsseminar.');
+Next week, bring the same worksheet to class again.'
+)RETURNING uuid INTO v_reading_uuid;
+
+  INSERT INTO reading_translation (reading_uuid, language, title)
+  VALUES (v_reading_uuid, 'es', 'Seminario de historia'), (v_reading_uuid, 'de', 'Geschichtsseminar');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_uuid, NULL) RETURNING uuid INTO v_exercise_uuid;

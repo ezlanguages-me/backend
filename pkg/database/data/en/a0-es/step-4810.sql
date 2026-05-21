@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 4810 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 4810, 'en', 'listening', 'professional', $transcript$
+    VALUES (
+    v_path_id,
+    4810,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Receptionist and client
 ## THE SCENE: A service call between an office and a client company
 A client phones to confirm a printer technician visit and asks about access details for the building.
@@ -56,13 +62,13 @@ Learners practise confirming appointments, building access, and callback details
 [practical] Caller: Great. Can the technician use loading door B? We also need a parking pass at reception.
 [organized] Receptionist: That is fine. If the technician is late, we will call you on 555-0184.
 [friendly] Caller: Thank you. Please send the confirmation to service@silverprint.com and use invoice number SP-44.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Llamada sobre una visita técnica', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Anruf wegen eines Technikbesuchs', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Llamada sobre una visita');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Wegen eines Technikbesuchs');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

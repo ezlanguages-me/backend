@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5310 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5310, 'en', 'reading', 'academic', 'Essay feedback. Your introduction is clear and the example from Madrid is strong. The main argument is easy to follow, but the paragraph on cost needs more detail.
+    VALUES (
+    v_path_id,
+    5310,
+    'en',
+    'reading',
+    'academic',
+    'Essay feedback. Your introduction is clear and the example from Madrid is strong. The main argument is easy to follow, but the paragraph on cost needs more detail.
 
 There are also some tense mistakes in the second paragraph. One citation is missing a page number, and the conclusion is too short.
 
-Please revise the essay by Friday. If you want extra help, come to office hours on Wednesday afternoon.')
-    RETURNING uuid INTO v_reading_id;
+Please revise the essay by Friday. If you want extra help, come to office hours on Wednesday afternoon.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comentarios sobre un ensayo', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Rückmeldung zu einem Aufsatz', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Comentarios sobre un ensayo');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Rückmeldung zu einem Aufsatz');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

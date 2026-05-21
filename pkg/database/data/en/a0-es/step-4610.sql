@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4610, 'en', 'reading', 'professional', $content$Project Completion Report – CRM System Implementation
+        VALUES (
+    v_path_id,
+    4610,
+    'en',
+    'reading',
+    'professional',
+    $content$Project Completion Report – CRM System Implementation
 
 Project CRM-2023 has now been completed after a total duration of 14 months. The original estimate was 12 months, so delivery was 2 months later than planned. Final project cost reached £184,000 against an approved budget of £160,000. The main reason for the overspend was the need for additional consultancy fees during the integration phase.
 
 In terms of deliverables, data migration was completed on time, and system integration also finished as planned. Staff training, however, ended 3 weeks behind schedule because several business teams were unavailable during the original training window. After implementation, the client reported 2 minor bugs, both of which were resolved within 30 days.
 
-Overall client satisfaction was 91%. The main lesson learned is to allow a 20% time buffer for future training phases.$content$)
-        RETURNING uuid INTO v_reading_id;
+Overall client satisfaction was 91%. The main lesson learned is to allow a 20% time buffer for future training phases.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un informe detallado de proyecto', 'Lee un informe de cierre de proyecto con desviaciones, incidencias y lecciones aprendidas.'),
-            (v_reading_id, 'de', 'Lies einen detaillierten Projektbericht', 'Lies einen Projektabschlussbericht mit Abweichungen, Problemen und gewonnenen Erkenntnissen.');
+            (v_reading_id, 'es', 'Informe detallado de proyecto'), (v_reading_id, 'de', 'Detaillierten Projektbericht');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 4990 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 4990, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    4990,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: University lecturer
 ## THE SCENE: A short lecture excerpt in a study skills class
 A lecturer explains how sleep, light, and review time affect learning and memory.
@@ -56,13 +62,13 @@ Learners practise following a short lecture and identifying main points, example
 [informative] A short review of your notes on the same day is often useful before bed.
 [cautious] A twenty-minute nap can help concentration, but a long nap can make you feel slow.
 [concluding] So, regular sleep and short review sessions are better than late-night cramming.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Fragmento de clase sobre hábitos de estudio', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Vorlesungsausschnitt über Lerngewohnheiten', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Clase sobre hábitos de estudio');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Vorlesungsausschnitt');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

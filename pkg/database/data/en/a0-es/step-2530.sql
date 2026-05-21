@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2530 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2530, 'en', 'reading', 'health', 'City Health Centre
+    VALUES (
+    v_path_id,
+    2530,
+    'en',
+    'reading',
+    'health',
+    'City Health Centre
 
 To book a same-day doctor appointment, speak to Reception Desk 1 before 11 AM. The first free doctor today is Dr Green at 10:40. Bring your ID and your health card.
 
 Dentist appointments are on Tuesdays and Thursdays only. Nurse appointments for blood pressure checks and vaccines are at Desk 2.
 
-If you have strong pain or trouble breathing, tell reception immediately.')
-    RETURNING uuid INTO v_reading_id;
+If you have strong pain or trouble breathing, tell reception immediately.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee cómo pedir una cita médica', 'Lee un aviso breve de un centro de salud para pedir una cita médica y entender la respuesta escrita.'),
-        (v_reading_id, 'de', 'Lies, wie man einen Arzttermin vereinbart', 'Lies einen kurzen Aushang eines Gesundheitszentrums, um einen Arzttermin zu vereinbaren und die schriftliche Antwort zu verstehen.');
+        (v_reading_id, 'es', 'Lee cómo pedir una cita médica'), (v_reading_id, 'de', 'Arzttermin vereinbart');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

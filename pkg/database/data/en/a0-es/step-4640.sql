@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4640, 'en', 'reading', 'professional', $content$Ergonomics in the Workplace
+        VALUES (
+    v_path_id,
+    4640,
+    'en',
+    'reading',
+    'professional',
+    $content$Ergonomics in the Workplace
 
 Ergonomics is the science of designing the work environment to fit the worker rather than forcing the worker to adapt to poor conditions. In office settings, bad ergonomic design can contribute to musculoskeletal problems such as back pain, neck strain and repetitive strain injuries. These issues often develop slowly, but they can lead to discomfort, absence and lower productivity.
 
 Good ergonomic practice includes maintaining a neutral body position, keeping computer screens at eye level and taking short breaks every 45 to 60 minutes. Research published by the Health and Safety Executive shows that musculoskeletal disorders account for 30% of all work-related ill-health cases in the UK.
 
-Employers that invest in ergonomic furniture and staff training can reduce absence by up to 25%. As a result, ergonomics is not only a health issue but also a practical business decision.$content$)
-        RETURNING uuid INTO v_reading_id;
+Employers that invest in ergonomic furniture and staff training can reduce absence by up to 25%. As a result, ergonomics is not only a health issue but also a practical business decision.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un artículo sobre ergonomía laboral', 'Lee un texto teórico sobre ergonomía y salud en el trabajo.'),
-            (v_reading_id, 'de', 'Lies einen Artikel über Arbeitsergonomie', 'Lies einen theoretischen Text über Ergonomie und Gesundheit am Arbeitsplatz.');
+            (v_reading_id, 'es', 'Artículo sobre ergonomía'), (v_reading_id, 'de', 'Artikel über Arbeitsergonomie');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

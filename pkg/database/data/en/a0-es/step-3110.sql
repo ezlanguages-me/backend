@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3110 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3110, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    3110,
+    'en',
+    'reading',
+    'transport',
+    $content$
 Road Help Card for Rental Cars
 
 If your car stops, move it to a safe place and turn on the hazard lights. If you are on a motorway, leave the car on the passenger side and wait behind the barrier.
@@ -42,13 +48,12 @@ Call Road Help on 0800 44 55 66. Tell the team your car number, your location, a
 A mechanic can come for a flat tyre, a flat battery, or an engine problem. The normal waiting time is about forty five minutes. Keep your key, phone, and rental papers with you.
 
 Road Help gives one free tow to the nearest garage within twenty five kilometres. Bags stay with the driver. Do not leave children alone in the car.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee instrucciones para una avería en carretera', 'Lee una tarjeta de ayuda en carretera para un coche de alquiler y entiende qué hacer si el coche se para.'),
-        (v_reading_id, 'de', 'Lies Anweisungen bei einer Panne', 'Lies eine Karte mit Pannenhilfe für einen Mietwagen und verstehe, was man tun soll, wenn das Auto stehen bleibt.');
+        (v_reading_id, 'es', 'Instrucciones para una avería'), (v_reading_id, 'de', 'Anweisungen bei einer Panne');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

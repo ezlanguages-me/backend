@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5550 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5550, 'en', 'reading', 'academic', 'Summary of viewpoints. One view says online seminars are flexible and helpful for commuters. A second view says in-person seminars create better discussion and stronger attention.
+    VALUES (
+    v_path_id,
+    5550,
+    'en',
+    'reading',
+    'academic',
+    'Summary of viewpoints. One view says online seminars are flexible and helpful for commuters. A second view says in-person seminars create better discussion and stronger attention.
 
 A third view supports a mixed model. In this view, seminars with labs or practical tasks should stay face to face, but other sessions can be online. The summary also notes that online formats can fail when technology is unstable.
 
-The final line says many students prefer a mixed model because it combines flexibility with direct contact.')
-    RETURNING uuid INTO v_reading_id;
+The final line says many students prefer a mixed model because it combines flexibility with direct contact.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Resumen de puntos de vista sobre seminarios', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Zusammenfassung von Sichtweisen zu Seminaren', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Resumen de puntos de vista');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Sichtweisen zu Seminaren');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

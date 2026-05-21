@@ -34,16 +34,21 @@
         );
         DELETE FROM reading WHERE step_order = 3650 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3650, 'en', 'reading', 'accommodation', $content$Silver Coast Hotel Terms and Conditions. Check-in starts at 3 PM. Saver rooms are non-refundable. Pets are not allowed.
+        VALUES (
+    v_path_id,
+    3650,
+    'en',
+    'reading',
+    'accommodation',
+    $content$Silver Coast Hotel Terms and Conditions. Check-in starts at 3 PM. Saver rooms are non-refundable. Pets are not allowed.
 
 An extra bed costs £20 per night. Please keep noise low after 10 PM. The pool closes at 9 PM.
 
-Lost key cards cost £15. Guests pay for any serious room damage.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Lost key cards cost £15. Guests pay for any serious room damage.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee términos y condiciones del hotel', 'Lee normas básicas del hotel sobre check-in, devoluciones, llaves y ruido.'),
-            (v_reading_id, 'de', 'Lies Hotel-AGB', 'Lies einfache Hotelregeln zu Check-in, Rückerstattung, Schlüsseln und Lärm.');
+            (v_reading_id, 'es', 'Términos y condiciones'), (v_reading_id, 'de', 'Lies Hotel-AGB');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

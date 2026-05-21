@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 7630 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 7630, 'en', 'dialogue', 'meetings', '[{"name": "Nadia", "gender": "female", "avatarURL": "https://example.com/avatars/nadia.png"}, {"name": "Erik", "gender": "male", "avatarURL": "https://example.com/avatars/erik.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 7630, 'en', 'dialogue', 'meetings', '[{"name": "Nadia", "gender": "female", "avatarURL": "https://example.com/avatars/nadia.png"}, {"name": "Erik", "gender": "male", "avatarURL": "https://example.com/avatars/erik.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Defiende una postura en una discusión', 'Sigue un diálogo donde una persona argumenta a favor de una prueba piloto y responde a objeciones.'),
-        (v_dialogue_id, 'de', 'Vertrete eine Position in einer Diskussion', 'Folge einem Dialog, in dem eine Person für einen Piloten argumentiert und auf Einwände reagiert.');
+        (v_dialogue_id, 'es', 'Postura en una discusión'), (v_dialogue_id, 'de', 'Position in einer Diskussion');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

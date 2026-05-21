@@ -15,21 +15,13 @@
               AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 4740, 'en', 'writing', 'professional')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 4740, 'en', 'writing', 'professional')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'es',
-                'Escribe una sección de manual de operaciones',
-                '',
+                'Manual de operaciones',
                 '{
     "scenario": "Eres responsable técnico y debes escribir una sección del manual de operaciones para el sistema de impresión de la oficina. El texto debe ser claro, numerado y fácil de seguir para cualquier empleado.",
     "tasks": [
@@ -45,18 +37,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'de',
-                'Schreibe einen Abschnitt eines Betriebshandbuchs',
-                '',
+                'Eines Betriebshandbuchs',
                 '{
     "scenario": "Sie sind technisch Verantwortlicher und schreiben einen Abschnitt des Betriebshandbuchs für das Drucksystem. Der Text soll klar, nummeriert und für alle Mitarbeiter leicht verständlich sein.",
     "tasks": [

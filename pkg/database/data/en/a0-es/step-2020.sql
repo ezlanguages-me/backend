@@ -39,11 +39,10 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2020 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2020, 'en', 'dialogue', 'Restauración', '[{"name": "Mia", "gender": "female", "avatarURL": "https://example.com/avatars/mia.png"}, {"name": "Waiter", "gender": "male", "avatarURL": "https://example.com/avatars/waiter.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2020, 'en', 'dialogue', 'dining', '[{"name": "Mia", "gender": "female", "avatarURL": "https://example.com/avatars/mia.png"}, {"name": "Waiter", "gender": "male", "avatarURL": "https://example.com/avatars/waiter.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) VALUES (v_dialogue_id, 'es', 'Hacer preguntas simples sobre el menú', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) VALUES (v_dialogue_id, 'de', 'Einfache Fragen zur Speisekarte stellen', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Hacer preguntas simples');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Fragen zur Speisekarte stellen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

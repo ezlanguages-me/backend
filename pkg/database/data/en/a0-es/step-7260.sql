@@ -32,7 +32,13 @@
             DELETE FROM listening WHERE step_order = 7260 AND path_uuid = v_path_id;
 
             INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-            VALUES (v_path_id, 7260, 'en', 'listening', 'communication', $transcript$
+            VALUES (
+    v_path_id,
+    7260,
+    'en',
+    'listening',
+    'communication',
+    $transcript$
 # AUDIO PROFILE: Two friends reading short personal emails aloud
 ## Weekend Picnic Emails
 
@@ -64,13 +70,12 @@ The audio helps learners notice useful language for time, place, and friendly pl
 [helpful] Leo: Please send one photo to Emma after the picnic.
 [warm] Maya: No problem. See you on Saturday.
 [closing] Leo: See you then.
-$transcript$)
-            RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-            INSERT INTO listening_translation (listening_uuid, language, title, description)
+            INSERT INTO listening_translation (listening_uuid, language, title)
             VALUES
-                (v_listening_id, 'es', 'Escucha un intercambio de correos personales', 'Escucha a dos amigos leer en voz alta mensajes personales sobre un picnic y sus detalles.'),
-                (v_listening_id, 'de', 'Höre einen Austausch persönlicher E-Mails', 'Höre zwei Freunde, die persönliche Nachrichten über ein Picknick und seine Details vorlesen.');
+                (v_listening_id, 'es', 'Intercambio de correos'), (v_listening_id, 'de', 'Einen Austausch persönlicher E');
 
             FOREACH ex IN ARRAY v_exercises LOOP
                 INSERT INTO exercise (target_uuid, grammar_rule_uuid)

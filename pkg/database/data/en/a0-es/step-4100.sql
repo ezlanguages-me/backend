@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4100 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4100 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4100, 'en', 'reading', 'professional', $content$Internal Note – December
+        VALUES (
+    v_path_id,
+    4100,
+    'en',
+    'reading',
+    'professional',
+    $content$Internal Note – December
 
 To: Ms Chen
 From: James, Sales Team
@@ -44,12 +50,11 @@ I will give you our new catalogue, which includes an expanded office equipment s
 I would also like to offer a free product demonstration at your office. Please call me if you have any questions.
 
 Kind regards,
-James$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+James$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una nota de oferta de ayuda a un cliente', 'Lee una nota interna donde se ofrece ayuda, un catálogo nuevo y una demostración gratuita.'),
-            (v_reading_id, 'de', 'Lies eine Notiz mit Hilfsangebot für einen Kunden', 'Lies eine interne Notiz, die Hilfe, einen neuen Katalog und eine kostenlose Demonstration anbietet.');
+            (v_reading_id, 'es', 'Oferta de ayuda a un cliente'), (v_reading_id, 'de', 'Hilfsangebot für einen Kunden');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

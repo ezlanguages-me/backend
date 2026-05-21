@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM listening_translation WHERE listening_uuid IN (SELECT uuid FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6120 AND source_language = 'en');
   DELETE FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6120 AND source_language = 'en';
   INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-  VALUES (v_path_uuid, 6120, 'en', 'listening', 'Alquileres', $transcript$
+  VALUES (
+    v_path_uuid,
+    6120,
+    'en',
+    'listening',
+    'accommodation',
+    $transcript$
 The maintenance team says to check the boiler pressure first and bring it up to 1 bar.
 
 If a tap drips, close the valve and report it if the leak continues. If a window latch is broken, do not force it.
 
 If the alarm beeps every minute, change the battery. For a blocked sink, use hot water, not strong chemicals. If the leak reaches the ceiling, call the emergency number and report the issue within 24 hours.
-$transcript$)
-  RETURNING uuid INTO v_listening_uuid;
-  INSERT INTO listening_translation (listening_uuid, language, title, description)
-  VALUES (v_listening_uuid, 'es', 'Escucha consejos de mantenimiento de la vivienda', 'Escucha consejos prácticos sobre pequeñas averías y cuándo avisar.'),
-         (v_listening_uuid, 'de', 'Höre Wartungstipps für die Unterkunft', 'Höre praktische Tipps zu kleinen Schäden und wann man Bescheid sagen soll.');
+$transcript$
+)RETURNING uuid INTO v_listening_uuid;
+  INSERT INTO listening_translation (listening_uuid, language, title)
+  VALUES (v_listening_uuid, 'es', 'Mantenimiento de la vivienda'), (v_listening_uuid, 'de', 'Wartungstipps');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

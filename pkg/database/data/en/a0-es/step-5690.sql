@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5690 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5690, 'en', 'reading', 'academic', 'When you need a reliable judgement quickly, begin with macro-scan. Look at the overall structure: title, introduction, conclusion, chapter titles, and diagrams. This tells you what the article or textbook is trying to do before you read details.
+    VALUES (
+    v_path_id,
+    5690,
+    'en',
+    'reading',
+    'academic',
+    'When you need a reliable judgement quickly, begin with macro-scan. Look at the overall structure: title, introduction, conclusion, chapter titles, and diagrams. This tells you what the article or textbook is trying to do before you read details.
 
 Next, use meso-scan. Move through section headings, bold terms, tables, and figure captions. These middle level signals show which subtopics are covered and where the most useful section may be located.
 
-Finally, use micro-scan on a few paragraphs. Read the opening sentence of each paragraph and, when needed, the final sentence to confirm the direction of the argument. Together, macro-scan, meso-scan, and micro-scan help you judge relevance and usefulness without reading every line.')
-    RETURNING uuid INTO v_reading_id;
+Finally, use micro-scan on a few paragraphs. Read the opening sentence of each paragraph and, when needed, the final sentence to confirm the direction of the argument. Together, macro-scan, meso-scan, and micro-scan help you judge relevance and usefulness without reading every line.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Escanear fuentes para juzgar relevancia y utilidad', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Quellen scannen und Relevanz beurteilen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Evaluar relevancia de fuentes');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Quellenrelevanz prüfen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

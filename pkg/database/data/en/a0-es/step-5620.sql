@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5620 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5620, 'en', 'listening', 'academic-essay', $transcript$
+    VALUES (
+    v_path_id,
+    5620,
+    'en',
+    'listening',
+    'academic_essay',
+    $transcript$
 # AUDIO PROFILE
 - **Format:** One-on-one tutorial session
 - **Duration:** ~5 minutes
@@ -63,13 +69,13 @@ A tutor, Dr. Collins, meets a student, Marcus, who is struggling to start his es
 [practical] Dr. Collins: And once you have a full draft, read it aloud. You will catch things your eyes miss — awkward sentences, missing logic.
 [motivated] Marcus: I''ll try that. I feel less anxious now.
 [warm] Dr. Collins: Good. Start messy. Refine later. That''s how good essays are built.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Consejos de redacción de ensayos: del borrador al producto final', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Aufsatzschreibtipps: Vom Entwurf zum fertigen Text', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Del borrador al texto final');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Vom Entwurf zum fertigen Text');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

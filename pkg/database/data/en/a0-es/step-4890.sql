@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 4890 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 4890, 'en', 'listening', 'professional', $transcript$
+    VALUES (
+    v_path_id,
+    4890,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Support agent and upset customer
 ## THE SCENE: A tense call about an incorrect invoice
 A customer is unhappy about a late fee on the wrong invoice, and the support agent tries to solve the problem calmly.
@@ -56,13 +62,13 @@ Learners practise understanding apologies, invoice details, and calm problem-sol
 [professional] Agent: Thank you. I can see the payment now, so the late fee should not be there.
 [helpful] Agent: I will send a corrected copy within one hour and remove the extra charge today.
 [reassuring] Agent: If you need it, my manager can also call you back this afternoon.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Gestionar una llamada difícil', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Ein schwieriges Telefonat bearbeiten', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Gestionar una llamada difícil');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Schwieriges Telefonat');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

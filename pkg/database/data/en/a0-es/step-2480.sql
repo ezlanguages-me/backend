@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2480 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2480, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2480,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 CHEF'S SIGNATURE MENU
 Starter: tuna carpaccio with citrus dressing.
 Soup: lobster bisque with cream.
@@ -46,11 +52,11 @@ Confit is meat cooked slowly in fat.
 Purée is soft mashed food.
 Reduction is a strong sauce cooked until thick.
 Coulis is a smooth fruit sauce.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer un menú de alta cocina con términos culinarios');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Fine-Dining-Karte mit Küchenbegriffen lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Cocina con términos culinarios');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Fine');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

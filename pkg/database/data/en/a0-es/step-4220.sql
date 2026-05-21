@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4220 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4220 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4220, 'en', 'reading', 'professional', $content$INTERNAL MEMO
+        VALUES (
+    v_path_id,
+    4220,
+    'en',
+    'reading',
+    'professional',
+    $content$INTERNAL MEMO
 
 To: All Staff
 From: Director of Operations
@@ -44,12 +50,11 @@ The new venue for the meeting is Room A on the ground floor. Please update your 
 
 Thank you for your cooperation.
 
-Director of Operations$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Director of Operations$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un memo interno de empresa', 'Lee un memo interno con cambio de horario de reunión, nueva sala y vigencia del cambio.'),
-            (v_reading_id, 'de', 'Lies ein internes Unternehmensmemo', 'Lies ein internes Memo mit Änderung des Meeting-Termins, neuem Raum und Inkrafttreten.');
+            (v_reading_id, 'es', 'Lee un memo interno de empresa'), (v_reading_id, 'de', 'Ein internes Unternehmensmemo');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

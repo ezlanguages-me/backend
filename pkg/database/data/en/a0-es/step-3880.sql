@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3880 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3880 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3880, 'en', 'reading', 'professional', $content$Delivery Instructions for North Tech Warehouse. Use Gate C and call security on 555-0201 when you arrive. Unload at Bay 4 between 9 AM and 4 PM.
+        VALUES (
+    v_path_id,
+    3880,
+    'en',
+    'reading',
+    'professional',
+    $content$Delivery Instructions for North Tech Warehouse. Use Gate C and call security on 555-0201 when you arrive. Unload at Bay 4 between 9 AM and 4 PM.
 
 Fragile boxes go on the top shelf in Section B. Heavy boxes stay on the floor near the wall. After unloading, take the delivery note to the office for a signature.
 
-No deliveries are accepted on Saturday. Drivers must wear a visitor badge inside the warehouse.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+No deliveries are accepted on Saturday. Drivers must wear a visitor badge inside the warehouse.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee instrucciones de entrega', 'Lee un aviso con puerta, horario, descarga y normas para conductores.'),
-            (v_reading_id, 'de', 'Lies Lieferanweisungen', 'Lies einen Hinweis mit Tor, Zeiten, Entladung und Regeln für Fahrer.');
+            (v_reading_id, 'es', 'Lee instrucciones de entrega'), (v_reading_id, 'de', 'Lies Lieferanweisungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -17,21 +17,13 @@ BEGIN
       AND type = 'speaking';
 
     INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
-    VALUES (v_path_id, 4790, 'en', 'speaking', 'professional')
-    RETURNING uuid INTO v_item_id;
+    VALUES (v_path_id, 4790, 'en', 'speaking', 'professional')RETURNING uuid INTO v_item_id;
 
-    INSERT INTO speaking_translation (
-        speaking_uuid,
-        language,
-        title,
-        description,
-        prompt
-    )
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
     VALUES (
         v_item_id,
         'es',
-        'Practica tomar recados telefónicos complejos',
-        'Practica cómo tomar y transmitir recados telefónicos detallados de forma profesional.',
+        'Recados telefónicos complejos',
         '{
     "scenario": "Una persona llama para dejar un recado complejo para un compañero que no está disponible. Practica cómo tomar el recado con todos los detalles, repetir la información para confirmar y transmitirla correctamente.",
     "tasks": [
@@ -47,18 +39,11 @@ BEGIN
 }'::jsonb
     );
 
-    INSERT INTO speaking_translation (
-        speaking_uuid,
-        language,
-        title,
-        description,
-        prompt
-    )
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
     VALUES (
         v_item_id,
         'de',
-        'Übe das Aufnehmen komplexer Telefonnachrichten',
-        'Übe, wie man detaillierte Telefonnachrichten professionell aufnimmt und weitergibt.',
+        'Komplexer Telefonnachrichten',
         '{
     "scenario": "Eine Person ruft an, um eine komplexe Nachricht für einen nicht verfügbaren Kollegen zu hinterlassen. Üben Sie, die Nachricht mit allen Details aufzunehmen, die Informationen zu bestätigen und weiterzugeben.",
     "tasks": [

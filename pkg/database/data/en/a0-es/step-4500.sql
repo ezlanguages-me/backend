@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4500, 'en', 'reading', 'professional', $content$Dear Accounts Team,
+        VALUES (
+    v_path_id,
+    4500,
+    'en',
+    'reading',
+    'professional',
+    $content$Dear Accounts Team,
 
 I am writing on behalf of Harper & Sons regarding invoice 1187, which was sent to us on 5 October. The invoice total shown is £3,200, but the agreed price for the work completed was £2,800. We reviewed the quotation that your sales department sent before the order was confirmed, and the lower amount is clearly stated there.
 
@@ -54,13 +60,12 @@ If you need any further information, please contact us at accounts@harpersons.co
 
 Yours sincerely,
 Daniel Harper
-Harper & Sons$content$)
-        RETURNING uuid INTO v_reading_id;
+Harper & Sons$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una carta de reclamación', 'Lee una reclamación sobre una factura incorrecta y la solicitud de una corrección.'),
-            (v_reading_id, 'de', 'Lies einen Beschwerdebrief', 'Lies eine Beschwerde über eine falsche Rechnung und die Bitte um eine Korrektur.');
+            (v_reading_id, 'es', 'Lee una carta de reclamación'), (v_reading_id, 'de', 'Lies einen Beschwerdebrief');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

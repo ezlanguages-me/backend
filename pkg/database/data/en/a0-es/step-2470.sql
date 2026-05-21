@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2470 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2470, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2470,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 RIVER HOUSE À LA CARTE
 Starters: grilled halloumi, prawn cocktail, lentil soup.
 Main courses: lamb chops with rosemary, cod with mashed potatoes, spinach risotto, chicken salad.
@@ -40,11 +46,11 @@ Sides: green beans, fries, mixed leaves.
 Desserts: lemon tart, chocolate mousse, fruit plate.
 
 House drinks: sparkling water, white wine, red wine, fresh juice.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer una carta a la carta variada');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine abwechslungsreiche À-la-carte-Karte lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer una carta a la carta');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine abwechslungsreiche À');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

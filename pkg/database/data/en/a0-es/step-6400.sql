@@ -33,19 +33,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 6400 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 6400, 'en', 'reading', 'Turismo y Entretenimiento', 'Guided Tour: Old Town Highlights
+    VALUES (
+    v_path_id,
+    6400,
+    'en',
+    'reading',
+    'turismo_y_entretenimiento',
+    'Guided Tour: Old Town Highlights
 
 Meet your guide at the main entrance at 10:00. The visit lasts one hour and follows a simple route through the courtyard, the old square, and the small museum room.
 
 Please listen to the guide and stay with the group. You can take a photo in the courtyard, but not inside the museum room. If you have a question, ask the guide after each stop.
 
-There is a toilet near the souvenir shop at the end of the route. After the visit, you may stay for a short look at the shop or leave through the main entrance.')
-    RETURNING uuid INTO v_reading_id;
+There is a toilet near the souvenir shop at the end of the route. After the visit, you may stay for a short look at the shop or leave through the main entrance.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'lee la información básica de una visita guiada', 'Lee un texto sencillo con la información básica de una visita guiada en una situación previsible.'),
-        (v_reading_id, 'de', 'lies die Grundinformationen einer Führung', 'Lies einen einfachen Text mit den Grundinformationen einer Führung in einer vorhersehbaren Situation.');
+        (v_reading_id, 'es', 'Visita guiada básica'), (v_reading_id, 'de', 'Grundlagen einer Führung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

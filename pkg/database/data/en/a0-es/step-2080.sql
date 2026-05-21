@@ -32,15 +32,21 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2080 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2080, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2080,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 NOTE FOR THE WAITER
 Excuse me. My soup is cold and the chicken is not hot. The bread is hard.
 
 I asked for water ten minutes ago, and it is not here.
 
 Please bring hot soup, fresh bread, and my water. Thank you.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Una nota de queja sencilla');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine einfache Beschwerdenotiz');

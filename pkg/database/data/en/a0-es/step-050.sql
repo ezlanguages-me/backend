@@ -29,7 +29,7 @@ DECLARE
         '{"v":"cell phone","es":"teléfono celular","de":"Mobiltelefon / Handy","ex":"I left my cell phone on the bus.","pron":"/sel fóun/","pron_de":"/SEL FOUN/"}',
         '{"v":"email address","es":"dirección de correo electrónico","de":"E-Mail-Adresse","ex":"Please enter your email address to create an account.","pron":"/í-meil a-drés/","pron_de":"/IE-mejl Ä-dres/"}',
         '{"v":"marital status","es":"estado civil","de":"Familienstand","ex":"What is your marital status: single, married or divorced?","pron":"/má-ri-tal stá-tus/","pron_de":"/MÄ-ri-töl STEJ-töss/"}',
-        '{"v":"single","es":"soltero/a","de":"ledig","ex":"She has been single for two years now.","pron":"/sín-gel/","pron_de":"/SING-göl/"}',
+        '{"v":"single","es":"soltero/a","de":"ledig","ex":"She has been single for two years now.","pron":"/síng-gel/","pron_de":"/SING-göl/"}',
         '{"v":"married","es":"casado/a","de":"verheiratet","ex":"They have been married for over twenty years.","pron":"/má-rid/","pron_de":"/MÄ-ried/"}',
         '{"v":"divorced","es":"divorciado/a","de":"geschieden","ex":"He got divorced last year and moved to a new city.","pron":"/di-vórst/","pron_de":"/di-WOORST/"}',
         '{"v":"widowed","es":"viudo/a","de":"verwitwet","ex":"She has been widowed for five years.","pron":"/uí-doud/","pron_de":"/WI-doud/"}',
@@ -40,7 +40,14 @@ DECLARE
         '{"v":"ID card (Identity card)","es":"carné de identidad / DNI","de":"Personalausweis","ex":"You need a valid ID card to open a bank account.","pron":"/ái-dí kard/","pron_de":"/AI-die KAARD/"}',
         '{"v":"passport","es":"pasaporte","de":"Reisepass","ex":"Do you have your passport with you?","pron":"/pás-port/","pron_de":"/PAAS-poot/"}',
         '{"v":"driver''s license","es":"licencia de conducir","de":"Führerschein","ex":"She showed her driver''s license at the border.","pron":"/drái-vers lái-sens/","pron_de":"/DRAI-wörs LAI-sönss/"}',
-        '{"v":"signature","es":"firma","de":"Unterschrift","ex":"Please add your signature at the bottom of the form.","pron":"/síg-na-cher/","pron_de":"/SIG-nö-tschö/"}'
+        '{"v":"signature","es":"firma","de":"Unterschrift","ex":"Please add your signature at the bottom of the form.","pron":"/síg-na-cher/","pron_de":"/SIG-nö-tschö/"}',
+        '{"v":"citizenship","es":"ciudadanía","de":"Staatsbürgerschaft","ex":"She applied for citizenship after living in the country for ten years.","pron":"/sí-ti-sen-ship/","pron_de":"/STAAT-sbuör-gö-schäft/"}',
+        '{"v":"visa","es":"visado / visa","de":"Visum","ex":"Do you have a valid visa to enter the country?","pron":"/ví-sa/","pron_de":"/WIE-sum/"}',
+        '{"v":"emergency contact","es":"contacto de emergencia","de":"Notfallkontakt","ex":"Please provide the name and phone number of your emergency contact.","pron":"/i-mér-djen-si kón-takt/","pron_de":"/NOT-fal-kön-täkt/"}',
+        '{"v":"blood type","es":"grupo sanguíneo / tipo de sangre","de":"Blutgruppe","ex":"Please enter your blood type in the medical form.","pron":"/blad táip/","pron_de":"/BLUUT-gru-pö/"}',
+        '{"v":"employed","es":"empleado/a","de":"beschäftigt / angestellt","ex":"Are you currently employed or looking for work?","pron":"/em-plóid/","pron_de":"/be-SCHEF-tigt/"}',
+        '{"v":"unemployed","es":"desempleado/a / en paro","de":"arbeitslos / erwerbslos","ex":"He has been unemployed for six months and is actively looking for a job.","pron":"/an-em-plóid/","pron_de":"/AR-baits-loos/"}',
+        '{"v":"self-employed","es":"autónomo/a / trabajador independiente","de":"selbstständig","ex":"She is self-employed and runs her own design studio.","pron":"/self em-plóid/","pron_de":"/SELBST-schten-dig/"}'
     ];
 
 BEGIN
@@ -54,23 +61,20 @@ VALUES (v_path_id, 50, 'en', 'deck')
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'Información Personal', 
-    ''
+    v_deck_id,
+    'es',
+    'Datos Personales'
 );
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
-VALUES (v_deck_id, 'de', 'Persönliche Informationen', '');
+INSERT INTO deck_translation (deck_uuid, language, title) 
+VALUES (v_deck_id, 'de', 'Persönliche Daten');
 
 -- 4. Bucle para insertar todas las palabras del mazo
 FOREACH v_item IN ARRAY v_personal_info
 LOOP
     -- Insertar el término en la tabla word como palabra raíz
-    INSERT INTO word (term, is_root, source_language, example) 
-    VALUES (v_item->>'v', TRUE, 'en', v_item->>'ex') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en', v_item->>'ex') INTO v_root_id;
 
     -- Insertar la traducción al español y su pronunciación en JSONB y texto
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
@@ -79,15 +83,18 @@ LOOP
         'es', 
         jsonb_build_object('translation', v_item->>'es'), 
         v_item->>'pron'
-    );
+    )
+    ON CONFLICT DO NOTHING;
 
     -- Insertar la traducción al alemán y su pronunciación en JSONB y texto
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
     -- Vincular la palabra creada al mazo actual
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
 END LOOP;
 END;

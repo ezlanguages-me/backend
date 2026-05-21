@@ -1,5 +1,5 @@
 -- ============================================================
--- Seed: A0 English Path – STEP 210 – Reading – take part in a conversation of a basic factual nature on a predictable topic, i.e. her/his home country, family, school, etc (Convivencia (Host Families y Vida Social))
+-- Seed: A0 English Path – STEP 210 – Reading – identify personal information in a short text about home country, family and school (Convivencia (Host Families y Vida Social))
 -- Source language: Spanish
 -- Generated from ordered-steps-table.md
 -- ============================================================
@@ -10,7 +10,7 @@ DECLARE
     v_ex_id UUID; 
     ex JSONB; 
     
-    -- Array con 12 ejercicios de comprensión lectora (True / False)
+    -- Array con 20 ejercicios de comprensión lectora (True / False / Multiple Choice)
     v_exercises JSONB[] := ARRAY[
         '{"p":"Alex es un estudiante de intercambio.", "p_de":"Alex ist ein Austauschstudent.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"p":"¿De qué ciudad exacta es Alex?", "p_de":"Aus welcher Stadt kommt Alex genau?", "s":{"type":"multiple_choice","options":["Seattle", "Madrid", "Barcelona"],"answer":"Madrid"}}'::jsonb,
@@ -40,14 +40,13 @@ SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 
 -- 2. Insertar el Reading en el Step 210
 INSERT INTO reading (path_uuid, step_order, source_language, type, category, content) 
-VALUES (v_path_id, 210, 'en', 'reading', 'social', 'Hi everyone!\n\nMy name is Alex and I am an exchange student. I want to tell you a little bit about myself, my family, and my home country.\n\nI am from Spain. It is a beautiful country in southern Europe. The weather there is usually sunny and warm. \n\nIn my family, there are four people: my parents, my younger sister, and me. My mom is a nurse and my dad is an engineer. My sister is 12 years old and she loves playing soccer.\n\nBack in Spain, I go to a large high school in Madrid. My favorite subjects are History and English. I also play the guitar in the school band.\n\nI am very happy to be here in the United States and I hope we can be good friends. If you have any questions about my country, just ask!') 
-RETURNING uuid INTO v_reading_id;
+VALUES (v_path_id, 210, 'en', 'reading', 'social', 'Hi everyone!\n\nMy name is Alex and I am an exchange student. I want to tell you a little bit about myself, my family, and my home country.\n\nI am from Spain. It is a beautiful country in southern Europe. The weather there is usually sunny and warm. \n\nIn my family, there are four people: my parents, my younger sister, and me. My mom is a nurse and my dad is an engineer. My sister is 12 years old and she loves playing soccer.\n\nBack in Spain, I go to a large high school in Madrid. My favorite subjects are History and English. I also play the guitar in the school band.\n\nI am very happy to be here in the United States and I hope we can be good friends. If you have any questions about my country, just ask!')RETURNING uuid INTO v_reading_id;
 
 -- 3. Insertar Traducción y Contenido del Reading
 INSERT INTO reading_translation (reading_uuid, language, title) 
 VALUES (
-    v_reading_id, 
-    'es', 
+    v_reading_id,
+    'es',
     'Presentación Personal'
 );
 

@@ -17,7 +17,7 @@ DECLARE
         '{"p": "El grupo B recordó más términos clave.", "p_de": "Gruppe B erinnerte sich an mehr Schlüsselbegriffe.", "s": {"type": "true_false", "answer": false}}'::jsonb,
         '{"p": "Las sesiones cortas son más fáciles de repetir en una semana ocupada.", "p_de": "Kurze Einheiten lassen sich in einer vollen Woche leichter wiederholen.", "s": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "La idea principal es estudiar muchas horas de una vez.", "p_de": "Die Hauptidee ist, viele Stunden am Stück zu lernen.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "¿Cuándo recuerda más la gente según el texto?", "p_de": "Wann erinnert man sich laut Text besser?", "s": {"type": "multiple_choice", "options": ["When they review on the same day", "When they wait one month", "When they never look again"], "answer": 0}}'::jsonb,
+        '{"p": "¿Cuándo recuerda más la gente?", "p_de": "Wann erinnert man sich laut Text besser?", "s": {"type": "multiple_choice", "options": ["When they review on the same day", "When they wait one month", "When they never look again"], "answer": 0}}'::jsonb,
         '{"p": "¿Qué revisión adicional puede ayudar?", "p_de": "Welche zusätzliche Wiederholung kann helfen?", "s": {"type": "multiple_choice", "options": ["A second review two days later", "A review after one year", "A review only during lunch"], "answer": 0}}'::jsonb,
         '{"p": "¿Cuánto tiempo revisó el grupo A?", "p_de": "Wie lange wiederholte Gruppe A?", "s": {"type": "multiple_choice", "options": ["Fifteen minutes", "Fifteen hours", "Five minutes"], "answer": 0}}'::jsonb,
         '{"p": "¿Cuándo revisó el grupo B?", "p_de": "Wann wiederholte Gruppe B?", "s": {"type": "multiple_choice", "options": ["The night before the test", "Right after class", "During the test itself"], "answer": 0}}'::jsonb,
@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5000 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5000, 'en', 'reading', 'academic', 'Lecture extract. The speaker says that students remember more when they review information on the same day. A second review two days later often helps too.
+    VALUES (
+    v_path_id,
+    5000,
+    'en',
+    'reading',
+    'academic',
+    'Lecture extract. The speaker says that students remember more when they review information on the same day. A second review two days later often helps too.
 
 One classroom example compared two groups. Group A reviewed notes for fifteen minutes after class. Group B waited until the night before the test. Group A remembered more key terms in the final quiz.
 
-The speaker adds that short review sessions are easier to repeat during a busy week. The main point is not to study for many hours at once, but to return to the material regularly.')
-    RETURNING uuid INTO v_reading_id;
+The speaker adds that short review sessions are easier to repeat during a busy week. The main point is not to study for many hours at once, but to return to the material regularly.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Extracto de una clase sobre revisión y memoria', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Ausschnitt aus einer Vorlesung über Wiederholung und Gedächtnis', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Clase sobre revisión y memoria');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Ausschnitt aus einer Vorlesung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

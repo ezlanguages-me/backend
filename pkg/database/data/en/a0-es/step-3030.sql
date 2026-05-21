@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3030 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3030, 'en', 'reading', 'transport', 'SkyPort Car Hire is in Terminal 2. You can book a small car, a family car, or a van. Many visitors choose the small car for city trips.
+    VALUES (
+    v_path_id,
+    3030,
+    'en',
+    'reading',
+    'transport',
+    'SkyPort Car Hire is in Terminal 2. You can book a small car, a family car, or a van. Many visitors choose the small car for city trips.
 
 A small car costs £32 per day. A family car costs £46 per day. The price includes basic insurance. GPS and baby seats cost extra.
 
 To book a car, bring your passport, your driving licence, and a bank card. Pick up is at the Terminal 2 desk between 8 a.m. and 10 p.m.
 
-Please return the car with half a tank of petrol. If your flight is late, call the desk before your pick up time.')
-    RETURNING uuid INTO v_reading_id;
+Please return the car with half a tank of petrol. If your flight is late, call the desk before your pick up time.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee cómo reservar un coche de alquiler en el aeropuerto', 'Lee un texto breve con precio, documentos, recogida y devolución para reservar un coche en el aeropuerto.'),
-        (v_reading_id, 'de', 'Lies, wie man am Flughafen einen Mietwagen bucht', 'Lies einen kurzen Text mit Preis, Dokumenten, Abholung und Rückgabe für eine Mietwagenbuchung am Flughafen.');
+        (v_reading_id, 'es', 'Reservar un coche de alquiler'), (v_reading_id, 'de', 'Flughafen einen Mietwagen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

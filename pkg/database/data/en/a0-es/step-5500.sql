@@ -41,13 +41,12 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5500 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5500, 'en', 'dialogue', 'academic', '[{"name": "Sofia", "gender": "female", "avatarURL": "https://example.com/avatars/sofia.png"}, {"name": "Raul", "gender": "male", "avatarURL": "https://example.com/avatars/raul.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5500, 'en', 'dialogue', 'academic', '[{"name": "Sofia", "gender": "female", "avatarURL": "https://example.com/avatars/sofia.png"}, {"name": "Raul", "gender": "male", "avatarURL": "https://example.com/avatars/raul.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Expresar opiniones simples con desacuerdo', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Einfache Meinungen mit Widerspruch ausdrücken', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Expresar opiniones simples');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Meinungen mit Widerspruch');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

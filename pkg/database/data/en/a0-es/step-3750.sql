@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3750 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3750 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3750, 'en', 'reading', 'tourism', $content$Summer Weekend Program. Saturday: street parade at 11 AM on King Avenue. Food market from 12 PM to 6 PM in Central Square. Children's art workshop at 2 PM in Hall A.
+        VALUES (
+    v_path_id,
+    3750,
+    'en',
+    'reading',
+    'tourism',
+    $content$Summer Weekend Program. Saturday: street parade at 11 AM on King Avenue. Food market from 12 PM to 6 PM in Central Square. Children's art workshop at 2 PM in Hall A.
 
 Sunday: open-air movie at 9 PM in Riverside Park. Bring a jacket. Tickets are £6 online or at the Tourist Office until 7 PM.
 
-If it rains, the movie moves to Hall B. The information desk opens every day at 10 AM.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+If it rains, the movie moves to Hall B. The information desk opens every day at 10 AM.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee programas de eventos', 'Lee un programa de fin de semana con actividades, horarios y lugar alternativo si llueve.'),
-            (v_reading_id, 'de', 'Lies Veranstaltungsprogramme', 'Lies ein Wochenendprogramm mit Aktivitäten, Zeiten und einem Ausweichort bei Regen.');
+            (v_reading_id, 'es', 'Lee programas de eventos'), (v_reading_id, 'de', 'Lies Veranstaltungsprogramme');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

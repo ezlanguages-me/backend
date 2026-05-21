@@ -15,7 +15,7 @@ DECLARE
         -- ==========================================
         '{"v":"house","es":"casa","de":"Haus","pron":"/háus/","pron_de":"/HAUS/"}',
         '{"v":"apartment","es":"apartamento / piso","de":"Wohnung","pron":"/a-párt-ment/","pron_de":"/ö-PAAT-mönt/"}',
-        '{"v":"building","es":"edificio","de":"Gebäude","pron":"/bíl-din/","pron_de":"/BIL-ding/"}',
+        '{"v":"building","es":"edificio","de":"Gebäude","pron":"/bíl-ding/","pron_de":"/BIL-ding/"}',
         '{"v":"condo (condominium)","es":"condominio / piso en propiedad","de":"Eigentumswohnung","pron":"/kón-dou/","pron_de":"/KON-dou/"}',
         '{"v":"townhouse","es":"casa adosada","de":"Reihenhaus","pron":"/táun-haus/","pron_de":"/TAUN-haus/"}',
         '{"v":"front yard","es":"jardín delantero (US)","de":"Vorgarten","pron":"/frant iard/","pron_de":"/FRANT jaad/"}',
@@ -27,7 +27,7 @@ DECLARE
         '{"v":"downspout","es":"bajante de agua","de":"Fallrohr","pron":"/dáun-spaut/","pron_de":"/DAUN-spaut/"}',
         '{"v":"wall","es":"pared / muro","de":"Wand","pron":"/uol/","pron_de":"/WOOL/"}',
         '{"v":"floor","es":"suelo / piso","de":"Boden","pron":"/flor/","pron_de":"/FLOOR/"}',
-        '{"v":"ceiling","es":"techo (interior)","de":"Decke","pron":"/sí-lin/","pron_de":"/SIE-ling/"}',
+        '{"v":"ceiling","es":"techo (interior)","de":"Decke","pron":"/sí-ling/","pron_de":"/SIE-ling/"}',
         '{"v":"window","es":"ventana","de":"Fenster","pron":"/uín-dou/","pron_de":"/WIN-dou/"}',
         '{"v":"windowsill","es":"alféizar de la ventana","de":"Fensterbank","pron":"/uín-dou-sil/","pron_de":"/WIN-dou-sil/"}',
         '{"v":"shutters","es":"contraventanas","de":"Fensterläden","pron":"/shá-ters/","pron_de":"/SCHA-törs/"}',
@@ -48,20 +48,20 @@ DECLARE
         '{"v":"hose","es":"manguera","de":"Gartenschlauch","pron":"/hóus/","pron_de":"/HOUS/"}',
         '{"v":"shed","es":"cobertizo","de":"Schuppen","pron":"/shed/","pron_de":"/SCHED/"}',
         '{"v":"doorbell","es":"timbre","de":"Türklingel","pron":"/dór-bel/","pron_de":"/DOOR-bel/"}',
-        '{"v":"swimming pool","es":"piscina","de":"Schwimmbecken","pron":"/suí-min pul/","pron_de":"/SWIM-ing PUUL/"}',
+        '{"v":"swimming pool","es":"piscina","de":"Schwimmbecken","pron":"/suí-ming pul/","pron_de":"/SWIM-ing PUUL/"}',
         
         -- ==========================================
         -- 2. HABITACIONES Y ÁREAS (Rooms)
         -- ==========================================
         '{"v":"room","es":"habitación / cuarto","de":"Zimmer","pron":"/rum/","pron_de":"/RUUM/"}',
-        '{"v":"living room","es":"sala de estar / salón","de":"Wohnzimmer","pron":"/lí-vin rum/","pron_de":"/LIV-ing RUUM/"}',
+        '{"v":"living room","es":"sala de estar / salón","de":"Wohnzimmer","pron":"/lí-ving rum/","pron_de":"/LIV-ing RUUM/"}',
         '{"v":"bedroom","es":"dormitorio","de":"Schlafzimmer","pron":"/béd-rum/","pron_de":"/BED-ruum/"}',
         '{"v":"master bedroom","es":"dormitorio principal","de":"Hauptschlafzimmer","pron":"/más-ter béd-rum/","pron_de":"/MÄS-tö BED-ruum/"}',
         '{"v":"guest room","es":"habitación de invitados","de":"Gästezimmer","pron":"/guest rum/","pron_de":"/GUEST RUUM/"}',
         '{"v":"bathroom","es":"baño","de":"Badezimmer","pron":"/báz-rum/","pron_de":"/BÄS-ruum/"}',
         '{"v":"half bath","es":"medio baño (sin ducha)","de":"Gäste-WC","pron":"/haf baz/","pron_de":"/HÄF BÄS/"}',
         '{"v":"kitchen","es":"cocina (habitación)","de":"Küche","pron":"/kí-chen/","pron_de":"/KI-tschin/"}',
-        '{"v":"dining room","es":"comedor","de":"Esszimmer","pron":"/dái-nin rum/","pron_de":"/DAI-ning RUUM/"}',
+        '{"v":"dining room","es":"comedor","de":"Esszimmer","pron":"/dái-ning rum/","pron_de":"/DAI-ning RUUM/"}',
         '{"v":"laundry room","es":"cuarto de lavado","de":"Waschraum","pron":"/lón-dri rum/","pron_de":"/LOON-dri RUUM/"}',
         '{"v":"utility room","es":"cuarto de servicio/máquinas","de":"Abstellraum","pron":"/iu-tí-li-ti rum/","pron_de":"/juu-TI-li-ti RUUM/"}',
         '{"v":"basement","es":"sótano","de":"Keller","pron":"/béis-ment/","pron_de":"/BEJS-mönt/"}',
@@ -69,7 +69,7 @@ DECLARE
         '{"v":"attic","es":"ático","de":"Dachboden","pron":"/á-tik/","pron_de":"/Ä-tik/"}',
         '{"v":"hallway","es":"pasillo","de":"Flur","pron":"/hól-uei/","pron_de":"/HOOL-wej/"}',
         '{"v":"stairs","es":"escaleras","de":"Treppe","pron":"/sters/","pron_de":"/STERS/"}',
-        '{"v":"landing","es":"rellano de la escalera","de":"Treppenabsatz","pron":"/lán-din/","pron_de":"/LÄN-ding/"}',
+        '{"v":"landing","es":"rellano de la escalera","de":"Treppenabsatz","pron":"/lán-ding/","pron_de":"/LÄN-ding/"}',
         '{"v":"pantry","es":"despensa","de":"Vorratskammer","pron":"/pán-tri/","pron_de":"/PÄN-tri/"}',
         '{"v":"nursery","es":"cuarto del bebé","de":"Kinderzimmer","pron":"/nér-se-ri/","pron_de":"/NÖ-sö-ri/"}',
         '{"v":"home office","es":"despacho / oficina en casa","de":"Heimbüro","pron":"/hóum ó-fis/","pron_de":"/HOUM O-fis/"}',
@@ -87,7 +87,7 @@ DECLARE
         '{"v":"loveseat","es":"sofá de dos plazas","de":"Zweisitzer","pron":"/láv-sit/","pron_de":"/LAV-siet/"}',
         '{"v":"armchair","es":"sillón","de":"Sessel","pron":"/árm-cher/","pron_de":"/AARM-tschö/"}',
         '{"v":"recliner","es":"sillón reclinable","de":"Liegestuhl","pron":"/ri-klái-ner/","pron_de":"/ri-KLAI-nö/"}',
-        '{"v":"rocking chair","es":"mecedora","de":"Schaukelstuhl","pron":"/ró-kin cher/","pron_de":"/RO-king TSCHÖ/"}',
+        '{"v":"rocking chair","es":"mecedora","de":"Schaukelstuhl","pron":"/ró-king cher/","pron_de":"/RO-king TSCHÖ/"}',
         '{"v":"ottoman","es":"puf / reposapiés","de":"Polsterhocker","pron":"/ó-to-man/","pron_de":"/O-tö-mön/"}',
         '{"v":"coffee table","es":"mesa de centro","de":"Couchtisch","pron":"/kó-fi téi-bol/","pron_de":"/KO-fi TEJ-böl/"}',
         '{"v":"end table","es":"mesa auxiliar / lateral","de":"Beistelltisch","pron":"/end téi-bol/","pron_de":"/END TEJ-böl/"}',
@@ -101,7 +101,7 @@ DECLARE
         '{"v":"nightstand","es":"mesita de noche (US)","de":"Nachttisch","pron":"/náit-stand/","pron_de":"/NAIT-ständ/"}',
         '{"v":"desk","es":"escritorio","de":"Schreibtisch","pron":"/desk/","pron_de":"/DESK/"}',
         '{"v":"swivel chair","es":"silla giratoria / de oficina","de":"Drehstuhl","pron":"/suí-vel cher/","pron_de":"/SWI-völ TSCHÖ/"}',
-        '{"v":"dining table","es":"mesa de comedor","de":"Esstisch","pron":"/dái-nin téi-bol/","pron_de":"/DAI-ning TEJ-böl/"}',
+        '{"v":"dining table","es":"mesa de comedor","de":"Esstisch","pron":"/dái-ning téi-bol/","pron_de":"/DAI-ning TEJ-böl/"}',
         '{"v":"chair","es":"silla","de":"Stuhl","pron":"/cher/","pron_de":"/TSCHÖ/"}',
         '{"v":"high chair","es":"trona (silla para bebé)","de":"Kinderhochstuhl","pron":"/hái cher/","pron_de":"/HAI TSCHÖ/"}',
         '{"v":"stool","es":"taburete","de":"Hocker","pron":"/stul/","pron_de":"/STUUL/"}',
@@ -133,10 +133,10 @@ DECLARE
         '{"v":"lamp","es":"lámpara","de":"Lampe","pron":"/lamp/","pron_de":"/LÄMP/"}',
         '{"v":"lampshade","es":"pantalla de lámpara","de":"Lampenschirm","pron":"/lámp-sheid/","pron_de":"/LÄMP-schejd/"}',
         '{"v":"chandelier","es":"araña de luces","de":"Kronleuchter","pron":"/shan-de-líer/","pron_de":"/schän-dö-LIÖ/"}',
-        '{"v":"ceiling fan","es":"ventilador de techo","de":"Deckenventilator","pron":"/sí-lin fan/","pron_de":"/SIE-ling FÄN/"}',
+        '{"v":"ceiling fan","es":"ventilador de techo","de":"Deckenventilator","pron":"/sí-ling fan/","pron_de":"/SIE-ling FÄN/"}',
         '{"v":"mirror","es":"espejo","de":"Spiegel","pron":"/mí-ror/","pron_de":"/MI-rö/"}',
         '{"v":"picture frame","es":"marco de fotos","de":"Bilderrahmen","pron":"/pík-cher fréim/","pron_de":"/PIK-tschö FREJM/"}',
-        '{"v":"painting","es":"cuadro / pintura","de":"Gemälde","pron":"/péin-tin/","pron_de":"/PEJN-ting/"}',
+        '{"v":"painting","es":"cuadro / pintura","de":"Gemälde","pron":"/péin-ting/","pron_de":"/PEJN-ting/"}',
         '{"v":"vase","es":"jarrón / florero","de":"Vase","pron":"/véis/","pron_de":"/VEJS/"}',
         '{"v":"fireplace","es":"chimenea (interior)","de":"Kamin","pron":"/fáir-pleis/","pron_de":"/FAIÖ-plejs/"}',
         '{"v":"mantel","es":"repisa de la chimenea","de":"Kaminsims","pron":"/mán-tol/","pron_de":"/MÄN-töl/"}',
@@ -165,8 +165,8 @@ DECLARE
         '{"v":"air fryer","es":"freidora de aire","de":"Heißluftfritteuse","pron":"/er frái-er/","pron_de":"/Ö FRAI-ö/"}',
         '{"v":"sink","es":"fregadero / lavabo","de":"Spüle","pron":"/sink/","pron_de":"/SINGK/"}',
         '{"v":"faucet","es":"grifo (US)","de":"Wasserhahn","pron":"/fó-set/","pron_de":"/FOO-sit/"}',
-        '{"v":"cutting board","es":"tabla de cortar","de":"Schneidebrett","pron":"/ká-tin bord/","pron_de":"/KA-ting BOOD/"}',
-        '{"v":"frying pan / skillet","es":"sartén","de":"Bratpfanne","pron":"/frái-in pan / skí-let/","pron_de":"/FRAI-ing PÄN / SKI-lit/"}',
+        '{"v":"cutting board","es":"tabla de cortar","de":"Schneidebrett","pron":"/ká-ting bord/","pron_de":"/KA-ting BOOD/"}',
+        '{"v":"frying pan / skillet","es":"sartén","de":"Bratpfanne","pron":"/frái-ing pan / skí-let/","pron_de":"/FRAI-ing PÄN / SKI-lit/"}',
         '{"v":"pot","es":"olla","de":"Topf","pron":"/pot/","pron_de":"/POT/"}',
         '{"v":"saucepan","es":"cacerola","de":"Kasserolle","pron":"/sós-pan/","pron_de":"/SOOS-pän/"}',
         '{"v":"lid","es":"tapa (de olla/sartén)","de":"Deckel","pron":"/lid/","pron_de":"/LID/"}',
@@ -178,10 +178,10 @@ DECLARE
         '{"v":"tongs","es":"pinzas","de":"Zange","pron":"/tongs/","pron_de":"/TONGS/"}',
         '{"v":"peeler","es":"pelador","de":"Sparschäler","pron":"/pí-ler/","pron_de":"/PIE-lö/"}',
         '{"v":"grater","es":"rallador","de":"Reibe","pron":"/gréi-ter/","pron_de":"/GREJ-tö/"}',
-        '{"v":"rolling pin","es":"rodillo (de amasar)","de":"Nudelholz","pron":"/róu-lin pin/","pron_de":"/ROU-ling PIN/"}',
+        '{"v":"rolling pin","es":"rodillo (de amasar)","de":"Nudelholz","pron":"/róu-ling pin/","pron_de":"/ROU-ling PIN/"}',
         '{"v":"can opener","es":"abrelatas","de":"Dosenöffner","pron":"/kan óu-pe-ner/","pron_de":"/KÄN OU-pö-nö/"}',
         '{"v":"corkscrew","es":"sacacorchos","de":"Korkenzieher","pron":"/kórk-skru/","pron_de":"/KOORK-skruu/"}',
-        '{"v":"measuring cup","es":"taza medidora","de":"Messbecher","pron":"/mé-sho-rin kap/","pron_de":"/ME-schö-ring KAP/"}',
+        '{"v":"measuring cup","es":"taza medidora","de":"Messbecher","pron":"/mé-sho-ring kap/","pron_de":"/ME-schö-ring KAP/"}',
         '{"v":"silverware","es":"cubiertos (US)","de":"Besteck","pron":"/síl-ver-uer/","pron_de":"/SIL-vö-wö/"}',
         '{"v":"fork","es":"tenedor","de":"Gabel","pron":"/fork/","pron_de":"/FOORK/"}',
         '{"v":"spoon","es":"cuchara","de":"Löffel","pron":"/spun/","pron_de":"/SPUUN/"}',
@@ -229,7 +229,7 @@ DECLARE
         '{"v":"nail clippers","es":"cortaúñas","de":"Nagelknipser","pron":"/néil klí-pers/","pron_de":"/NEJL KLI-pörs/"}',
         '{"v":"Band-Aid","es":"tirita / curita (US)","de":"Pflaster","pron":"/bán-deid/","pron_de":"/BÄND-ejd/"}',
         '{"v":"razor","es":"maquinilla de afeitar","de":"Rasierapparat","pron":"/réi-sor/","pron_de":"/REJ-sö/"}',
-        '{"v":"shaving cream","es":"crema de afeitar","de":"Rasiercreme","pron":"/shéi-vin krim/","pron_de":"/SCHEJV-ing KRIEM/"}',
+        '{"v":"shaving cream","es":"crema de afeitar","de":"Rasiercreme","pron":"/shéi-ving krim/","pron_de":"/SCHEJV-ing KRIEM/"}',
         '{"v":"hair dryer","es":"secador de pelo","de":"Föhn","pron":"/her drái-er/","pron_de":"/HÖ DRAI-ö/"}',
         '{"v":"comb","es":"peine","de":"Kamm","pron":"/kóum/","pron_de":"/KOUM/"}',
         '{"v":"hairbrush","es":"cepillo de pelo","de":"Haarbürste","pron":"/hér-brash/","pron_de":"/HÖ-brasch/"}',
@@ -240,7 +240,7 @@ DECLARE
         -- ==========================================
         -- 7. ÚTILES DE LIMPIEZA Y LAVANDERÍA (Cleaning)
         -- ==========================================
-        '{"v":"washing machine / washer","es":"lavadora","de":"Waschmaschine","pron":"/uó-shin ma-shín / uó-sher/","pron_de":"/WO-sching mö-SCHIEN / WO-schö/"}',
+        '{"v":"washing machine / washer","es":"lavadora","de":"Waschmaschine","pron":"/uó-shing ma-shín / uó-sher/","pron_de":"/WO-sching mö-SCHIEN / WO-schö/"}',
         '{"v":"dryer","es":"secadora","de":"Wäschetrockner","pron":"/drái-er/","pron_de":"/DRAI-ö/"}',
         '{"v":"laundry detergent","es":"detergente para ropa","de":"Waschmittel","pron":"/lón-dri di-tér-jent/","pron_de":"/LOON-dri di-TÖ-dschönt/"}',
         '{"v":"fabric softener","es":"suavizante de telas","de":"Weichspüler","pron":"/fá-brik só-fe-ner/","pron_de":"/FÄ-brik SOF-tö-nö/"}',
@@ -250,7 +250,7 @@ DECLARE
         '{"v":"clothesline","es":"tendedero (cuerda)","de":"Wäscheleine","pron":"/klóus-lain/","pron_de":"/KLOUS-lain/"}',
         '{"v":"clothespin","es":"pinza de la ropa","de":"Wäscheklammer","pron":"/klóus-pin/","pron_de":"/KLOUS-pin/"}',
         '{"v":"iron","es":"plancha","de":"Bügeleisen","pron":"/ái-ron/","pron_de":"/AI-ön/"}',
-        '{"v":"ironing board","es":"tabla de planchar","de":"Bügelbrett","pron":"/ái-ro-nin bord/","pron_de":"/AI-ö-ning BOOD/"}',
+        '{"v":"ironing board","es":"tabla de planchar","de":"Bügelbrett","pron":"/ái-ro-ning bord/","pron_de":"/AI-ö-ning BOOD/"}',
         '{"v":"hanger","es":"percha / gancho para ropa","de":"Kleiderbügel","pron":"/hán-guer/","pron_de":"/HÄN-gö/"}',
         '{"v":"vacuum cleaner","es":"aspiradora","de":"Staubsauger","pron":"/vá-kium klí-ner/","pron_de":"/VÄ-kjum KLIE-nö/"}',
         '{"v":"broom","es":"escoba","de":"Besen","pron":"/brum/","pron_de":"/BRUUM/"}',
@@ -267,7 +267,7 @@ DECLARE
         '{"v":"dish soap","es":"jabón para lavar platos","de":"Spülmittel","pron":"/dish sóup/","pron_de":"/DISH SOUP/"}',
         '{"v":"trash can / garbage can","es":"cubo de basura (US)","de":"Mülleimer","pron":"/trash kan / gár-bich kan/","pron_de":"/TRÄSCH KÄN / GAA-bidsch KÄN/"}',
         '{"v":"trash bag","es":"bolsa de basura","de":"Mülltüte","pron":"/trash bag/","pron_de":"/TRÄSCH BÄG/"}',
-        '{"v":"recycling bin","es":"contenedor de reciclaje","de":"Recyclingtonne","pron":"/ri-sái-klin bin/","pron_de":"/ri-SAI-kling BIN/"}',
+        '{"v":"recycling bin","es":"contenedor de reciclaje","de":"Recyclingtonne","pron":"/ri-sái-kling bin/","pron_de":"/ri-SAI-kling BIN/"}',
         
         -- ==========================================
         -- 8. TAREAS DEL HOGAR Y ACCIONES (Household Chores)
@@ -287,7 +287,7 @@ DECLARE
         '{"v":"make the bed","es":"hacer la cama","de":"das Bett machen","pron":"/méik de bed/","pron_de":"/MEJK DÖ BED/"}',
         '{"v":"change the sheets","es":"cambiar las sábanas","de":"die Bettwäsche wechseln","pron":"/chéinch de shits/","pron_de":"/TSCHEJNDSCH DÖ SCHIETS/"}',
         '{"v":"take out the trash","es":"sacar la basura (US)","de":"den Müll rausbringen","pron":"/téik aut de trash/","pron_de":"/TEJK AUT DÖ TRÄSCH/"}',
-        '{"v":"sort the recycling","es":"separar el reciclaje","de":"das Recycling sortieren","pron":"/sort de ri-sái-klin/","pron_de":"/SOORT DÖ ri-SAI-kling/"}',
+        '{"v":"sort the recycling","es":"separar el reciclaje","de":"das Recycling sortieren","pron":"/sort de ri-sái-kling/","pron_de":"/SOORT DÖ ri-SAI-kling/"}',
         '{"v":"scrub the tub","es":"fregar la bañera","de":"die Badewanne schrubben","pron":"/skrab de tab/","pron_de":"/SKRAB DÖ TAB/"}',
         '{"v":"unclog the toilet","es":"desatascar el inodoro","de":"das Klo entstopfen","pron":"/an-klóg de tói-let/","pron_de":"/an-KLOG DÖ TOI-lit/"}',
         '{"v":"set the table","es":"poner la mesa","de":"den Tisch decken","pron":"/set de téi-bol/","pron_de":"/SET DÖ TEJ-böl/"}',
@@ -302,7 +302,17 @@ DECLARE
         '{"v":"trim the hedges","es":"podar los setos","de":"die Hecke schneiden","pron":"/trim de hé-ches/","pron_de":"/TRIM DÖ HE-dschös/"}',
         '{"v":"shovel the snow","es":"quitar la nieve (con pala)","de":"Schnee schaufeln","pron":"/shó-vel de snóu/","pron_de":"/SCHAV-öl DÖ SNOU/"}',
         '{"v":"feed the dog","es":"dar de comer al perro","de":"den Hund füttern","pron":"/fid de dog/","pron_de":"/FIED DÖ DOG/"}',
-        '{"v":"walk the dog","es":"pasear al perro","de":"den Hund spazieren führen","pron":"/uok de dog/","pron_de":"/WOOK DÖ DOG/"}'
+        '{"v":"walk the dog","es":"pasear al perro","de":"den Hund spazieren führen","pron":"/uok de dog/","pron_de":"/WOOK DÖ DOG/"}',
+        -- Additional A0/A1 home vocabulary
+        '{"v":"elevator / lift","es":"ascensor","de":"Fahrstuhl / Aufzug","pron":"/é-le-vei-tor / lift/","pron_de":"/FAAR-shtul / AUF-tsuk/"}',
+        '{"v":"light switch","es":"interruptor de luz","de":"Lichtschalter","pron":"/láit suich/","pron_de":"/LICHT-schal-tö/"}',
+        '{"v":"power outlet / socket","es":"enchufe / toma de corriente","de":"Steckdose","pron":"/páu-er áut-let / só-ket/","pron_de":"/STEK-dou-se/"}',
+        '{"v":"radiator","es":"radiador","de":"Heizkörper","pron":"/réi-di-ei-tor/","pron_de":"/HAITS-kö-pö/"}',
+        '{"v":"air conditioning","es":"aire acondicionado","de":"Klimaanlage","pron":"/er kon-dí-sho-ning/","pron_de":"/KLI-mö-an-laa-ge/"}',
+        '{"v":"heating","es":"calefacción","de":"Heizung","pron":"/hí-ting/","pron_de":"/HAI-tsong/"}',
+        '{"v":"shelf / shelves","es":"estante / estantes","de":"Regal / Regale","pron":"/shelf / shelvs/","pron_de":"/re-GAAL / re-GAAL-e/"}',
+        '{"v":"lightbulb","es":"bombilla","de":"Glühbirne","pron":"/láit-balb/","pron_de":"/GLÜÜ-bir-ne/"}',
+        '{"v":"welcome mat","es":"felpudo","de":"Fußmatte","pron":"/uél-kom mat/","pron_de":"/FUUS-ma-te/"}'
     ];
 
 BEGIN
@@ -316,24 +326,21 @@ VALUES (v_path_id, 165, 'en', 'deck')
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'La vivienda', 
-    ''
+    v_deck_id,
+    'es',
+    'La vivienda'
 );
 
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
-VALUES (v_deck_id, 'de', 'Zuhause und Wohnen', '');
+INSERT INTO deck_translation (deck_uuid, language, title) 
+VALUES (v_deck_id, 'de', 'Zuhause und Wohnen');
 
 -- 4. Bucle masivo para insertar todas las palabras del mazo
 FOREACH v_item IN ARRAY v_house_vocab
 LOOP
     -- Insertar el término en la tabla word como palabra raíz
-    INSERT INTO word (term, is_root, source_language) 
-    VALUES (v_item->>'v', TRUE, 'en') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en') INTO v_root_id;
 
     -- Insertar la traducción al español y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
@@ -342,15 +349,18 @@ LOOP
         'es', 
         jsonb_build_object('translation', v_item->>'es'), 
         v_item->>'pron'
-    );
+    )
+    ON CONFLICT DO NOTHING;
 
     -- Insertar la traducción al alemán y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
     -- Vincular la palabra creada al mazo actual
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
 END LOOP;
 END;

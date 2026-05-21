@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4260 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4260 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4260, 'en', 'reading', 'professional', $content$TECHNICAL SPECIFICATIONS – Model AC-12 Air Conditioning System
+        VALUES (
+    v_path_id,
+    4260,
+    'en',
+    'reading',
+    'professional',
+    $content$TECHNICAL SPECIFICATIONS – Model AC-12 Air Conditioning System
 
 Power output: 12 kW
 Power supply: 230V / 50Hz
@@ -41,12 +47,11 @@ Functions: Cooling and heating
 
 Installation must be carried out by a certified technician only. Maintenance is required twice a year.
 
-For optimum performance, keep air filters clean and check refrigerant levels at each service.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+For optimum performance, keep air filters clean and check refrigerant levels at each service.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un documento de especificaciones técnicas', 'Lee una ficha técnica de un sistema de climatización con potencia, voltaje, ruido y mantenimiento.'),
-            (v_reading_id, 'de', 'Lies ein technisches Datenblatt', 'Lies ein technisches Datenblatt einer Klimaanlage mit Leistung, Spannung, Geräusch und Wartung.');
+            (v_reading_id, 'es', 'Documento de especificaciones'), (v_reading_id, 'de', 'Ein technisches Datenblatt');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

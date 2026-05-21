@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4680, 'en', 'reading', 'professional', $content$FIRE EVACUATION PROCEDURE – FLOOR 3
+        VALUES (
+    v_path_id,
+    4680,
+    'en',
+    'reading',
+    'professional',
+    $content$FIRE EVACUATION PROCEDURE – FLOOR 3
 
 When the fire alarm sounds, all work must stop immediately. Staff and visitors on Floor 3 must not use the lift during evacuation. Use the stairs only and move calmly to the nearest fire exit, following the posted diagram if necessary. Personal belongings may be taken only if it is safe to do so and there is no delay.
 
 Once outside the building, everyone on Floor 3 must assemble at Assembly Point B in the car park. Do not re-enter the building until a fire marshal gives clear permission. All employees must report to their line manager so that names can be checked against the attendance list.
 
-This procedure applies to all staff and visitors. The fire marshal for Floor 3 is David Chen. Questions can be sent to safety@building.co.uk.$content$)
-        RETURNING uuid INTO v_reading_id;
+This procedure applies to all staff and visitors. The fire marshal for Floor 3 is David Chen. Questions can be sent to safety@building.co.uk.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un procedimiento de evacuación de incendios', 'Lee instrucciones sencillas de evacuación contra incendios con acciones y responsables.'),
-            (v_reading_id, 'de', 'Lies eine Brandschutzevakuierungsanweisung', 'Lies einfache Brandschutzanweisungen mit Schritten und Verantwortlichen.');
+            (v_reading_id, 'es', 'Procedimiento de evacuación'), (v_reading_id, 'de', 'Eine');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

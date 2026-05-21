@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5040 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5040, 'en', 'reading', 'academic', 'Course reading plan. On Monday, read Chapter 2, pages 34 to 48, about urban density. On Wednesday, read the article ''Small Parks, Big Cities'' and underline two examples about public space.
+    VALUES (
+    v_path_id,
+    5040,
+    'en',
+    'reading',
+    'academic',
+    'Course reading plan. On Monday, read Chapter 2, pages 34 to 48, about urban density. On Wednesday, read the article ''Small Parks, Big Cities'' and underline two examples about public space.
 
 On Friday, write a reflection of 120 words that answers one question: Why do small parks matter in busy cities? The teacher also asks students to look up three key terms: density, commute, and rent.
 
-Bring one example from your own city to discuss in class next week. Students may use a dictionary for new academic words, but the reflection must be written in English.')
-    RETURNING uuid INTO v_reading_id;
+Bring one example from your own city to discuss in class next week. Students may use a dictionary for new academic words, but the reflection must be written in English.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Tareas de lectura académica', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Akademische Leseaufgaben', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Tareas de lectura académica');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Akademische Leseaufgaben');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

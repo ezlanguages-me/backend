@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9560,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Speak vs Talk', 'Diferencias entre speak y talk en contextos formales, informales y expresiones fijas.', to_jsonb('# Speak vs Talk
+        (
+    v_grammar_id,
+    'es',
+    'Speak vs Talk',
+    to_jsonb('# Speak vs Talk
 
 **Speak** y **talk** se relacionan con hablar, pero no siempre se usan igual.
 
@@ -55,8 +59,13 @@ Ambos verbos pueden ir con **to** o **with**, pero **speak** suele sonar más fo
 - **speak clearly** = hablar con claridad
 
 ### Consejo
-Piensa en **speak** para contextos formales, idiomas o presentaciones, y en **talk** para conversaciones normales.'::text)),
-        (v_grammar_id, 'de', 'Speak vs Talk', 'Unterschiede zwischen speak und talk in formellen, informellen Kontexten und festen Wendungen.', to_jsonb('# Speak vs Talk
+Piensa en **speak** para contextos formales, idiomas o presentaciones, y en **talk** para conversaciones normales.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Speak vs Talk',
+    to_jsonb('# Speak vs Talk
 
 **Speak** und **talk** beziehen sich beide auf Sprechen, werden aber nicht immer gleich verwendet.
 
@@ -89,7 +98,8 @@ Beide Verben können mit **to** oder **with** stehen, aber **speak** klingt oft 
 - **speak clearly** = deutlich sprechen
 
 ### Tipp
-Denke an **speak** für formelle Situationen, Sprachen oder Präsentationen und an **talk** für normale Gespräche.'::text));
+Denke an **speak** für formelle Situationen, Sprachen oder Präsentationen und an **talk** für normale Gespräche.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -100,13 +110,13 @@ Denke an **speak** für formelle Situationen, Sprachen oder Präsentationen und 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She will ___ at the conference tomorrow.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She will ___ at the conference tomorrow.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She will ___ at the conference tomorrow.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She will ___ at the conference tomorrow.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She will ___ at the conference tomorrow.', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She will ___ at the conference tomorrow.', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She will ___ at the conference tomorrow.', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She will ___ at the conference tomorrow.', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -120,13 +130,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He ___ three languages fluently.', '{"type": "typing", "correct_answers": ["speaks"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He ___ three languages fluently.', '{"type": "typing", "correct_answers": ["speaks"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He ___ three languages fluently.', '{"type": "typing", "correct_answers": ["speaks"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He ___ three languages fluently.', '{"type": "typing", "correct_answers": ["speaks"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He ___ three languages fluently.', '{"type": "multiple_choice", "options": ["speaks", "talks", "says"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He ___ three languages fluently.', '{"type": "multiple_choice", "options": ["speaks", "talks", "says"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He ___ three languages fluently.', '{"type": "multiple_choice", "options": ["speaks", "talks", "says"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He ___ three languages fluently.', '{"type": "multiple_choice", "options": ["speaks", "talks", "says"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -147,13 +157,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: We need to ___ about the project.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: We need to ___ about the project.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We need to ___ about the project.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We need to ___ about the project.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We need to ___ about the project.', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We need to ___ about the project.', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We need to ___ about the project.', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We need to ___ about the project.', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -167,13 +177,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: They ___ for hours at the café.', '{"type": "typing", "correct_answers": ["talked"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: They ___ for hours at the café.', '{"type": "typing", "correct_answers": ["talked"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'They ___ for hours at the café.', '{"type": "typing", "correct_answers": ["talked"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'They ___ for hours at the café.', '{"type": "typing", "correct_answers": ["talked"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: They ___ for hours at the café.', '{"type": "multiple_choice", "options": ["talked", "spoke", "said"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: They ___ for hours at the café.', '{"type": "multiple_choice", "options": ["talked", "spoke", "said"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'They ___ for hours at the café.', '{"type": "multiple_choice", "options": ["talked", "spoke", "said"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'They ___ for hours at the café.', '{"type": "multiple_choice", "options": ["talked", "spoke", "said"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -194,13 +204,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Could I ___ to the manager, please?', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Could I ___ to the manager, please?', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Could I ___ to the manager, please?', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Could I ___ to the manager, please?', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Could I ___ to the manager, please?', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Could I ___ to the manager, please?', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Could I ___ to the manager, please?', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Could I ___ to the manager, please?', '{"type": "multiple_choice", "options": ["speak", "talk", "say"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -214,13 +224,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I need to ___ to you about something.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I need to ___ to you about something.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I need to ___ to you about something.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I need to ___ to you about something.', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I need to ___ to you about something.', '{"type": "multiple_choice", "options": ["talk", "speak", "tell"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I need to ___ to you about something.', '{"type": "multiple_choice", "options": ["talk", "speak", "tell"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I need to ___ to you about something.', '{"type": "multiple_choice", "options": ["talk", "speak", "tell"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I need to ___ to you about something.', '{"type": "multiple_choice", "options": ["talk", "speak", "tell"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -241,13 +251,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Can you ___ up? I can''t hear you.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Can you ___ up? I can''t hear you.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Can you ___ up? I can''t hear you.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Can you ___ up? I can''t hear you.', '{"type": "typing", "correct_answers": ["speak"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Can you ___ up? I can''t hear you.', '{"type": "multiple_choice", "options": ["speak", "talk", "tell"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Can you ___ up? I can''t hear you.', '{"type": "multiple_choice", "options": ["speak", "talk", "tell"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Can you ___ up? I can''t hear you.', '{"type": "multiple_choice", "options": ["speak", "talk", "tell"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Can you ___ up? I can''t hear you.', '{"type": "multiple_choice", "options": ["speak", "talk", "tell"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -261,13 +271,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Don''t ___ nonsense!', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Don''t ___ nonsense!', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Don''t ___ nonsense!', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Don''t ___ nonsense!', '{"type": "typing", "correct_answers": ["talk"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Don''t ___ nonsense!', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Don''t ___ nonsense!', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Don''t ___ nonsense!', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Don''t ___ nonsense!', '{"type": "multiple_choice", "options": ["talk", "speak", "say"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

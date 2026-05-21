@@ -18,28 +18,41 @@ DECLARE
         '{"p": "La salida de emergencia debe estar libre.", "p_de": "Der Notausgang muss frei bleiben.", "s": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "Se permiten botellas de cristal en la piscina.", "p_de": "Glasflaschen sind am Pool erlaubt.", "s": {"type": "true_false", "answer": false}}'::jsonb,
         '{"p": "¿Dónde vas para desayunar?", "p_de": "Wohin gehst du zum Frühstück?", "s": {"type": "multiple_choice", "options": ["Al comedor", "Al gimnasio", "A la salida de emergencia"], "answer": 0}}'::jsonb,
-        '{"p": "¿Dónde puedes pedir ayuda a medianoche?", "p_de": "Wo kannst du um Mitternacht Hilfe bekommen?", "s": {"type": "multiple_choice", "options": ["En recepción", "En la piscina", "En la lavandería"], "answer": 0}}'::jsonb,
-        '{"p": "¿Qué no está permitido en las habitaciones?", "p_de": "Was ist in den Zimmern nicht erlaubt?", "s": {"type": "multiple_choice", "options": ["Fumar", "Dormir", "Leer"], "answer": 0}}'::jsonb,
+        '{"p": "¿Dónde puedes pedir ayuda a medianoche?", "p_de": "Wo kannst du um Mitternacht Hilfe bekommen?", "s": {"type": "multiple_choice", "options": ["En la piscina", "En recepción", "En la lavandería"], "answer": 1}}'::jsonb,
+        '{"p": "¿Qué no está permitido en las habitaciones?", "p_de": "Was ist in den Zimmern nicht erlaubt?", "s": {"type": "multiple_choice", "options": ["Dormir", "Leer", "Fumar"], "answer": 2}}'::jsonb,
         '{"p": "¿Qué puerta debe estar libre?", "p_de": "Welche Tür muss frei bleiben?", "s": {"type": "multiple_choice", "options": ["La salida de emergencia", "La puerta del gimnasio", "La puerta del comedor"], "answer": 0}}'::jsonb,
-        '{"p": "¿A qué hora abre el gimnasio?", "p_de": "Um wie viel Uhr öffnet das Fitnessstudio?", "s": {"type": "multiple_choice", "options": ["A las 6 AM", "A las 9 AM", "A las 12 PM"], "answer": 0}}'::jsonb,
-        '{"p": "¿Dónde está la lavandería?", "p_de": "Wo ist der Waschraum?", "s": {"type": "multiple_choice", "options": ["En el nivel -1", "En recepción", "En el jardín"], "answer": 0}}'::jsonb,
+        '{"p": "¿A qué hora abre el gimnasio?", "p_de": "Um wie viel Uhr öffnet das Fitnessstudio?", "s": {"type": "multiple_choice", "options": ["A las 9 AM", "A las 6 AM", "A las 12 PM"], "answer": 1}}'::jsonb,
+        '{"p": "¿Dónde está la lavandería?", "p_de": "Wo ist der Waschraum?", "s": {"type": "multiple_choice", "options": ["En recepción", "En el jardín", "En el nivel -1"], "answer": 2}}'::jsonb,
         '{"p": "¿Qué no se puede llevar a la piscina?", "p_de": "Was darf man nicht zum Pool mitnehmen?", "s": {"type": "multiple_choice", "options": ["Botellas de cristal", "Toallas", "Chanclas"], "answer": 0}}'::jsonb,
-        '{"p": "¿Cuánto tiempo está abierta la recepción?", "p_de": "Wie lange ist die Rezeption geöffnet?", "s": {"type": "multiple_choice", "options": ["24 horas", "12 horas", "Solo por la mañana"], "answer": 0}}'::jsonb
+        '{"p": "¿Cuánto tiempo está abierta la recepción?", "p_de": "Wie lange ist die Rezeption geöffnet?", "s": {"type": "multiple_choice", "options": ["12 horas", "24 horas", "Solo por la mañana"], "answer": 1}}'::jsonb
     ];
 BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 
+    DELETE FROM exercise WHERE target_uuid IN (
+        SELECT uuid FROM reading WHERE step_order = 660 AND path_uuid = v_path_id
+    );
     DELETE FROM reading WHERE step_order = 660 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 660, 'en', 'reading', 'accommodation', 'Hotel Blue Bay\n\nRECEPTION - Open 24 hours.\nDINING ROOM - Breakfast 7:00-10:00.\nPOOL AREA - Open 8:00-20:00. No glass bottles.\nGYM - Open 6:00-22:00.\nNO SMOKING - No smoking in rooms.\nEMERGENCY EXIT - Keep this door clear.\nLAUNDRY ROOM - Level -1.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (
+        v_path_id,
+        660,
+        'en',
+        'reading',
+        'accommodation',
+        $reading_660$
+Hotel Blue Bay
+
+When guests enter Hotel Blue Bay, they see a large information board next to reception. The notice explains the most important rules before people go to their rooms. Reception is open 24 hours a day, so guests can ask for help early in the morning or late at night. Breakfast is served in the dining room from 7:00 to 10:00 every day. The pool area opens at 8:00 and closes at 20:00. For safety, glass bottles are not allowed near the water. The gym opens at 6:00 and stays open until 22:00 for hotel guests. Smoking is not allowed in rooms or hallways. The emergency exit door must stay clear at all times. If guests need clean towels or extra information, they can go to reception. The laundry room is on level -1, next to the service lift. Signs in the lift repeat the same rules, and quiet hours begin at 22:30 for everyone in the building.
+$reading_660$
+    )RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title)
-    VALUES (v_reading_id, 'es', 'Carteles del hotel');
+    VALUES (v_reading_id, 'es', 'Carteles y reglas del hotel');
 
     INSERT INTO reading_translation (reading_uuid, language, title)
-    VALUES (v_reading_id, 'de', 'Hotelschilder');
+    VALUES (v_reading_id, 'de', 'Hotelschilder und Regeln');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

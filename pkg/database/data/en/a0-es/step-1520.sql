@@ -32,20 +32,26 @@
         DELETE FROM reading WHERE step_order = 1520 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1520, 'en', 'reading', 'financial', 'Central Services Notice
+        VALUES (
+    v_path_id,
+    1520,
+    'en',
+    'reading',
+    'financial',
+    'Central Services Notice
 
 Bank Counter A is for cash deposits and cash withdrawals. Bank Counter B is for transfers, balance checks, and paper statements. Postal Counter C is for stamps, letters, and parcels.
 
 Please take a ticket before you wait for bank service. Show your ID for transfers above 200 euros. Fill in the parcel form before you go to Postal Counter C.
 
-Keep your receipt after every transaction. There is also an ATM in the lobby and a customer service desk for address changes.')
-        RETURNING uuid INTO v_reading_id;
+Keep your receipt after every transaction. There is also an ATM in the lobby and a customer service desk for address changes.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Procedimientos habituales en banco y correos', 'Lee un aviso práctico con trámites rutinarios de banco y oficina de correos.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Habituales en banco y correos');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Übliche Abläufe in Bank und Post', 'Lies einen praktischen Hinweis mit routinemäßigen Vorgängen in Bank und Post.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Abläufe in Bank und Post');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

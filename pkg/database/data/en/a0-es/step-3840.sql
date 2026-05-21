@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3840 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3840 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3840, 'en', 'reading', 'professional', $content$Purchase Order PO-7784. Buyer: River Office Supplies. Item: 50 toner cartridges. Unit price: £18. Total: £900.
+        VALUES (
+    v_path_id,
+    3840,
+    'en',
+    'reading',
+    'professional',
+    $content$Purchase Order PO-7784. Buyer: River Office Supplies. Item: 50 toner cartridges. Unit price: £18. Total: £900.
 
 Delivery date: 22 September. Delivery point: Warehouse door 2. Please send the invoice to the finance team.
 
-Reference contact: Maria Soto, purchasing department.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Reference contact: Maria Soto, purchasing department.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una orden de compra', 'Lee una orden de compra con cantidad, precio, entrega y referencia.'),
-            (v_reading_id, 'de', 'Lies eine Bestellung', 'Lies eine Bestellung mit Menge, Preis, Lieferung und Referenz.');
+            (v_reading_id, 'es', 'Lee una orden de compra'), (v_reading_id, 'de', 'Lies eine Bestellung');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -32,7 +32,13 @@
         DELETE FROM reading WHERE step_order = 1590 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1590, 'en', 'reading', 'financial', 'LETTER A - PERSONAL MAIL
+        VALUES (
+    v_path_id,
+    1590,
+    'en',
+    'reading',
+    'financial',
+    'LETTER A - PERSONAL MAIL
 
 Dear Ms Torres,
 Your monthly account statement is ready. Your balance on 31 May is 1,240 euros. Please log in to online banking to read the full statement. If you need a paper copy, visit your branch.
@@ -40,14 +46,14 @@ Your monthly account statement is ready. Your balance on 31 May is 1,240 euros. 
 LETTER B - PROMOTIONAL MAIL
 
 Dear Customer,
-Apply now for our Gold Credit Card. It has a special welcome offer and travel points for new customers. Visit our website or call the sales team for more information.')
-        RETURNING uuid INTO v_reading_id;
+Apply now for our Gold Credit Card. It has a special welcome offer and travel points for new customers. Visit our website or call the sales team for more information.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Correo personal y correo promocional del banco', 'Lee dos cartas distintas para separar un mensaje personal del banco de una oferta comercial.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Personal y correo promocional');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Persönliche und werbliche Bankpost', 'Lies zwei unterschiedliche Briefe, um persönliche Bankpost von Werbung zu unterscheiden.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Persönliche und werbliche');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 1450 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 1450, 'en', 'listening', 'postal', $transcript$
+        VALUES (
+    v_path_id,
+    1450,
+    'en',
+    'listening',
+    'postal',
+    $transcript$
 # AUDIO PROFILE: Post office clerk
 ## "Tracking a Parcel"
 
@@ -59,14 +65,14 @@ The recording is useful when a parcel has not arrived yet.
 [helpful] It should arrive tomorrow before six in the evening.
 [practical] You can also check the tracking online.
 [friendly] If you want updates on your phone, we can send text messages.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'es', 'Información sobre el seguimiento de un paquete', 'Escucha una explicación sencilla sobre cómo seguir un paquete.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'es', 'Seguimiento de un paquete');
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'de', 'Informationen zur Sendungsverfolgung', 'Höre eine einfache Erklärung, wie man ein Paket verfolgt.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'de', 'Sendungsverfolgung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

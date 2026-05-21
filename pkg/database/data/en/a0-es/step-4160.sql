@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 4160 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 4160 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 4160, 'en', 'dialogue', 'professional', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Agent", "gender": "male", "avatarURL": "https://example.com/avatars/agent.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 4160, 'en', 'dialogue', 'professional', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Agent", "gender": "male", "avatarURL": "https://example.com/avatars/agent.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Explica un producto a un cliente', 'Practica una conversación donde se presentan las características, batería, garantía y precio de un producto.'),
-        (v_dialogue_id, 'de', 'Erkläre einem Kunden ein Produkt', 'Übe ein Gespräch, in dem Funktionen, Akku, Garantie und Preis eines Produkts vorgestellt werden.');
+        (v_dialogue_id, 'es', 'Producto a un cliente'), (v_dialogue_id, 'de', 'Erkläre einem Kunden');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

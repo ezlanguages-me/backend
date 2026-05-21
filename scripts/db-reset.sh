@@ -102,11 +102,14 @@ if [[ "$SEED_ONLY" == false ]]; then
 
 # ── 1. Kill active connections ────────────────────────────────────────────────
 step "Terminating active connections to '$DB_NAME'..."
+# Revoke new connections first so PgBouncer/apps can't reconnect mid-drop
 "${PSQL[@]}" postgres -c "
+    UPDATE pg_database SET datallowconn = false WHERE datname = '$DB_NAME';
     SELECT pg_terminate_backend(pid)
     FROM pg_stat_activity
     WHERE datname = '$DB_NAME' AND pid <> pg_backend_pid();
 " > /dev/null 2>&1 || true
+sleep 1
 ok "Done"
 
 # ── 2. Drop database ──────────────────────────────────────────────────────────
@@ -116,14 +119,14 @@ step "Dropping database '$DB_NAME'..."
 if "${PSQL[@]}" postgres -c "DROP DATABASE IF EXISTS \"$DB_NAME\" WITH (FORCE);" 2>/dev/null; then
     ok "Dropped"
 else
-    # Wait up to 5 s for terminated connections to fully close, then retry.
-    for i in 1 2 3 4 5; do
+    # Wait up to 10 s for terminated connections to fully close, then retry.
+    for i in $(seq 1 10); do
         sleep 1
         if "${PSQL[@]}" postgres -c "DROP DATABASE IF EXISTS \"$DB_NAME\";" 2>/dev/null; then
             ok "Dropped (after ${i}s)"
             break
         fi
-        [[ $i -eq 5 ]] && fail "Could not drop database after retrying. Check for long-running connections."
+        [[ $i -eq 10 ]] && fail "Could not drop database after retrying. Check for long-running connections."
     done
 fi
 

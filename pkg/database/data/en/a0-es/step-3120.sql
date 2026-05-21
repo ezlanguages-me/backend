@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3120 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3120, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    3120,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Travel radio host
 ## "Morning Travel Update"
 
@@ -61,13 +67,12 @@ The recording focuses on time, place, delay, and advice.
 [positive] The ferry to South Port leaves on time.
 [warning] There is heavy rain near Bridge Road, so please drive slowly.
 [friendly] Check your ticket and your travel time before you leave home.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha actualizaciones de viaje por radio', 'Escucha un boletin de radio con trafico, retrasos y consejos simples para viajar.'),
-        (v_listening_id, 'de', 'Höre Reiseinformationen im Radio', 'Höre ein kurzes Radioupdate mit Verkehr, Verspätungen und einfachen Reisetipps.');
+        (v_listening_id, 'es', 'Actualizaciones de viaje'), (v_listening_id, 'de', 'Reiseinformationen im Radio');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

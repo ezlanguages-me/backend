@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9590,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Big, Large and Great', 'Cómo elegir big, large y great según el tipo de tamaño, formalidad o intensidad.', to_jsonb('# Big, Large and Great
+        (
+    v_grammar_id,
+    'es',
+    'Big, Large and Great',
+    to_jsonb('# Big, Large and Great
 
 **Big**, **large** y **great** pueden sugerir amplitud o intensidad, pero no se usan igual.
 
@@ -58,8 +62,13 @@ BEGIN
 - **great opportunity**
 
 ### Consejo
-Para tamaño cotidiano usa **big**. Para tamaño o cantidad en un registro más formal usa **large**. Para importancia o intensidad usa **great**.'::text)),
-        (v_grammar_id, 'de', 'Big, Large and Great', 'Wie man big, large und great je nach Größe, Formalität oder Intensität auswählt.', to_jsonb('# Big, Large and Great
+Para tamaño cotidiano usa **big**. Para tamaño o cantidad en un registro más formal usa **large**. Para importancia o intensidad usa **great**.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Big, Large and Great',
+    to_jsonb('# Big, Large and Great
 
 **Big**, **large** und **great** können Weite oder Intensität andeuten, werden aber nicht gleich verwendet.
 
@@ -95,7 +104,8 @@ Para tamaño cotidiano usa **big**. Para tamaño o cantidad en un registro más 
 - **great opportunity**
 
 ### Tipp
-Für alltägliche Größe verwende **big**. Für Größe oder Menge in einem formelleren Register verwende **large**. Für Bedeutung oder Intensität verwende **great**.'::text));
+Für alltägliche Größe verwende **big**. Für Größe oder Menge in einem formelleren Register verwende **large**. Für Bedeutung oder Intensität verwende **great**.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -106,13 +116,13 @@ Für alltägliche Größe verwende **big**. Für Größe oder Menge in einem for
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: That is a ___ dog — I was not expecting it to be so tall!', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: That is a ___ dog — I was not expecting it to be so tall!', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'That is a ___ dog — I was not expecting it to be so tall!', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'That is a ___ dog — I was not expecting it to be so tall!', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: That is a ___ dog — I was not expecting it to be so tall!', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: That is a ___ dog — I was not expecting it to be so tall!', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'That is a ___ dog — I was not expecting it to be so tall!', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'That is a ___ dog — I was not expecting it to be so tall!', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -126,13 +136,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: We have a ___ garden where the children can play.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: We have a ___ garden where the children can play.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We have a ___ garden where the children can play.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We have a ___ garden where the children can play.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We have a ___ garden where the children can play.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We have a ___ garden where the children can play.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We have a ___ garden where the children can play.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We have a ___ garden where the children can play.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -153,13 +163,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: The company operates on a ___ scale across four continents.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The company operates on a ___ scale across four continents.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The company operates on a ___ scale across four continents.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The company operates on a ___ scale across four continents.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The company operates on a ___ scale across four continents.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The company operates on a ___ scale across four continents.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The company operates on a ___ scale across four continents.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The company operates on a ___ scale across four continents.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -173,13 +183,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: We need a ___ quantity of materials for the project.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: We need a ___ quantity of materials for the project.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We need a ___ quantity of materials for the project.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We need a ___ quantity of materials for the project.', '{"type": "typing", "correct_answers": ["large"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We need a ___ quantity of materials for the project.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We need a ___ quantity of materials for the project.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We need a ___ quantity of materials for the project.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We need a ___ quantity of materials for the project.', '{"type": "multiple_choice", "options": ["large", "big", "great"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -200,13 +210,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: It is a ___ honour to receive this award.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: It is a ___ honour to receive this award.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'It is a ___ honour to receive this award.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'It is a ___ honour to receive this award.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: It is a ___ honour to receive this award.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: It is a ___ honour to receive this award.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'It is a ___ honour to receive this award.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'It is a ___ honour to receive this award.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -220,13 +230,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She made a ___ effort to improve her performance.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She made a ___ effort to improve her performance.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She made a ___ effort to improve her performance.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She made a ___ effort to improve her performance.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She made a ___ effort to improve her performance.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She made a ___ effort to improve her performance.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She made a ___ effort to improve her performance.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She made a ___ effort to improve her performance.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -247,13 +257,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: It was no ___ deal — everything was resolved quickly.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: It was no ___ deal — everything was resolved quickly.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'It was no ___ deal — everything was resolved quickly.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'It was no ___ deal — everything was resolved quickly.', '{"type": "typing", "correct_answers": ["big"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: It was no ___ deal — everything was resolved quickly.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: It was no ___ deal — everything was resolved quickly.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'It was no ___ deal — everything was resolved quickly.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'It was no ___ deal — everything was resolved quickly.', '{"type": "multiple_choice", "options": ["big", "large", "great"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -267,13 +277,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: The findings have ___ implications for public health.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The findings have ___ implications for public health.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The findings have ___ implications for public health.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The findings have ___ implications for public health.', '{"type": "typing", "correct_answers": ["great"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The findings have ___ implications for public health.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The findings have ___ implications for public health.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The findings have ___ implications for public health.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The findings have ___ implications for public health.', '{"type": "multiple_choice", "options": ["great", "big", "large"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

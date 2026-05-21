@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4690, 'en', 'reading', 'professional', $content$WORKPLACE SAFETY NOTICE – ELECTRICAL EQUIPMENT
+        VALUES (
+    v_path_id,
+    4690,
+    'en',
+    'reading',
+    'professional',
+    $content$WORKPLACE SAFETY NOTICE – ELECTRICAL EQUIPMENT
 
 ALWAYS switch off electrical equipment when it is not in use. Report any damaged cables or plugs to Facilities immediately so that they can be checked and replaced if necessary. Use only equipment that has been approved by the Health and Safety team.
 
 NEVER overload plug sockets. Do not use electrical equipment near water, and do not try to repair any item yourself. If you are unsure whether a piece of equipment is safe, stop using it and contact Facilities for advice.
 
-If in doubt, call Facilities on extension 2100 or send an email to facilities@office.co.uk. These rules apply to all employees and contractors. Any breach of the notice may lead to disciplinary action.$content$)
-        RETURNING uuid INTO v_reading_id;
+If in doubt, call Facilities on extension 2100 or send an email to facilities@office.co.uk. These rules apply to all employees and contractors. Any breach of the notice may lead to disciplinary action.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un aviso de seguridad en el trabajo', 'Lee un aviso breve con órdenes de seguridad sobre equipos eléctricos.'),
-            (v_reading_id, 'de', 'Lies einen Arbeitssicherheitshinweis', 'Lies einen kurzen Sicherheitshinweis mit Anweisungen zu elektrischen Geräten.');
+            (v_reading_id, 'es', 'Seguridad en el trabajo'), (v_reading_id, 'de', 'Arbeitssicherheitshinweis');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

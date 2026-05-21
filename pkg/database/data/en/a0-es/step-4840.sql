@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 4840 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 4840, 'en', 'reading', 'professional', 'Office voicemail checklist. First, say your name and company slowly. If the call is important, say both pieces of information twice.
+    VALUES (
+    v_path_id,
+    4840,
+    'en',
+    'reading',
+    'professional',
+    'Office voicemail checklist. First, say your name and company slowly. If the call is important, say both pieces of information twice.
 
 Next, explain the reason for the call in one short sentence. Give your phone number in small groups of numbers and repeat it at the end of the message.
 
-If you want a reply by email, spell the address clearly. Mention the best time to call back and say if the matter is urgent today. Keep the full message under thirty seconds.')
-    RETURNING uuid INTO v_reading_id;
+If you want a reply by email, spell the address clearly. Mention the best time to call back and say if the matter is urgent today. Keep the full message under thirty seconds.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Instrucciones para dejar un buzón de voz', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Anweisungen für eine Voicemail', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Instrucciones para dejar');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Anweisungen für eine Voicemail');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

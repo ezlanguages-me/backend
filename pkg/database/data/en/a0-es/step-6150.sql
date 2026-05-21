@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM reading_translation WHERE reading_uuid IN (SELECT uuid FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6150 AND source_language = 'en');
   DELETE FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6150 AND source_language = 'en';
   INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-  VALUES (v_path_uuid, 6150, 'en', 'reading', 'Alquileres', $content$
+  VALUES (
+    v_path_uuid,
+    6150,
+    'en',
+    'reading',
+    'accommodation',
+    $content$
 House rules: quiet time starts at 10 PM, and guests must sign in and leave by 11 PM.
 
 Sort the rubbish by recycling day and smoke only outside. You must book the laundry room.
 
 Bikes go in the shed, shoes stay at the entrance, and rent is paid on the first day of the month.
-$content$)
-  RETURNING uuid INTO v_reading_uuid;
-  INSERT INTO reading_translation (reading_uuid, language, title, description)
-  VALUES (v_reading_uuid, 'es', 'Comprende las normas de la casa y la residencia', 'Lee unas normas sencillas para vivir en una casa compartida.'),
-         (v_reading_uuid, 'de', 'Verstehe Hausregeln und Vorschriften', 'Lies einfache Regeln für das Leben in einer Wohngemeinschaft.');
+$content$
+)RETURNING uuid INTO v_reading_uuid;
+  INSERT INTO reading_translation (reading_uuid, language, title)
+  VALUES (v_reading_uuid, 'es', 'Normas de la vivienda'), (v_reading_uuid, 'de', 'Hausregeln');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

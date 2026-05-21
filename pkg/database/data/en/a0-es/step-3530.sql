@@ -45,13 +45,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3530 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3530, 'en', 'dialogue', 'professional', '[{"name": "Applicant", "gender": "female", "avatarURL": "https://example.com/avatars/applicant.png"}, {"name": "Manager", "gender": "male", "avatarURL": "https://example.com/avatars/manager.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3530, 'en', 'dialogue', 'professional', '[{"name": "Applicant", "gender": "female", "avatarURL": "https://example.com/avatars/applicant.png"}, {"name": "Manager", "gender": "male", "avatarURL": "https://example.com/avatars/manager.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pregunta por los requisitos de un trabajo', 'Practica preguntas simples sobre habilidades, horario y formación para un puesto de oficina.'),
-        (v_dialogue_id, 'de', 'Frage nach den Anforderungen einer Stelle', 'Übe einfache Fragen zu Fähigkeiten, Arbeitszeit und Einarbeitung für eine Bürostelle.');
+        (v_dialogue_id, 'es', 'Pregunta por los requisitos'), (v_dialogue_id, 'de', 'Frage nach den Anforderungen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

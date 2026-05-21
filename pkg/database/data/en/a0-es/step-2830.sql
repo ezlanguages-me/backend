@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2830 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2830, 'en', 'dialogue', 'health', '[{"name": "Customer", "gender": "neutral", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Pharmacist", "gender": "female", "avatarURL": "https://example.com/avatars/pharmacist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2830, 'en', 'dialogue', 'health', '[{"name": "Customer", "gender": "neutral", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Pharmacist", "gender": "female", "avatarURL": "https://example.com/avatars/pharmacist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pregunta por productos sin receta', 'Lee un diálogo simple en el que un cliente pregunta por productos de farmacia sin receta.'),
-        (v_dialogue_id, 'de', 'Frage nach rezeptfreien Produkten', 'Lies einen einfachen Dialog, in dem ein Kunde nach rezeptfreien Apothekenprodukten fragt.');
+        (v_dialogue_id, 'es', 'Pregunta por productos sin'), (v_dialogue_id, 'de', 'Nach rezeptfreien Produkten');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5980 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5980, 'en', 'reading', 'Alojamiento', $reading$
+    VALUES (
+    v_path_id,
+    5980,
+    'en',
+    'reading',
+    'alojamiento',
+    $reading$
 Riverside Hotel invoice
 
 Guest: Maria Ruiz
@@ -44,13 +50,12 @@ Late checkout: £20
 City tax: £8
 Total: £164
 Payment: cash or card at reception
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee la factura del hotel', 'Lee una factura de hotel con habitación, desayuno, aparcamiento y cargos extra.'),
-        (v_reading_id, 'de', 'Lies die Hotelrechnung', 'Lies eine Hotelrechnung mit Zimmer, Frühstück, Parkplatz und Zusatzkosten.');
+        (v_reading_id, 'es', 'Lee la factura del hotel'), (v_reading_id, 'de', 'Lies die Hotelrechnung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

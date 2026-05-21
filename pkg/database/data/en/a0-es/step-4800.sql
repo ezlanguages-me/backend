@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4800, 'en', 'reading', 'professional', $content$Phone Message Note
+        VALUES (
+    v_path_id,
+    4800,
+    'en',
+    'reading',
+    'professional',
+    $content$Phone Message Note
 
 To: Ms. Rachel Green, Sales Manager.
 Date: Tuesday 12 September.
@@ -53,13 +59,12 @@ From: Mr. Oliver Park, Park & Webb Ltd.
 Phone: 01223-456-789.
 
 Message:
-Mr. Park called about order number 7720. He wants to confirm that the delivery address is still Warehouse B, 23 Canal Road. He also asked whether the delivery can be made before 3pm on Friday. If he does not hear from you today, he will call back tomorrow morning. Please return his call before 4pm today.$content$)
-        RETURNING uuid INTO v_reading_id;
+Mr. Park called about order number 7720. He wants to confirm that the delivery address is still Warehouse B, 23 Canal Road. He also asked whether the delivery can be made before 3pm on Friday. If he does not hear from you today, he will call back tomorrow morning. Please return his call before 4pm today.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una nota de recado telefónico rutinario', 'Lee un recado telefónico sobre una entrega y una devolución de llamada.'),
-            (v_reading_id, 'de', 'Lies eine routinemäßige Telefonnotiz', 'Lies eine Telefonnotiz über eine Lieferung und einen Rückruf.');
+            (v_reading_id, 'es', 'Recado telefónico rutinario'), (v_reading_id, 'de', 'Routinemäßige Telefonnotiz');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

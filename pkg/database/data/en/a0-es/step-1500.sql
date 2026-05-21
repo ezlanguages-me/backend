@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 1500 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 1500, 'en', 'dialogue', 'banking', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Advisor", "gender": "female", "avatarURL": "https://example.com/avatars/advisor.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 1500, 'en', 'dialogue', 'banking', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Advisor", "gender": "female", "avatarURL": "https://example.com/avatars/advisor.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Preguntar por comisiones bancarias', 'Lee una conversación breve donde el banco explica comisiones rutinarias.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Preguntar por comisiones');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Nach Bankgebühren fragen', 'Lies ein kurzes Gespräch, in dem die Bank routinemäßige Gebühren erklärt.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Nach Bankgebühren fragen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

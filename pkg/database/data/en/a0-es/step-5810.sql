@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5810 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5810, 'en', 'reading', 'Gestión del Estudio y Trámites', $reading$
+    VALUES (
+    v_path_id,
+    5810,
+    'en',
+    'reading',
+    'academic',
+    $reading$
 Westbridge College enrollment forms are available at the student office and on the college website.
 
 Please complete the form in capital letters. Write your full name, student number, course code, and preferred timetable.
@@ -40,13 +46,12 @@ Please complete the form in capital letters. Write your full name, student numbe
 Bring one passport photo, your ID card, and proof of address. The registration fee is £15.
 
 You can hand in the form at the student office between 9 AM and 4 PM, or email a scanned copy before Friday at 3 PM.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee un formulario de matrícula', 'Lee un formulario con datos básicos de matrícula, plazos y documentos necesarios.'),
-        (v_reading_id, 'de', 'Lies ein Einschreibeformular', 'Lies ein Formular mit grundlegenden Einschreibedaten, Fristen und nötigen Unterlagen.');
+        (v_reading_id, 'es', 'Lee un formulario de matrícula'), (v_reading_id, 'de', 'Lies ein Einschreibeformular');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

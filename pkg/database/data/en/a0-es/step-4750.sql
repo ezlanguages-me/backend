@@ -15,21 +15,13 @@
               AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 4750, 'en', 'writing', 'professional')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 4750, 'en', 'writing', 'professional')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'es',
-                'Escribe instrucciones técnicas con precisión',
-                '',
+                'Instrucciones técnicas',
                 '{
     "scenario": "Un nuevo empleado necesita conectar su ordenador portátil a la red de la empresa y acceder al sistema interno. Escribe instrucciones claras y precisas que guíen al empleado paso a paso.",
     "tasks": [
@@ -45,18 +37,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'de',
-                'Schreibe präzise technische Anweisungen',
-                '',
+                'Präzise technische Anweisungen',
                 '{
     "scenario": "Ein neuer Mitarbeiter muss seinen Laptop mit dem Unternehmensnetzwerk verbinden und auf das interne System zugreifen. Schreiben Sie klare und präzise Anweisungen.",
     "tasks": [

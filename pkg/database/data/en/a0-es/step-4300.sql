@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4300 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4300 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4300, 'en', 'reading', 'professional', $content$DICTATED BUSINESS EMAIL
+        VALUES (
+    v_path_id,
+    4300,
+    'en',
+    'reading',
+    'professional',
+    $content$DICTATED BUSINESS EMAIL
 
 To: Mr Patel
 From: Thomas Wright
@@ -47,12 +53,11 @@ Please find the agenda attached full stop
 
 Could you please confirm your attendance by end of day Monday question mark
 
-Kind regards comma new line Thomas Wright$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Kind regards comma new line Thomas Wright$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un texto de dictado de negocios', 'Lee un correo electrónico dictado con confirmación de reunión, lugar, hora y petición de confirmación.'),
-            (v_reading_id, 'de', 'Lies einen diktierten Geschäftstext', 'Lies eine diktierte Geschäfts-E-Mail mit Meetingbestätigung, Ort, Zeit und Anwesenheitsanfrage.');
+            (v_reading_id, 'es', 'Texto de dictado de negocios'), (v_reading_id, 'de', 'Einen diktierten Geschäftstext');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

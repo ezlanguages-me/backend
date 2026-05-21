@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5050 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5050, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    5050,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Professor and two students
 ## THE SCENE: A guided class discussion about an article
 A professor asks two students about an article on small parks and city life.
@@ -56,13 +62,13 @@ Learners practise following a short academic discussion about an article, exampl
 [helpful] Student 2: I underlined the part about children and older people using the same green space.
 [reflective] Professor: Yes, and the author also compares three neighborhoods with different rent levels.
 [organized] Professor: Please bring one city example on Wednesday so we can continue the discussion.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Debate corto sobre una lectura', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Kurze Diskussion über eine Lektüre', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Debate corto sobre una lectura');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Diskussion über eine Lektüre');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

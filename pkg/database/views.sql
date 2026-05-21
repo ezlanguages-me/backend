@@ -156,6 +156,7 @@ SELECT
                         'step_order',  l.step_order,
                         'title',       lt.title,
                         'description', lt.description,
+                        'category',    l.category,
                         'transcript',  l.transcript,
                         'exercises', NULLIF(COALESCE(
                             (
@@ -189,6 +190,7 @@ SELECT
                         'step_order',  r.step_order,
                         'title',       rt.title,
                         'description', rt.description,
+                        'category',    r.category,
                         'content',     r.content,
                         'exercises', NULLIF(COALESCE(
                             (
@@ -221,6 +223,7 @@ SELECT
                         'uuid',        s.uuid,
                         'step_order',  s.step_order,
                         'title',       st.title,
+                        'category',    s.category,
                         'description', st.description,
                         'prompt',      st.prompt,
                         'exercises', NULLIF(COALESCE(
@@ -254,6 +257,7 @@ SELECT
                         'uuid',        w.uuid,
                         'step_order',  w.step_order,
                         'title',       wt.title,
+                        'category',    w.category,
                         'description', wt.description,
                         'prompt',      wt.prompt,
                         'exercises', NULLIF(COALESCE(

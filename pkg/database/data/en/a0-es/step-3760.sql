@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3760 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3760 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3760, 'en', 'listening', 'tourism', $transcript$
+        VALUES (
+    v_path_id,
+    3760,
+    'en',
+    'listening',
+    'tourism',
+    $transcript$
 # AUDIO PROFILE: Mia, a local radio host reading evening listings
 ## "Tonight in River City"
 
@@ -55,12 +61,11 @@ Accent: Neutral accent.
 [friendly] Host: River Lights Cinema has two screenings, at 5:15 PM and 8:45 PM.
 [cheerful] Host: There is free street dance in Central Square at 6 PM.
 [practical] Host: For tickets, call 555-0190 or book online.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha la agenda de ocio', 'Escucha una agenda de radio con conciertos, cine, humor y danza.'),
-            (v_listening_id, 'de', 'Höre Veranstaltungshinweise', 'Höre eine Radioliste mit Konzert, Kino, Comedy und Tanz.');
+            (v_listening_id, 'es', 'Escucha la agenda de ocio'), (v_listening_id, 'de', 'Höre Veranstaltungshinweise');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

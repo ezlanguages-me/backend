@@ -32,20 +32,26 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3350 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3350, 'en', 'reading', 'nature', $reading$Green Valley Nature Reserve
+    VALUES (
+    v_path_id,
+    3350,
+    'en',
+    'reading',
+    'nature',
+    $reading$Green Valley Nature Reserve
 
 Green Valley has a small forest, a river, and a wet meadow. Many birds live near the water, and wildflowers grow beside the main path.
 
 Visitors can use marked trails and wooden bridges. Please do not leave plastic or paper on the ground. Recycling bins are next to the visitor centre.
 
-On Saturday morning, volunteers plant young trees near the river. The centre opens at 9 AM and sells simple maps and bird lists.$reading$)
-    RETURNING uuid INTO v_reading_id;
+On Saturday morning, volunteers plant young trees near the river. The centre opens at 9 AM and sells simple maps and bird lists.$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Leer sobre la naturaleza y el medio ambiente', 'Lee un texto breve sobre una reserva natural, senderos y hábitos responsables con el entorno.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Naturaleza y el medio ambiente');
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Über Natur und Umwelt lesen', 'Lies einen kurzen Text über ein Naturschutzgebiet, Wege und verantwortungsvolles Verhalten in der Umwelt.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Über Natur und Umwelt lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

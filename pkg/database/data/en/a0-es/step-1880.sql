@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1880 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1880, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1880,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 AISLE 3
 Toothpaste - Fresh Mint 100 ml. Tissues - Soft White, 100 sheets. Shampoo - Daily Care 250 ml.
 
@@ -41,10 +47,10 @@ Washing-up liquid - Lemon 500 ml. Hand soap - Sensitive Skin. Laundry detergent 
 
 AISLE 5
 Baby wipes, batteries AA, toilet paper, and dish sponges.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Etiquetas de productos cotidianos');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Etiquetas de productos');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Alltägliche Produktetiketten');
 
     FOREACH ex IN ARRAY v_exercises LOOP

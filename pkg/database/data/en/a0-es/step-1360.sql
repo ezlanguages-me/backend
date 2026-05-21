@@ -32,20 +32,26 @@
         DELETE FROM reading WHERE step_order = 1360 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1360, 'en', 'reading', 'financial', 'City Bank Foreign Exchange changes euros, dollars, and pounds.
+        VALUES (
+    v_path_id,
+    1360,
+    'en',
+    'reading',
+    'financial',
+    'City Bank Foreign Exchange changes euros, dollars, and pounds.
 
 Today the board shows: 1 euro = 1.08 dollars, 1 dollar = 0.92 euros, and 1 pound = 1.17 euros.
 
 The minimum exchange is 20 euros. Please bring your passport or national ID. There is a service fee of 3 euros for each exchange.
 
-Count your money before you leave the counter. The teller gives you notes, coins, and a receipt after every transaction.')
-        RETURNING uuid INTO v_reading_id;
+Count your money before you leave the counter. The teller gives you notes, coins, and a receipt after every transaction.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Cambiar dinero en el banco', 'Lee un panel simple de cambio de divisas con tasas, documentos y comisión.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Cambiar dinero en el banco');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Geld bei der Bank wechseln', 'Lies eine einfache Wechseltafel mit Kursen, Dokumenten und Gebühr.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Geld bei der Bank wechseln');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

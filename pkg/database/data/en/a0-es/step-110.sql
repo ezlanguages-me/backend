@@ -16,7 +16,7 @@ DECLARE
         '{"v":"parents","es":"padres (madre y padre)","de":"Eltern","pron":"/pé-rents/","pron_de":"/EL-tön/"}',
         '{"v":"mother / mom","es":"madre / mamá","de":"Mutter / Mama","pron":"/má-der / mam/","pron_de":"/MA-dö / MA-ma/"}',
         '{"v":"father / dad","es":"padre / papá","de":"Vater / Papa","pron":"/fá-der / dad/","pron_de":"/FA-dö / PA-pa/"}',
-        '{"v":"siblings","es":"hermanos (en general, ambos sexos)","de":"Geschwister","pron":"/sí-blins/","pron_de":"/GE-schwis-tö/"}',
+        '{"v":"siblings","es":"hermanos (en general, ambos sexos)","de":"Geschwister","pron":"/síb-lings/","pron_de":"/GE-schwis-tö/"}',
         '{"v":"brother","es":"hermano","de":"Bruder","pron":"/bró-der/","pron_de":"/BRU-dö/"}',
         '{"v":"sister","es":"hermana","de":"Schwester","pron":"/sís-ter/","pron_de":"/SCHWE-stö/"}',
         '{"v":"children / kids","es":"hijos / niños","de":"Kinder","pron":"/chíl-dren / kids/","pron_de":"/TSCHIL-drön / kids/"}',
@@ -68,7 +68,7 @@ DECLARE
         '{"v":"to get married","es":"casarse","de":"heiraten","pron":"/tu guet má-rid/","pron_de":"/tu guet MÄ-rid/"}',
         '{"v":"to get divorced","es":"divorciarse","de":"sich scheiden lassen","pron":"/tu guet di-vórst/","pron_de":"/tu guet di-VÖÖRST/"}',
         '{"v":"to break up","es":"romper / terminar una relación","de":"Schluss machen / sich trennen","pron":"/tu bréik ap/","pron_de":"/tu BREIK ap/"}',
-        '{"v":"wedding","es":"boda","de":"Hochzeit","pron":"/ué-din/","pron_de":"/WE-ding/"}',
+        '{"v":"wedding","es":"boda","de":"Hochzeit","pron":"/ué-ding/","pron_de":"/WE-ding/"}',
         '{"v":"marriage","es":"matrimonio","de":"Ehe / Heirat","pron":"/má-rich/","pron_de":"/MÄ-ridsch/"}',
         
         -- ==========================================
@@ -101,7 +101,15 @@ DECLARE
 
         -- Relaciones sociales
         '{"v":"neighbor","es":"vecino / vecina","de":"Nachbar(in)","pron":"/néi-bor/","pron_de":"/NEJ-bö/"}',
-        '{"v":"classmate","es":"compañero/a de clase","de":"Mitschüler(in) / Kommilitone","pron":"/klás-meit/","pron_de":"/KLAAS-mejt/"}'
+        '{"v":"classmate","es":"compañero/a de clase","de":"Mitschüler(in) / Kommilitone","pron":"/klás-meit/","pron_de":"/KLAAS-mejt/"}',
+
+        -- Estado civil y etapas adicionales
+        '{"v":"only child","es":"hijo/a único/a","de":"Einzelkind","pron":"/óun-li chaild/","pron_de":"/ONLIE TSCHAILD/"}',
+        '{"v":"newborn","es":"recién nacido/a","de":"Neugeborene(r)","pron":"/niú-born/","pron_de":"/NIU-boorn/"}',
+        '{"v":"widow","es":"viuda","de":"Witwe","pron":"/uí-dou/","pron_de":"/WI-duu/"}',
+        '{"v":"widower","es":"viudo","de":"Witwer","pron":"/uí-dou-er/","pron_de":"/WI-duu-ö/"}',
+        '{"v":"single","es":"soltero/a","de":"ledig / single","pron":"/sín-guel/","pron_de":"/SING-göl/"}',
+        '{"v":"divorced","es":"divorciado/a","de":"geschieden","pron":"/di-vórst/","pron_de":"/di-VÖÖRST/"}'
     ];
 
 BEGIN
@@ -115,24 +123,21 @@ VALUES (v_path_id, 110, 'en', 'deck')
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'Familia, Relaciones y Citas', 
-    ''
+    v_deck_id,
+    'es',
+    'Familia, Relaciones y Citas'
 );
 
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
-VALUES (v_deck_id, 'de', 'Familie, Beziehungen und Verabredungen', '');
+INSERT INTO deck_translation (deck_uuid, language, title) 
+VALUES (v_deck_id, 'de', 'Beziehungen und Verabredungen');
 
 -- 4. Bucle para insertar todas las palabras del mazo
 FOREACH v_item IN ARRAY v_family_relations
 LOOP
     -- Insertar el término en la tabla word como palabra raíz
-    INSERT INTO word (term, is_root, source_language) 
-    VALUES (v_item->>'v', TRUE, 'en') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en') INTO v_root_id;
 
     -- Insertar la traducción al español y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
@@ -141,15 +146,18 @@ LOOP
         'es', 
         jsonb_build_object('translation', v_item->>'es'), 
         v_item->>'pron'
-    );
+    )
+    ON CONFLICT DO NOTHING;
 
     -- Insertar la traducción al alemán y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
     -- Vincular la palabra creada al mazo actual
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
 END LOOP;
 END;

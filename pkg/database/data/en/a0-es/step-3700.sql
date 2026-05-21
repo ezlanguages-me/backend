@@ -21,9 +21,13 @@
         DELETE FROM grammar WHERE step_order = 3700 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'grammar';
         INSERT INTO grammar (path_uuid, step_order, source_language, type)
         VALUES (v_path_id, 3700, 'en', 'grammar') RETURNING uuid INTO v_grammar_id;
-        INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+        INSERT INTO grammar_translation (grammar_uuid, language, title, content)
         VALUES
-            (v_grammar_id, 'es', 'Presente perfecto', 'Aprende la forma básica del present perfect, experiencias, hechos recientes y el uso de for/since.', to_jsonb($content_es$## Presente perfecto básico
+            (
+    v_grammar_id,
+    'es',
+    'Presente perfecto',
+    to_jsonb($content_es$## Presente perfecto básico
 
 El **present perfect** se forma con **have/has + participio pasado**.
 
@@ -55,8 +59,13 @@ También lo usamos para acciones recientes que todavía tienen efecto.
 
 ### Idea clave
 No hablamos de un momento terminado del pasado; hablamos de experiencia, resultado actual o duración hasta ahora.
-$content_es$::text)),
-            (v_grammar_id, 'de', 'Present perfect', 'Lerne die Grundform des present perfect, Erfahrungen, neue Ereignisse und die Verwendung von for/since.', to_jsonb($content_de$## Das present perfect – die Grundform
+$content_es$::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Present perfect',
+    to_jsonb($content_de$## Das present perfect – die Grundform
 
 Das **present perfect** bildet man mit **have/has + Partizip**.
 
@@ -88,7 +97,8 @@ Wir benutzen es auch für kürzliche Handlungen, die jetzt noch wichtig sind.
 
 ### Kernidee
 Wir sprechen nicht über einen abgeschlossenen Zeitpunkt in der Vergangenheit, sondern über Erfahrung, ein aktuelles Ergebnis oder eine Dauer bis jetzt.
-$content_de$::text));
+$content_de$::text)
+);
 
 INSERT INTO grammar_rule (grammar_uuid, source_language)
 VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule_id;
@@ -101,99 +111,99 @@ INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I ___ visited London.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I ___ visited London.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I ___ visited London.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I ___ visited London.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: She ___ eaten already.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: She ___ eaten already.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She ___ eaten already.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She ___ eaten already.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: We ___ finished the task.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: We ___ finished the task.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We ___ finished the task.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We ___ finished the task.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: He ___ lost his ticket.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: He ___ lost his ticket.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He ___ lost his ticket.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He ___ lost his ticket.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: They ___ seen the photo.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: They ___ seen the photo.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'They ___ seen the photo.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'They ___ seen the photo.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: Maria ___ arrived.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: Maria ___ arrived.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Maria ___ arrived.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Maria ___ arrived.', '{"type": "typing", "correct_answers": ["has"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: You ___ learned a lot.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: You ___ learned a lot.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'You ___ learned a lot.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'You ___ learned a lot.', '{"type": "typing", "correct_answers": ["have"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She ___ visited Rome.', '{"type": "multiple_choice", "options": ["has", "have", "did"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She ___ visited Rome.', '{"type": "multiple_choice", "options": ["has", "have", "tat"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She ___ visited Rome.', '{"type": "multiple_choice", "options": ["has", "have", "did"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She ___ visited Rome.', '{"type": "multiple_choice", "options": ["has", "have", "tat"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We ___ finished breakfast.', '{"type": "multiple_choice", "options": ["have", "has", "are"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We ___ finished breakfast.', '{"type": "multiple_choice", "options": ["have", "has", "sind"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We ___ finished breakfast.', '{"type": "multiple_choice", "options": ["have", "has", "are"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We ___ finished breakfast.', '{"type": "multiple_choice", "options": ["have", "has", "sind"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He ___ eaten.', '{"type": "multiple_choice", "options": ["has", "have", "was"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He ___ eaten.', '{"type": "multiple_choice", "options": ["has", "have", "war"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He ___ eaten.', '{"type": "multiple_choice", "options": ["has", "have", "was"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He ___ eaten.', '{"type": "multiple_choice", "options": ["has", "have", "war"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: They ___ seen that film.', '{"type": "multiple_choice", "options": ["have", "has", "did"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: They ___ seen that film.', '{"type": "multiple_choice", "options": ["have", "has", "taten"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'They ___ seen that film.', '{"type": "multiple_choice", "options": ["have", "has", "did"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'They ___ seen that film.', '{"type": "multiple_choice", "options": ["have", "has", "taten"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I ___ lost my bag.', '{"type": "multiple_choice", "options": ["have", "has", "am"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I ___ lost my bag.', '{"type": "multiple_choice", "options": ["have", "has", "bin"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I ___ lost my bag.', '{"type": "multiple_choice", "options": ["have", "has", "am"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I ___ lost my bag.', '{"type": "multiple_choice", "options": ["have", "has", "bin"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: It ___ stopped.', '{"type": "multiple_choice", "options": ["has", "have", "were"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: It ___ stopped.', '{"type": "multiple_choice", "options": ["has", "have", "waren"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'It ___ stopped.', '{"type": "multiple_choice", "options": ["has", "have", "were"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'It ___ stopped.', '{"type": "multiple_choice", "options": ["has", "have", "waren"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: You ___ arrived early.', '{"type": "multiple_choice", "options": ["have", "has", "to"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: You ___ arrived early.', '{"type": "multiple_choice", "options": ["have", "has", "zu"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'You ___ arrived early.', '{"type": "multiple_choice", "options": ["have", "has", "to"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'You ___ arrived early.', '{"type": "multiple_choice", "options": ["have", "has", "zu"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
@@ -304,99 +314,99 @@ INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: Have you ___ been to Japan?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: Have you ___ been to Japan?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Have you ___ been to Japan?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Have you ___ been to Japan?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I have ___ seen snow.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I have ___ seen snow.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ seen snow.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ seen snow.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: Has she ___ tried sushi?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: Has she ___ tried sushi?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Has she ___ tried sushi?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Has she ___ tried sushi?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: We have ___ visited Rome.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: We have ___ visited Rome.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We have ___ visited Rome.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We have ___ visited Rome.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: Have they ___ flown before?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: Have they ___ flown before?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Have they ___ flown before?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Have they ___ flown before?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: He has ___ met my sister.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: He has ___ met my sister.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He has ___ met my sister.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He has ___ met my sister.', '{"type": "typing", "correct_answers": ["never"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: Have you ___ eaten octopus?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: Have you ___ eaten octopus?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Have you ___ eaten octopus?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Have you ___ eaten octopus?', '{"type": "typing", "correct_answers": ["ever"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Have you ___ been abroad?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Have you ___ been abroad?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Have you ___ been abroad?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Have you ___ been abroad?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I have ___ seen that mountain.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I have ___ seen that mountain.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ seen that mountain.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ seen that mountain.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Has she ___ tried Indian food?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Has she ___ tried Indian food?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Has she ___ tried Indian food?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Has she ___ tried Indian food?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We have ___ visited Berlin.', '{"type": "multiple_choice", "options": ["never", "ever", "already"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We have ___ visited Berlin.', '{"type": "multiple_choice", "options": ["never", "ever", "already"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We have ___ visited Berlin.', '{"type": "multiple_choice", "options": ["never", "ever", "already"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We have ___ visited Berlin.', '{"type": "multiple_choice", "options": ["never", "ever", "already"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Have they ___ driven in snow?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Have they ___ driven in snow?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Have they ___ driven in snow?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Have they ___ driven in snow?', '{"type": "multiple_choice", "options": ["ever", "never", "for"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He has ___ spoken to the director.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He has ___ spoken to the director.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He has ___ spoken to the director.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He has ___ spoken to the director.', '{"type": "multiple_choice", "options": ["never", "ever", "since"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Have you ___ eaten here before?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Have you ___ eaten here before?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Have you ___ eaten here before?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Have you ___ eaten here before?', '{"type": "multiple_choice", "options": ["ever", "never", "just"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
@@ -507,99 +517,99 @@ INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I have ___ my keys.', '{"type": "typing", "correct_answers": ["lost"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I have ___ my keys.', '{"type": "typing", "correct_answers": ["lost"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ my keys.', '{"type": "typing", "correct_answers": ["lost"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ my keys.', '{"type": "typing", "correct_answers": ["lost"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: She has ___ arrived.', '{"type": "typing", "correct_answers": ["just"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: She has ___ arrived.', '{"type": "typing", "correct_answers": ["just"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She has ___ arrived.', '{"type": "typing", "correct_answers": ["just"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She has ___ arrived.', '{"type": "typing", "correct_answers": ["just"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: We have ___ the report.', '{"type": "typing", "correct_answers": ["finished"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: We have ___ the report.', '{"type": "typing", "correct_answers": ["finished"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We have ___ the report.', '{"type": "typing", "correct_answers": ["finished"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We have ___ the report.', '{"type": "typing", "correct_answers": ["finished"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: He has ___ his phone.', '{"type": "typing", "correct_answers": ["broken"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: He has ___ his phone.', '{"type": "typing", "correct_answers": ["broken"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He has ___ his phone.', '{"type": "typing", "correct_answers": ["broken"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He has ___ his phone.', '{"type": "typing", "correct_answers": ["broken"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: They have ___ the tickets.', '{"type": "typing", "correct_answers": ["found"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: They have ___ the tickets.', '{"type": "typing", "correct_answers": ["found"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'They have ___ the tickets.', '{"type": "typing", "correct_answers": ["found"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'They have ___ the tickets.', '{"type": "typing", "correct_answers": ["found"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I have ___ the email.', '{"type": "typing", "correct_answers": ["sent"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I have ___ the email.', '{"type": "typing", "correct_answers": ["sent"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ the email.', '{"type": "typing", "correct_answers": ["sent"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ the email.', '{"type": "typing", "correct_answers": ["sent"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: The bus has ___.', '{"type": "typing", "correct_answers": ["left"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: The bus has ___.', '{"type": "typing", "correct_answers": ["left"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The bus has ___.', '{"type": "typing", "correct_answers": ["left"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The bus has ___.', '{"type": "typing", "correct_answers": ["left"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I have ___ my wallet.', '{"type": "multiple_choice", "options": ["lost", "lose", "losing"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I have ___ my wallet.', '{"type": "multiple_choice", "options": ["lost", "lose", "losing"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ my wallet.', '{"type": "multiple_choice", "options": ["lost", "lose", "losing"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ my wallet.', '{"type": "multiple_choice", "options": ["lost", "lose", "losing"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She has ___ arrived.', '{"type": "multiple_choice", "options": ["just", "ever", "for"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She has ___ arrived.', '{"type": "multiple_choice", "options": ["just", "ever", "for"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She has ___ arrived.', '{"type": "multiple_choice", "options": ["just", "ever", "for"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She has ___ arrived.', '{"type": "multiple_choice", "options": ["just", "ever", "for"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We have ___ the work.', '{"type": "multiple_choice", "options": ["finished", "finish", "finishing"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We have ___ the work.', '{"type": "multiple_choice", "options": ["finished", "finish", "finishing"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We have ___ the work.', '{"type": "multiple_choice", "options": ["finished", "finish", "finishing"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We have ___ the work.', '{"type": "multiple_choice", "options": ["finished", "finish", "finishing"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He has ___ his glasses.', '{"type": "multiple_choice", "options": ["broken", "break", "breaking"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He has ___ his glasses.', '{"type": "multiple_choice", "options": ["broken", "break", "breaking"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He has ___ his glasses.', '{"type": "multiple_choice", "options": ["broken", "break", "breaking"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He has ___ his glasses.', '{"type": "multiple_choice", "options": ["broken", "break", "breaking"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: They have ___ the tickets now.', '{"type": "multiple_choice", "options": ["found", "find", "finding"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: They have ___ the tickets now.', '{"type": "multiple_choice", "options": ["found", "find", "finding"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'They have ___ the tickets now.', '{"type": "multiple_choice", "options": ["found", "find", "finding"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'They have ___ the tickets now.', '{"type": "multiple_choice", "options": ["found", "find", "finding"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I have ___ the email already.', '{"type": "multiple_choice", "options": ["sent", "send", "sending"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I have ___ the email already.', '{"type": "multiple_choice", "options": ["sent", "send", "sending"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I have ___ the email already.', '{"type": "multiple_choice", "options": ["sent", "send", "sending"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I have ___ the email already.', '{"type": "multiple_choice", "options": ["sent", "send", "sending"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The bus has ___.', '{"type": "multiple_choice", "options": ["left", "leave", "leaving"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The bus has ___.', '{"type": "multiple_choice", "options": ["left", "leave", "leaving"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The bus has ___.', '{"type": "multiple_choice", "options": ["left", "leave", "leaving"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The bus has ___.', '{"type": "multiple_choice", "options": ["left", "leave", "leaving"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
@@ -710,99 +720,99 @@ INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I have worked here ___ two years.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I have worked here ___ two years.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I have worked here ___ two years.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I have worked here ___ two years.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: She has lived here ___ 2018.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: She has lived here ___ 2018.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She has lived here ___ 2018.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She has lived here ___ 2018.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: We have waited ___ an hour.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: We have waited ___ an hour.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We have waited ___ an hour.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We have waited ___ an hour.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: He has known her ___ Monday.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: He has known her ___ Monday.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He has known her ___ Monday.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He has known her ___ Monday.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: They have studied English ___ three months.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: They have studied English ___ three months.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'They have studied English ___ three months.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'They have studied English ___ three months.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: I have stayed here ___ last week.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: I have stayed here ___ last week.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I have stayed here ___ last week.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I have stayed here ___ last week.', '{"type": "typing", "correct_answers": ["since"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa: She has used this laptop ___ a long time.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze: She has used this laptop ___ a long time.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She has used this laptop ___ a long time.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She has used this laptop ___ a long time.', '{"type": "typing", "correct_answers": ["for"], "case_sensitive": false}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I have worked here ___ two years.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I have worked here ___ two years.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I have worked here ___ two years.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I have worked here ___ two years.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She has lived here ___ 2018.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She has lived here ___ 2018.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She has lived here ___ 2018.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She has lived here ___ 2018.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We have waited ___ an hour.', '{"type": "multiple_choice", "options": ["for", "since", "never"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We have waited ___ an hour.', '{"type": "multiple_choice", "options": ["for", "since", "never"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We have waited ___ an hour.', '{"type": "multiple_choice", "options": ["for", "since", "never"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We have waited ___ an hour.', '{"type": "multiple_choice", "options": ["for", "since", "never"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He has known her ___ Monday.', '{"type": "multiple_choice", "options": ["since", "for", "just"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He has known her ___ Monday.', '{"type": "multiple_choice", "options": ["since", "for", "just"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He has known her ___ Monday.', '{"type": "multiple_choice", "options": ["since", "for", "just"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He has known her ___ Monday.', '{"type": "multiple_choice", "options": ["since", "for", "just"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: They have studied English ___ three months.', '{"type": "multiple_choice", "options": ["for", "since", "already"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: They have studied English ___ three months.', '{"type": "multiple_choice", "options": ["for", "since", "already"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'They have studied English ___ three months.', '{"type": "multiple_choice", "options": ["for", "since", "already"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'They have studied English ___ three months.', '{"type": "multiple_choice", "options": ["for", "since", "already"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I have stayed here ___ last week.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I have stayed here ___ last week.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I have stayed here ___ last week.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I have stayed here ___ last week.', '{"type": "multiple_choice", "options": ["since", "for", "ever"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She has used this laptop ___ a long time.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She has used this laptop ___ a long time.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She has used this laptop ___ a long time.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She has used this laptop ___ a long time.', '{"type": "multiple_choice", "options": ["for", "since", "just"], "answer": 0}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid)
 VALUES (v_grammar_id, v_rule_id) RETURNING uuid INTO v_ex_id;

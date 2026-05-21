@@ -13,12 +13,13 @@
             DELETE FROM writing WHERE step_order = 300 AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 300, 'en', 'writing', 'correspondence')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 300, 'en', 'writing', 'correspondence')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'es', 'Carta personal rutinaria', '',
+                v_writing_id,
+                'es',
+                'Carta personal rutinaria',
                 '{
     "scenario": "Tienes que escribir una carta personal sobre un asunto normal de cada día, como una visita o un plan sencillo. El texto debe ser claro, corto y práctico.",
     "tasks": [
@@ -32,9 +33,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'de', 'Einfacher Routinebrief', '',
+                v_writing_id,
+                'de',
+                'Einfacher Routinebrief',
                 '{
     "scenario": "Du musst einen persönlichen Brief über eine normale Alltagssache schreiben, zum Beispiel über einen Besuch oder einen einfachen Plan. Der Text soll klar, kurz und praktisch sein.",
     "tasks": [

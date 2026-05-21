@@ -45,13 +45,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3570 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3570, 'en', 'dialogue', 'professional', '[{"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}, {"name": "Client", "gender": "female", "avatarURL": "https://example.com/avatars/client.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3570, 'en', 'dialogue', 'professional', '[{"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}, {"name": "Client", "gender": "female", "avatarURL": "https://example.com/avatars/client.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Concerta una cita de negocios', 'Practica una llamada breve para reservar una reunión con una empresa.'),
-        (v_dialogue_id, 'de', 'Vereinbare einen Geschäftstermin', 'Übe einen kurzen Anruf, um ein Treffen mit einer Firma zu vereinbaren.');
+        (v_dialogue_id, 'es', 'Concerta una cita de negocios'), (v_dialogue_id, 'de', 'Geschäftstermin');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

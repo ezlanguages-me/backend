@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 1460 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 1460, 'en', 'dialogue', 'postal', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Clerk", "gender": "male", "avatarURL": "https://example.com/avatars/clerk.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 1460, 'en', 'dialogue', 'postal', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Clerk", "gender": "male", "avatarURL": "https://example.com/avatars/clerk.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Preguntar por tiempos de entrega', 'Lee un diálogo simple para preguntar cuánto tarda un envío postal.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Preguntar por tiempos');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Nach Lieferzeiten fragen', 'Lies einen einfachen Dialog, um nach der Lieferzeit einer Sendung zu fragen.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Nach Lieferzeiten fragen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

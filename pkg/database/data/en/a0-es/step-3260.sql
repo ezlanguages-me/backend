@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3260 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3260, 'en', 'listening', 'emergency', $transcript$
+    VALUES (
+    v_path_id,
+    3260,
+    'en',
+    'listening',
+    'emergency',
+    $transcript$
 # AUDIO PROFILE: A station announcer over the loudspeaker
 ## "Please Leave the Waiting Hall"
 
@@ -77,13 +83,12 @@ Learners practise understanding safety announcements in public places.
 [reminding] Announcer: Keep your ticket and bag with you at all times.
 [official] Announcer: The hall stays closed until firefighters check the area.
 [closing] Announcer: Thank you for your calm help.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha un anuncio de seguridad en una estación de autobuses', 'Escucha un anuncio público con salidas, personal de ayuda y nuevas paradas.'),
-        (v_listening_id, 'de', 'Höre eine Sicherheitsdurchsage in einem Busbahnhof', 'Höre eine öffentliche Durchsage mit Ausgängen, Hilfspersonal und neuen Haltepunkten.');
+        (v_listening_id, 'es', 'Seguridad en una estación'), (v_listening_id, 'de', 'Sicherheitsdurchsage');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

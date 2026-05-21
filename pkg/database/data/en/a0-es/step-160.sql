@@ -61,7 +61,7 @@ DECLARE
         '{"v":"fit","es":"en forma","de":"fit / in Form","pron":"/fit/","pron_de":"/fit/"}',
         '{"v":"gorgeous","es":"precioso/a / deslumbrante","de":"wunderschön / hinreißend","pron":"/gór-chos/","pron_de":"/GOO-dschös/"}',
         '{"v":"plain","es":"sencillo / poco atractivo","de":"schlicht / unscheinbar","pron":"/pléin/","pron_de":"/plejn/"}',
-        '{"v":"stunning","es":"impresionante","de":"atemberaubend","pron":"/stá-nin/","pron_de":"/STA-ning/"}',
+        '{"v":"stunning","es":"impresionante","de":"atemberaubend","pron":"/stá-ning/","pron_de":"/STA-ning/"}',
         '{"v":"pale","es":"pálido","de":"blass","pron":"/péil/","pron_de":"/pejl/"}',
         '{"v":"tanned","es":"bronceado","de":"gebräunt / braun gebrannt","pron":"/tand/","pron_de":"/tänd/"}',
         '{"v":"wrinkled","es":"arrugado","de":"faltig / runzelig","pron":"/rín-kold/","pron_de":"/RING-köld/"}',
@@ -80,9 +80,9 @@ DECLARE
         '{"v":"funny","es":"divertido / gracioso","de":"lustig / witzig","pron":"/fá-ni/","pron_de":"/FA-ni/"}',
         '{"v":"serious","es":"serio","de":"ernst / ernsthaft","pron":"/sí-ri-os/","pron_de":"/SI-ri-ös/"}',
         '{"v":"shy","es":"tímido","de":"schüchtern","pron":"/shái/","pron_de":"/schai/"}',
-        '{"v":"outgoing","es":"extrovertido / sociable","de":"gesellig / aufgeschlossen","pron":"/aut-góu-in/","pron_de":"/AUT-gou-ing/"}',
+        '{"v":"outgoing","es":"extrovertido / sociable","de":"gesellig / aufgeschlossen","pron":"/aut-góu-ing/","pron_de":"/AUT-gou-ing/"}',
         '{"v":"lazy","es":"perezoso / flojo","de":"faul","pron":"/léi-si/","pron_de":"/LEJ-si/"}',
-        '{"v":"hardworking","es":"trabajador","de":"fleißig","pron":"/hard-uér-kin/","pron_de":"/HAAD-wö-king/"}',
+        '{"v":"hardworking","es":"trabajador","de":"fleißig","pron":"/hard-uér-king/","pron_de":"/HAAD-wö-king/"}',
         '{"v":"smart","es":"inteligente / listo","de":"klug / intelligent","pron":"/smart/","pron_de":"/smaad/"}',
         '{"v":"stupid","es":"estúpido / tonto","de":"dumm / blöd","pron":"/stú-pid/","pron_de":"/STJUU-pid/"}',
         '{"v":"brave","es":"valiente","de":"mutig / tapfer","pron":"/bréiv/","pron_de":"/brejw/"}',
@@ -178,7 +178,7 @@ DECLARE
         '{"v":"difficult","es":"difícil","de":"schwierig / schwer","pron":"/dí-fi-kult/","pron_de":"/DI-fi-költ/"}',
         '{"v":"right","es":"correcto / adecuado","de":"richtig / korrekt","pron":"/ráit/","pron_de":"/rait/"}',
         '{"v":"wrong","es":"incorrecto / equivocado","de":"falsch / verkehrt","pron":"/rong/","pron_de":"/rong/"}',
-        '{"v":"amazing","es":"asombroso","de":"erstaunlich / beeindruckend","pron":"/a-méi-sin/","pron_de":"/ö-MEJ-sing/"}',
+        '{"v":"amazing","es":"asombroso","de":"erstaunlich / beeindruckend","pron":"/a-méi-sing/","pron_de":"/ö-MEJ-sing/"}',
         '{"v":"brilliant","es":"brillante / genial","de":"brillant / genial","pron":"/brí-liant/","pron_de":"/BRIL-jönt/"}',
         '{"v":"dirty","es":"sucio","de":"schmutzig / dreckig","pron":"/dér-ti/","pron_de":"/DÖ-ti/"}',
         '{"v":"clean","es":"limpio","de":"sauber / rein","pron":"/klin/","pron_de":"/klien/"}',
@@ -256,15 +256,15 @@ DECLARE
         '{"v":"cold","es":"frío","de":"kalt","pron":"/kóuld/","pron_de":"/kould/"}',
         '{"v":"warm","es":"cálido / tibio","de":"warm","pron":"/uorm/","pron_de":"/woorm/"}',
         '{"v":"cool","es":"fresco","de":"kühl","pron":"/kul/","pron_de":"/kuul/"}',
-        '{"v":"freezing","es":"helado","de":"eiskalt / frierend","pron":"/frí-sin/","pron_de":"/FRIE-sing/"}',
-        '{"v":"boiling","es":"hirviendo","de":"kochend heiß","pron":"/bói-lin/","pron_de":"/BOI-ling/"}',
+        '{"v":"freezing","es":"helado","de":"eiskalt / frierend","pron":"/frí-sing/","pron_de":"/FRIE-sing/"}',
+        '{"v":"boiling","es":"hirviendo","de":"kochend heiß","pron":"/bói-ling/","pron_de":"/BOI-ling/"}',
         '{"v":"chilly","es":"frío / friolento","de":"kühl / frisch / kalt","pron":"/chí-li/","pron_de":"/TSCHI-li/"}',
         '{"v":"lukewarm","es":"tibio","de":"lauwarm","pron":"/lúk-uorm/","pron_de":"/LUUK-woorm/"}',
         '{"v":"icy","es":"helado (con hielo)","de":"eisig / vereist","pron":"/ái-si/","pron_de":"/AI-si/"}',
         '{"v":"crisp","es":"fresco y seco (clima)","de":"frisch und klar (Wetter)","pron":"/krisp/","pron_de":"/krisp/"}',
         '{"v":"mild","es":"templado / suave","de":"mild / angenehm","pron":"/máild/","pron_de":"/maild/"}',
-        '{"v":"scorching","es":"abrasador","de":"sengend heiß / glühend","pron":"/skór-chin/","pron_de":"/SKOO-tschin/"}',
-        '{"v":"burning","es":"ardiente","de":"brennend / glühend","pron":"/bér-nin/","pron_de":"/BÖ-ning/"}',
+        '{"v":"scorching","es":"abrasador","de":"sengend heiß / glühend","pron":"/skór-ching/","pron_de":"/SKOO-tschin/"}',
+        '{"v":"burning","es":"ardiente","de":"brennend / glühend","pron":"/bér-ning/","pron_de":"/BÖ-ning/"}',
         '{"v":"frosty","es":"escarchado / muy frío","de":"frostig / eisig","pron":"/frós-ti/","pron_de":"/FROS-ti/"}',
 
         -- ==========================================
@@ -348,24 +348,21 @@ VALUES (v_path_id, 160, 'en', 'deck')
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'Adjetivos', 
-    ''
+    v_deck_id,
+    'es',
+    'Adjetivos'
 );
 
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
-VALUES (v_deck_id, 'de', 'Adjektive', '');
+INSERT INTO deck_translation (deck_uuid, language, title) 
+VALUES (v_deck_id, 'de', 'Adjektive');
 
 -- 4. Bucle para insertar todas las palabras del mazo
 FOREACH v_item IN ARRAY v_adjectives
 LOOP
     -- Insertar el término en la tabla word como palabra raíz
-    INSERT INTO word (term, is_root, source_language) 
-    VALUES (v_item->>'v', TRUE, 'en') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en') INTO v_root_id;
 
     -- Insertar la traducción al español y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
@@ -374,15 +371,18 @@ LOOP
         'es', 
         jsonb_build_object('translation', v_item->>'es'), 
         v_item->>'pron'
-    );
+    )
+    ON CONFLICT DO NOTHING;
 
     -- Insertar la traducción al alemán y su pronunciación
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
     -- Vincular la palabra creada al mazo actual
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
 END LOOP;
 END;

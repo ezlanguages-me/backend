@@ -43,12 +43,10 @@ BEGIN
     );
     DELETE FROM dialogue WHERE step_order = 3670 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3670, 'en', 'dialogue', 'accommodation', '[{"name": "Guest", "gender": "male", "avatarURL": "https://example.com/avatars/guest.png"}, {"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 3670, 'en', 'dialogue', 'accommodation', '[{"name": "Guest", "gender": "male", "avatarURL": "https://example.com/avatars/guest.png"}, {"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Negocia el precio de una habitación', 'Practica una conversación sencilla para pedir un precio mejor y confirmar lo que incluye.'),
-        (v_dialogue_id, 'de', 'Verhandle den Zimmerpreis', 'Übe ein einfaches Gespräch, um einen besseren Preis zu bekommen und zu klären, was enthalten ist.');
+        (v_dialogue_id, 'es', 'Precio de una habitación'), (v_dialogue_id, 'de', 'Verhandle den Zimmerpreis');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

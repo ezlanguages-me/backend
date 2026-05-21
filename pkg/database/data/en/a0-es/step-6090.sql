@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM listening_translation WHERE listening_uuid IN (SELECT uuid FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6090 AND source_language = 'en');
   DELETE FROM listening WHERE path_uuid = v_path_uuid AND step_order = 6090 AND source_language = 'en';
   INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-  VALUES (v_path_uuid, 6090, 'en', 'listening', 'Alquileres', $transcript$
+  VALUES (
+    v_path_uuid,
+    6090,
+    'en',
+    'listening',
+    'accommodation',
+    $transcript$
 Before you open the accounts, write down the meter readings and keep the confirmation emails.
 
 The electric account starts on move-in day. The gas company needs the flat number and access code, and the water account is opened online.
 
 Internet installation is on Thursday morning. Council tax uses the full names of the adult tenants. If the boiler has no pressure, call the helpline.
-$transcript$)
-  RETURNING uuid INTO v_listening_uuid;
-  INSERT INTO listening_translation (listening_uuid, language, title, description)
-  VALUES (v_listening_uuid, 'es', 'Escucha las instrucciones para dar de alta los suministros', 'Escucha cómo organizar la luz, el agua, el gas y el internet.'),
-         (v_listening_uuid, 'de', 'Höre die Anweisungen zum Einrichten der Versorgungen', 'Höre, wie Strom, Wasser, Gas und Internet eingerichtet werden.');
+$transcript$
+)RETURNING uuid INTO v_listening_uuid;
+  INSERT INTO listening_translation (listening_uuid, language, title)
+  VALUES (v_listening_uuid, 'es', 'Alta de suministros'), (v_listening_uuid, 'de', 'Versorgung anmelden');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

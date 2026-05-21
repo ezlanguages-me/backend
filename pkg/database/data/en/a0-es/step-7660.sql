@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 7660 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 7660, 'en', 'listening', 'meetings', $transcript$
+    VALUES (
+    v_path_id,
+    7660,
+    'en',
+    'listening',
+    'meetings',
+    $transcript$
 # AUDIO PROFILE: Maya, Joel, and Karin in a planning meeting for a partner workshop
 ## "Choosing the Right Venue"
 
@@ -66,13 +72,12 @@ The audio practises comparison, budget thinking, logistics, and a final group de
 [reasoning] Karin: An afternoon slot is hard for the online partners in Brazil.
 [deciding] Joel: Then the hotel seems stronger on technology and schedule.
 [closing] Maya: Agreed. Let us book the hotel and move the materials online.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una discusión compleja de planificación', 'Escucha a tres personas comparar coste, tecnología, viaje y horario antes de decidir.'),
-        (v_listening_id, 'de', 'Höre eine komplexe Planungsdiskussion', 'Höre drei Personen, die Kosten, Technik, Anreise und Zeitplan vergleichen, bevor sie entscheiden.');
+        (v_listening_id, 'es', 'Compleja de planificación'), (v_listening_id, 'de', 'Komplexe Planungsdiskussion');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

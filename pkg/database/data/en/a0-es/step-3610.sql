@@ -34,18 +34,23 @@
         );
         DELETE FROM reading WHERE step_order = 3610 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3610, 'en', 'reading', 'accommodation', $content$Reservation confirmation: North Bay Hotel. Reservation number: NB-4721. Guest: Elena Cruz.
+        VALUES (
+    v_path_id,
+    3610,
+    'en',
+    'reading',
+    'accommodation',
+    $content$Reservation confirmation: North Bay Hotel. Reservation number: NB-4721. Guest: Elena Cruz.
 
 Stay: 15 July to 17 July. Room type: double room. Check-in is after 3 PM. Breakfast is included.
 
 City tax is not included in the room price. You pay at the hotel during your stay. Free cancellation is possible until 13 July at 6 PM.
 
-If you need late check-in, please send an email before arrival.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+If you need late check-in, please send an email before arrival.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una confirmación de hotel', 'Lee una confirmación con número de reserva, fechas, desayuno, pago y cancelación.'),
-            (v_reading_id, 'de', 'Lies eine Hotelbestätigung', 'Lies eine Bestätigung mit Buchungsnummer, Daten, Frühstück, Zahlung und Stornierung.');
+            (v_reading_id, 'es', 'Lee una confirmación de hotel'), (v_reading_id, 'de', 'Lies eine Hotelbestätigung');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

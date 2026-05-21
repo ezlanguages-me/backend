@@ -362,6 +362,37 @@ CREATE INDEX idx_exercise_target ON exercise(target_uuid);
 -- Índice para word.root_word: usado en la vista mv_path_full al resolver inflections
 CREATE INDEX idx_word_root ON word(root_word) WHERE root_word IS NOT NULL;
 
+-- Unicidad de palabras raíz por idioma: evita duplicados cuando una misma palabra
+-- aparece en varias decks. Las inflexiones (is_root = FALSE) se excluyen del índice
+-- porque la misma forma puede ser inflexión de distintos verbos (e.g. "cut").
+CREATE UNIQUE INDEX idx_word_root_unique ON word (term, source_language) WHERE is_root = TRUE;
+
+-- Helper: devuelve el UUID de una palabra raíz existente o la inserta si no existe.
+-- Úsalo en los seed scripts en lugar de INSERT ... RETURNING para evitar duplicados
+-- cuando la misma palabra raíz aparece en más de una deck.
+CREATE OR REPLACE FUNCTION get_or_create_word(
+  p_term           TEXT,
+  p_source_language TEXT,
+  p_example        TEXT DEFAULT NULL
+) RETURNS UUID LANGUAGE plpgsql AS $$
+DECLARE
+  v_uuid UUID;
+BEGIN
+  SELECT uuid INTO v_uuid
+  FROM word
+  WHERE term = p_term AND source_language = p_source_language AND is_root = TRUE
+  LIMIT 1;
+
+  IF v_uuid IS NULL THEN
+    INSERT INTO word (term, is_root, source_language, example)
+    VALUES (p_term, TRUE, p_source_language, p_example)
+    RETURNING uuid INTO v_uuid;
+  END IF;
+
+  RETURN v_uuid;
+END;
+$$;
+
 -- Índice compuesto para study_records: permite paginación eficiente
 CREATE INDEX idx_study_records_user_time ON study_records(user_uuid, last_review DESC);
 

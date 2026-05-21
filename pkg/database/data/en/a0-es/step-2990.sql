@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2990 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2990, 'en', 'reading', 'transport', $content$
+    VALUES (
+    v_path_id,
+    2990,
+    'en',
+    'reading',
+    'transport',
+    $content$
 CoastLine Coach booking.
 You can book seats for the coach from Bristol to Leeds on our website or at the station desk. Standard seats are free to choose. Reserved front seats cost £2 each. Reserved table seats cost £3 each and are for two people.
 
@@ -40,13 +46,12 @@ After you choose the coach time, add the number of passengers. Then choose windo
 
 Please arrive twenty minutes before departure. Show the ticket on your phone or print it at home.
 
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee cómo reservar asientos en un autocar', 'Lee una información sencilla para reservar asiento, equipaje y llegada.'),
-        (v_reading_id, 'de', 'Lies, wie man Plätze im Reisebus reserviert', 'Lies eine einfache Information zu Sitzplatzreservierung, Gepäck und Ankunftszeit.');
+        (v_reading_id, 'es', 'Asientos en un autocar'), (v_reading_id, 'de', 'Plätze im Reisebus reserviert');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

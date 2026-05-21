@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3980 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3980 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3980, 'en', 'reading', 'professional', $content$Service Contract Summary. Standard cleaning visits take place every Monday and Thursday. The contract length is 12 months. One month's written notice is needed to cancel.
+        VALUES (
+    v_path_id,
+    3980,
+    'en',
+    'reading',
+    'professional',
+    $content$Service Contract Summary. Standard cleaning visits take place every Monday and Thursday. The contract length is 12 months. One month's written notice is needed to cancel.
 
 Payment is due by the 5th day of each month. Emergency call-outs have an extra fee of £60. Cleaning materials are included except special chemicals.
 
-During weekdays, emergency response starts within two hours.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+During weekdays, emergency response starts within two hours.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un contrato de servicio', 'Lee un resumen de contrato con visitas, duración, pago y respuesta de emergencia.'),
-            (v_reading_id, 'de', 'Lies einen Servicevertrag', 'Lies eine Vertragszusammenfassung mit Besuchen, Laufzeit, Zahlung und Notfallreaktion.');
+            (v_reading_id, 'es', 'Lee un contrato de servicio'), (v_reading_id, 'de', 'Lies einen Servicevertrag');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

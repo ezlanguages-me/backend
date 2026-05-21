@@ -32,13 +32,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7550 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7550, 'en', 'reading', 'meetings', 'Meeting follow-up actions. After the weekly operations meeting, the team listed four follow-up actions. Priya will update the action table and send it before Wednesday at 11:00. Tomas will speak to the supplier about the late sample boxes and report back after lunch. Nina will prepare three slides for the client call and check the final numbers with Omar. Omar will place all open questions in the shared document today.\n\nThe group also decided to move the room check to Thursday morning. Everyone should read the shared document before the client call on Friday. If a task looks late, the person responsible must post a short status note in the team chat. The goal is to enter the Friday call with no open action points.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 7550, 'en', 'reading', 'meetings', 'Meeting follow-up actions. After the weekly operations meeting, the team listed four follow-up actions. Priya will update the action table and send it before Wednesday at 11:00. Tomas will speak to the supplier about the late sample boxes and report back after lunch. Nina will prepare three slides for the client call and check the final numbers with Omar. Omar will place all open questions in the shared document today.\n\nThe group also decided to move the room check to Thursday morning. Everyone should read the shared document before the client call on Friday. If a task looks late, the person responsible must post a short status note in the team chat. The goal is to enter the Friday call with no open action points.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee acciones de seguimiento de una reunión', 'Lee una nota interna con responsables, plazos y próximos pasos después de una reunión de trabajo.'),
-        (v_reading_id, 'de', 'Lies Folgeaufgaben nach einer Besprechung', 'Lies eine interne Notiz mit Zuständigkeiten, Fristen und nächsten Schritten nach einer Arbeitsbesprechung.');
+        (v_reading_id, 'es', 'Seguimiento de una reunión'), (v_reading_id, 'de', 'Nach einer Besprechung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

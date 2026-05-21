@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5350 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5350, 'en', 'reading', 'academic', 'Peer evaluation form. Please score the presentation from 1 to 5 in five areas: clarity, structure, eye contact, visuals, and answers to questions.
+    VALUES (
+    v_path_id,
+    5350,
+    'en',
+    'reading',
+    'academic',
+    'Peer evaluation form. Please score the presentation from 1 to 5 in five areas: clarity, structure, eye contact, visuals, and answers to questions.
 
 Write one positive comment and one suggestion for improvement. The evaluator name is optional, but the presenter name and topic are required.
 
-Add the total score at the bottom of the page and return the form before lunch. The teacher will collect the forms and share the comments later.')
-    RETURNING uuid INTO v_reading_id;
+Add the total score at the bottom of the page and return the form before lunch. The teacher will collect the forms and share the comments later.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Formulario de evaluación entre compañeros', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Peer-Bewertungsbogen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Formulario de evaluación entre');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Peer-Bewertungsbogen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2630 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2630, 'en', 'dialogue', 'health', '[{"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}, {"name": "Pharmacist", "gender": "male", "avatarURL": "https://example.com/avatars/pharmacist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2630, 'en', 'dialogue', 'health', '[{"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}, {"name": "Pharmacist", "gender": "male", "avatarURL": "https://example.com/avatars/pharmacist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Explica tus síntomas al farmacéutico', 'Lee un diálogo simple en el que un paciente explica qué le pasa en una farmacia.'),
-        (v_dialogue_id, 'de', 'Erkläre dem Apotheker deine Symptome', 'Lies einen einfachen Dialog, in dem ein Patient dem Apotheker erklärt, was ihm fehlt.');
+        (v_dialogue_id, 'es', 'Tus síntomas al farmacéutico'), (v_dialogue_id, 'de', 'Erkläre dem Apotheker deine');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

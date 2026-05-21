@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 1380 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 1380, 'en', 'dialogue', 'financial', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Teller", "gender": "female", "avatarURL": "https://example.com/avatars/teller.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 1380, 'en', 'dialogue', 'financial', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Teller", "gender": "female", "avatarURL": "https://example.com/avatars/teller.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Pedir cambio de moneda en el banco', 'Lee un diálogo breve para cambiar dinero en la ventanilla del banco.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Cambio de moneda en el banco');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Nach Geldwechsel in der Bank fragen', 'Lies einen kurzen Dialog zum Geldwechsel am Bankschalter.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Geldwechsel in der Bank fragen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

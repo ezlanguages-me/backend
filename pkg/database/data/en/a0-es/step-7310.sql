@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 7310 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 7310, 'en', 'listening', 'social', $transcript$
+        VALUES (
+    v_path_id,
+    7310,
+    'en',
+    'listening',
+    'social',
+    $transcript$
     # AUDIO PROFILE: Ana, Pablo, and Mia, three people talking after dinner
 ## "A Long Table Talk"
 
@@ -62,13 +68,12 @@ Learners hear how people keep a casual conversation going for a longer time, rea
 [calm] Ana: Yes, silence is normal for us. It means someone is thinking, not that the topic is finished.
 [friendly] Pablo: I had the opposite problem when I lived abroad. Everyone answered so fast that I looked shy.
 [understanding] Mia: These differences are funny once you talk about them openly.
-    $transcript$)
-        RETURNING uuid INTO v_listening_id;
+    $transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una conversación casual larga', 'Escucha una sobremesa con familia anfitriona donde se habla de costumbres, festivales y diferencias al conversar.'),
-            (v_listening_id, 'de', 'Höre ein längeres lockeres Gespräch', 'Höre ein Tischgespräch in einer Gastfamilie über Gewohnheiten, Feste und Gesprächsunterschiede.');
+            (v_listening_id, 'es', 'Una conversación casual larga'), (v_listening_id, 'de', 'Ein längeres lockeres Gespräch');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

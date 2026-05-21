@@ -15,55 +15,47 @@ SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 -- 2. Insertar el Speaking principal (Step 200)
 INSERT INTO speaking (path_uuid, step_order, source_language, type, category) 
 VALUES (
-    v_path_id, 
-    200, 
-    'en', 
-    'speaking', 
+    v_path_id,
+    200,
+    'en',
+    'speaking',
     'social'
-) 
-RETURNING uuid INTO v_speaking_id;
+)RETURNING uuid INTO v_speaking_id;
 
 -- 3. Insertar Traducción y Prompts del Speaking
-INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt) 
+INSERT INTO speaking_translation (speaking_uuid, language, title, prompt) 
 VALUES (
-    v_speaking_id, 
-    'es', 
-    'Charla con tu Host Family', 
-    '', 
-    
-    -- Prompt para el usuario (lo que verá en pantalla para saber qué tiene que hacer)Z
+    v_speaking_id,
+    'es',
+    'Charla con tu Host Family',
+    -- Prompt para el usuario (lo que verá en pantalla para saber qué tiene que hacer)
     '{
-        "scenario": "Vas a grabar un audio de voz para enviárselo a Sarah, tu futura madre anfitriona (host mom) en Boston, antes de llegar. Ella no te conoce todavía y quiere saber quién eres. En el audio debes presentarte y hacerle las preguntas que tienes sobre la familia y la casa. Habla de forma continua, como si fuera un mensaje de voz.",
+        "scenario": "Acabas de leer el diálogo entre Alex y Sarah, su madre anfitriona (host mom) en Boston. Ahora vas a grabar un audio de voz para contarle a un amigo cómo es la familia y la casa. Usa solo lo que entendiste del diálogo. Habla de forma continua, como si fuera un mensaje de voz real.",
         "tasks": [
-            "Salúdala y preséntate: di tu nombre completo y de dónde eres.",
-            "Cuéntale algo breve sobre ti (tu edad, qué estudias o a qué te dedicas).",
-            "Pregúntale cuántas personas viven en la casa y cómo se llaman.",
-            "Pregunta si hay niños en la familia y qué edades tienen.",
-            "Pregunta cómo está organizada la casa: cuántos pisos (floors) tiene y dónde está tu habitación (bedroom).",
-            "Pregunta dónde está el baño (bathroom) que puedes usar.",
-            "Pregunta a qué hora son las comidas (meals) en casa.",
-            "Despídete de forma educada y di que tienes muchas ganas de llegar."
+            "Describe a la familia de Sarah: di cuántos miembros son, cómo se llaman y quiénes son (husband, kids).",
+            "Menciona la mascota: di cómo se llama, qué tipo de animal es y cómo es.",
+            "Describe cómo está organizada la casa: cuántos pisos (floors) tiene y qué hay en cada planta.",
+            "Explica dónde está el dormitorio (bedroom) de Alex y qué tiene (closet, view).",
+            "Di qué baño (bathroom) puede usar Alex y dónde está.",
+            "Menciona dónde está el cuarto de lavado (laundry room) y qué hay en él."
         ]
     }'::jsonb
 );
 
-INSERT INTO speaking_translation (speaking_uuid, language, title, description, prompt)
+INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
 VALUES (
     v_speaking_id,
     'de',
-    'Gespräch mit deiner Gastfamilie',
-    '',
+    'Erzähl von deiner Gastfamilie',
     '{
-        "scenario": "Du wirst eine Sprachnachricht aufnehmen und an Sarah schicken, deine zukünftige Gastmutter in Boston, bevor du ankommst. Sie kennt dich noch nicht und möchte wissen, wer du bist. In der Nachricht sollst du dich vorstellen und ihr die Fragen stellen, die du über die Familie und das Haus hast. Sprich zusammenhängend, als wäre es eine Sprachnachricht.",
+        "scenario": "Du hast gerade den Dialog zwischen Alex und Sarah, seiner Gastmutter in Boston, gelesen. Jetzt nimmst du eine Sprachnachricht auf, um einem Freund zu erzählen, wie die Familie und das Haus sind. Benutze nur das, was du aus dem Dialog verstanden hast. Sprich zusammenhängend, als wäre es eine echte Sprachnachricht.",
         "tasks": [
-            "Begrüße sie und stell dich vor: Nenne deinen vollständigen Namen und woher du kommst.",
-            "Erzähl ihr kurz etwas über dich (dein Alter, was du studierst oder was du beruflich machst).",
-            "Frag sie, wie viele Personen im Haus wohnen und wie sie heißen.",
-            "Frag, ob es Kinder in der Familie gibt und wie alt sie sind.",
-            "Frag, wie das Haus aufgeteilt ist: wie viele Stockwerke (floors) es hat und wo dein Zimmer (bedroom) ist.",
-            "Frag, wo das Bad (bathroom) ist, das du benutzen kannst.",
-            "Frag, zu welcher Uhrzeit die Mahlzeiten (meals) zu Hause stattfinden.",
-            "Verabschiede dich höflich und sag, dass du es kaum erwarten kannst anzukommen."
+            "Beschreibe Sarahs Familie: Wie viele Mitglieder gibt es, wie heißen sie und wer sind sie (husband, kids).",
+            "Erwähne das Haustier: Wie heißt es, was für ein Tier ist es und wie ist es.",
+            "Beschreibe, wie das Haus aufgeteilt ist: wie viele Stockwerke (floors) es hat und was auf jeder Etage ist.",
+            "Erkläre, wo Alexs Schlafzimmer (bedroom) ist und was es hat (closet, view).",
+            "Sag, welches Bad (bathroom) Alex benutzen kann und wo es ist.",
+            "Erwähne, wo der Waschraum (laundry room) ist und was darin ist."
         ]
     }'::jsonb
 );

@@ -32,13 +32,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7650 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7650, 'en', 'reading', 'meetings', 'Position paper. This paper supports a new rule for internal meetings: every meeting should have a short pre read and a fixed finish time. The position is based on three points. First, a short pre read helps people arrive with the same background information. Second, a fixed finish time encourages clearer agendas and shorter speaking turns. Third, the rule respects colleagues who move between several teams during the day.\n\nThe paper accepts one concern: some urgent topics appear at the last minute. For that reason, the paper allows one small open item at the end of each meeting. Even with that flexibility, the main position remains the same: meetings work better when preparation is short and the ending time is firm.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 7650, 'en', 'reading', 'meetings', 'Position paper. This paper supports a new rule for internal meetings: every meeting should have a short pre read and a fixed finish time. The position is based on three points. First, a short pre read helps people arrive with the same background information. Second, a fixed finish time encourages clearer agendas and shorter speaking turns. Third, the rule respects colleagues who move between several teams during the day.\n\nThe paper accepts one concern: some urgent topics appear at the last minute. For that reason, the paper allows one small open item at the end of each meeting. Even with that flexibility, the main position remains the same: meetings work better when preparation is short and the ending time is firm.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Comprende un posicionamiento escrito', 'Lee un texto breve que defiende una regla para reuniones y responde a una objeción.'),
-        (v_reading_id, 'de', 'Verstehe ein schriftliches Positionspapier', 'Lies einen kurzen Text, der eine Regel für Besprechungen begründet und auf einen Einwand antwortet.');
+        (v_reading_id, 'es', 'Texto de posicionamiento'), (v_reading_id, 'de', 'Positionspapier');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

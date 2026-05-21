@@ -32,14 +32,19 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3940 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3940 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3940, 'en', 'reading', 'professional', $content$Invoice 5512. Issue date: 8 July. Client: Green Tower Offices. Items: 10 desk lamps at £12 each; 4 office chairs at £45 each. Subtotal: £300. VAT 20%: £60. Total: £360.
+        VALUES (
+    v_path_id,
+    3940,
+    'en',
+    'reading',
+    'professional',
+    $content$Invoice 5512. Issue date: 8 July. Client: Green Tower Offices. Items: 10 desk lamps at £12 each; 4 office chairs at £45 each. Subtotal: £300. VAT 20%: £60. Total: £360.
 
-Payment is due within 14 days by bank transfer. Please use reference INV-5512 in the payment note. For questions, contact finance@riveroffice.co.uk.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Payment is due within 14 days by bank transfer. Please use reference INV-5512 in the payment note. For questions, contact finance@riveroffice.co.uk.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una factura', 'Lee una factura con artículos, subtotal, IVA, total y condiciones de pago.'),
-            (v_reading_id, 'de', 'Lies eine Rechnung', 'Lies eine Rechnung mit Artikeln, Zwischensumme, MwSt., Gesamtbetrag und Zahlungsbedingungen.');
+            (v_reading_id, 'es', 'Lee una factura'), (v_reading_id, 'de', 'Lies eine Rechnung');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

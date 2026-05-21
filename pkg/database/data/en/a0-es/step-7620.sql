@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 7620 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 7620, 'en', 'listening', 'meetings', $transcript$
+    VALUES (
+    v_path_id,
+    7620,
+    'en',
+    'listening',
+    'meetings',
+    $transcript$
 # AUDIO PROFILE: Leila and Martin in a project discussion about meeting follow up
 ## "One Dashboard for All Actions"
 
@@ -64,13 +70,12 @@ The audio practises reasons, summary, concern, reply, and a short trial agreemen
 [replying] Leila: That is true at first, but one quick update saves many later questions.
 [practical] Martin: If we try it, we need a simple template.
 [closing] Leila: Agreed. Let us test the shared dashboard for two weeks.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha un argumento estructurado en una discusión', 'Escucha una propuesta con razones ordenadas, una objeción breve y una decisión de prueba.'),
-        (v_listening_id, 'de', 'Höre ein strukturiertes Argument in einer Diskussion', 'Höre einen Vorschlag mit geordneten Gründen, einem kurzen Einwand und einer Testentscheidung.');
+        (v_listening_id, 'es', 'Estructurado en una discusión'), (v_listening_id, 'de', 'Argument in einer Diskussion');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

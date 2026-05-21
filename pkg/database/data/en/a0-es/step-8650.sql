@@ -23,9 +23,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,8650,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Recíprocos', 'Cómo expresar acciones mutuas con each other y one another, diferenciarlas de los reflexivos y formar posesivos.', to_jsonb('# Recíprocos
+        (
+    v_grammar_id,
+    'es',
+    'Recíprocos',
+    to_jsonb('# Recíprocos
 
 Los recíprocos muestran que dos o más personas hacen la misma acción **una hacia la otra**.
 
@@ -50,8 +54,13 @@ Para hablar de posesión compartida usamos:
 - **one another''s** ideas
 
 ### Idea clave
-Si la acción vuelve al mismo sujeto → reflexivo. Si va de una persona a otra → recíproco.'::text)),
-        (v_grammar_id, 'de', 'Reziproke Ausdrücke', 'Wie man gegenseitige Handlungen mit each other und one another ausdrückt, sie von reflexiven Formen trennt und Possessivformen bildet.', to_jsonb('# Reziproke Ausdrücke
+Si la acción vuelve al mismo sujeto → reflexivo. Si va de una persona a otra → recíproco.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Reziproke Ausdrücke',
+    to_jsonb('# Reziproke Ausdrücke
 
 Reziproke Formen zeigen, dass zwei oder mehr Personen dieselbe Handlung **gegenseitig** ausführen.
 
@@ -76,7 +85,8 @@ Für gemeinsamen Besitz benutzen wir:
 - **one another''s** ideas
 
 ### Kernidee
-Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von einer Person zur anderen geht → reziprok.'::text));
+Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von einer Person zur anderen geht → reziprok.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -87,14 +97,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: Anna and Leo help ___ with homework.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: Anna and Leo help ___ with homework.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Anna and Leo help ___ with homework.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Anna and Leo help ___ with homework.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Anna and Leo help ___ with homework.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Anna and Leo help ___ with homework.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Anna and Leo help ___ with homework.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Anna and Leo help ___ with homework.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -111,14 +121,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: The twins call ___ every night.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: The twins call ___ every night.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The twins call ___ every night.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The twins call ___ every night.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The twins call ___ every night.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The twins call ___ every night.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The twins call ___ every night.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The twins call ___ every night.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -135,14 +145,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: We should listen to ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: We should listen to ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We should listen to ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We should listen to ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We should listen to ___.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We should listen to ___.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We should listen to ___.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We should listen to ___.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -159,14 +169,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: The two teams respect ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: The two teams respect ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The two teams respect ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The two teams respect ___.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The two teams respect ___.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The two teams respect ___.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The two teams respect ___.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The two teams respect ___.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -183,14 +193,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: My parents text ___ all day.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: My parents text ___ all day.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'My parents text ___ all day.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'My parents text ___ all day.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: My parents text ___ all day.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: My parents text ___ all day.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'My parents text ___ all day.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'My parents text ___ all day.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -207,14 +217,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: The dogs were chasing ___ in the garden.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: The dogs were chasing ___ in the garden.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The dogs were chasing ___ in the garden.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The dogs were chasing ___ in the garden.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The dogs were chasing ___ in the garden.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The dogs were chasing ___ in the garden.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The dogs were chasing ___ in the garden.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The dogs were chasing ___ in the garden.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -231,14 +241,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con each other: Sara and Mia gave ___ a hug.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit each other: Sara and Mia gave ___ a hug.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Sara and Mia gave ___ a hug.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Sara and Mia gave ___ a hug.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Sara and Mia gave ___ a hug.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Sara and Mia gave ___ a hug.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Sara and Mia gave ___ a hug.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Sara and Mia gave ___ a hug.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -261,14 +271,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: The students in the club support ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: The students in the club support ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The students in the club support ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The students in the club support ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The students in the club support ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The students in the club support ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The students in the club support ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The students in the club support ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -285,14 +295,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: Good neighbours help ___ in winter.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: Good neighbours help ___ in winter.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Good neighbours help ___ in winter.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Good neighbours help ___ in winter.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: Good neighbours help ___ in winter.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: Good neighbours help ___ in winter.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Good neighbours help ___ in winter.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Good neighbours help ___ in winter.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -309,14 +319,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: The three brothers rarely call ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: The three brothers rarely call ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The three brothers rarely call ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The three brothers rarely call ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The three brothers rarely call ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The three brothers rarely call ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The three brothers rarely call ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The three brothers rarely call ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -333,14 +343,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: The musicians listened to ___ carefully.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: The musicians listened to ___ carefully.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The musicians listened to ___ carefully.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The musicians listened to ___ carefully.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The musicians listened to ___ carefully.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The musicians listened to ___ carefully.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The musicians listened to ___ carefully.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The musicians listened to ___ carefully.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -357,14 +367,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: The teams congratulated ___ after the final.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: The teams congratulated ___ after the final.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The teams congratulated ___ after the final.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The teams congratulated ___ after the final.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The teams congratulated ___ after the final.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The teams congratulated ___ after the final.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The teams congratulated ___ after the final.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The teams congratulated ___ after the final.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -381,14 +391,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: In a small group, people can learn from ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: In a small group, people can learn from ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'In a small group, people can learn from ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'In a small group, people can learn from ___.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: In a small group, people can learn from ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: In a small group, people can learn from ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'In a small group, people can learn from ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'In a small group, people can learn from ___.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -405,14 +415,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con one another: The volunteers encouraged ___ during the campaign.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit one another: The volunteers encouraged ___ during the campaign.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The volunteers encouraged ___ during the campaign.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The volunteers encouraged ___ during the campaign.', '{"type": "typing", "correct_answers": ["one another"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The volunteers encouraged ___ during the campaign.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The volunteers encouraged ___ during the campaign.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The volunteers encouraged ___ during the campaign.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The volunteers encouraged ___ during the campaign.', '{"type": "multiple_choice", "options": ["one another", "each other", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -435,14 +445,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: The children looked at ___ in the mirror.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: The children looked at ___ in the mirror.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The children looked at ___ in the mirror.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The children looked at ___ in the mirror.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The children looked at ___ in the mirror.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The children looked at ___ in the mirror.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The children looked at ___ in the mirror.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The children looked at ___ in the mirror.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -459,14 +469,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: The children looked at ___ and laughed.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: The children looked at ___ and laughed.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The children looked at ___ and laughed.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The children looked at ___ and laughed.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The children looked at ___ and laughed.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The children looked at ___ and laughed.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The children looked at ___ and laughed.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The children looked at ___ and laughed.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -483,14 +493,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: We introduced ___ to the teacher.', '{"type": "typing", "correct_answers": ["ourselves"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: We introduced ___ to the teacher.', '{"type": "typing", "correct_answers": ["ourselves"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We introduced ___ to the teacher.', '{"type": "typing", "correct_answers": ["ourselves"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We introduced ___ to the teacher.', '{"type": "typing", "correct_answers": ["ourselves"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We introduced ___ to the teacher.', '{"type": "multiple_choice", "options": ["ourselves", "each other", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We introduced ___ to the teacher.', '{"type": "multiple_choice", "options": ["ourselves", "each other", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We introduced ___ to the teacher.', '{"type": "multiple_choice", "options": ["ourselves", "each other", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We introduced ___ to the teacher.', '{"type": "multiple_choice", "options": ["ourselves", "each other", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -507,14 +517,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: We introduced ___ to our families.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: We introduced ___ to our families.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We introduced ___ to our families.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We introduced ___ to our families.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We introduced ___ to our families.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "themselves"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We introduced ___ to our families.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "themselves"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We introduced ___ to our families.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "themselves"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We introduced ___ to our families.', '{"type": "multiple_choice", "options": ["each other", "ourselves", "themselves"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -531,14 +541,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -555,14 +565,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The two friends blamed ___ for the mistake.', '{"type": "typing", "correct_answers": ["each other"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The two friends blamed ___ for the mistake.', '{"type": "multiple_choice", "options": ["each other", "themselves", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -579,14 +589,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma correcta: The players hurt ___ during training.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Form: The players hurt ___ during training.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The players hurt ___ during training.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The players hurt ___ during training.', '{"type": "typing", "correct_answers": ["themselves"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The players hurt ___ during training.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The players hurt ___ during training.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The players hurt ___ during training.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The players hurt ___ during training.', '{"type": "multiple_choice", "options": ["themselves", "each other", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -609,14 +619,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The sisters borrowed ___ jackets.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The sisters borrowed ___ jackets.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The sisters borrowed ___ jackets.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The sisters borrowed ___ jackets.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The sisters borrowed ___ jackets.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The sisters borrowed ___ jackets.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The sisters borrowed ___ jackets.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The sisters borrowed ___ jackets.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -633,14 +643,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The players checked ___ equipment before the game.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The players checked ___ equipment before the game.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The players checked ___ equipment before the game.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The players checked ___ equipment before the game.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The players checked ___ equipment before the game.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The players checked ___ equipment before the game.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The players checked ___ equipment before the game.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The players checked ___ equipment before the game.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -657,14 +667,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: We read ___ notes before the exam.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: We read ___ notes before the exam.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We read ___ notes before the exam.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We read ___ notes before the exam.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: We read ___ notes before the exam.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: We read ___ notes before the exam.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We read ___ notes before the exam.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We read ___ notes before the exam.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -681,14 +691,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The neighbours watered ___ plants during the holidays.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The neighbours watered ___ plants during the holidays.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The neighbours watered ___ plants during the holidays.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The neighbours watered ___ plants during the holidays.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The neighbours watered ___ plants during the holidays.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The neighbours watered ___ plants during the holidays.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The neighbours watered ___ plants during the holidays.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The neighbours watered ___ plants during the holidays.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -705,14 +715,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The twins finished ___ sentences.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The twins finished ___ sentences.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The twins finished ___ sentences.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The twins finished ___ sentences.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The twins finished ___ sentences.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The twins finished ___ sentences.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The twins finished ___ sentences.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The twins finished ___ sentences.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -729,14 +739,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The teams studied ___ strategies all week.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The teams studied ___ strategies all week.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The teams studied ___ strategies all week.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The teams studied ___ strategies all week.', '{"type": "typing", "correct_answers": ["one another''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The teams studied ___ strategies all week.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The teams studied ___ strategies all week.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The teams studied ___ strategies all week.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The teams studied ___ strategies all week.', '{"type": "multiple_choice", "options": ["one another''s", "one another", "each other''s"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -753,14 +763,14 @@ Wenn die Handlung zum selben Subjekt zurückgeht → reflexiv. Wenn sie von eine
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa con la forma posesiva correcta: The children admired ___ drawings.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze mit der richtigen Possessivform: The children admired ___ drawings.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The children admired ___ drawings.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The children admired ___ drawings.', '{"type": "typing", "correct_answers": ["each other''s"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la opción correcta: The children admired ___ drawings.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Option: The children admired ___ drawings.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The children admired ___ drawings.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The children admired ___ drawings.', '{"type": "multiple_choice", "options": ["each other''s", "each other", "one another''s"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

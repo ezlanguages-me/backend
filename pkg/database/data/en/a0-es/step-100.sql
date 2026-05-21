@@ -38,11 +38,11 @@ DECLARE
         '{"r":1, "p":"''Your'' solo significa ''tu'', nunca puede significar ''tus''.", "p_de":"''Your'' bedeutet nur ''dein/deine'', es kann nie ''eure'' (Plural) bedeuten.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":1, "p":"Los adjetivos en inglés no tienen género (masculino/femenino) ni número.", "p_de":"Englische Adjektive haben weder Geschlecht (maskulin/feminin) noch Numerus.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble
-        '{"r":1, "p":"Ordena la frase: Mi nombre es John.", "p_de":"Ordne den Satz: Mein Name ist John.", "s":{"type":"scramble","chunks":["John","My","is","name"],"correct_order":[1,3,2,0]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: ¿Dónde está tu coche?", "p_de":"Ordne den Satz: Wo ist dein Auto?", "s":{"type":"scramble","chunks":["your","Where","car","is"],"correct_order":[1,3,0,2]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Me gusta mi trabajo.", "p_de":"Ordne den Satz: Ich mag meine Arbeit.", "s":{"type":"scramble","chunks":["like","job","I","my"],"correct_order":[2,0,3,1]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: ¿Es este tu libro?", "p_de":"Ordne den Satz: Ist das dein Buch?", "s":{"type":"scramble","chunks":["this","book","Is","your"],"correct_order":[2,0,3,1]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Mis manos están frías.", "p_de":"Ordne den Satz: Meine Hände sind kalt.", "s":{"type":"scramble","chunks":["cold","hands","are","My"],"correct_order":[3,1,2,0]}}'::jsonb,
+        '{"r":1, "p":"Mi nombre es John.", "p_de":"Mein Name ist John.", "s":{"type":"scramble","chunks":["John","My","is","name","Mark","Your"],"correct_order":[1,3,2,0]}}'::jsonb,
+        '{"r":1, "p":"¿Dónde está tu coche?", "p_de":"Wo ist dein Auto?", "s":{"type":"scramble","chunks":["your","Where","car","is","bike","What"],"correct_order":[1,3,0,2]}}'::jsonb,
+        '{"r":1, "p":"Me gusta mi trabajo.", "p_de":"Ich mag meine Arbeit.", "s":{"type":"scramble","chunks":["like","job","I","my","love","Your"],"correct_order":[2,0,3,1]}}'::jsonb,
+        '{"r":1, "p":"¿Es este tu libro?", "p_de":"Ist das dein Buch?", "s":{"type":"scramble","chunks":["this","book","Is","your","that","pen"],"correct_order":[2,0,3,1]}}'::jsonb,
+        '{"r":1, "p":"Mis manos están frías.", "p_de":"Meine Hände sind kalt.", "s":{"type":"scramble","chunks":["cold","hands","are","My","feet","Your"],"correct_order":[3,1,2,0]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 2: His / Her / Its (Tercera persona singular)
@@ -66,11 +66,11 @@ DECLARE
         '{"r":2, "p":"En inglés usamos ''his'' para ''su'' sin importar si el dueño es hombre o mujer.", "p_de":"Im Englischen verwenden wir ''his'' für ''sein'', unabhängig davon ob der Besitzer männlich oder weiblich ist.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":2, "p":"El adjetivo posesivo ''Its'' lleva un apóstrofe (It''s).", "p_de":"Das Possessivpronomen ''Its'' hat kein Apostroph (nicht It''s).", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble
-        '{"r":2, "p":"Ordena la frase: Su nombre (de él) es Mark.", "p_de":"Ordne den Satz: Sein Name ist Mark.", "s":{"type":"scramble","chunks":["is","His","Mark","name"],"correct_order":[1,3,0,2]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Ella ama a su familia.", "p_de":"Ordne den Satz: Sie liebt ihre Familie.", "s":{"type":"scramble","chunks":["her","loves","She","family"],"correct_order":[2,1,0,3]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: El perro comió su comida.", "p_de":"Ordne den Satz: Der Hund fraß sein Futter.", "s":{"type":"scramble","chunks":["food","The","its","ate","dog"],"correct_order":[1,4,3,2,0]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: ¿Dónde está su chaqueta (de él)?", "p_de":"Ordne den Satz: Wo ist seine Jacke?", "s":{"type":"scramble","chunks":["his","Where","jacket","is"],"correct_order":[1,3,0,2]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Sus zapatos (de ella) son nuevos.", "p_de":"Ordne den Satz: Ihre Schuhe sind neu.", "s":{"type":"scramble","chunks":["are","shoes","Her","new"],"correct_order":[2,1,0,3]}}'::jsonb,
+        '{"r":2, "p":"Su nombre (de él) es Mark.", "p_de":"Sein Name ist Mark.", "s":{"type":"scramble","chunks":["is","His","Mark","name","John","Her"],"correct_order":[1,3,0,2]}}'::jsonb,
+        '{"r":2, "p":"Ella ama a su familia.", "p_de":"Sie liebt ihre Familie.", "s":{"type":"scramble","chunks":["her","loves","She","family","He","friends"],"correct_order":[2,1,0,3]}}'::jsonb,
+        '{"r":2, "p":"El perro comió su comida.", "p_de":"Der Hund fraß sein Futter.", "s":{"type":"scramble","chunks":["food","The","its","ate","dog","cat","her"],"correct_order":[1,4,3,2,0]}}'::jsonb,
+        '{"r":2, "p":"¿Dónde está su chaqueta (de él)?", "p_de":"Wo ist seine Jacke?", "s":{"type":"scramble","chunks":["his","Where","jacket","is","her","coat"],"correct_order":[1,3,0,2]}}'::jsonb,
+        '{"r":2, "p":"Sus zapatos (de ella) son nuevos.", "p_de":"Ihre Schuhe sind neu.", "s":{"type":"scramble","chunks":["are","shoes","Her","new","His","old"],"correct_order":[2,1,0,3]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 3: Our / Your (Plural)
@@ -94,11 +94,11 @@ DECLARE
         '{"r":3, "p":"''Our'' cambia de escritura si la palabra que le sigue es femenina en español.", "p_de":"''Our'' ändert sich in der Schreibweise, wenn das folgende Wort im Spanischen feminin ist.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":3, "p":"El adjetivo posesivo ''your'' se escribe exactamente igual en singular y en plural.", "p_de":"Das Possessivpronomen ''your'' wird im Singular und im Plural gleich geschrieben.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble
-        '{"r":3, "p":"Ordena la frase: Nuestra casa es muy antigua.", "p_de":"Ordne den Satz: Unser Haus ist sehr alt.", "s":{"type":"scramble","chunks":["very","Our","old","house","is"],"correct_order":[1,3,4,0,2]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: ¿Trajisteis vuestros libros?", "p_de":"Ordne den Satz: Habt ihr eure Bücher mitgebracht?", "s":{"type":"scramble","chunks":["books","you","Did","your","bring"],"correct_order":[2,1,4,3,0]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Amamos nuestro coche nuevo.", "p_de":"Ordne den Satz: Wir lieben unser neues Auto.", "s":{"type":"scramble","chunks":["car","love","We","new","our"],"correct_order":[2,1,4,3,0]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: ¿Son estos vuestros asientos?", "p_de":"Ordne den Satz: Sind das eure Plätze?", "s":{"type":"scramble","chunks":["your","these","Are","seats"],"correct_order":[2,1,0,3]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Nuestro vuelo está retrasado.", "p_de":"Ordne den Satz: Unser Flug hat Verspätung.", "s":{"type":"scramble","chunks":["is","flight","Our","delayed"],"correct_order":[2,1,0,3]}}'::jsonb,
+        '{"r":3, "p":"Nuestra casa es muy antigua.", "p_de":"Unser Haus ist sehr alt.", "s":{"type":"scramble","chunks":["very","Our","old","house","is","Their","new"],"correct_order":[1,3,4,0,2]}}'::jsonb,
+        '{"r":3, "p":"¿Trajisteis vuestros libros?", "p_de":"Habt ihr eure Bücher mitgebracht?", "s":{"type":"scramble","chunks":["books","you","Did","your","bring","notes","have"],"correct_order":[2,1,4,3,0]}}'::jsonb,
+        '{"r":3, "p":"Amamos nuestro coche nuevo.", "p_de":"Wir lieben unser neues Auto.", "s":{"type":"scramble","chunks":["car","love","We","new","our","They","old"],"correct_order":[2,1,4,3,0]}}'::jsonb,
+        '{"r":3, "p":"¿Son estos vuestros asientos?", "p_de":"Sind das eure Plätze?", "s":{"type":"scramble","chunks":["your","these","Are","seats","those","Our"],"correct_order":[2,1,0,3]}}'::jsonb,
+        '{"r":3, "p":"Nuestro vuelo está retrasado.", "p_de":"Unser Flug hat Verspätung.", "s":{"type":"scramble","chunks":["is","flight","Our","delayed","Their","cancelled"],"correct_order":[2,1,0,3]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 4: Their (Tercera persona plural)
@@ -122,11 +122,11 @@ DECLARE
         '{"r":4, "p":"Al igual que en español, usamos ''their'' (su/sus) siempre que el poseedor sea la tercera persona plural.", "p_de":"Wie im Deutschen verwenden wir ''their'' (ihr/ihre), wenn der Besitzer die dritte Person Plural ist.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":4, "p":"Usamos ''their'' para referirnos a un grupo al que nosotros pertenecemos (nosotros).", "p_de":"Wir verwenden ''their'', um uns auf eine Gruppe zu beziehen, der wir selbst angehören (wir).", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble
-        '{"r":4, "p":"Ordena la frase: Sus padres (de ellos) son muy agradables.", "p_de":"Ordne den Satz: Ihre Eltern sind sehr nett.", "s":{"type":"scramble","chunks":["very","are","parents","nice","Their"],"correct_order":[4,2,1,0,3]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Ellos perdieron sus llaves.", "p_de":"Ordne den Satz: Sie haben ihre Schlüssel verloren.", "s":{"type":"scramble","chunks":["keys","lost","their","They"],"correct_order":[3,1,2,0]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: ¿Cuál es su dirección (de ellos)?", "p_de":"Ordne den Satz: Was ist ihre Adresse?", "s":{"type":"scramble","chunks":["address","What","their","is"],"correct_order":[1,3,2,0]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Su perro está durmiendo.", "p_de":"Ordne den Satz: Ihr Hund schläft.", "s":{"type":"scramble","chunks":["sleeping","Their","is","dog"],"correct_order":[1,3,2,0]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Me gusta su casa nueva (de ellos).", "p_de":"Ordne den Satz: Mir gefällt ihr neues Haus.", "s":{"type":"scramble","chunks":["like","new","I","their","house"],"correct_order":[2,0,3,1,4]}}'::jsonb,
+        '{"r":4, "p":"Sus padres (de ellos) son muy agradables.", "p_de":"Ihre Eltern sind sehr nett.", "s":{"type":"scramble","chunks":["very","are","parents","nice","Their","Our","kind"],"correct_order":[4,2,1,0,3]}}'::jsonb,
+        '{"r":4, "p":"Ellos perdieron sus llaves.", "p_de":"Sie haben ihre Schlüssel verloren.", "s":{"type":"scramble","chunks":["keys","lost","their","They","She","phone"],"correct_order":[3,1,2,0]}}'::jsonb,
+        '{"r":4, "p":"¿Cuál es su dirección (de ellos)?", "p_de":"Was ist ihre Adresse?", "s":{"type":"scramble","chunks":["address","What","their","is","Our","name"],"correct_order":[1,3,2,0]}}'::jsonb,
+        '{"r":4, "p":"Su perro está durmiendo.", "p_de":"Ihr Hund schläft.", "s":{"type":"scramble","chunks":["sleeping","Their","is","dog","Our","cat"],"correct_order":[1,3,2,0]}}'::jsonb,
+        '{"r":4, "p":"Me gusta su casa nueva (de ellos).", "p_de":"Mir gefällt ihr neues Haus.", "s":{"type":"scramble","chunks":["like","new","I","their","house","love","Our"],"correct_order":[2,0,3,1,4]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 5: WHOSE (Preguntar por la posesión)
@@ -150,11 +150,11 @@ DECLARE
         '{"r":5, "p":"Se puede decir ''Who''s book is this?'' con apóstrofe para preguntar por la posesión.", "p_de":"Man kann ''Who''s book is this?'' mit Apostroph sagen, um nach dem Besitz zu fragen.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":5, "p":"''Whose'' siempre va seguido de un sustantivo (Whose + noun).", "p_de":"''Whose'' steht immer vor einem Substantiv (Whose + Nomen).", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble
-        '{"r":5, "p":"Ordena: ¿De quién es este abrigo?", "p_de":"Ordne: Wessen Mantel ist das?", "s":{"type":"scramble","chunks":["coat","Whose","this","is"],"correct_order":[1,3,0,2]}}'::jsonb,
-        '{"r":5, "p":"Ordena: ¿De quién son esas llaves?", "p_de":"Ordne: Wessen Schlüssel sind das?", "s":{"type":"scramble","chunks":["keys","Whose","those","are"],"correct_order":[1,3,0,2]}}'::jsonb,
-        '{"r":5, "p":"Ordena: ¿De quién es el coche rojo?", "p_de":"Ordne: Wessen rotes Auto ist das?", "s":{"type":"scramble","chunks":["red","car","is","Whose","the"],"correct_order":[3,4,1,2,0]}}'::jsonb,
-        '{"r":5, "p":"Ordena: Es el libro de ella.", "p_de":"Ordne: Es ist ihr Buch.", "s":{"type":"scramble","chunks":["book","It''s","her"],"correct_order":[1,2,0]}}'::jsonb,
-        '{"r":5, "p":"Ordena: ¿De quién es esa mochila?", "p_de":"Ordne: Wessen Rucksack ist das?", "s":{"type":"scramble","chunks":["backpack","is","that","Whose"],"correct_order":[3,2,1,0]}}'::jsonb
+        '{"r":5, "p":"¿De quién es este abrigo?", "p_de":"Wessen Mantel ist das?", "s":{"type":"scramble","chunks":["coat","Whose","this","is","bag","that"],"correct_order":[1,3,0,2]}}'::jsonb,
+        '{"r":5, "p":"¿De quién son esas llaves?", "p_de":"Wessen Schlüssel sind das?", "s":{"type":"scramble","chunks":["keys","Whose","those","are","shoes","these"],"correct_order":[1,3,0,2]}}'::jsonb,
+        '{"r":5, "p":"¿De quién es el coche rojo?", "p_de":"Wessen rotes Auto ist das?", "s":{"type":"scramble","chunks":["red","car","is","Whose","the","blue","bike"],"correct_order":[3,4,1,2,0]}}'::jsonb,
+        '{"r":5, "p":"Es el libro de ella.", "p_de":"Es ist ihr Buch.", "s":{"type":"scramble","chunks":["book","It''s","her","his","pen"],"correct_order":[1,2,0]}}'::jsonb,
+        '{"r":5, "p":"¿De quién es esa mochila?", "p_de":"Wessen Rucksack ist das?", "s":{"type":"scramble","chunks":["backpack","is","that","Whose","jacket","this"],"correct_order":[3,2,1,0]}}'::jsonb
     ];
 
 BEGIN
@@ -167,12 +167,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 100, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar1_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'es', 
-    'Los Adjetivos Posesivos', 
-    '', 
+    v_grammar1_id,
+    'es',
+    'Los Adjetivos Posesivos',
     to_jsonb('## Los Adjetivos Posesivos
 Los adjetivos posesivos se utilizan para indicar a quién pertenece algo. A diferencia del español (que usa "su" para casi todo), el inglés tiene un adjetivo diferente dependiendo de **quién sea el poseedor**.
 
@@ -203,12 +202,11 @@ Para preguntar **¿de quién es algo?** usamos **WHOSE** (no "who" ni "who''s").
 *   ⚠️ No confundir: **Whose** (de quién) ≠ **Who''s** (who is / who has).'::text)
 );
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'de', 
-    'Die Possessivpronomen', 
-    '', 
+    v_grammar1_id,
+    'de',
+    'Die Possessivpronomen',
     to_jsonb('## Die Possessivpronomen
 Die Possessivpronomen zeigen an, wem etwas gehört. Im Gegensatz zum Deutschen (das "sein/ihr" für fast alles nutzt) hat das Englische für jeden Besitzer ein eigenes Wort.
 

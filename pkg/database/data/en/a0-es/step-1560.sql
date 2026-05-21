@@ -32,7 +32,13 @@
         DELETE FROM reading WHERE step_order = 1560 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1560, 'en', 'reading', 'banking', 'BANK LOBBY SIGNS
+        VALUES (
+    v_path_id,
+    1560,
+    'en',
+    'reading',
+    'banking',
+    'BANK LOBBY SIGNS
 
 Cashiers → Counter 1
 Foreign Exchange → Counter 2
@@ -46,14 +52,14 @@ POST OFFICE SIGNS
 Stamps and Envelopes → Counter 1
 Registered Mail → Counter 3
 Parcel Collection → Counter 5
-Tracking Help → Information Desk')
-        RETURNING uuid INTO v_reading_id;
+Tracking Help → Information Desk'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Señales dentro del banco y de correos', 'Lee señales reales para saber adónde ir dentro del banco o de la oficina de correos.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Dentro del banco y de correos');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Schilder in Bank und Post', 'Lies echte Schilder, um den richtigen Ort in Bank oder Post zu finden.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Schilder in Bank und Post');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

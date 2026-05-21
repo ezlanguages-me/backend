@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4510, 'en', 'reading', 'professional', $content$Hi everyone,
+        VALUES (
+    v_path_id,
+    4510,
+    'en',
+    'reading',
+    'professional',
+    $content$Hi everyone,
 
 Quick note from Dave in Facilities. The air conditioning on floor 3 will be off all day on Thursday while the repair team works on the system. The problem should only affect that floor, but it may feel cooler than usual in the morning, so please bring something warm if you are based there.
 
@@ -52,13 +58,12 @@ The good news is that the kitchen on floor 2 will stay open, so you can still ma
 
 Thanks for your patience,
 Dave
-Facilities$content$)
-        RETURNING uuid INTO v_reading_id;
+Facilities$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Comprende un memorando informal', 'Lee un memorando interno informal sobre reparaciones y servicios disponibles en la oficina.'),
-            (v_reading_id, 'de', 'Verstehe ein informelles Memo', 'Lies ein informelles internes Memo über Reparaturen und verfügbare Dienste im Büro.');
+            (v_reading_id, 'es', 'Memorando informal'), (v_reading_id, 'de', 'Informelles Memo');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

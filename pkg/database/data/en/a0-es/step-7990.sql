@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7990 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7990, 'en', 'reading', 'academic', 'Post-Event Debrief Memo\n\nEvent: Student Seminar Day
+    VALUES (
+    v_path_id,
+    7990,
+    'en',
+    'reading',
+    'academic',
+    'Post-Event Debrief Memo\n\nEvent: Student Seminar Day
 Date: Thursday
 What worked well: clear signs, friendly volunteers, short talks, and water at the door.
 Problem: the last room was too warm and one speaker started late.
 Two options for next month: use the same small room or move to the library hall.
 Decision: move to the library hall because it is bigger and cooler.
-Actions: send slides on Friday, book the hall, and ask two student helpers.')
-    RETURNING uuid INTO v_reading_id;
+Actions: send slides on Friday, book the hall, and ask two student helpers.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Entiende un informe posterior al evento', 'Lee un breve informe de evaluación después de un seminario y reconoce problemas, opciones y decisiones.'),
-        (v_reading_id, 'de', 'Verstehe ein Nachbereitungsprotokoll', 'Lies eine kurze Nachbesprechung nach einem Seminar und erkenne Probleme, Optionen und Entscheidungen.');
+        (v_reading_id, 'es', 'Entiende un informe posterior'), (v_reading_id, 'de', 'Nachbereitungsprotokoll');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

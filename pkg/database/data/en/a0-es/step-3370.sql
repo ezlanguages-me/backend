@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3370 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3370, 'en', 'dialogue', 'nature', $json$[{"name": "Paula", "gender": "female", "avatarURL": "https://example.com/avatars/paula.png"}, {"name": "Nico", "gender": "male", "avatarURL": "https://example.com/avatars/nico.png"}]$json$::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3370, 'en', 'dialogue', 'nature', $json$[{"name": "Paula", "gender": "female", "avatarURL": "https://example.com/avatars/paula.png"}, {"name": "Nico", "gender": "male", "avatarURL": "https://example.com/avatars/nico.png"}]$json$::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Hablar de la naturaleza y el tiempo', 'Lee un diálogo sencillo sobre un lago, el cielo, el viento y un paseo por la naturaleza.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'La naturaleza y el tiempo');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Über Natur und Wetter sprechen', 'Lies einen einfachen Dialog über einen See, den Himmel, den Wind und einen Spaziergang in der Natur.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Über Natur und Wetter sprechen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

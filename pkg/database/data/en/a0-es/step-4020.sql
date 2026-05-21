@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4020 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4020 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4020, 'en', 'reading', 'professional', $content$ProServ Solutions – Company Brochure. We are a professional services company with 20 years of experience in cleaning, maintenance and security.
+        VALUES (
+    v_path_id,
+    4020,
+    'en',
+    'reading',
+    'professional',
+    $content$ProServ Solutions – Company Brochure. We are a professional services company with 20 years of experience in cleaning, maintenance and security.
 
 We serve businesses of all sizes. Our customer support line is open Monday to Friday, 8 AM to 8 PM. Emergency services are available 24 hours a day.
 
-Annual contracts receive a 10% discount. Request a free quote by phone or online. We hold ISO 9001 quality certification.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Annual contracts receive a 10% discount. Request a free quote by phone or online. We hold ISO 9001 quality certification.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un folleto de empresa', 'Lee un folleto con servicios, horarios, descuentos y certificaciones de una empresa de servicios.'),
-            (v_reading_id, 'de', 'Lies eine Unternehmensbroschüre', 'Lies eine Broschüre mit Dienstleistungen, Zeiten, Rabatten und Zertifizierungen eines Serviceunternehmens.');
+            (v_reading_id, 'es', 'Lee un folleto de empresa'), (v_reading_id, 'de', 'Eine Unternehmensbroschüre');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

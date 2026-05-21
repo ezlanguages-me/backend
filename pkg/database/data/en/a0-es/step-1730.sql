@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1730 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1730, 'en', 'reading', 'Turismo y Entretenimiento', $reading$
+    VALUES (
+    v_path_id,
+    1730,
+    'en',
+    'reading',
+    'turismo_y_entretenimiento',
+    $reading$
 CASTLE HILL VISITOR AREA
 Tickets and audio guides at the main entrance. Photography allowed without flash. No food or drink inside the tower.
 
@@ -41,11 +47,11 @@ Mind the steps. Keep children with you. Last entry 5:30 PM.
 
 SOUVENIR SHOP
 Open daily 10 AM-6 PM. Guided tours start every hour from the courtyard.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Señales públicas en un sitio turístico');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Öffentliche Schilder an einem touristischen Ort');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Señales en lugar turístico');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Schilder am Touristenort');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

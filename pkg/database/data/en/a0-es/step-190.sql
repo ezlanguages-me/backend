@@ -20,7 +20,7 @@ DECLARE
         '{"c": "Alex", "t": "Nice to meet you all. Oh, and who is this friendly dog?", "es": "Encantado de conocerlos a todos. Oh, ¿y quién es este perro tan amigable?", "pron": "/náis tu mit iu ol. ou, and hu is dis frénd-li dog?/", "de": "Schön, euch alle kennenzulernen. Oh, und wer ist dieser freundliche Hund?", "pron_de": "/NAIS tö MIET juu ool. ou, änd HUU is dis FREND-li dog?/"}'::jsonb,
         '{"c": "Sarah", "t": "That''s Buster! He''s our golden retriever. Don''t worry, he is very sweet.", "es": "¡Ese es Buster! Es nuestro golden retriever. No te preocupes, es muy dulce.", "pron": "/dats bás-ter! his áur gól-den ri-trí-ver. dont uó-ri, hi is vé-ri suit./", "de": "Das ist Buster! Er ist unser Golden Retriever. Keine Sorge, er ist sehr lieb.", "pron_de": "/DÄTS BAS-tö! HIEZ auö GOUL-dön ri-TRIEV-ö. DOUNT WA-ri, hie is VE-ri SWIET./"}'::jsonb,
         '{"c": "Alex", "t": "I love dogs. Your home is beautiful. Is my room on the first floor?", "es": "Me encantan los perros. Su casa es hermosa. ¿Mi habitación está en el primer piso?", "pron": "/ái lov dogs. ior hóum is biú-ti-ful. is mai rum on de ferst flor?/", "de": "Ich liebe Hunde. Dein Zuhause ist wunderschön. Ist mein Zimmer im ersten Stock?", "pron_de": "/ai LAV dogz. joor HOUM is BJUU-ti-fö. is mai RUUM on dö FÖST FLOO?/"}'::jsonb,
-        '{"c": "Sarah", "t": "No, your bedroom is on the second floor. Down here we have the living room, the kitchen, the dining room, and a half bathroom.", "es": "No, tu dormitorio está en el segundo piso. Aquí abajo tenemos la sala de estar, la cocina, el comedor y un medio baño.", "pron": "/nóu, ior béd-rum is on de sé-kond flor. dáun hir ui hav de lí-vin rum, de kí-chen, de dái-nin rum, and a haf báz-rum./", "de": "Nein, dein Schlafzimmer ist im zweiten Stock. Hier unten haben wir das Wohnzimmer, die Küche, das Esszimmer und ein halbes Badezimmer.", "pron_de": "/NOU, joor BED-ruum is on dö SE-könd FLOO. DAUN hiö wie häv dö LI-ving ruum, dö KI-tschin, dö DAI-ning ruum, änd ö HAAF BÄS-ruum./"}'::jsonb,
+        '{"c": "Sarah", "t": "No, your bedroom is on the second floor. Down here we have the living room, the kitchen, the dining room, and a half bathroom.", "es": "No, tu dormitorio está en el segundo piso. Aquí abajo tenemos la sala de estar, la cocina, el comedor y un medio baño.", "pron": "/nóu, ior béd-rum is on de sé-kond flor. dáun hir ui hav de lí-ving rum, de kí-chen, de dái-ning rum, and a haf báz-rum./", "de": "Nein, dein Schlafzimmer ist im zweiten Stock. Hier unten haben wir das Wohnzimmer, die Küche, das Esszimmer und ein halbes Badezimmer.", "pron_de": "/NOU, joor BED-ruum is on dö SE-könd FLOO. DAUN hiö wie häv dö LI-ving ruum, dö KI-tschin, dö DAI-ning ruum, änd ö HAAF BÄS-ruum./"}'::jsonb,
         '{"c": "Alex", "t": "Great. And where can I wash my clothes?", "es": "Genial. ¿Y dónde puedo lavar mi ropa?", "pron": "/gréit. and uér kan ai uosh mai klóus?/", "de": "Toll. Und wo kann ich meine Wäsche waschen?", "pron_de": "/GREJT. änd WEÖ kän ai WOSCH mai KLOUDZ?/"}'::jsonb,
         '{"c": "Sarah", "t": "The laundry room is right next to the kitchen. We have a washer and a dryer you can use.", "es": "El cuarto de lavado está justo al lado de la cocina. Tenemos una lavadora y una secadora que puedes usar.", "pron": "/de lón-dri rum is ráit nekst tu de kí-chen. ui hav a uó-sher and a drái-er iu kan ius./", "de": "Der Waschraum ist direkt neben der Küche. Wir haben eine Waschmaschine und einen Trockner, die du benutzen kannst.", "pron_de": "/dö LOON-dri ruum is RAIT NEKST tö dö KI-tschin. wie häv ö WO-schö änd ö DRAI-ö juu kän JUUZ./"}'::jsonb,
         '{"c": "Alex", "t": "Perfect. Can I see my bedroom now?", "es": "Perfecto. ¿Puedo ver mi dormitorio ahora?", "pron": "/pér-fekt. kan ai si mai béd-rum náu?/", "de": "Perfekt. Kann ich mein Schlafzimmer jetzt sehen?", "pron_de": "/PÖ-fikt. kän ai SIE mai BED-ruum NAU?/"}'::jsonb,
@@ -37,29 +37,27 @@ SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 -- 2. Insertar el Dialogue principal (Step 190)
 INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters) 
 VALUES (
-    v_path_id, 
-    190, 
-    'en', 
-    'dialogue', 
-    'social', 
+    v_path_id,
+    190,
+    'en',
+    'dialogue',
+    'social',
     '[
       {"name":"Sarah","gender":"female","avatarURL":"https://example.com/avatars/sarah.png"},
       {"name":"Alex",  "gender":"male",  "avatarURL":"https://example.com/avatars/alex.png"}
     ]'::jsonb
-) 
-RETURNING uuid INTO v_dialogue_id;
+)RETURNING uuid INTO v_dialogue_id;
 
 -- 3. Insertar Traducción y Metadata del Dialogue
-INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) 
+INSERT INTO dialogue_translation (dialogue_uuid, language, title) 
 VALUES (
-    v_dialogue_id, 
-    'es', 
-    'Tour por la casa', 
-    ''
+    v_dialogue_id,
+    'es',
+    'Tour por la casa'
 );
 
-INSERT INTO dialogue_translation (dialogue_uuid, language, title, description) 
-VALUES (v_dialogue_id, 'de', 'Rundgang durch das Haus', '');
+INSERT INTO dialogue_translation (dialogue_uuid, language, title) 
+VALUES (v_dialogue_id, 'de', 'Rundgang durch das Haus');
 
 -- 4. Bucle para insertar las líneas del diálogo, traducción y PRONUNCIACIÓN dentro del JSONB
 FOREACH ex IN ARRAY v_lines

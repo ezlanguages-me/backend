@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 1540 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 1540, 'en', 'dialogue', 'financial', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Clerk", "gender": "male", "avatarURL": "https://example.com/avatars/clerk.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 1540, 'en', 'dialogue', 'financial', '[{"name": "Customer", "gender": "female", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Clerk", "gender": "male", "avatarURL": "https://example.com/avatars/clerk.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Hacer una operación rutinaria en correos', 'Lee un diálogo simple para hacer una operación corriente en la oficina de correos.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Operación rutinaria en correos');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Einen Routinevorgang bei der Post erledigen', 'Lies einen einfachen Dialog für einen normalen Vorgang in der Postfiliale.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Routinevorgang bei der Post');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

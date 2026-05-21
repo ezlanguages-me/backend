@@ -32,7 +32,13 @@
         DELETE FROM reading WHERE step_order = 1570 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1570, 'en', 'reading', 'banking', 'ACCOUNT OPENING FORM
+        VALUES (
+    v_path_id,
+    1570,
+    'en',
+    'reading',
+    'banking',
+    'ACCOUNT OPENING FORM
 
 Full name: ____________________
 Date of birth: ____________________
@@ -46,14 +52,14 @@ Proof of address attached: Yes / No
 First deposit: ____________________
 Signature: ____________________
 
-Please write in block letters. Bring the original ID document and one proof of address. Ask staff if you need help.')
-        RETURNING uuid INTO v_reading_id;
+Please write in block letters. Bring the original ID document and one proof of address. Ask staff if you need help.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Formulario para abrir una cuenta', 'Lee un formulario bancario con campos e instrucciones de ayuda.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Formulario para abrir');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Formular zur Kontoeröffnung', 'Lies ein Bankformular mit Feldern und Hilfshinweisen.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Formular zur Kontoeröffnung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2450 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2450, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2450,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 OAK STREET DINER
 Starters: tomato soup £4.50, garlic bread £4.
 Main courses: steak with chips £14, roast chicken with vegetables £12.50, pasta with tomato sauce £10.50.
@@ -40,10 +46,10 @@ Desserts: ice cream £3.50, apple crumble £4.80.
 
 Drinks: still water £2, lemonade £2.80, tea £2.20.
 Today's special: fish pie with peas £13.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer un menú estándar de restaurante');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Menú estándar de restaurante');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Standardspeisekarte lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP

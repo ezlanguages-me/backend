@@ -32,18 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1820 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1820, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1820,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 MARTA'S MARKET CLOTHES
 Cotton T-shirts: £12 each or 2 for £20. Leather belts: £15. Summer hats: £9.
 
 Ask for size S, M, or L. Blue and black T-shirts are in stock today. Cash and card accepted.
 
 Friendly price for two belts: £25. No returns on sale items.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Lista de precios de un puesto de ropa');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Preisliste an einem Kleidungsstand');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Lista de precios de un puesto');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Kleidungsstand');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

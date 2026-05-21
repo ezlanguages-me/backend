@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4150 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4150 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4150, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4150,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Mark, a product specialist giving a live demonstration
 ## "CleanPro Equipment – Live Product Demonstration"
 
@@ -56,12 +62,11 @@ Accent: Neutral accent.
 [practical] Mark: If you order today, delivery takes three working days.
 [closing] Mark: Both models carry a two-year warranty and spare parts are always in stock.
 [inviting] Mark: Please feel free to ask any questions. I am happy to demonstrate anything again.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una demostración de producto', 'Escucha una demostración en vivo de dos modelos de aspiradora industrial con especificaciones y condiciones.'),
-            (v_listening_id, 'de', 'Höre eine Produktdemonstration', 'Höre eine Live-Demonstration zweier Industriestaubsauger-Modelle mit Spezifikationen und Bedingungen.');
+            (v_listening_id, 'es', 'Una demostración de producto'), (v_listening_id, 'de', 'Höre eine Produktdemonstration');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

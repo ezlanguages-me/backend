@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3910 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3910 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3910, 'en', 'reading', 'professional', $content$Service Report 88. Date: Tuesday, 4 June. Technician: Lea Martin. Site: North Clinic.
+        VALUES (
+    v_path_id,
+    3910,
+    'en',
+    'reading',
+    'professional',
+    $content$Service Report 88. Date: Tuesday, 4 June. Technician: Lea Martin. Site: North Clinic.
 
 Arrival time: 9 AM. Work completed: replaced two air filters and tested the cooling unit. The unit started normally after the change.
 
-Issue found: a small water leak under the rear pipe. Temporary action: placed a tray under the pipe and informed the site manager. Recommendation: second visit on Friday to replace the pipe. Client signature received at 10:15 AM.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Issue found: a small water leak under the rear pipe. Temporary action: placed a tray under the pipe and informed the site manager. Recommendation: second visit on Friday to replace the pipe. Client signature received at 10:15 AM.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un informe de trabajo', 'Lee un informe con hora, trabajo realizado, problema encontrado y recomendación.'),
-            (v_reading_id, 'de', 'Lies einen Arbeitsbericht', 'Lies einen Bericht mit Zeit, erledigter Arbeit, gefundenem Problem und Empfehlung.');
+            (v_reading_id, 'es', 'Lee un informe de trabajo'), (v_reading_id, 'de', 'Lies einen Arbeitsbericht');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

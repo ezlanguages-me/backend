@@ -32,18 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2160 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2160, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2160,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 BLUE DOOR BISTRO
 Lunch is from 12 to 3. Takeaway is available every day.
 We have high chairs for children and a small terrace.
 
 Today's fish is salmon with potatoes. Ask staff for the vegetarian soup.
 Free water is at the counter.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Información escrita sobre platos y servicios');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Schriftliche Infos zu Gerichten und Service');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Escrita sobre platos');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Infos zu Gerichten und Service');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

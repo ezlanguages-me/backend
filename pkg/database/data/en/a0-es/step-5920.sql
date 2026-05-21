@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5920 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5920, 'en', 'listening', 'Alojamiento', $transcript$
+    VALUES (
+    v_path_id,
+    5920,
+    'en',
+    'listening',
+    'alojamiento',
+    $transcript$
 # AUDIO PROFILE: James, a hotel receptionist
 ## "Checking In at Riverside Hotel"
 
@@ -63,13 +69,12 @@ The audio practises arrival, room keys, and service information.
 [clear] Receptionist: No. The Wi-Fi is free in every room.
 [practical] Guest: Can I leave my suitcase here for an hour?
 [helpful] Receptionist: Yes, of course. We will keep it behind the desk.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha la conversación de check-in', 'Escucha una conversación de llegada al hotel con preguntas sobre reserva, desayuno y Wi-Fi.'),
-        (v_listening_id, 'de', 'Höre das Check-in-Gespräch', 'Höre ein Ankunftsgespräch im Hotel mit Fragen zu Buchung, Frühstück und WLAN.');
+        (v_listening_id, 'es', 'La conversación de check-in'), (v_listening_id, 'de', 'Höre das Check-in-Gespräch');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

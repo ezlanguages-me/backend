@@ -13,12 +13,13 @@
             DELETE FROM writing WHERE step_order = 280 AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 280, 'en', 'writing', 'correspondence')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 280, 'en', 'writing', 'correspondence')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'es', 'Presentarte a un amigo por carta', '',
+                v_writing_id,
+                'es',
+                'Presentarte a un amigo',
                 '{
     "scenario": "Vas a escribir a un nuevo amigo por correspondencia. Quiere saber cosas básicas sobre tu vida diaria, tu familia y tu ciudad.",
     "tasks": [
@@ -32,9 +33,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'de', 'Sich in einem Brief vorstellen', '',
+                v_writing_id,
+                'de',
+                'Sich in einem Brief vorstellen',
                 '{
     "scenario": "Du schreibst an einen neuen Brieffreund. Er möchte einfache Informationen über dein tägliches Leben, deine Familie und deine Stadt wissen.",
     "tasks": [

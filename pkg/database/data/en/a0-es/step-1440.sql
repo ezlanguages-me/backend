@@ -32,20 +32,26 @@
         DELETE FROM reading WHERE step_order = 1440 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1440, 'en', 'reading', 'postal', 'Hill Post Office Service Guide
+        VALUES (
+    v_path_id,
+    1440,
+    'en',
+    'reading',
+    'postal',
+    'Hill Post Office Service Guide
 
 Counter 1 sells stamps, envelopes, and postcards. Counter 2 is for parcel drop-off, parcel collection, and tracking questions. Counter 3 is for express mail and registered mail.
 
 If you need proof that a letter was sent, choose registered mail. If you need very fast delivery inside the city, choose express mail.
 
-You can rent a post box at the customer service desk. Bring your ID for registration. Parcel tracking is available online or at Counter 2 with your receipt number.')
-        RETURNING uuid INTO v_reading_id;
+You can rent a post box at the customer service desk. Bring your ID for registration. Parcel tracking is available online or at Counter 2 with your receipt number.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Servicios de correos y dónde pedirlos', 'Lee una guía sencilla para saber qué servicio postal pedir y en qué mostrador.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Servicios de correos y dónde');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Postdienste und wo man sie bekommt', 'Lies einen einfachen Leitfaden, um den richtigen Postdienst und Schalter zu finden.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Postdienste und wo man sie');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

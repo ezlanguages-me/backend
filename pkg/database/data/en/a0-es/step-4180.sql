@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4180 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4180 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4180, 'en', 'reading', 'professional', $content$Blue Ridge Partners
+        VALUES (
+    v_path_id,
+    4180,
+    'en',
+    'reading',
+    'professional',
+    $content$Blue Ridge Partners
 14 Marble Lane, London
 
 Dear ProServ Solutions,
@@ -44,12 +50,11 @@ Our premises cover 450 square metres. We ask that the cleaning takes place outsi
 Please find a floor plan enclosed. Our contact person is Ms Reeves.
 
 Yours sincerely,
-Blue Ridge Partners$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Blue Ridge Partners$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una carta de solicitud de servicio de un cliente', 'Lee una carta formal con solicitud de servicio, frecuencia, fecha de inicio y datos del local.'),
-            (v_reading_id, 'de', 'Lies ein Kundenanfrageschreiben', 'Lies ein formelles Schreiben mit Serviceanfrage, Häufigkeit, Startdatum und Raumangaben.');
+            (v_reading_id, 'es', 'Carta de solicitud de servicio'), (v_reading_id, 'de', 'Ein Kundenanfrageschreiben');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

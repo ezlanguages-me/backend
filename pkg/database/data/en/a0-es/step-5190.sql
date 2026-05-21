@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5190 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5190, 'en', 'reading', 'academic', 'Methodology section. This study followed forty first-year students for four weeks. The participants came from two subject groups: science and humanities.
+    VALUES (
+    v_path_id,
+    5190,
+    'en',
+    'reading',
+    'academic',
+    'Methodology section. This study followed forty first-year students for four weeks. The participants came from two subject groups: science and humanities.
 
 Researchers used a short questionnaire in week one and six follow-up interviews in week four. Each student also recorded daily reading time in a simple log. Names were replaced by anonymous codes before analysis.
 
-The method section notes one limit: the reading logs depended on self-report, so some answers may not be exact. Even so, the combination of survey, interviews, and logs gave a fuller picture of student reading habits.')
-    RETURNING uuid INTO v_reading_id;
+The method section notes one limit: the reading logs depended on self-report, so some answers may not be exact. Even so, the combination of survey, interviews, and logs gave a fuller picture of student reading habits.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Sección metodológica sobre hábitos de lectura', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Methodenteil über Lesegewohnheiten', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Metodológica sobre hábitos');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Lesegewohnheiten');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

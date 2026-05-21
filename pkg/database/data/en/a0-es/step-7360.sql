@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 7360 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 7360, 'en', 'dialogue', 'social', '[{"name": "Nora", "gender": "female", "avatarURL": "https://example.com/avatars/nora.png"}, {"name": "Omar", "gender": "male", "avatarURL": "https://example.com/avatars/omar.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 7360, 'en', 'dialogue', 'social', '[{"name": "Nora", "gender": "female", "avatarURL": "https://example.com/avatars/nora.png"}, {"name": "Omar", "gender": "male", "avatarURL": "https://example.com/avatars/omar.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Habla sobre temas culturales abstractos', 'Lee un diálogo donde dos amigos comparan franqueza, contacto visual y preguntas personales.'),
-        (v_dialogue_id, 'de', 'Sprich über abstrakte kulturelle Themen', 'Lies einen Dialog, in dem zwei Freunde Direktheit, Blickkontakt und persönliche Fragen vergleichen.');
+        (v_dialogue_id, 'es', 'Habla sobre temas culturales'), (v_dialogue_id, 'de', 'Abstrakte kulturelle Themen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

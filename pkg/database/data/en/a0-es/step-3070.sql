@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3070 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3070, 'en', 'reading', 'transport', 'Riverside Town Driving Notice. Market Street is one way to the bridge. Do not enter from River Road between 7 a.m. and 10 a.m. The Blue Car Park entrance is on Hill Street.
+    VALUES (
+    v_path_id,
+    3070,
+    'en',
+    'reading',
+    'transport',
+    'Riverside Town Driving Notice. Market Street is one way to the bridge. Do not enter from River Road between 7 a.m. and 10 a.m. The Blue Car Park entrance is on Hill Street.
 
 The speed limit in the town centre is 20 mph. King Lane is for buses only. Delivery vans may use the loading area for 15 minutes.
 
 Use your lights in the tunnel near the bridge. For the museum, follow the brown signs after the roundabout.
 
-Please drive slowly near the school and watch for people on bikes.')
-    RETURNING uuid INTO v_reading_id;
+Please drive slowly near the school and watch for people on bikes.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee señales y avisos básicos de la carretera', 'Lee un aviso corto con calles de un solo sentido, límites y señales para conducir en una ciudad.'),
-        (v_reading_id, 'de', 'Lies einfache Verkehrszeichen und Hinweise auf der Straße', 'Lies einen kurzen Hinweis mit Einbahnstraße, Tempolimit und Schildern für das Fahren in einer Stadt.');
+        (v_reading_id, 'es', 'Avisos básicos de la carretera'), (v_reading_id, 'de', 'Verkehrszeichen und Hinweise');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

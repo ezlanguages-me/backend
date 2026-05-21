@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4070 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4070 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4070, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4070,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Tom (caller) and Receptionist at a professional services company
 ## "Taking a Routine Message"
 
@@ -57,12 +63,11 @@ Accent: Neutral accents.
 [noting] Receptionist: Certainly. So, that is Tom Bradley, order ORD-7734, and you need written confirmation before Friday.
 [confirming] Tom: That is correct. My number is 07700 900 123 in case there are any questions.
 [closing] Receptionist: Thank you, Mr Bradley. I will pass the message on immediately.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha cómo se toma y transmite un mensaje rutinario', 'Escucha una llamada telefónica donde se toman y repiten los detalles de un mensaje de trabajo.'),
-            (v_listening_id, 'de', 'Höre, wie eine Routinenachricht aufgenommen und weitergegeben wird', 'Höre ein Telefongespräch, bei dem Nachrichtendetails aufgenommen und wiederholt werden.');
+            (v_listening_id, 'es', 'Se toma y transmite un mensaje'), (v_listening_id, 'de', 'Aufgenommen und weitergegeben');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

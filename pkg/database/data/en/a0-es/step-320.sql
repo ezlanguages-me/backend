@@ -21,12 +21,11 @@
             VALUES (v_path_id, 320, 'en', 'grammar')
             RETURNING uuid INTO v_grammar_id;
 
-            INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+            INSERT INTO grammar_translation (grammar_uuid, language, title, content)
             VALUES (
                 v_grammar_id,
                 'es',
                 'There is / There are',
-                '',
                 to_jsonb($content_320_es$## There is / There are
 
 Usamos **there is** y **there are** para decir que algo existe o está en un lugar.
@@ -84,12 +83,11 @@ Para hacer preguntas, cambiamos el orden:
 * ✅ There are three books.$content_320_es$::text)
             );
 
-            INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+            INSERT INTO grammar_translation (grammar_uuid, language, title, content)
             VALUES (
                 v_grammar_id,
                 'de',
                 'There is / There are',
-                '',
                 to_jsonb($content_320_de$## There is / There are
 
 Mit **there is** und **there are** sagt man, dass etwas existiert oder sich irgendwo befindet.
@@ -536,116 +534,116 @@ INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VA
 -- =========================================================
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is a cat in the room.', '{"type": "scramble", "chunks": ["a cat", "in the room.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is a cat in the room.', '{"type": "scramble", "chunks": ["a cat", "in the room.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a cat", "in the room.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a cat", "in the room.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is a bank near the hotel.', '{"type": "scramble", "chunks": ["near the hotel.", "There is", "a bank"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is a bank near the hotel.', '{"type": "scramble", "chunks": ["near the hotel.", "There is", "a bank"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["near the hotel.", "There is", "a bank", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["near the hotel.", "There is", "a bank", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is an elevator here.', '{"type": "scramble", "chunks": ["There is", "an elevator", "here."], "correct_order": [0, 1, 2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is an elevator here.', '{"type": "scramble", "chunks": ["There is", "an elevator", "here."], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["There is", "an elevator", "here.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["There is", "an elevator", "here.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is one key on the desk.', '{"type": "scramble", "chunks": ["one key", "on the desk.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is one key on the desk.', '{"type": "scramble", "chunks": ["one key", "on the desk.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["one key", "on the desk.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["one key", "on the desk.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is a shower upstairs.', '{"type": "scramble", "chunks": ["upstairs.", "a shower", "There is"], "correct_order": [2, 1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is a shower upstairs.', '{"type": "scramble", "chunks": ["upstairs.", "a shower", "There is"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["upstairs.", "a shower", "There is", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["upstairs.", "a shower", "There is", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is a bus stop outside.', '{"type": "scramble", "chunks": ["a bus stop", "outside.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is a bus stop outside.', '{"type": "scramble", "chunks": ["a bus stop", "outside.", "There is"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a bus stop", "outside.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a bus stop", "outside.", "There is", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There is a light in the hall.', '{"type": "scramble", "chunks": ["in the hall.", "There is", "a light"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There is a light in the hall.', '{"type": "scramble", "chunks": ["in the hall.", "There is", "a light"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the hall.", "There is", "a light", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the hall.", "There is", "a light", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are three books on the table.', '{"type": "scramble", "chunks": ["three books", "There are", "on the table."], "correct_order": [1, 0, 2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are three books on the table.', '{"type": "scramble", "chunks": ["three books", "There are", "on the table."], "correct_order": [1, 0, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["three books", "There are", "on the table.", "today", "always"], "correct_order": [1, 0, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["three books", "There are", "on the table.", "today", "always"], "correct_order": [1, 0, 2]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are two chairs in the kitchen.', '{"type": "scramble", "chunks": ["in the kitchen.", "There are", "two chairs"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are two chairs in the kitchen.', '{"type": "scramble", "chunks": ["in the kitchen.", "There are", "two chairs"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the kitchen.", "There are", "two chairs", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the kitchen.", "There are", "two chairs", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are many people here.', '{"type": "scramble", "chunks": ["many people", "here.", "There are"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are many people here.', '{"type": "scramble", "chunks": ["many people", "here.", "There are"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["many people", "here.", "There are", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["many people", "here.", "There are", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are four windows upstairs.', '{"type": "scramble", "chunks": ["There are", "four windows", "upstairs."], "correct_order": [0, 1, 2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are four windows upstairs.', '{"type": "scramble", "chunks": ["There are", "four windows", "upstairs."], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["There are", "four windows", "upstairs.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["There are", "four windows", "upstairs.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are some towels in the bathroom.', '{"type": "scramble", "chunks": ["in the bathroom.", "some towels", "There are"], "correct_order": [2, 1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are some towels in the bathroom.', '{"type": "scramble", "chunks": ["in the bathroom.", "some towels", "There are"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the bathroom.", "some towels", "There are", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the bathroom.", "some towels", "There are", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are two keys on the desk.', '{"type": "scramble", "chunks": ["two keys", "on the desk.", "There are"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are two keys on the desk.', '{"type": "scramble", "chunks": ["two keys", "on the desk.", "There are"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["two keys", "on the desk.", "There are", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["two keys", "on the desk.", "There are", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There are five students in the room.', '{"type": "scramble", "chunks": ["There are", "five students", "in the room."], "correct_order": [0, 1, 2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There are five students in the room.', '{"type": "scramble", "chunks": ["There are", "five students", "in the room."], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["There are", "five students", "in the room.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["There are", "five students", "in the room.", "today", "always"], "correct_order": [0, 1, 2]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There isn''t a pool.', '{"type": "scramble", "chunks": ["a pool.", "There isn''t"], "correct_order": [1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There isn''t a pool.', '{"type": "scramble", "chunks": ["a pool.", "There isn''t"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a pool.", "There isn''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a pool.", "There isn''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There aren''t any chairs.', '{"type": "scramble", "chunks": ["any chairs.", "There aren''t"], "correct_order": [1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There aren''t any chairs.', '{"type": "scramble", "chunks": ["any chairs.", "There aren''t"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["any chairs.", "There aren''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["any chairs.", "There aren''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There isn''t a key here.', '{"type": "scramble", "chunks": ["a key", "here.", "There isn''t"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There isn''t a key here.', '{"type": "scramble", "chunks": ["a key", "here.", "There isn''t"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a key", "here.", "There isn''t", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a key", "here.", "There isn''t", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There aren''t any towels in the room.', '{"type": "scramble", "chunks": ["in the room.", "There aren''t", "any towels"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There aren''t any towels in the room.', '{"type": "scramble", "chunks": ["in the room.", "There aren''t", "any towels"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the room.", "There aren''t", "any towels", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the room.", "There aren''t", "any towels", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There isn''t a supermarket nearby.', '{"type": "scramble", "chunks": ["nearby.", "There isn''t", "a supermarket"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There isn''t a supermarket nearby.', '{"type": "scramble", "chunks": ["nearby.", "There isn''t", "a supermarket"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["nearby.", "There isn''t", "a supermarket", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["nearby.", "There isn''t", "a supermarket", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There aren''t any clean cups.', '{"type": "scramble", "chunks": ["any clean cups.", "There aren''t"], "correct_order": [1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There aren''t any clean cups.', '{"type": "scramble", "chunks": ["any clean cups.", "There aren''t"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["any clean cups.", "There aren''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["any clean cups.", "There aren''t", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: There isn''t a TV in the kitchen.', '{"type": "scramble", "chunks": ["a TV", "in the kitchen.", "There isn''t"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: There isn''t a TV in the kitchen.', '{"type": "scramble", "chunks": ["a TV", "in the kitchen.", "There isn''t"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a TV", "in the kitchen.", "There isn''t", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a TV", "in the kitchen.", "There isn''t", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Is there a bathroom?', '{"type": "scramble", "chunks": ["a bathroom?", "Is there"], "correct_order": [1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Is there a bathroom?', '{"type": "scramble", "chunks": ["a bathroom?", "Is there"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a bathroom?", "Is there", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a bathroom?", "Is there", "today", "always", "empty"], "correct_order": [1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Are there any keys on the desk?', '{"type": "scramble", "chunks": ["on the desk?", "Are there", "any keys"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Are there any keys on the desk?', '{"type": "scramble", "chunks": ["on the desk?", "Are there", "any keys"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["on the desk?", "Are there", "any keys", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["on the desk?", "Are there", "any keys", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Is there a car park nearby?', '{"type": "scramble", "chunks": ["nearby?", "a car park", "Is there"], "correct_order": [2, 1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Is there a car park nearby?', '{"type": "scramble", "chunks": ["nearby?", "a car park", "Is there"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["nearby?", "a car park", "Is there", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["nearby?", "a car park", "Is there", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Are there any towels in the room?', '{"type": "scramble", "chunks": ["in the room?", "any towels", "Are there"], "correct_order": [2, 1, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Are there any towels in the room?', '{"type": "scramble", "chunks": ["in the room?", "any towels", "Are there"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the room?", "any towels", "Are there", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the room?", "any towels", "Are there", "today", "always"], "correct_order": [2, 1, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Is there a bus stop here?', '{"type": "scramble", "chunks": ["a bus stop", "here?", "Is there"], "correct_order": [2, 0, 1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Is there a bus stop here?', '{"type": "scramble", "chunks": ["a bus stop", "here?", "Is there"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["a bus stop", "here?", "Is there", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["a bus stop", "here?", "Is there", "today", "always"], "correct_order": [2, 0, 1]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Are there any shops open now?', '{"type": "scramble", "chunks": ["open now?", "Are there", "any shops"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Are there any shops open now?', '{"type": "scramble", "chunks": ["open now?", "Are there", "any shops"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["open now?", "Are there", "any shops", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["open now?", "Are there", "any shops", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena para formar: Is there an elevator in the building?', '{"type": "scramble", "chunks": ["in the building?", "Is there", "an elevator"], "correct_order": [1, 2, 0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne zu: Is there an elevator in the building?', '{"type": "scramble", "chunks": ["in the building?", "Is there", "an elevator"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', ''::text, '{"type": "scramble", "chunks": ["in the building?", "Is there", "an elevator", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', ''::text, '{"type": "scramble", "chunks": ["in the building?", "Is there", "an elevator", "today", "always"], "correct_order": [1, 2, 0]}'::jsonb);
 
 END;
 $seed$;

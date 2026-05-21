@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 4060 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 4060 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4060, 'en', 'reading', 'professional', $content$TELEPHONE MESSAGE
+        VALUES (
+    v_path_id,
+    4060,
+    'en',
+    'reading',
+    'professional',
+    $content$TELEPHONE MESSAGE
 
 To: Ms García
 From: Mr López – Delta Supplies
@@ -42,12 +48,11 @@ Taken by: Ana
 
 Mr López called regarding order PO-4421. He mentioned there is a delay with the delivery. He would like Ms García to call him back as soon as possible.
 
-Contact number: 020 7946 0001$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Contact number: 020 7946 0001$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una nota de mensaje telefónico', 'Lee una nota de mensaje con remitente, asunto, referencia y número de contacto.'),
-            (v_reading_id, 'de', 'Lies eine Telefonnotiz', 'Lies eine Nachrichtennotiz mit Absender, Thema, Referenz und Kontaktnummer.');
+            (v_reading_id, 'es', 'Una nota de mensaje telefónico'), (v_reading_id, 'de', 'Lies eine Telefonnotiz');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

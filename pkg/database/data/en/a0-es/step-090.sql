@@ -23,12 +23,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 90, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar1_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'es', 
-    'Los Artículos', 
-    '', 
+    v_grammar1_id,
+    'es',
+    'Los Artículos',
     to_jsonb('## Los Artículos (THE, A, AN)
 
 ##### 1. El artículo indefinido: A / AN
@@ -52,12 +51,11 @@ A diferencia del español, en inglés omitimos el artículo en los siguientes ca
 *   **Exclamaciones con WHAT:** Se usa A/AN después de "What" en exclamaciones singulares. (*What a goal!*).'::text)
 );
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'de', 
-    'Die Artikel', 
-    '', 
+    v_grammar1_id,
+    'de',
+    'Die Artikel',
     to_jsonb('## Die Artikel (THE, A, AN)
 
 ##### 1. Der unbestimmte Artikel: A / AN

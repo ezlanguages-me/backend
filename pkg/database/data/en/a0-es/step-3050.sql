@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3050 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3050, 'en', 'dialogue', 'transport', '[{"name": "Agent", "gender": "female", "avatarURL": "https://example.com/avatars/agent.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3050, 'en', 'dialogue', 'transport', '[{"name": "Agent", "gender": "female", "avatarURL": "https://example.com/avatars/agent.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Reserva un coche de alquiler en una oficina turística', 'Lee un diálogo sencillo para reservar un coche pequeño para mañana con precio, hora y documento.'),
-        (v_dialogue_id, 'de', 'Buche einen Mietwagen in einem Touristenbüro', 'Lies einen einfachen Dialog zur Buchung eines Kleinwagens für morgen mit Preis, Uhrzeit und Dokument.');
+        (v_dialogue_id, 'es', 'Reserva un coche de alquiler'), (v_dialogue_id, 'de', 'Buche einen Mietwagen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

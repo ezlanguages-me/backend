@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2730 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2730, 'en', 'reading', 'health', 'After Your Small Operation
+    VALUES (
+    v_path_id,
+    2730,
+    'en',
+    'reading',
+    'health',
+    'After Your Small Operation
 
 Rest at home for 48 hours. Keep the bandage dry and clean. Do not drive or carry heavy bags today.
 
 You may eat light food this evening. Come back next Wednesday to remove the stitches.
 
-Call the hospital if you have bleeding, fever, or strong pain.')
-    RETURNING uuid INTO v_reading_id;
+Call the hospital if you have bleeding, fever, or strong pain.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee instrucciones de seguimiento después de una operación', 'Lee una nota simple de alta con instrucciones de cuidado después de una pequeña operación.'),
-        (v_reading_id, 'de', 'Lies Nachsorgeanweisungen nach einer Operation', 'Lies eine einfache Entlassungsnotiz mit Pflegeanweisungen nach einer kleinen Operation.');
+        (v_reading_id, 'es', 'Instrucciones de seguimiento'), (v_reading_id, 'de', 'Nachsorgeanweisungen nach');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

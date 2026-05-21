@@ -15,22 +15,19 @@ SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
 -- 2. Insertar el Writing principal (Step 250)
 INSERT INTO writing (path_uuid, step_order, source_language, type, category) 
 VALUES (
-    v_path_id, 
-    250, 
-    'en', 
-    'writing', 
-    'Social'
-) 
-RETURNING uuid INTO v_writing_id;
+    v_path_id,
+    250,
+    'en',
+    'writing',
+    'social'
+)RETURNING uuid INTO v_writing_id;
 
 -- 3. Insertar Traducción y Prompts del Writing
-INSERT INTO writing_translation (writing_uuid, language, title, description, prompt) 
+INSERT INTO writing_translation (writing_uuid, language, title, prompt) 
 VALUES (
-    v_writing_id, 
-    'es', 
-    'Correo a tu Host Family', 
-    '', 
-    
+    v_writing_id,
+    'es',
+    'Correo a tu Host Family',
     -- Prompt para el usuario (lo que verá en pantalla para saber qué tiene que redactar)
     '{
         "scenario": "Vas a ir de intercambio a Estados Unidos el próximo mes. Escribe un correo electrónico corto y sencillo para presentarte a tu nueva familia anfitriona (Host Family). Es el primer contacto que tienen contigo, así que cuéntales lo más importante sobre ti, tu familia y tu vida.",
@@ -47,12 +44,11 @@ VALUES (
     }'::jsonb
 );
 
-INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+INSERT INTO writing_translation (writing_uuid, language, title, prompt)
 VALUES (
     v_writing_id,
     'de',
     'E-Mail an deine Gastfamilie',
-    '',
     '{
         "scenario": "Du wirst nächsten Monat als Austauschschüler in die USA fahren. Schreib eine kurze, einfache E-Mail, um dich deiner neuen Gastfamilie (Host Family) vorzustellen. Es ist der erste Kontakt mit dir, also erzähl ihnen das Wichtigste über dich, deine Familie und dein Leben.",
         "tasks": [

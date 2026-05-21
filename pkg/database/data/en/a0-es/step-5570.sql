@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5570 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5570, 'en', 'reading', 'academic', 'Course reader extract: City noise affects study in different ways. Traffic noise mainly reduces concentration during reading tasks, while irregular sudden noise can interrupt memory more strongly.
+    VALUES (
+    v_path_id,
+    5570,
+    'en',
+    'reading',
+    'academic',
+    'Course reader extract: City noise affects study in different ways. Traffic noise mainly reduces concentration during reading tasks, while irregular sudden noise can interrupt memory more strongly.
 
 The extract explains three coping strategies. First, students can choose study times with less background noise. Second, they can use quiet rooms for longer reading. Third, they can break a long text into short sections with short review pauses.
 
-The final paragraph says that academic reading often becomes easier when students look first for headings, topic sentences, and repeated ideas before reading every detail.')
-    RETURNING uuid INTO v_reading_id;
+The final paragraph says that academic reading often becomes easier when students look first for headings, topic sentences, and repeated ideas before reading every detail.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Leer con suficiente rapidez para un curso académico', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Schnell genug für einen akademischen Kurs lesen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Leer con suficiente rapidez');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Genug für einen akademischen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

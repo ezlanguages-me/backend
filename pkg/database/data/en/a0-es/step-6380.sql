@@ -33,7 +33,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 6380 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 6380, 'en', 'reading', 'Convivencia', 'Housemate Agreement
+    VALUES (
+    v_path_id,
+    6380,
+    'en',
+    'reading',
+    'social',
+    'Housemate Agreement
 
 1. Clean the kitchen once a week and wipe the table after cooking.
 2. Tell everyone before inviting overnight guests.
@@ -42,13 +48,12 @@ BEGIN
 5. Pay shared bills on time and speak early if something changes.
 6. Put rubbish and recycling in the correct bins.
 7. If you use the last milk, write it on the shopping list.
-8. Be respectful in common areas so everyone feels at home.')
-    RETURNING uuid INTO v_reading_id;
+8. Be respectful in common areas so everyone feels at home.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'lee un acuerdo de compañeros de piso', 'Lee un acuerdo sencillo sobre cómo compartir una casa con otras personas.'),
-        (v_reading_id, 'de', 'lies eine Hausgemeinschaftsvereinbarung', 'Lies eine einfache Vereinbarung darüber, wie man sich eine Wohnung mit anderen teilt.');
+        (v_reading_id, 'es', 'Acuerdo de compañeros de piso'), (v_reading_id, 'de', 'Hausgemeinschaftsvereinbarung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

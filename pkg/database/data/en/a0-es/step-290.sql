@@ -13,12 +13,13 @@
             DELETE FROM writing WHERE step_order = 290 AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 290, 'en', 'writing', 'correspondence')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 290, 'en', 'writing', 'correspondence')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'es', 'Hablar de gustos y opiniones', '',
+                v_writing_id,
+                'es',
+                'Hablar de gustos y opiniones',
                 '{
     "scenario": "Quieres escribir un mensaje personal sobre cosas que te gustan y que no te gustan. Usa frases muy simples para dar tu opinión.",
     "tasks": [
@@ -32,9 +33,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'de', 'Über Vorlieben und Meinungen schreiben', '',
+                v_writing_id,
+                'de',
+                'Vorlieben und Meinungen',
                 '{
     "scenario": "Du möchtest eine persönliche Nachricht über Dinge schreiben, die du magst und nicht magst. Verwende sehr einfache Sätze, um deine Meinung auszudrücken.",
     "tasks": [

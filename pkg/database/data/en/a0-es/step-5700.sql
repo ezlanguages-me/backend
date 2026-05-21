@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5700 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5700, 'en', 'reading', 'academic', 'Receptive dictionary use helps you understand what you read or hear. When a word is unfamiliar, check its meaning, pronunciation, part of speech, and example sentence. This helps you choose the sense that fits the text.
+    VALUES (
+    v_path_id,
+    5700,
+    'en',
+    'reading',
+    'academic',
+    'Receptive dictionary use helps you understand what you read or hear. When a word is unfamiliar, check its meaning, pronunciation, part of speech, and example sentence. This helps you choose the sense that fits the text.
 
 Productive dictionary use helps when you want to write or speak accurately. Instead of selecting only a translation, look for collocations, usage notes, and grammar labels. These details show whether a word is formal, countable, followed by a preposition, or common in academic writing.
 
-Good dictionary users switch between both purposes. They use entries to understand a word in context and to produce a natural sentence later. A dictionary is more useful when you read the examples and labels, not only the first translation.')
-    RETURNING uuid INTO v_reading_id;
+Good dictionary users switch between both purposes. They use entries to understand a word in context and to produce a natural sentence later. A dictionary is more useful when you read the examples and labels, not only the first translation.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Aprovechar los diccionarios para comprender y producir', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Wörterbücher rezeptiv und produktiv nutzen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Diccionarios para comprender');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Rezeptiv und produktiv nutzen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 3770 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 3770 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3770, 'en', 'dialogue', 'tourism', '[{"name": "Marta", "gender": "female", "avatarURL": "https://example.com/avatars/marta.png"}, {"name": "Leo", "gender": "male", "avatarURL": "https://example.com/avatars/leo.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 3770, 'en', 'dialogue', 'tourism', '[{"name": "Marta", "gender": "female", "avatarURL": "https://example.com/avatars/marta.png"}, {"name": "Leo", "gender": "male", "avatarURL": "https://example.com/avatars/leo.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Habla sobre qué hacer en una ciudad', 'Practica una conversación simple para elegir entre museo, barco o concierto.'),
-        (v_dialogue_id, 'de', 'Sprich darüber, was man in einer Stadt machen kann', 'Übe ein einfaches Gespräch, um zwischen Museum, Bootstour oder Konzert zu wählen.');
+        (v_dialogue_id, 'es', 'Qué hacer en una ciudad'), (v_dialogue_id, 'de', 'Man in einer Stadt machen kann');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

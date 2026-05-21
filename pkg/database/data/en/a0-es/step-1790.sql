@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 1790 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 1790, 'en', 'listening', 'Compras y Transacciones', $transcript$
+    VALUES (
+    v_path_id,
+    1790,
+    'en',
+    'listening',
+    'shopping',
+    $transcript$
 # AUDIO PROFILE: A lively fruit-and-drink seller
 ## "Fresh Prices at the Market"
 
@@ -59,11 +65,11 @@ Learners hear how vendors repeat offers and short bargaining phrases.
 [calling out] Vendor: Big bottles of water! One bottle, one pound fifty! Two bottles, two pounds fifty!
 [customer] Customer: Two bags of oranges and one big water, please.
 [vendor] Vendor: Yes, of course.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'es', 'El vendedor canta los precios', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'de', 'Der Händler ruft die Preise', '');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'es', 'El vendedor canta los precios');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'de', 'Der Händler ruft die Preise');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

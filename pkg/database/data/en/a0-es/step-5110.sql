@@ -11,7 +11,7 @@ DECLARE
     v_exercises JSONB[] := ARRAY[
         '{"p": "El texto defiende que la biblioteca abra más tarde entre semana.", "p_de": "Der Text befürwortet längere Öffnungszeiten der Bibliothek unter der Woche.", "s": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "Muchos estudiantes trabajan durante el día.", "p_de": "Viele Studierende arbeiten tagsüber.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Los recursos en línea sustituyen totalmente la sala tranquila según el texto.", "p_de": "Laut Text ersetzen Online-Ressourcen den ruhigen Raum vollständig.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+        '{"p": "Los recursos en línea sustituyen totalmente la sala tranquila.", "p_de": "Online-Ressourcen ersetzen den ruhigen Raum vollständig.", "s": {"type": "true_false", "answer": false}}'::jsonb,
         '{"p": "El autor propone una prueba corta de lunes a jueves.", "p_de": "Der Autor schlägt einen kurzen Test von Montag bis Donnerstag vor.", "s": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "Los costes de seguridad serían limitados porque solo una planta seguiría abierta.", "p_de": "Die Sicherheitskosten wären begrenzt, weil nur ein Stockwerk offen bliebe.", "s": {"type": "true_false", "answer": true}}'::jsonb,
         '{"p": "La conclusión dice que solo los profesores usarían el horario tarde.", "p_de": "Der Schluss sagt, dass nur Lehrkräfte die späten Stunden nutzen würden.", "s": {"type": "true_false", "answer": false}}'::jsonb,
@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5110 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5110, 'en', 'reading', 'academic', 'Argument: The university library should stay open later on weekdays. Many students work during the day and need a quiet study space after dinner.
+    VALUES (
+    v_path_id,
+    5110,
+    'en',
+    'reading',
+    'academic',
+    'Argument: The university library should stay open later on weekdays. Many students work during the day and need a quiet study space after dinner.
 
 The writer says that online resources are useful, but they do not replace a calm room, printed books, and library staff. A short trial from Monday to Thursday could show if more evening hours are worth the cost.
 
-The argument also says that security costs would be limited because only one floor needs to stay open. In conclusion, later hours would support students with jobs and long commutes.')
-    RETURNING uuid INTO v_reading_id;
+The argument also says that security costs would be limited because only one floor needs to stay open. In conclusion, later hours would support students with jobs and long commutes.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Argumento académico sobre el horario de la biblioteca', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Akademisches Argument über Bibliothekszeiten', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Académico sobre el horario');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Akademisches Argument');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

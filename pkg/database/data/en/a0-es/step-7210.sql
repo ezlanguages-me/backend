@@ -32,14 +32,19 @@
             DELETE FROM reading WHERE step_order = 7210 AND path_uuid = v_path_id;
 
             INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-            VALUES (v_path_id, 7210, 'en', 'reading', 'communication', 'Dear Mr. Ruiz,\n\nThank you for your kind letter last week. I was pleased to hear about your new home in Seville. Your note about the garden and the quiet street sounded wonderful.\n\nMy family will visit Seville on 14 May. We plan to stay for two nights at the Central Hotel near the station. If you are free on Saturday afternoon, I would be happy to meet you for coffee.\n\nPlease give my best wishes to your wife, Elena. I still remember the lovely dinner at your house in March. Thank you again for your warm invitation.\n\nYours sincerely,
-Laura Martín')
-            RETURNING uuid INTO v_reading_id;
+            VALUES (
+    v_path_id,
+    7210,
+    'en',
+    'reading',
+    'communication',
+    'Dear Mr. Ruiz,\n\nThank you for your kind letter last week. I was pleased to hear about your new home in Seville. Your note about the garden and the quiet street sounded wonderful.\n\nMy family will visit Seville on 14 May. We plan to stay for two nights at the Central Hotel near the station. If you are free on Saturday afternoon, I would be happy to meet you for coffee.\n\nPlease give my best wishes to your wife, Elena. I still remember the lovely dinner at your house in March. Thank you again for your warm invitation.\n\nYours sincerely,
+Laura Martín'
+)RETURNING uuid INTO v_reading_id;
 
-            INSERT INTO reading_translation (reading_uuid, language, title, description)
+            INSERT INTO reading_translation (reading_uuid, language, title)
             VALUES
-                (v_reading_id, 'es', 'Lee una carta personal formal', 'Lee una carta personal educada y clara entre personas que se conocen bien pero mantienen un tono formal.'),
-                (v_reading_id, 'de', 'Lies einen formellen persönlichen Brief', 'Lies einen höflichen und klaren persönlichen Brief zwischen Menschen, die sich kennen, aber einen formellen Ton verwenden.');
+                (v_reading_id, 'es', 'Lee una carta personal formal'), (v_reading_id, 'de', 'Formellen persönlichen Brief');
 
             FOREACH ex IN ARRAY v_exercises LOOP
                 INSERT INTO exercise (target_uuid, grammar_rule_uuid)

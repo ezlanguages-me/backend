@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4490, 'en', 'reading', 'professional', $content$Dear Ms Alvarez,
+        VALUES (
+    v_path_id,
+    4490,
+    'en',
+    'reading',
+    'professional',
+    $content$Dear Ms Alvarez,
 
 Thank you for your order #4490. We are pleased to confirm your purchase of 20 office desks from Green Valley Suppliers. The desks are packed and ready for dispatch from our warehouse. Delivery has been booked for Tuesday 14 November, and our driver is expected to arrive between 9am and 12 noon.
 
@@ -54,13 +60,12 @@ As agreed, payment is due within 30 days from the invoice date. We appreciate yo
 
 Kind regards,
 Sales Administration
-Green Valley Suppliers$content$)
-        RETURNING uuid INTO v_reading_id;
+Green Valley Suppliers$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una carta de negocios rutinaria', 'Lee una carta comercial sobre un pedido, la entrega y las condiciones de pago.'),
-            (v_reading_id, 'de', 'Lies einen routinemäßigen Geschäftsbrief', 'Lies einen Geschäftsbrief über eine Bestellung, die Lieferung und die Zahlungsbedingungen.');
+            (v_reading_id, 'es', 'Carta de negocios rutinaria'), (v_reading_id, 'de', 'Routinemäßigen Geschäftsbrief');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

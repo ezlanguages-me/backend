@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2370 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2370, 'en', 'listening', 'Restauración', $transcript$
+    VALUES (
+    v_path_id,
+    2370,
+    'en',
+    'listening',
+    'dining',
+    $transcript$
 # AUDIO PROFILE: A cooking teacher
 ## "Words You Hear on Menus"
 
@@ -60,11 +66,11 @@ The explanation links each term to a simple restaurant dish.
 [teacher] Teacher: Creamy soup has milk or cream in it.
 [teacher] Teacher: Crispy onions are fried and hard, not soft.
 [teacher] Teacher: So, grilled shrimp and roasted vegetables are easy menu phrases to understand.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'es', 'Escuchar vocabulario culinario explicado', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'de', 'Erklärtes Küchenvokabular hören', '');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'es', 'Escuchar vocabulario culinario');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'de', 'Erklärtes Küchenvokabular');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

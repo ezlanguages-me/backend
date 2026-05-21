@@ -32,13 +32,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7610 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7610, 'en', 'reading', 'meetings', 'Argument structure. Main claim: the team should keep a short weekly client update. Reason one: a weekly update stops small issues from growing. Reason two: it gives the client a regular place to ask questions, which reduces long email chains. Evidence: during the last month, projects with a weekly update closed questions faster than projects without one.\n\nCounterargument: some team members say the update meeting takes too much time. Response: the meeting only lasts fifteen minutes, and it replaces many separate messages. Conclusion: the time cost is small, but the planning benefit is clear.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 7610, 'en', 'reading', 'meetings', 'Argument structure. Main claim: the team should keep a short weekly client update. Reason one: a weekly update stops small issues from growing. Reason two: it gives the client a regular place to ask questions, which reduces long email chains. Evidence: during the last month, projects with a weekly update closed questions faster than projects without one.\n\nCounterargument: some team members say the update meeting takes too much time. Response: the meeting only lasts fifteen minutes, and it replaces many separate messages. Conclusion: the time cost is small, but the planning benefit is clear.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee la estructura de un argumento', 'Lee un texto breve con afirmación principal, razones, evidencia, objeción y conclusión.'),
-        (v_reading_id, 'de', 'Lies die Struktur eines Arguments', 'Lies einen kurzen Text mit Hauptaussage, Gründen, Evidenz, Einwand und Schlussfolgerung.');
+        (v_reading_id, 'es', 'La estructura de un argumento'), (v_reading_id, 'de', 'Die Struktur eines Arguments');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

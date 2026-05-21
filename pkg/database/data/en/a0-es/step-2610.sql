@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2610 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2610, 'en', 'reading', 'health', 'Prescription for Ana Ruiz
+    VALUES (
+    v_path_id,
+    2610,
+    'en',
+    'reading',
+    'health',
+    'Prescription for Ana Ruiz
 
 Take one amoxicillin tablet in the morning and one at night after food for five days.
 
 For pain, take paracetamol every eight hours if needed. Do not drive if the tablets make you sleepy.
 
-Return to the clinic if you still have fever after two days. Symptoms today: sore throat, cough, headache.')
-    RETURNING uuid INTO v_reading_id;
+Return to the clinic if you still have fever after two days. Symptoms today: sore throat, cough, headache.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee una receta básica y síntomas', 'Lee una receta sencilla y reconoce síntomas básicos y recomendaciones escritas.'),
-        (v_reading_id, 'de', 'Lies ein einfaches Rezept und Symptome', 'Lies ein einfaches Rezept und erkenne grundlegende Symptome und schriftliche Hinweise.');
+        (v_reading_id, 'es', 'Una receta básica y síntomas'), (v_reading_id, 'de', 'Einfaches Rezept und Symptome');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

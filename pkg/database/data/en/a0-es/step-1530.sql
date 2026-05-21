@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 1530 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 1530, 'en', 'listening', 'financial', $transcript$
+        VALUES (
+    v_path_id,
+    1530,
+    'en',
+    'listening',
+    'financial',
+    $transcript$
 # AUDIO PROFILE: Bank teller
 ## "Deposit and Balance Check"
 
@@ -59,14 +65,14 @@ The recording helps with everyday bank counter tasks.
 [clear] After the deposit, your balance is eight hundred and forty euros.
 [helpful] Here is the receipt for the deposit.
 [polite] Please check the amount before you leave.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'es', 'Conversación bancaria rutinaria', 'Escucha una operación bancaria de rutina con ingreso, saldo y recibo.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'es', 'Conversación bancaria');
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'de', 'Routinegespräch in der Bank', 'Höre einen routinemäßigen Bankvorgang mit Einzahlung, Kontostand und Beleg.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'de', 'Routinegespräch in der Bank');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

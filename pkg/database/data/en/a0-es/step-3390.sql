@@ -32,20 +32,26 @@ BEGIN
     DELETE FROM reading WHERE step_order = 3390 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3390, 'en', 'reading', 'nature', $reading$Wildlife in Blue Lake Park
+    VALUES (
+    v_path_id,
+    3390,
+    'en',
+    'reading',
+    'nature',
+    $reading$Wildlife in Blue Lake Park
 
 Blue Lake Park has different habitats. Ducks and fish live in the lake. Frogs stay in the wet reeds near the water.
 
 Rabbits and foxes use the open grassland at the south gate. In the small forest, squirrels jump between the pine trees, and owls rest there at night.
 
-Please keep dogs on a lead near the bird area. The best time to see animals is early morning or just before sunset.$reading$)
-    RETURNING uuid INTO v_reading_id;
+Please keep dogs on a lead near the bird area. The best time to see animals is early morning or just before sunset.$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Leer sobre animales y hábitats', 'Lee un texto breve sobre animales, zonas del parque y hábitats naturales.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Leer sobre animales y hábitats');
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Über Tiere und Lebensräume lesen', 'Lies einen kurzen Text über Tiere, Parkbereiche und natürliche Lebensräume.');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Tiere und Lebensräume lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

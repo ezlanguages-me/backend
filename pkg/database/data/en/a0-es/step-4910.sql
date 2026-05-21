@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 4910 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 4910, 'en', 'reading', 'academic', 'Learning and Cities Conference - Tuesday Schedule. Registration opens at 9:00 in Hall A. The welcome introduction starts at 9:30 in the same hall.
+    VALUES (
+    v_path_id,
+    4910,
+    'en',
+    'reading',
+    'academic',
+    'Learning and Cities Conference - Tuesday Schedule. Registration opens at 9:00 in Hall A. The welcome introduction starts at 9:30 in the same hall.
 
 At 10:00, the keynote talk on urban mobility begins in Hall A. At 11:15, Workshop 2 on student housing starts in Room C. The coffee break is from 11:00 to 11:15 in the foyer.
 
-Lunch is at 12:30 in the cafeteria. The poster session opens at 2:00 p.m. in the library lobby, and the final panel discussion begins at 4:00 p.m. in Hall B.')
-    RETURNING uuid INTO v_reading_id;
+Lunch is at 12:30 in the cafeteria. The poster session opens at 2:00 p.m. in the library lobby, and the final panel discussion begins at 4:00 p.m. in Hall B.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Programa de una conferencia', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Konferenzprogramm', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Programa de una conferencia');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Konferenzprogramm');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9550,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Whole vs All', 'Cómo expresar totalidad con whole, all, all of y the whole of en estructuras correctas.', to_jsonb('# Whole vs All
+        (
+    v_grammar_id,
+    'es',
+    'Whole vs All',
+    to_jsonb('# Whole vs All
 
 **Whole** y **all** expresan totalidad, pero no se combinan con los mismos tipos de palabras.
 
@@ -63,8 +67,13 @@ No digas *whole students* ni *all whole day*. Elige la estructura según el tipo
 ### Consejo rápido
 - **whole** + singular noun
 - **all** + plural noun / time expression
-- **all of** + determiner o pronombre'::text)),
-        (v_grammar_id, 'de', 'Whole vs All', 'Wie man Ganzheit mit whole, all, all of und the whole of korrekt ausdrückt.', to_jsonb('# Whole vs All
+- **all of** + determiner o pronombre'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Whole vs All',
+    to_jsonb('# Whole vs All
 
 **Whole** und **all** drücken Ganzheit aus, aber sie werden nicht mit denselben Wortarten kombiniert.
 
@@ -105,7 +114,8 @@ Sag nicht *whole students* oder *all whole day*. Wähle die Struktur nach der Ar
 ### Schneller Tipp
 - **whole** + singular noun
 - **all** + plural noun / Zeitangabe
-- **all of** + Determinant oder Pronomen'::text));
+- **all of** + Determinant oder Pronomen'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -116,13 +126,13 @@ Sag nicht *whole students* oder *all whole day*. Wähle die Struktur nach der Ar
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I read the ___ book in one afternoon.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I read the ___ book in one afternoon.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I read the ___ book in one afternoon.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I read the ___ book in one afternoon.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I read the ___ book in one afternoon.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I read the ___ book in one afternoon.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I read the ___ book in one afternoon.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I read the ___ book in one afternoon.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -136,13 +146,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She spent the ___ day at the office.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She spent the ___ day at the office.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She spent the ___ day at the office.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She spent the ___ day at the office.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She spent the ___ day at the office.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She spent the ___ day at the office.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She spent the ___ day at the office.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She spent the ___ day at the office.', '{"type": "multiple_choice", "options": ["whole", "all", "all of"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -163,13 +173,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: ___ students must register before the deadline.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: ___ students must register before the deadline.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', '___ students must register before the deadline.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', '___ students must register before the deadline.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: ___ students must register before the deadline.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: ___ students must register before the deadline.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', '___ students must register before the deadline.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', '___ students must register before the deadline.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -183,13 +193,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He worked ___ day without a break.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He worked ___ day without a break.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He worked ___ day without a break.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He worked ___ day without a break.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He worked ___ day without a break.', '{"type": "multiple_choice", "options": ["all", "whole", "all of"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He worked ___ day without a break.', '{"type": "multiple_choice", "options": ["all", "whole", "all of"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He worked ___ day without a break.', '{"type": "multiple_choice", "options": ["all", "whole", "all of"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He worked ___ day without a break.', '{"type": "multiple_choice", "options": ["all", "whole", "all of"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -210,13 +220,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: ___ of the team attended the meeting.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: ___ of the team attended the meeting.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', '___ of the team attended the meeting.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', '___ of the team attended the meeting.', '{"type": "typing", "correct_answers": ["All"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: ___ of the team attended the meeting.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: ___ of the team attended the meeting.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', '___ of the team attended the meeting.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', '___ of the team attended the meeting.', '{"type": "multiple_choice", "options": ["All", "Whole", "The whole"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -230,13 +240,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: The whole ___ the building was evacuated.', '{"type": "typing", "correct_answers": ["of"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The whole ___ the building was evacuated.', '{"type": "typing", "correct_answers": ["of"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The whole ___ the building was evacuated.', '{"type": "typing", "correct_answers": ["of"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The whole ___ the building was evacuated.', '{"type": "typing", "correct_answers": ["of"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The whole ___ the building was evacuated.', '{"type": "multiple_choice", "options": ["of", "all", "in"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The whole ___ the building was evacuated.', '{"type": "multiple_choice", "options": ["of", "all", "in"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The whole ___ the building was evacuated.', '{"type": "multiple_choice", "options": ["of", "all", "in"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The whole ___ the building was evacuated.', '{"type": "multiple_choice", "options": ["of", "all", "in"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -257,13 +267,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I waited ___ day for an answer.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I waited ___ day for an answer.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I waited ___ day for an answer.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I waited ___ day for an answer.', '{"type": "typing", "correct_answers": ["all"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I waited ___ day for an answer.', '{"type": "multiple_choice", "options": ["all", "whole", "of"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I waited ___ day for an answer.', '{"type": "multiple_choice", "options": ["all", "whole", "of"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I waited ___ day for an answer.', '{"type": "multiple_choice", "options": ["all", "whole", "of"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I waited ___ day for an answer.', '{"type": "multiple_choice", "options": ["all", "whole", "of"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -277,13 +287,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She was on the phone the ___ morning.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She was on the phone the ___ morning.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She was on the phone the ___ morning.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She was on the phone the ___ morning.', '{"type": "typing", "correct_answers": ["whole"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She was on the phone the ___ morning.', '{"type": "multiple_choice", "options": ["whole", "all", "of"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She was on the phone the ___ morning.', '{"type": "multiple_choice", "options": ["whole", "all", "of"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She was on the phone the ___ morning.', '{"type": "multiple_choice", "options": ["whole", "all", "of"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She was on the phone the ___ morning.', '{"type": "multiple_choice", "options": ["whole", "all", "of"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4710, 'en', 'reading', 'professional', $content$IT HELP DESK – INCIDENT RESPONSE PROCEDURE
+        VALUES (
+    v_path_id,
+    4710,
+    'en',
+    'reading',
+    'professional',
+    $content$IT HELP DESK – INCIDENT RESPONSE PROCEDURE
 
 When a user reports an IT problem, the first step is to log the incident in the ServiceDesk system. The record must include the user name, date and time, a description of the issue and the urgency level: Low, Medium or High. The help desk must acknowledge the incident by email within 1 hour.
 
 Staff should attempt remote diagnosis before arranging any visit. If remote diagnosis fails, an on-site visit must be scheduled within 24 hours for Medium and High priority incidents. After resolving the issue, the technician updates the log and confirms the solution with the user.
 
-A ticket can only be closed after the user confirms that the problem has been resolved. SLA targets are 5 working days for Low, 2 working days for Medium and 4 hours for High priority issues.$content$)
-        RETURNING uuid INTO v_reading_id;
+A ticket can only be closed after the user confirms that the problem has been resolved. SLA targets are 5 working days for Low, 2 working days for Medium and 4 hours for High priority issues.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee el procedimiento del servicio de asistencia de TI', 'Lee un procedimiento del help desk con tiempos de respuesta y cierre de tickets.'),
-            (v_reading_id, 'de', 'Lies die IT-Helpdesk-Verfahrensanweisung', 'Lies ein Helpdesk-Verfahren mit Reaktionszeiten und Ticketabschluss.');
+            (v_reading_id, 'es', 'Servicio de asistencia de TI'), (v_reading_id, 'de', 'Verfahrensanweisung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

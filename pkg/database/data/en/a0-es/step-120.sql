@@ -20,12 +20,12 @@ DECLARE
         -- REGLA 1: Genitivo Sajón vs Of (25 Ejercicios)
         -- ==========================================
         -- Typing (6)
-        '{"r":1, "p":"Traduce: El coche de Jennifer", "p_de":"Übersetze: Jennifers Auto", "s":{"type":"typing","correct_answers":["Jennifer''s car"],"case_sensitive":false}}'::jsonb,
-        '{"r":1, "p":"Traduce: La pata del gato", "p_de":"Übersetze: Das Bein der Katze", "s":{"type":"typing","correct_answers":["The cat''s leg"],"case_sensitive":false}}'::jsonb,
-        '{"r":1, "p":"Traduce: La pata de la mesa", "p_de":"Übersetze: The leg of the table", "s":{"type":"typing","correct_answers":["The leg of the table"],"case_sensitive":false}}'::jsonb,
-        '{"r":1, "p":"Traduce: Los días de la semana", "p_de":"Übersetze: The days of the week", "s":{"type":"typing","correct_answers":["The days of the week"],"case_sensitive":false}}'::jsonb,
-        '{"r":1, "p":"Traduce usando genitivo sajón: El coche de Peter", "p_de":"Übersetze mit Genitiv-s: Peters Auto", "s":{"type":"typing","correct_answers":["Peter''s car"],"case_sensitive":false}}'::jsonb,
-        '{"r":1, "p":"Traduce usando of: La puerta de la casa", "p_de":"Übersetze mit of: The door of the house", "s":{"type":"typing","correct_answers":["The door of the house"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"El coche de Jennifer", "p_de":"Jennifers Auto", "s":{"type":"typing","correct_answers":["Jennifer''s car"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"La pata del gato", "p_de":"Das Bein der Katze", "s":{"type":"typing","correct_answers":["The cat''s leg"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"La pata de la mesa", "p_de":"The leg of the table", "s":{"type":"typing","correct_answers":["The leg of the table"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"Los días de la semana", "p_de":"The days of the week", "s":{"type":"typing","correct_answers":["The days of the week"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"El coche de Peter", "p_de":"Peters Auto", "s":{"type":"typing","correct_answers":["Peter''s car"],"case_sensitive":false}}'::jsonb,
+        '{"r":1, "p":"La puerta de la casa", "p_de":"The door of the house", "s":{"type":"typing","correct_answers":["The door of the house"],"case_sensitive":false}}'::jsonb,
         -- Multiple Choice (7)
         '{"r":1, "p":"Para expresar posesión de personas y seres animados usamos:", "p_de":"Um Besitz von Personen und Lebewesen auszudrücken, verwenden wir:", "s":{"type":"multiple_choice","options":["Genitivo sajón (''s)","Of","From"],"answer":0}}'::jsonb,
         '{"r":1, "p":"Para expresar posesión de objetos y seres inanimados usamos:", "p_de":"Um Besitz von Objekten und leblosen Dingen auszudrücken, verwenden wir:", "s":{"type":"multiple_choice","options":["Of","Genitivo sajón (''s)","Whose"],"answer":0}}'::jsonb,
@@ -42,23 +42,23 @@ DECLARE
         '{"r":1, "p":"''Jennifer''s car'' significa literalmente el coche de Jennifer.", "p_de":"''Jennifer''s car'' bedeutet wörtlich Jennifers Auto.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":1, "p":"''The leg of the table'' expresa la pertenencia de un objeto inanimado.", "p_de":"''The leg of the table'' drückt die Zugehörigkeit eines leblosen Objekts aus.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (6)
-        '{"r":1, "p":"Ordena: El coche de Jennifer.", "p_de":"Ordne: Jennifers Auto.", "s":{"type":"scramble","chunks":["car", "Jennifer''s"],"correct_order":[1, 0]}}'::jsonb,
-        '{"r":1, "p":"Ordena: La pata del gato.", "p_de":"Ordne: Das Bein der Katze.", "s":{"type":"scramble","chunks":["leg", "cat''s", "The"],"correct_order":[2, 1, 0]}}'::jsonb,
-        '{"r":1, "p":"Ordena: La pata de la mesa.", "p_de":"Ordne: The leg of the table.", "s":{"type":"scramble","chunks":["of", "the table", "The leg"],"correct_order":[2, 0, 1]}}'::jsonb,
-        '{"r":1, "p":"Ordena: Los días de la semana.", "p_de":"Ordne: The days of the week.", "s":{"type":"scramble","chunks":["of", "the week", "The days"],"correct_order":[2, 0, 1]}}'::jsonb,
-        '{"r":1, "p":"Ordena: El coche del perro.", "p_de":"Ordne: Das Auto des Hundes.", "s":{"type":"scramble","chunks":["dog''s", "The", "car"],"correct_order":[1, 0, 2]}}'::jsonb,
-        '{"r":1, "p":"Ordena: El techo del coche.", "p_de":"Ordne: The roof of the car.", "s":{"type":"scramble","chunks":["of", "the car", "The roof"],"correct_order":[2, 0, 1]}}'::jsonb,
+        '{"r":1, "p":"El coche de Jennifer.", "p_de":"Jennifers Auto.", "s":{"type":"scramble","chunks":["car", "Jennifer''s", "from", "the"],"correct_order":[1, 0]}}'::jsonb,
+        '{"r":1, "p":"La pata del gato.", "p_de":"Das Bein der Katze.", "s":{"type":"scramble","chunks":["leg", "cat''s", "The", "of", "a"],"correct_order":[2, 1, 0]}}'::jsonb,
+        '{"r":1, "p":"La pata de la mesa.", "p_de":"The leg of the table.", "s":{"type":"scramble","chunks":["of", "the table", "The leg", "''s", "a"],"correct_order":[2, 0, 1]}}'::jsonb,
+        '{"r":1, "p":"Los días de la semana.", "p_de":"The days of the week.", "s":{"type":"scramble","chunks":["of", "the week", "The days", "from", "''s"],"correct_order":[2, 0, 1]}}'::jsonb,
+        '{"r":1, "p":"El coche del perro.", "p_de":"Das Auto des Hundes.", "s":{"type":"scramble","chunks":["dog''s", "The", "car", "of", "a"],"correct_order":[1, 0, 2]}}'::jsonb,
+        '{"r":1, "p":"El techo del coche.", "p_de":"The roof of the car.", "s":{"type":"scramble","chunks":["of", "the car", "The roof", "''s", "from"],"correct_order":[2, 0, 1]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 2: From (Origen) (25 Ejercicios)
         -- ==========================================
         -- Typing (6)
-        '{"r":2, "p":"Traduce: Ella es de París", "p_de":"Übersetze: Sie kommt aus Paris", "s":{"type":"typing","correct_answers":["She is from Paris"],"case_sensitive":false}}'::jsonb,
-        '{"r":2, "p":"Traduce: Manzanas de Londres", "p_de":"Übersetze: Äpfel aus London", "s":{"type":"typing","correct_answers":["Apples from London"],"case_sensitive":false}}'::jsonb,
-        '{"r":2, "p":"Traduce: Yo soy de España", "p_de":"Übersetze: Ich komme aus Spanien", "s":{"type":"typing","correct_answers":["I am from Spain"],"case_sensitive":false}}'::jsonb,
-        '{"r":2, "p":"Traduce: Naranjas de Nueva York", "p_de":"Übersetze: Orangen aus New York", "s":{"type":"typing","correct_answers":["Oranges from New York"],"case_sensitive":false}}'::jsonb,
-        '{"r":2, "p":"Traduce: Él es de México", "p_de":"Übersetze: Er kommt aus Mexiko", "s":{"type":"typing","correct_answers":["He is from Mexico"],"case_sensitive":false}}'::jsonb,
-        '{"r":2, "p":"Traduce: ¿Eres de aquí?", "p_de":"Übersetze: Bist du von hier?", "s":{"type":"typing","correct_answers":["Are you from here?"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"Ella es de París", "p_de":"Sie kommt aus Paris", "s":{"type":"typing","correct_answers":["She is from Paris"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"Manzanas de Londres", "p_de":"Äpfel aus London", "s":{"type":"typing","correct_answers":["Apples from London"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"Yo soy de España", "p_de":"Ich komme aus Spanien", "s":{"type":"typing","correct_answers":["I am from Spain"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"Naranjas de Nueva York", "p_de":"Orangen aus New York", "s":{"type":"typing","correct_answers":["Oranges from New York"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"Él es de México", "p_de":"Er kommt aus Mexiko", "s":{"type":"typing","correct_answers":["He is from Mexico"],"case_sensitive":false}}'::jsonb,
+        '{"r":2, "p":"¿Eres de aquí?", "p_de":"Bist du von hier?", "s":{"type":"typing","correct_answers":["Are you from here?"],"case_sensitive":false}}'::jsonb,
         -- Multiple Choice (7)
         '{"r":2, "p":"¿Qué preposición expresa pertenencia de origen (ser de un lugar)?", "p_de":"Welche Präposition drückt Herkunft aus (aus einem Ort sein)?", "s":{"type":"multiple_choice","options":["From","Of","''s"],"answer":0}}'::jsonb,
         '{"r":2, "p":"''Ella es de París'' se dice:", "p_de":"''Sie kommt aus Paris'' heißt auf Englisch:", "s":{"type":"multiple_choice","options":["She is from Paris","She is of Paris","Paris''s she"],"answer":0}}'::jsonb,
@@ -75,23 +75,23 @@ DECLARE
         '{"r":2, "p":"''From'' puede expresar pertenencia de origen de una persona a un lugar.", "p_de":"''From'' kann die Herkunft einer Person aus einem Ort ausdrücken.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":2, "p":"Decir ''The days from the week'' es correcto.", "p_de":"''The days from the week'' zu sagen ist korrekt.", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble (6)
-        '{"r":2, "p":"Ordena: Ella es de París.", "p_de":"Ordne: Sie kommt aus Paris.", "s":{"type":"scramble","chunks":["is", "from", "Paris", "She"],"correct_order":[3, 0, 1, 2]}}'::jsonb,
-        '{"r":2, "p":"Ordena: Manzanas de Londres.", "p_de":"Ordne: Äpfel aus London.", "s":{"type":"scramble","chunks":["from", "Apples", "London"],"correct_order":[1, 0, 2]}}'::jsonb,
-        '{"r":2, "p":"Ordena: Él es de Madrid.", "p_de":"Ordne: Er kommt aus Madrid.", "s":{"type":"scramble","chunks":["He", "Madrid", "from", "is"],"correct_order":[0, 3, 2, 1]}}'::jsonb,
-        '{"r":2, "p":"Ordena: Somos de Italia.", "p_de":"Ordne: Wir kommen aus Italien.", "s":{"type":"scramble","chunks":["We", "from", "Italy", "are"],"correct_order":[0, 3, 1, 2]}}'::jsonb,
-        '{"r":2, "p":"Ordena: ¿De dónde eres?", "p_de":"Ordne: Woher kommst du?", "s":{"type":"scramble","chunks":["you", "are", "from?", "Where"],"correct_order":[3, 1, 0, 2]}}'::jsonb,
-        '{"r":2, "p":"Ordena: Coches de Alemania.", "p_de":"Ordne: Autos aus Deutschland.", "s":{"type":"scramble","chunks":["Cars", "Germany", "from"],"correct_order":[0, 2, 1]}}'::jsonb,
+        '{"r":2, "p":"Ella es de París.", "p_de":"Sie kommt aus Paris.", "s":{"type":"scramble","chunks":["is", "from", "Paris", "She", "of", "in"],"correct_order":[3, 0, 1, 2]}}'::jsonb,
+        '{"r":2, "p":"Manzanas de Londres.", "p_de":"Äpfel aus London.", "s":{"type":"scramble","chunks":["from", "Apples", "London", "of", "are"],"correct_order":[1, 0, 2]}}'::jsonb,
+        '{"r":2, "p":"Él es de Madrid.", "p_de":"Er kommt aus Madrid.", "s":{"type":"scramble","chunks":["He", "Madrid", "from", "is", "of", "in"],"correct_order":[0, 3, 2, 1]}}'::jsonb,
+        '{"r":2, "p":"Somos de Italia.", "p_de":"Wir kommen aus Italien.", "s":{"type":"scramble","chunks":["We", "from", "Italy", "are", "is", "of"],"correct_order":[0, 3, 1, 2]}}'::jsonb,
+        '{"r":2, "p":"¿De dónde eres?", "p_de":"Woher kommst du?", "s":{"type":"scramble","chunks":["you", "are", "from?", "Where", "is", "Who"],"correct_order":[3, 1, 0, 2]}}'::jsonb,
+        '{"r":2, "p":"Coches de Alemania.", "p_de":"Autos aus Deutschland.", "s":{"type":"scramble","chunks":["Cars", "Germany", "from", "of", "are"],"correct_order":[0, 2, 1]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 3: Whose (¿De quién?) (25 Ejercicios)
         -- ==========================================
         -- Typing (6)
-        '{"r":3, "p":"Traduce: ¿De quién es este abrigo?", "p_de":"Übersetze: Wessen Mantel ist das?", "s":{"type":"typing","correct_answers":["Whose coat is it?"],"case_sensitive":false}}'::jsonb,
-        '{"r":3, "p":"Traduce: ¿De quiénes son ellos hijos?", "p_de":"Übersetze: Wessen Kinder sind das?", "s":{"type":"typing","correct_answers":["Whose children are they?"],"case_sensitive":false}}'::jsonb,
-        '{"r":3, "p":"Traduce: ¿De quién es el coche?", "p_de":"Übersetze: Wessen Auto ist das?", "s":{"type":"typing","correct_answers":["Whose car is it?"],"case_sensitive":false}}'::jsonb,
-        '{"r":3, "p":"Traduce: ¿De quién es el perro?", "p_de":"Übersetze: Wessen Hund ist das?", "s":{"type":"typing","correct_answers":["Whose dog is it?"],"case_sensitive":false}}'::jsonb,
-        '{"r":3, "p":"Traduce: ¿De quién es este libro?", "p_de":"Übersetze: Wessen Buch ist das?", "s":{"type":"typing","correct_answers":["Whose book is this?"],"case_sensitive":false}}'::jsonb,
-        '{"r":3, "p":"Traduce: ¿De quién es el gato?", "p_de":"Übersetze: Wessen Katze ist das?", "s":{"type":"typing","correct_answers":["Whose cat is it?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quién es este abrigo?", "p_de":"Wessen Mantel ist das?", "s":{"type":"typing","correct_answers":["Whose coat is it?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quiénes son ellos hijos?", "p_de":"Wessen Kinder sind das?", "s":{"type":"typing","correct_answers":["Whose children are they?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el coche?", "p_de":"Wessen Auto ist das?", "s":{"type":"typing","correct_answers":["Whose car is it?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el perro?", "p_de":"Wessen Hund ist das?", "s":{"type":"typing","correct_answers":["Whose dog is it?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quién es este libro?", "p_de":"Wessen Buch ist das?", "s":{"type":"typing","correct_answers":["Whose book is this?"],"case_sensitive":false}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el gato?", "p_de":"Wessen Katze ist das?", "s":{"type":"typing","correct_answers":["Whose cat is it?"],"case_sensitive":false}}'::jsonb,
         -- Multiple Choice (7)
         '{"r":3, "p":"¿Qué significa ''Whose''?", "p_de":"Was bedeutet ''Whose''?", "s":{"type":"multiple_choice","options":["De quién / De quiénes","Dónde","Cuándo"],"answer":0}}'::jsonb,
         '{"r":3, "p":"''Whose coat is it?'' significa:", "p_de":"''Whose coat is it?'' bedeutet:", "s":{"type":"multiple_choice","options":["¿De quién es este abrigo?","¿Dónde está el abrigo?","¿Qué abrigo es?"],"answer":0}}'::jsonb,
@@ -108,23 +108,23 @@ DECLARE
         '{"r":3, "p":"''Whose'' se coloca normalmente al principio de la pregunta de posesión.", "p_de":"''Whose'' steht normalerweise am Anfang einer Besitzfrage.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":3, "p":"''Whose'' se usa para afirmar algo, nunca para hacer preguntas.", "p_de":"''Whose'' wird verwendet, um etwas zu behaupten, nie für Fragen.", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble (6)
-        '{"r":3, "p":"Ordena: ¿De quién es este abrigo?", "p_de":"Ordne: Wessen Mantel ist das?", "s":{"type":"scramble","chunks":["coat", "is it?", "Whose"],"correct_order":[2, 0, 1]}}'::jsonb,
-        '{"r":3, "p":"Ordena: ¿De quiénes son ellos hijos?", "p_de":"Ordne: Wessen Kinder sind das?", "s":{"type":"scramble","chunks":["are they?", "Whose", "children"],"correct_order":[1, 2, 0]}}'::jsonb,
-        '{"r":3, "p":"Ordena: ¿De quién es el gato?", "p_de":"Ordne: Wessen Katze ist das?", "s":{"type":"scramble","chunks":["is it?", "cat", "Whose"],"correct_order":[2, 1, 0]}}'::jsonb,
-        '{"r":3, "p":"Ordena: ¿De quién es el coche?", "p_de":"Ordne: Wessen Auto ist das?", "s":{"type":"scramble","chunks":["is it?", "car", "Whose"],"correct_order":[2, 1, 0]}}'::jsonb,
-        '{"r":3, "p":"Ordena: ¿De quién es la casa?", "p_de":"Ordne: Wessen Haus ist das?", "s":{"type":"scramble","chunks":["Whose", "is it?", "house"],"correct_order":[0, 2, 1]}}'::jsonb,
-        '{"r":3, "p":"Ordena: ¿De quién es el teléfono?", "p_de":"Ordne: Wessen Telefon ist das?", "s":{"type":"scramble","chunks":["is it?", "phone", "Whose"],"correct_order":[2, 1, 0]}}'::jsonb,
+        '{"r":3, "p":"¿De quién es este abrigo?", "p_de":"Wessen Mantel ist das?", "s":{"type":"scramble","chunks":["coat", "is it?", "Whose", "Who''s", "jacket"],"correct_order":[2, 0, 1]}}'::jsonb,
+        '{"r":3, "p":"¿De quiénes son ellos hijos?", "p_de":"Wessen Kinder sind das?", "s":{"type":"scramble","chunks":["are they?", "Whose", "children", "Who''s", "kids"],"correct_order":[1, 2, 0]}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el gato?", "p_de":"Wessen Katze ist das?", "s":{"type":"scramble","chunks":["is it?", "cat", "Whose", "Who''s", "dog"],"correct_order":[2, 1, 0]}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el coche?", "p_de":"Wessen Auto ist das?", "s":{"type":"scramble","chunks":["is it?", "car", "Whose", "Who''s", "bike"],"correct_order":[2, 1, 0]}}'::jsonb,
+        '{"r":3, "p":"¿De quién es la casa?", "p_de":"Wessen Haus ist das?", "s":{"type":"scramble","chunks":["Whose", "is it?", "house", "Who''s", "home"],"correct_order":[0, 2, 1]}}'::jsonb,
+        '{"r":3, "p":"¿De quién es el teléfono?", "p_de":"Wessen Telefon ist das?", "s":{"type":"scramble","chunks":["is it?", "phone", "Whose", "Who''s", "bag"],"correct_order":[2, 1, 0]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 4: To Have (Verbo Tener - US Style) (25 Ejercicios)
         -- ==========================================
         -- Typing (6)
-        '{"r":4, "p":"Traduce: Yo tengo un coche", "p_de":"Übersetze: Ich habe ein Auto", "s":{"type":"typing","correct_answers":["I have a car"],"case_sensitive":false}}'::jsonb,
-        '{"r":4, "p":"Traduce: Ella tiene un perro", "p_de":"Übersetze: Sie hat einen Hund", "s":{"type":"typing","correct_answers":["She has a dog"],"case_sensitive":false}}'::jsonb,
-        '{"r":4, "p":"Traduce: Él no tiene un gato", "p_de":"Übersetze: Er hat keine Katze", "s":{"type":"typing","correct_answers":["He doesn''t have a cat","He does not have a cat"],"case_sensitive":false}}'::jsonb,
-        '{"r":4, "p":"Traduce: Nosotros no tenemos tiempo", "p_de":"Übersetze: Wir haben keine Zeit", "s":{"type":"typing","correct_answers":["We don''t have time","We do not have time"],"case_sensitive":false}}'::jsonb,
-        '{"r":4, "p":"Traduce: ¿Tienes un coche?", "p_de":"Übersetze: Hast du ein Auto?", "s":{"type":"typing","correct_answers":["Do you have a car?"],"case_sensitive":false}}'::jsonb,
-        '{"r":4, "p":"Traduce: ¿Tiene ella un hermano?", "p_de":"Übersetze: Hat sie einen Bruder?", "s":{"type":"typing","correct_answers":["Does she have a brother?"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"Yo tengo un coche", "p_de":"Ich habe ein Auto", "s":{"type":"typing","correct_answers":["I have a car"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"Ella tiene un perro", "p_de":"Sie hat einen Hund", "s":{"type":"typing","correct_answers":["She has a dog"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"Él no tiene un gato", "p_de":"Er hat keine Katze", "s":{"type":"typing","correct_answers":["He doesn''t have a cat","He does not have a cat"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"Nosotros no tenemos tiempo", "p_de":"Wir haben keine Zeit", "s":{"type":"typing","correct_answers":["We don''t have time","We do not have time"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"¿Tienes un coche?", "p_de":"Hast du ein Auto?", "s":{"type":"typing","correct_answers":["Do you have a car?"],"case_sensitive":false}}'::jsonb,
+        '{"r":4, "p":"¿Tiene ella un hermano?", "p_de":"Hat sie einen Bruder?", "s":{"type":"typing","correct_answers":["Does she have a brother?"],"case_sensitive":false}}'::jsonb,
         -- Multiple Choice (7)
         '{"r":4, "p":"Para indicar posesión con el verbo tener en inglés usamos:", "p_de":"Um Besitz mit dem Verb ''haben'' auf Englisch auszudrücken, verwenden wir:", "s":{"type":"multiple_choice","options":["To have","To be","To do"],"answer":0}}'::jsonb,
         '{"r":4, "p":"''Ella tiene una casa'' se dice:", "p_de":"''Sie hat ein Haus'' heißt auf Englisch:", "s":{"type":"multiple_choice","options":["She has a house","She have a house","She haves a house"],"answer":0}}'::jsonb,
@@ -141,22 +141,22 @@ DECLARE
         '{"r":4, "p":"''I don''t have a dog'' significa ''No tengo un perro''.", "p_de":"''I don''t have a dog'' bedeutet ''Ich habe keinen Hund''.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":4, "p":"''Have you a house?'' es la estructura correcta para preguntar en Estados Unidos.", "p_de":"''Have you a house?'' ist die richtige Fragestruktur in den USA.", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble (6)
-        '{"r":4, "p":"Ordena: ¿Tienes un coche?", "p_de":"Ordne: Hast du ein Auto?", "s":{"type":"scramble","chunks":["have", "a car?", "you", "Do"],"correct_order":[3, 2, 0, 1]}}'::jsonb,
-        '{"r":4, "p":"Ordena: Yo tengo un perro.", "p_de":"Ordne: Ich habe einen Hund.", "s":{"type":"scramble","chunks":["have", "I", "a dog"],"correct_order":[1, 0, 2]}}'::jsonb,
-        '{"r":4, "p":"Ordena: Ella tiene una casa.", "p_de":"Ordne: Sie hat ein Haus.", "s":{"type":"scramble","chunks":["has", "She", "a house"],"correct_order":[1, 0, 2]}}'::jsonb,
-        '{"r":4, "p":"Ordena: No tengo tiempo.", "p_de":"Ordne: Ich habe keine Zeit.", "s":{"type":"scramble","chunks":["don''t", "time", "have", "I"],"correct_order":[3, 0, 2, 1]}}'::jsonb,
-        '{"r":4, "p":"Ordena: Él no tiene dinero.", "p_de":"Ordne: Er hat kein Geld.", "s":{"type":"scramble","chunks":["doesn''t", "money", "He", "have"],"correct_order":[2, 0, 3, 1]}}'::jsonb,
-        '{"r":4, "p":"Ordena: ¿Tienen ellos hijos?", "p_de":"Ordne: Haben sie Kinder?", "s":{"type":"scramble","chunks":["children?", "have", "they", "Do"],"correct_order":[3, 2, 1, 0]}}'::jsonb,
+        '{"r":4, "p":"¿Tienes un coche?", "p_de":"Hast du ein Auto?", "s":{"type":"scramble","chunks":["have", "a car?", "you", "Do", "are", "a bike?"],"correct_order":[3, 2, 0, 1]}}'::jsonb,
+        '{"r":4, "p":"Yo tengo un perro.", "p_de":"Ich habe einen Hund.", "s":{"type":"scramble","chunks":["have", "I", "a dog", "has", "a cat"],"correct_order":[1, 0, 2]}}'::jsonb,
+        '{"r":4, "p":"Ella tiene una casa.", "p_de":"Sie hat ein Haus.", "s":{"type":"scramble","chunks":["has", "She", "a house", "have", "a car"],"correct_order":[1, 0, 2]}}'::jsonb,
+        '{"r":4, "p":"No tengo tiempo.", "p_de":"Ich habe keine Zeit.", "s":{"type":"scramble","chunks":["don''t", "time", "have", "I", "doesn''t", "money"],"correct_order":[3, 0, 2, 1]}}'::jsonb,
+        '{"r":4, "p":"Él no tiene dinero.", "p_de":"Er hat kein Geld.", "s":{"type":"scramble","chunks":["doesn''t", "money", "He", "have", "don''t", "time"],"correct_order":[2, 0, 3, 1]}}'::jsonb,
+        '{"r":4, "p":"¿Tienen ellos hijos?", "p_de":"Haben sie Kinder?", "s":{"type":"scramble","chunks":["children?", "have", "they", "Do", "does", "a car?"],"correct_order":[3, 2, 1, 0]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 5: Genitivo Sajón Plural (s')
         -- ==========================================
         -- Typing (5)
-        '{"r":5, "p":"Traduce: Los huesos de los perros", "p_de":"Übersetze: Die Knochen der Hunde", "s":{"type":"typing","correct_answers":["The dogs'' bones"],"case_sensitive":false}}'::jsonb,
-        '{"r":5, "p":"Traduce: La sala de los profesores", "p_de":"Übersetze: Das Lehrerzimmer", "s":{"type":"typing","correct_answers":["The teachers'' room"],"case_sensitive":false}}'::jsonb,
-        '{"r":5, "p":"Traduce: Las chaquetas de las chicas", "p_de":"Übersetze: Die Jacken der Mädchen", "s":{"type":"typing","correct_answers":["The girls'' jackets"],"case_sensitive":false}}'::jsonb,
-        '{"r":5, "p":"Traduce: Los juguetes de los ninos (boys)", "p_de":"Übersetze: Das Spielzeug der Jungen", "s":{"type":"typing","correct_answers":["The boys'' toys"],"case_sensitive":false}}'::jsonb,
-        '{"r":5, "p":"Traduce: El vestuario de los jugadores", "p_de":"Übersetze: Der Umkleideraum der Spieler", "s":{"type":"typing","correct_answers":["The players'' locker room"],"case_sensitive":false}}'::jsonb,
+        '{"r":5, "p":"Los huesos de los perros", "p_de":"Die Knochen der Hunde", "s":{"type":"typing","correct_answers":["The dogs'' bones"],"case_sensitive":false}}'::jsonb,
+        '{"r":5, "p":"La sala de los profesores", "p_de":"Das Lehrerzimmer", "s":{"type":"typing","correct_answers":["The teachers'' room"],"case_sensitive":false}}'::jsonb,
+        '{"r":5, "p":"Las chaquetas de las chicas", "p_de":"Die Jacken der Mädchen", "s":{"type":"typing","correct_answers":["The girls'' jackets"],"case_sensitive":false}}'::jsonb,
+        '{"r":5, "p":"Los juguetes de los ninos (boys)", "p_de":"Das Spielzeug der Jungen", "s":{"type":"typing","correct_answers":["The boys'' toys"],"case_sensitive":false}}'::jsonb,
+        '{"r":5, "p":"El vestuario de los jugadores", "p_de":"Der Umkleideraum der Spieler", "s":{"type":"typing","correct_answers":["The players'' locker room"],"case_sensitive":false}}'::jsonb,
         -- Multiple Choice (5)
         '{"r":5, "p":"Como se dice los huesos de los perros?", "p_de":"Wie sagt man ''die Knochen der Hunde'' auf Englisch?", "s":{"type":"multiple_choice","options":["The dogs'' bones","The dogs''s bones","The dog''s bones"],"answer":0}}'::jsonb,
         '{"r":5, "p":"Cuando el poseedor es un sustantivo plural que ya acaba en ''s'', el genitivo sajon se forma:", "p_de":"Wenn der Besitzer ein Substantiv im Plural ist, das bereits auf ''s'' endet, wird das Genitiv-s gebildet durch:", "s":{"type":"multiple_choice","options":["Solo anadiendo apostrofe (s'')","Anadiendo '' + s (''s)","Sin cambio ninguno"],"answer":0}}'::jsonb,
@@ -170,11 +170,11 @@ DECLARE
         '{"r":5, "p":"Para el plural, el genitivo sajon se forma igual que para el singular (anadiendo ''s).", "p_de":"Für den Plural wird das Genitiv-s genauso wie für den Singular gebildet (durch Hinzufügen von ''s).", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":5, "p":"My parents'' car es la forma correcta de decir el coche de mis padres.", "p_de":"''My parents'' car'' ist die korrekte Art zu sagen ''das Auto meiner Eltern''.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (5)
-        '{"r":5, "p":"Ordena: Los libros de los estudiantes.", "p_de":"Ordne: Die Bücher der Schüler.", "s":{"type":"scramble","chunks":["books","students''","The"],"correct_order":[2,1,0]}}'::jsonb,
-        '{"r":5, "p":"Ordena: La sala de los profesores.", "p_de":"Ordne: Das Lehrerzimmer.", "s":{"type":"scramble","chunks":["teachers''","room","The"],"correct_order":[2,0,1]}}'::jsonb,
-        '{"r":5, "p":"Ordena: Los juguetes de los ninos.", "p_de":"Ordne: Das Spielzeug der Jungen.", "s":{"type":"scramble","chunks":["toys","The","boys''"],"correct_order":[1,2,0]}}'::jsonb,
-        '{"r":5, "p":"Ordena: Los abrigos de las chicas.", "p_de":"Ordne: Die Mäntel der Mädchen.", "s":{"type":"scramble","chunks":["The","coats","girls''"],"correct_order":[0,2,1]}}'::jsonb,
-        '{"r":5, "p":"Ordena: La casa de mis padres.", "p_de":"Ordne: Das Haus meiner Eltern.", "s":{"type":"scramble","chunks":["house","parents''","My"],"correct_order":[2,1,0]}}'::jsonb
+        '{"r":5, "p":"Los libros de los estudiantes.", "p_de":"Die Bücher der Schüler.", "s":{"type":"scramble","chunks":["books","students''","The","of","students''s"],"correct_order":[2,1,0]}}'::jsonb,
+        '{"r":5, "p":"La sala de los profesores.", "p_de":"Das Lehrerzimmer.", "s":{"type":"scramble","chunks":["teachers''","room","The","of","teacher''s"],"correct_order":[2,0,1]}}'::jsonb,
+        '{"r":5, "p":"Los juguetes de los ninos.", "p_de":"Das Spielzeug der Jungen.", "s":{"type":"scramble","chunks":["toys","The","boys''","of","boy''s"],"correct_order":[1,2,0]}}'::jsonb,
+        '{"r":5, "p":"Los abrigos de las chicas.", "p_de":"Die Mäntel der Mädchen.", "s":{"type":"scramble","chunks":["The","coats","girls''","of","girl''s"],"correct_order":[0,2,1]}}'::jsonb,
+        '{"r":5, "p":"La casa de mis padres.", "p_de":"Das Haus meiner Eltern.", "s":{"type":"scramble","chunks":["house","parents''","My","of","parent''s"],"correct_order":[2,1,0]}}'::jsonb
     ];
 
 BEGIN
@@ -187,12 +187,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 120, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar_id, 
-    'es', 
-    'Expresando Posesión', 
-    '', 
+    v_grammar_id,
+    'es',
+    'Expresando Posesión',
     to_jsonb('## Expresando Posesión
 En inglés existen diferentes formas de expresar que algo pertenece a alguien o a algo. La elección depende de si el poseedor es una persona, un lugar o un objeto inanimado.
 
@@ -232,12 +231,11 @@ Cuando el **poseedor es plural** y ya termina en "s", solo añadimos el apóstro
 *   ⚠️ No confundir: *the dog''s bone* (singular) vs *the dogs'' bones* (plural).'::text)
 );
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar_id, 
-    'de', 
-    'Besitz ausdrücken', 
-    '', 
+    v_grammar_id,
+    'de',
+    'Besitz ausdrücken',
     to_jsonb('## Besitz ausdrücken
 Im Englischen gibt es verschiedene Wege, auszudrücken, dass etwas jemandem oder etwas gehört. Die Wahl hängt davon ab, ob der Besitzer eine Person, ein Ort oder ein lebloses Objekt ist.
 

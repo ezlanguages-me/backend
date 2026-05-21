@@ -32,7 +32,13 @@
         DELETE FROM listening WHERE step_order = 1330 AND path_uuid = v_path_id;
 
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 1330, 'en', 'listening', 'postal', $transcript$
+        VALUES (
+    v_path_id,
+    1330,
+    'en',
+    'listening',
+    'postal',
+    $transcript$
 # AUDIO PROFILE: Post office clerk
 ## "Sending a Small Parcel"
 
@@ -60,14 +66,14 @@ The focus is on weight, price, form, and receipt details.
 [reassuring] The parcel usually arrives in five working days.
 [organized] Here is your receipt with the tracking number.
 [polite] Keep the receipt, please.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'es', 'Preguntar por el envío de un paquete', 'Escucha a un empleado de correos explicar el proceso básico para enviar un paquete.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'es', 'Preguntar por el envío');
 
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
-        VALUES (v_listening_id, 'de', 'Nach dem Versand eines Pakets fragen', 'Höre einen Postmitarbeiter, der den einfachen Ablauf für den Paketversand erklärt.');
+        INSERT INTO listening_translation (listening_uuid, language, title)
+        VALUES (v_listening_id, 'de', 'Nach dem Versand eines Pakets');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

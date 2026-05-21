@@ -41,14 +41,13 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 1420 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 1420, 'en', 'dialogue', 'banking', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Teller", "gender": "female", "avatarURL": "https://example.com/avatars/teller.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 1420, 'en', 'dialogue', 'banking', '[{"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}, {"name": "Teller", "gender": "female", "avatarURL": "https://example.com/avatars/teller.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Abrir una cuenta en la ventanilla', 'Lee un diálogo sencillo para abrir una cuenta bancaria con documentos básicos.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Cuenta en la ventanilla');
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Ein Konto am Schalter eröffnen', 'Lies einen einfachen Dialog zur Eröffnung eines Bankkontos mit grundlegenden Unterlagen.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Ein Konto am Schalter eröffnen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4600, 'en', 'reading', 'professional', $content$Annual Company Summary – FY2023
+        VALUES (
+    v_path_id,
+    4600,
+    'en',
+    'reading',
+    'professional',
+    $content$Annual Company Summary – FY2023
 
 The company closed FY2023 with total revenue of £2.4 million, representing a 12% increase compared with the previous year. Operating costs reached £1.9 million, which resulted in an operating profit of £500,000. The leadership team described the year as one of controlled expansion and stronger commercial performance.
 
 During the year, the business opened three new offices in Manchester, Bristol and Leeds. Staff numbers grew from 45 to 62, reflecting both the regional expansion and growing client demand. The sales team also signed new contracts with 8 major clients, strengthening the company’s position in key sectors.
 
-Another important achievement was the completion of the digital transformation project, which modernised internal systems. The target for FY2024 is to reach £3 million in revenue and recruit 15 additional staff members.$content$)
-        RETURNING uuid INTO v_reading_id;
+Another important achievement was the completion of the digital transformation project, which modernised internal systems. The target for FY2024 is to reach £3 million in revenue and recruit 15 additional staff members.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee el resumen del informe anual', 'Lee un resumen anual con resultados, aperturas y metas de crecimiento.'),
-            (v_reading_id, 'de', 'Lies die Zusammenfassung des Jahresberichts', 'Lies eine Jahresübersicht mit Ergebnissen, Neueröffnungen und Wachstumszielen.');
+            (v_reading_id, 'es', 'El resumen del informe anual'), (v_reading_id, 'de', 'Zusammenfassung');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

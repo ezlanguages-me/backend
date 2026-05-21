@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3720 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3720 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3720, 'en', 'listening', 'tourism', $transcript$
+        VALUES (
+    v_path_id,
+    3720,
+    'en',
+    'listening',
+    'tourism',
+    $transcript$
 # AUDIO PROFILE: Thomas, a museum guide leading a small group
 ## "A Short Tour of Stone Castle"
 
@@ -56,12 +62,11 @@ Accent: Neutral accent.
 [polite] Guide: Photos are fine, but please do not use flash.
 [friendly] Guide: We stop in the garden for fifteen minutes at 11 AM.
 [helpful] Guide: After the tour, the gift shop is open near the exit.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una visita guiada', 'Escucha las indicaciones básicas de un guía en un castillo o museo.'),
-            (v_listening_id, 'de', 'Höre eine Führung', 'Höre die grundlegenden Hinweise eines Guides in einem Schloss oder Museum.');
+            (v_listening_id, 'es', 'Escucha una visita guiada'), (v_listening_id, 'de', 'Höre eine Führung');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

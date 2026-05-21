@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3300 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3300, 'en', 'reading', 'emergency', $content$
+    VALUES (
+    v_path_id,
+    3300,
+    'en',
+    'reading',
+    'emergency',
+    $content$
 Town Police Safety Notice. Pickpockets worked in the Saturday market between 11 AM and 1 PM. Keep your phone in a front pocket and close your bag.
 
 Two bicycles were stolen outside Riverside Library last night. Use two locks and leave bikes only in the metal bike area by the main door.
@@ -54,13 +60,12 @@ Two bicycles were stolen outside Riverside Library last night. Use two locks and
 A black wallet was found on Green Lane at 6 PM and taken to South Police Desk. Ask for item 17 if you think it is yours.
 
 If you see a theft, do not follow the suspect alone. Call 101 for a non-emergency report or 112 if someone is in danger.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee avisos sobre robos y seguridad', 'Lee varios avisos de la policía local sobre carteristas, bicicletas y objetos encontrados.'),
-        (v_reading_id, 'de', 'Lies Hinweise zu Diebstahl und Sicherheit', 'Lies mehrere Hinweise der örtlichen Polizei zu Taschendiebstahl, Fahrrädern und Fundstücken.');
+        (v_reading_id, 'es', 'Avisos sobre robos y seguridad'), (v_reading_id, 'de', 'Diebstahl und Sicherheit');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

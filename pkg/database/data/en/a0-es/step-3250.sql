@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3250 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3250, 'en', 'reading', 'emergency', $content$
+    VALUES (
+    v_path_id,
+    3250,
+    'en',
+    'reading',
+    'emergency',
+    $content$
 City Pool Safety Instructions. Walk slowly in all wet areas. Running is dangerous. Children under ten stay with an adult at all times.
 
 Leave bags in the grey lockers and keep glass bottles outside the building. Take a shower before you enter the pool. If you feel ill, speak to the lifeguard at once.
@@ -54,13 +60,12 @@ Leave bags in the grey lockers and keep glass bottles outside the building. Take
 When you hear one long whistle, leave the water immediately and stand by the red wall. Do not return to the pool until staff speak again.
 
 The first aid room is next to reception. In an emergency, tell a staff member or call 112 from the phone by the entrance.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee instrucciones de seguridad en una piscina', 'Lee normas simples de seguridad, silbatos y primeros auxilios en una piscina pública.'),
-        (v_reading_id, 'de', 'Lies Sicherheitsanweisungen in einem Schwimmbad', 'Lies einfache Sicherheitsregeln, Pfeifsignale und Hinweise zur Ersten Hilfe in einem öffentlichen Schwimmbad.');
+        (v_reading_id, 'es', 'Instrucciones de seguridad'), (v_reading_id, 'de', 'Sicherheitsanweisungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

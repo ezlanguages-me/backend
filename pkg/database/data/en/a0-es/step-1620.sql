@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 1620 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 1620, 'en', 'listening', 'Viajes y Transporte', $transcript$
+    VALUES (
+    v_path_id,
+    1620,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: A local woman giving directions to a visitor
 ## "The Library Is Opposite the Supermarket"
 
@@ -60,11 +66,11 @@ Learners hear key landmarks and one warning that helps them self-correct.
 [helpful] Woman: The library is opposite the supermarket and next to a small café.
 [warning] Woman: If you see the cinema, you went too far.
 [grateful] Visitor: Great, thank you very much.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'es', 'Indicaciones para llegar a la biblioteca', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description) VALUES (v_listening_id, 'de', 'Wegbeschreibung zur Bibliothek', '');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'es', 'Indicaciones para llegar');
+    INSERT INTO listening_translation (listening_uuid, language, title) VALUES (v_listening_id, 'de', 'Wegbeschreibung zur Bibliothek');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

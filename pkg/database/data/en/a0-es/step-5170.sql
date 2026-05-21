@@ -41,13 +41,12 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5170 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5170, 'en', 'dialogue', 'academic', '[{"name": "Marta", "gender": "female", "avatarURL": "https://example.com/avatars/marta.png"}, {"name": "Omar", "gender": "male", "avatarURL": "https://example.com/avatars/omar.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5170, 'en', 'dialogue', 'academic', '[{"name": "Marta", "gender": "female", "avatarURL": "https://example.com/avatars/marta.png"}, {"name": "Omar", "gender": "male", "avatarURL": "https://example.com/avatars/omar.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Discusión académica sobre ahorro de agua y energía', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Akademische Diskussion über Wasser- und Energiesparen', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Charla sobre ahorro de agua');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Gespräch übers Wassersparen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

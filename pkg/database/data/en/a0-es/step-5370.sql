@@ -41,13 +41,12 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5370 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5370, 'en', 'dialogue', 'academic', '[{"name": "Julia", "gender": "female", "avatarURL": "https://example.com/avatars/julia.png"}, {"name": "Tom", "gender": "male", "avatarURL": "https://example.com/avatars/tom.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5370, 'en', 'dialogue', 'academic', '[{"name": "Julia", "gender": "female", "avatarURL": "https://example.com/avatars/julia.png"}, {"name": "Tom", "gender": "male", "avatarURL": "https://example.com/avatars/tom.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Dar y recibir feedback', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Feedback geben und annehmen', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Dar y recibir feedback');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Feedback geben und annehmen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5890 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5890, 'en', 'listening', 'Gestión del Estudio y Trámites', $transcript$
+    VALUES (
+    v_path_id,
+    5890,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Rachel, an academic support coordinator
 ## "Help When You Need It"
 
@@ -63,13 +69,12 @@ The audio practises times, locations, and simple support vocabulary.
 [helpful] Coordinator: Yes, bring your notebook and your course notes.
 [clear] Coordinator: If you miss a workshop, email the team the same day.
 [closing] Coordinator: Please come early if you want a seat.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha el informe de apoyo académico', 'Escucha a una coordinadora que explica el apoyo académico disponible en la universidad.'),
-        (v_listening_id, 'de', 'Höre die Info zu akademischer Unterstützung', 'Höre eine Koordinatorin, die die akademische Unterstützung an der Universität erklärt.');
+        (v_listening_id, 'es', 'El informe de apoyo académico'), (v_listening_id, 'de', 'Akademischer Unterstützung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

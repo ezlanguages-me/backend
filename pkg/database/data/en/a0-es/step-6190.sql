@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM reading_translation WHERE reading_uuid IN (SELECT uuid FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6190 AND source_language = 'en');
   DELETE FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6190 AND source_language = 'en';
   INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-  VALUES (v_path_uuid, 6190, 'en', 'reading', 'Alquileres', $content$
+  VALUES (
+    v_path_uuid,
+    6190,
+    'en',
+    'reading',
+    'accommodation',
+    $content$
 Move-in checklist: bring your ID and deposit receipt, and take meter readings and photos.
 
 Test the smoke alarms and window keys. Photograph any marks or damage, and sign the inventory.
 
 Set up internet and council tax, store the emergency numbers, and check the heating and the water.
-$content$)
-  RETURNING uuid INTO v_reading_uuid;
-  INSERT INTO reading_translation (reading_uuid, language, title, description)
-  VALUES (v_reading_uuid, 'es', 'Comprende una lista de comprobación para la mudanza', 'Lee la lista de comprobación para el primer día en la vivienda.'),
-         (v_reading_uuid, 'de', 'Verstehe eine Einzugs-Checkliste', 'Lies die Checkliste für den ersten Tag in der Unterkunft.');
+$content$
+)RETURNING uuid INTO v_reading_uuid;
+  INSERT INTO reading_translation (reading_uuid, language, title)
+  VALUES (v_reading_uuid, 'es', 'Comprobación para la mudanza'), (v_reading_uuid, 'de', 'Verstehe eine Einzugs');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

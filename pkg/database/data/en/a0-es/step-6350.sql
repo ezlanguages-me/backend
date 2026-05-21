@@ -33,7 +33,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 6350 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 6350, 'en', 'listening', 'Convivencia', $transcript$
+    VALUES (
+    v_path_id,
+    6350,
+    'en',
+    'listening',
+    'social',
+    $transcript$
 # AUDIO PROFILE: Sofia and Daniel, exchange students
 ## "Different, But Still Friendly"
 
@@ -64,13 +70,12 @@ The audio focuses on customs, timing, and everyday behaviour.
 [response] Daniel: I think both ways can work if people are polite.
 [closing] Sofia: Exactly. Different habits, but the same respect.
 [end] Daniel: That''s a good way to see it.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'escucha una charla sobre diferencias culturales', 'Escucha una conversación suave entre dos estudiantes que comparan costumbres y horarios.'),
-        (v_listening_id, 'de', 'höre ein Gespräch über kulturelle Unterschiede', 'Höre ein ruhiges Gespräch zwischen zwei Studierenden, die Gepflogenheiten und Zeiten vergleichen.');
+        (v_listening_id, 'es', 'Charla sobre diferencias'), (v_listening_id, 'de', 'Gespräch über kulturelle');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

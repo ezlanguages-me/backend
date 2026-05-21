@@ -41,13 +41,12 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5100 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5100, 'en', 'dialogue', 'academic', '[{"name": "Student", "gender": "female", "avatarURL": "https://example.com/avatars/student.png"}, {"name": "Presenter", "gender": "male", "avatarURL": "https://example.com/avatars/presenter.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5100, 'en', 'dialogue', 'academic', '[{"name": "Student", "gender": "female", "avatarURL": "https://example.com/avatars/student.png"}, {"name": "Presenter", "gender": "male", "avatarURL": "https://example.com/avatars/presenter.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Preguntar por razones y detalles tras una charla', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Nach Gründen und Details nach einem Vortrag fragen', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Detalles tras una charla');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Nach Gründen und Details nach');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

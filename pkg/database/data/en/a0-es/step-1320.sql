@@ -32,20 +32,26 @@
         DELETE FROM reading WHERE step_order = 1320 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1320, 'en', 'reading', 'postal', 'River Post Office is open from Monday to Friday, from 9 AM to 5 PM, and on Saturday from 9 AM to 1 PM.
+        VALUES (
+    v_path_id,
+    1320,
+    'en',
+    'reading',
+    'postal',
+    'River Post Office is open from Monday to Friday, from 9 AM to 5 PM, and on Saturday from 9 AM to 1 PM.
 
 At the front counter you can buy stamps, envelopes, postcards, and small boxes. Counter 1 is for letters inside the country. Counter 2 is for parcels, registered mail, and international post.
 
 If you send an international parcel, write the full address clearly and complete a customs form. The clerk weighs the parcel, tells you the price, and prints a receipt.
 
-Keep the receipt if you need the tracking number. The last parcel collection is at 5 PM on weekdays.')
-        RETURNING uuid INTO v_reading_id;
+Keep the receipt if you need the tracking number. The last parcel collection is at 5 PM on weekdays.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Servicios básicos de la oficina de correos', 'Lee un aviso sencillo de una oficina de correos con mostradores, horarios y pasos para enviar un paquete.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Básicos de la oficina');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Einfache Postdienste', 'Lies einen einfachen Hinweis einer Postfiliale mit Schaltern, Öffnungszeiten und Schritten zum Versenden eines Pakets.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Einfache Postdienste');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

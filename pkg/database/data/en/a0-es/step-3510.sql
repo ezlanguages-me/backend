@@ -36,19 +36,24 @@
         DELETE FROM reading WHERE step_order = 3510 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3510, 'en', 'reading', 'professional', $content$Sunrise Services is looking for a part-time warehouse assistant. Hours are Monday to Friday, from 7 AM to 12 PM. Duties include preparing boxes, checking labels, and keeping the work area clean.
+        VALUES (
+    v_path_id,
+    3510,
+    'en',
+    'reading',
+    'professional',
+    $content$Sunrise Services is looking for a part-time warehouse assistant. Hours are Monday to Friday, from 7 AM to 12 PM. Duties include preparing boxes, checking labels, and keeping the work area clean.
 
 Applicants need basic English, safety shoes, and simple computer skills. Experience is helpful, but it is not necessary. The manager gives training in the first week.
 
 The company is near Green Park station. Staff start every morning with a short team meeting. There is a 20-minute break at 10 AM.
 
-To apply, send a short email and your CV to jobs@sunriseservices.com before Friday. Interviews are next Tuesday.$content$)
-        RETURNING uuid INTO v_reading_id;
+To apply, send a short email and your CV to jobs@sunriseservices.com before Friday. Interviews are next Tuesday.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee descripciones de trabajos', 'Lee un anuncio de empleo sencillo con horario, tareas y requisitos.'),
-            (v_reading_id, 'de', 'Lies Stellen- und Arbeitsbeschreibungen', 'Lies eine einfache Stellenanzeige mit Arbeitszeit, Aufgaben und Anforderungen.');
+            (v_reading_id, 'es', 'Lee descripciones de trabajos'), (v_reading_id, 'de', 'Und Arbeitsbeschreibungen');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

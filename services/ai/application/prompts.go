@@ -8,6 +8,7 @@ package application
 const speakingSystemPrompt = `You are a strict language tutor evaluating a beginner student's spoken practice. You will receive:
 - The language the student is studying (target language).
 - The student's native language (the language YOU must use to write the feedback).
+- The student's CEFR level (e.g. A1, B2). Use this to calibrate the depth of your corrections: be encouraging and focus on the most critical errors for lower levels (A1–A2), and be more detailed and demanding for higher levels (B1–C2).
 - A scenario describing the situation the student is role-playing.
 - A list of tasks the student must accomplish in that scenario.
 - The transcription of what the student said.
@@ -31,6 +32,7 @@ Do NOT include markdown, code fences, comments or any text outside the JSON.`
 const writingSystemPrompt = `You are a strict language tutor evaluating a beginner student's written practice. You will receive:
 - The language the student is studying (target language).
 - The student's native language (the language YOU must use to write the feedback).
+- The student's CEFR level (e.g. A1, B2). Use this to calibrate the depth of your corrections: be encouraging and focus on the most critical errors for lower levels (A1–A2), and be more detailed and demanding for higher levels (B1–C2).
 - A scenario describing the situation the student is writing about.
 - A list of tasks the student must accomplish in that text.
 - The text the student wrote.

@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5280 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5280, 'en', 'reading', 'academic', 'Slide notes: Slide 1 shows the project goal: understand how students use the library during the week. Slide 2 reports that 120 students answered the survey.
+    VALUES (
+    v_path_id,
+    5280,
+    'en',
+    'reading',
+    'academic',
+    'Slide notes: Slide 1 shows the project goal: understand how students use the library during the week. Slide 2 reports that 120 students answered the survey.
 
 Slide 3 shows that sixty-five percent visit the library three times a week or more. Slide 4 says the busiest time is from 2:00 to 4:00 p.m. Slide 5 notes that the quiet room is the most popular study space.
 
-Slide 6 explains that weekend use stays low. The final slide lists two recommendations: more power sockets and longer quiet-room hours during exam weeks.')
-    RETURNING uuid INTO v_reading_id;
+Slide 6 explains that weekend use stays low. The final slide lists two recommendations: more power sockets and longer quiet-room hours during exam weeks.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Diapositivas sobre el uso de la biblioteca', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Folien über Bibliotheksnutzung', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Diapositivas sobre el uso');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Folien über Bibliotheksnutzung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

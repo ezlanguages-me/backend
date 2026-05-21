@@ -22,16 +22,16 @@
         '{"character": "Host", "text": "Yes. Cultural literacy opens the door to a deeper understanding of the language.", "es": "Sí. La alfabetización cultural abre la puerta a una comprensión más profunda de la lengua.", "de": "Ja. Kulturelle Bildung öffnet die Tür zu einem tieferen Verständnis der Sprache."}'::jsonb
         ];
         v_exercises JSONB[] := ARRAY[
-            '{"p": "Según el diálogo, marca verdadero o falso: The dialogue is about a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The dialogue is about a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: The speakers are planning a beach holiday.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: Host explains that the host quotes ''all that glitters is not gold'' when describing a failed investment.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: Host explains that the host quotes ''all that glitters is not gold'' when describing a failed investment.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: A counterpoint is that the guest initially thinks the host is talking about jewellery.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: A counterpoint is that the guest initially thinks the host is talking about jewellery.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: The conclusion is that the host explains the cultural reference and its common use in everyday English.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The conclusion is that the host explains the cultural reference and its common use in everyday English.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: What is the main focus?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What is the main focus?", "s": {"type": "multiple_choice", "options": ["a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Who gives the main explanation?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Host", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Which detail is named?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which detail is named?", "s": {"type": "multiple_choice", "options": ["the host quotes ''all that glitters is not gold'' when describing a failed investment", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Which counterpoint appears?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["the guest initially thinks the host is talking about jewellery", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: What conclusion do the speakers reach?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the host explains the cultural reference and its common use in everyday English", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
+            '{"p": "The dialogue is about a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote.", "p_de": "The dialogue is about a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The speakers are planning a beach holiday.", "p_de": "The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+        '{"p": "Host explains that the host quotes ''all that glitters is not gold'' when describing a failed investment.", "p_de": "Host explains that the host quotes ''all that glitters is not gold'' when describing a failed investment.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "A counterpoint is that the guest initially thinks the host is talking about jewellery.", "p_de": "A counterpoint is that the guest initially thinks the host is talking about jewellery.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The conclusion is that the host explains the cultural reference and its common use in everyday English.", "p_de": "The conclusion is that the host explains the cultural reference and its common use in everyday English.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "What is the main focus?", "p_de": "What is the main focus?", "s": {"type": "multiple_choice", "options": ["a guest at a dinner party misses a Shakespeare allusion in the host''s anecdote", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
+        '{"p": "Who gives the main explanation?", "p_de": "Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Host", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
+        '{"p": "Which detail is named?", "p_de": "Which detail is named?", "s": {"type": "multiple_choice", "options": ["the host quotes ''all that glitters is not gold'' when describing a failed investment", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
+        '{"p": "Which counterpoint appears?", "p_de": "Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["the guest initially thinks the host is talking about jewellery", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
+        '{"p": "What conclusion do the speakers reach?", "p_de": "What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the host explains the cultural reference and its common use in everyday English", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
         ];
     BEGIN
         SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -43,12 +43,11 @@ DELETE FROM listening WHERE step_order=9700 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=9700 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=9700 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=9700 AND path_uuid=v_path_id;
-        INSERT INTO dialogue (path_uuid,step_order,source_language,type,category,characters)
-        VALUES (v_path_id,9700,'en','dialogue','social','[{"name": "Speaker A", "gender": "neutral", "avatarURL": "https://example.com/avatars/speaker-a.png"}, {"name": "Host", "gender": "neutral", "avatarURL": "https://example.com/avatars/host.png"}]'::jsonb)
-        RETURNING uuid INTO v_dialogue_id;
+        INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+        VALUES (v_path_id, 9700, 'en', 'dialogue', 'social', '[{"name": "Speaker A", "gender": "neutral", "avatarURL": "https://example.com/avatars/speaker-a.png"}, {"name": "Host", "gender": "neutral", "avatarURL": "https://example.com/avatars/host.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'es','get the point of jokes or allusions with cultural content','Lee el diálogo y responde.');
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'de','get the point of jokes or allusions with cultural content','Lies den Dialog und beantworte die Fragen.');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Point of jokes or allusions');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Point of jokes or allusions');
 
         FOREACH line IN ARRAY v_lines LOOP
             INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

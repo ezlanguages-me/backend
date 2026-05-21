@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3210 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3210, 'en', 'reading', 'emergency', $content$
+    VALUES (
+    v_path_id,
+    3210,
+    'en',
+    'reading',
+    'emergency',
+    $content$
 Emergency Notice for Residents. If you smell gas or see thick smoke, leave Block B immediately. Do not use the lift. Use the stairs next to Flat 2 and go to the car park opposite the bakery.
 
 Call 112 and say: 18 River Street, Block B, second floor. Help children and older neighbours on your way out. Do not go back for bags, coats, or pets.
@@ -54,13 +60,12 @@ Call 112 and say: 18 River Street, Block B, second floor. Help children and olde
 If someone is hurt, stay with that person near the blue gate. The building manager, Ms Lane, keeps a first aid kit at the security desk on the ground floor.
 
 After the emergency call, tell the night porter your flat number and wait outside for the fire crew.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Comprende un aviso de emergencia en un edificio', 'Lee un aviso de emergencia con instrucciones claras para salir del edificio y pedir ayuda.'),
-        (v_reading_id, 'de', 'Verstehe einen Notfallhinweis in einem Gebäude', 'Lies einen Notfallhinweis mit klaren Anweisungen, um das Gebäude zu verlassen und Hilfe zu holen.');
+        (v_reading_id, 'es', 'Emergencia en un edificio'), (v_reading_id, 'de', 'Verstehe einen Notfallhinweis');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

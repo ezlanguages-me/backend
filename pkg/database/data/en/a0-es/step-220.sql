@@ -38,7 +38,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 220 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 220, 'en', 'listening', 'social', $transcript$
+    VALUES (
+  v_path_id,
+  220,
+  'en',
+  'listening',
+  'social',
+  $transcript$
 # AUDIO PROFILE: Mia and Alex, teenage host sister and exchange student
 ## "Talking About Home"
 
@@ -84,14 +90,14 @@ Mia [excited] That's awesome! How long have you played?
 Alex [calmly] For about three years. I usually practice in the evenings.
 Mia [encouragingly] Maybe you can play something for us later after dinner.
 Alex [happy] Sure! I'd love to.
-    $transcript$)
-    RETURNING uuid INTO v_listening_id;
+    $transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Charla sobre la vida de Alex en España', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Charla sobre la vida de Alex');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Gespräch über Alexs Leben in Spanien', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Gespräch über Alexs Leben');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

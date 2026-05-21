@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2880 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2880, 'en', 'dialogue', 'health', '[{"name": "Doctor", "gender": "female", "avatarURL": "https://example.com/avatars/doctor.png"}, {"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2880, 'en', 'dialogue', 'health', '[{"name": "Doctor", "gender": "female", "avatarURL": "https://example.com/avatars/doctor.png"}, {"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Habla con el médico sobre opciones de tratamiento', 'Lee un diálogo simple sobre dos alternativas de tratamiento para una erupción leve.'),
-        (v_dialogue_id, 'de', 'Sprich mit dem Arzt über Behandlungsoptionen', 'Lies einen einfachen Dialog über zwei Behandlungsalternativen für einen leichten Ausschlag.');
+        (v_dialogue_id, 'es', 'Opciones de tratamiento'), (v_dialogue_id, 'de', 'Arzt über Behandlungsoptionen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

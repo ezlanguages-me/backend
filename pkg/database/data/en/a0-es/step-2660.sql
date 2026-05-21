@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2660 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2660, 'en', 'listening', 'health', $transcript$
+    VALUES (
+    v_path_id,
+    2660,
+    'en',
+    'listening',
+    'health',
+    $transcript$
 # AUDIO PROFILE: Dr Singh giving simple advice after a consultation
 ## "What You Should Do Now"
 
@@ -61,13 +67,12 @@ Learners hear the main points of a doctor''s advice and practise understanding p
 [doctor] Doctor: If you still have a fever on Monday, come back.
 [patient] Patient: Okay. Rest, warm drinks, medicine twice a day, and no sport.
 [doctor] Doctor: Yes, exactly.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha los consejos del médico', 'Escucha al médico explicar los puntos principales del tratamiento y del descanso.'),
-        (v_listening_id, 'de', 'Höre die Ratschläge des Arztes', 'Höre, wie der Arzt die wichtigsten Punkte zu Behandlung und Ruhe erklärt.');
+        (v_listening_id, 'es', 'Los consejos del médico'), (v_listening_id, 'de', 'Höre die Ratschläge des Arztes');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

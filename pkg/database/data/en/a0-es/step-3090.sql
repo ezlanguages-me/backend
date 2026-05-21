@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3090 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3090, 'en', 'dialogue', 'transport', '[{"name": "Local", "gender": "female", "avatarURL": "https://example.com/avatars/local.png"}, {"name": "Driver", "gender": "male", "avatarURL": "https://example.com/avatars/driver.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3090, 'en', 'dialogue', 'transport', '[{"name": "Local", "gender": "female", "avatarURL": "https://example.com/avatars/local.png"}, {"name": "Driver", "gender": "male", "avatarURL": "https://example.com/avatars/driver.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pide y da indicaciones para llegar en coche', 'Lee un diálogo corto con indicaciones para llegar al aparcamiento de un museo.'),
-        (v_dialogue_id, 'de', 'Bitte um Wegbeschreibung und gib Fahranweisungen', 'Lies einen kurzen Dialog mit Fahrtrichtung zum Parkplatz eines Museums.');
+        (v_dialogue_id, 'es', 'Da indicaciones para llegar'), (v_dialogue_id, 'de', 'Bitte um Wegbeschreibung');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

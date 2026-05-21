@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 3850 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 3850 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3850, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    3850,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Tom, a supplier confirming an order by phone
 ## "Your Order Is Confirmed"
 
@@ -55,12 +61,11 @@ Accent: Neutral accent.
 [practical] Supplier: The invoice goes separately to your finance team.
 [careful] Supplier: Five blue folders are out of stock today, so we will send them on Friday.
 [helpful] Supplier: Please call me if the warehouse time changes.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una confirmación de pedido', 'Escucha una llamada de proveedor con fecha de envío, entrega, factura y un pequeño retraso.'),
-            (v_listening_id, 'de', 'Höre eine Auftragsbestätigung', 'Höre einen Lieferantenanruf mit Versanddatum, Lieferung, Rechnung und kleiner Verzögerung.');
+            (v_listening_id, 'es', 'Una confirmación de pedido'), (v_listening_id, 'de', 'Höre eine Auftragsbestätigung');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2320 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2320, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2320,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 FOOD COLUMN
 At Harbor Kitchen, the bread is baked every hour and tastes fresh.
 The grilled fish is soft inside and crispy outside.
@@ -41,11 +47,11 @@ The vegetables are seasonal and not oily.
 The only weak point is the rice, which is a little dry.
 
 Overall, the food feels careful and balanced.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer una crítica sobre la calidad de la comida');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Kritik über die Qualität des Essens lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Crítica sobre la calidad');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Qualität des Essens lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

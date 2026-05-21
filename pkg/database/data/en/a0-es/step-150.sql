@@ -36,12 +36,12 @@ DECLARE
         '{"r":1, "p":"La frase ''A talls man'' es gramaticalmente correcta.", "p_de":"Der Satz ''A talls man'' ist grammatikalisch korrekt.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":1, "p":"La misma palabra (adjetivo) sirve para singular y plural.", "p_de":"Dasselbe Adjektiv gilt für Singular und Plural.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (6)
-        '{"r":1, "p":"Ordena la frase: Tengo un perro pequeño.", "p_de":"Ordne den Satz: Ich habe einen kleinen Hund.", "s":{"type":"scramble","chunks":["small", "have", "a", "dog", "I"],"correct_order":[4, 1, 2, 0, 3]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Ella vive en una casa grande.", "p_de":"Ordne den Satz: Sie lebt in einem großen Haus.", "s":{"type":"scramble","chunks":["a", "She", "in", "big", "house", "lives"],"correct_order":[1, 5, 2, 0, 3, 4]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Él compró zapatos caros.", "p_de":"Ordne den Satz: Er kaufte teure Schuhe.", "s":{"type":"scramble","chunks":["shoes", "bought", "expensive", "He"],"correct_order":[3, 1, 2, 0]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Leímos un buen libro.", "p_de":"Ordne den Satz: Wir lasen ein gutes Buch.", "s":{"type":"scramble","chunks":["read", "a", "good", "book", "We"],"correct_order":[4, 0, 1, 2, 3]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Es una ciudad hermosa.", "p_de":"Ordne den Satz: Es ist eine schöne Stadt.", "s":{"type":"scramble","chunks":["city", "beautiful", "a", "It", "is"],"correct_order":[3, 4, 2, 1, 0]}}'::jsonb,
-        '{"r":1, "p":"Ordena la frase: Son buenas personas.", "p_de":"Ordne den Satz: Sie sind nette Menschen.", "s":{"type":"scramble","chunks":["nice", "are", "They", "people"],"correct_order":[2, 1, 0, 3]}}'::jsonb,
+        '{"r":1, "p":"Tengo un perro pequeño.", "p_de":"Ich habe einen kleinen Hund.", "s":{"type":"scramble","chunks":["small", "have", "a", "dog", "I", "big", "the"],"correct_order":[4, 1, 2, 0, 3]}}'::jsonb,
+        '{"r":1, "p":"Ella vive en una casa grande.", "p_de":"Sie lebt in einem großen Haus.", "s":{"type":"scramble","chunks":["a", "She", "in", "big", "house", "lives", "small", "the"],"correct_order":[1, 5, 2, 0, 3, 4]}}'::jsonb,
+        '{"r":1, "p":"Él compró zapatos caros.", "p_de":"Er kaufte teure Schuhe.", "s":{"type":"scramble","chunks":["shoes", "bought", "expensive", "He", "cheap", "some"],"correct_order":[3, 1, 2, 0]}}'::jsonb,
+        '{"r":1, "p":"Leímos un buen libro.", "p_de":"Wir lasen ein gutes Buch.", "s":{"type":"scramble","chunks":["read", "a", "good", "book", "We", "bad", "the"],"correct_order":[4, 0, 1, 2, 3]}}'::jsonb,
+        '{"r":1, "p":"Es una ciudad hermosa.", "p_de":"Es ist eine schöne Stadt.", "s":{"type":"scramble","chunks":["city", "beautiful", "a", "It", "is", "ugly", "the"],"correct_order":[3, 4, 2, 1, 0]}}'::jsonb,
+        '{"r":1, "p":"Son buenas personas.", "p_de":"Sie sind nette Menschen.", "s":{"type":"scramble","chunks":["nice", "are", "They", "people", "mean", "some"],"correct_order":[2, 1, 0, 3]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 2: Orden 1 (Opinión, Tamaño, Edad) (20 Ejercicios)
@@ -63,12 +63,12 @@ DECLARE
         '{"r":2, "p":"La frase ''A young beautiful girl'' es la manera más natural de decirlo.", "p_de":"Der Satz ''A young beautiful girl'' ist die natürlichste Art, es zu sagen.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":2, "p":"''A tall young man'' sigue la regla de Tamaño luego Edad.", "p_de":"''A tall young man'' folgt der Regel Größe dann Alter.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (6)
-        '{"r":2, "p":"Ordena la frase: Es una casa hermosa y grande.", "p_de":"Ordne den Satz: Es ist ein schönes großes Haus.", "s":{"type":"scramble","chunks":["a", "big", "It is", "beautiful", "house"],"correct_order":[2, 0, 3, 1, 4]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Él es un hombre joven e inteligente.", "p_de":"Ordne den Satz: Er ist ein intelligenter junger Mann.", "s":{"type":"scramble","chunks":["man", "He is", "a", "smart", "young"],"correct_order":[1, 2, 3, 4, 0]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Ella tiene un anillo pequeño y caro.", "p_de":"Ordne den Satz: Sie hat einen teuren kleinen Ring.", "s":{"type":"scramble","chunks":["ring", "small", "She has", "expensive", "an"],"correct_order":[2, 4, 3, 1, 0]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Vimos una buena película antigua.", "p_de":"Ordne den Satz: Wir sahen einen guten alten Film.", "s":{"type":"scramble","chunks":["old", "movie", "saw", "a", "We", "good"],"correct_order":[4, 2, 3, 5, 0, 1]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Ellos tienen un perro grande y feo.", "p_de":"Ordne den Satz: Sie haben einen hässlichen großen Hund.", "s":{"type":"scramble","chunks":["an", "dog", "ugly", "big", "They have"],"correct_order":[4, 0, 2, 3, 1]}}'::jsonb,
-        '{"r":2, "p":"Ordena la frase: Compré un teléfono nuevo y bonito.", "p_de":"Ordne den Satz: Ich kaufte ein schönes neues Telefon.", "s":{"type":"scramble","chunks":["phone", "a", "nice", "I bought", "new"],"correct_order":[3, 1, 2, 4, 0]}}'::jsonb,
+        '{"r":2, "p":"Es una casa hermosa y grande.", "p_de":"Es ist ein schönes großes Haus.", "s":{"type":"scramble","chunks":["a", "big", "It is", "beautiful", "house", "small", "ugly"],"correct_order":[2, 0, 3, 1, 4]}}'::jsonb,
+        '{"r":2, "p":"Él es un hombre joven e inteligente.", "p_de":"Er ist ein intelligenter junger Mann.", "s":{"type":"scramble","chunks":["man", "He is", "a", "smart", "young", "old", "woman"],"correct_order":[1, 2, 3, 4, 0]}}'::jsonb,
+        '{"r":2, "p":"Ella tiene un anillo pequeño y caro.", "p_de":"Sie hat einen teuren kleinen Ring.", "s":{"type":"scramble","chunks":["ring", "small", "She has", "expensive", "an", "cheap", "a"],"correct_order":[2, 4, 3, 1, 0]}}'::jsonb,
+        '{"r":2, "p":"Vimos una buena película antigua.", "p_de":"Wir sahen einen guten alten Film.", "s":{"type":"scramble","chunks":["old", "movie", "saw", "a", "We", "good", "bad", "new"],"correct_order":[4, 2, 3, 5, 0, 1]}}'::jsonb,
+        '{"r":2, "p":"Ellos tienen un perro grande y feo.", "p_de":"Sie haben einen hässlichen großen Hund.", "s":{"type":"scramble","chunks":["an", "dog", "ugly", "big", "They have", "a", "small"],"correct_order":[4, 0, 2, 3, 1]}}'::jsonb,
+        '{"r":2, "p":"Compré un teléfono nuevo y bonito.", "p_de":"Ich kaufte ein schönes neues Telefon.", "s":{"type":"scramble","chunks":["phone", "a", "nice", "I bought", "new", "old", "the"],"correct_order":[3, 1, 2, 4, 0]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 3: Orden 2 (Forma, Color, Origen) (20 Ejercicios)
@@ -90,12 +90,12 @@ DECLARE
         '{"r":3, "p":"La forma (shape) se coloca después del origen geográfico.", "p_de":"Die Form steht nach der geografischen Herkunft.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":3, "p":"''A round French cheese'' sigue el orden gramatical de forma y origen.", "p_de":"''A round French cheese'' folgt der grammatikalischen Reihenfolge von Form und Herkunft.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (6)
-        '{"r":3, "p":"Ordena la frase: Compré una mesa negra estrecha.", "p_de":"Ordne den Satz: Ich kaufte einen schmalen schwarzen Tisch.", "s":{"type":"scramble","chunks":["a", "I bought", "black", "narrow", "table"],"correct_order":[1, 0, 3, 2, 4]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Él conduce un coche americano negro.", "p_de":"Ordne den Satz: Er fährt ein schwarzes amerikanisches Auto.", "s":{"type":"scramble","chunks":["drives", "black", "a", "American", "He", "car"],"correct_order":[4, 0, 2, 1, 3, 5]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Ella tiene un jarrón español delgado.", "p_de":"Ordne den Satz: Sie hat eine dünne spanische Vase.", "s":{"type":"scramble","chunks":["a", "vase", "Spanish", "She has", "thin"],"correct_order":[3, 0, 4, 2, 1]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Es un plato blanco redondo.", "p_de":"Ordne den Satz: Es ist ein rundes weißes Teller.", "s":{"type":"scramble","chunks":["It is", "plate", "a", "round", "white"],"correct_order":[0, 2, 3, 4, 1]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Ella vistió un vestido italiano rojo.", "p_de":"Ordne den Satz: Sie trug ein rotes italienisches Kleid.", "s":{"type":"scramble","chunks":["red", "dress", "She", "Italian", "a", "wore"],"correct_order":[2, 5, 4, 0, 3, 1]}}'::jsonb,
-        '{"r":3, "p":"Ordena la frase: Él bebió una cerveza alemana oscura.", "p_de":"Ordne den Satz: Er trank ein dunkles deutsches Bier.", "s":{"type":"scramble","chunks":["German", "beer", "dark", "a", "He drank"],"correct_order":[4, 3, 2, 0, 1]}}'::jsonb,
+        '{"r":3, "p":"Compré una mesa negra estrecha.", "p_de":"Ich kaufte einen schmalen schwarzen Tisch.", "s":{"type":"scramble","chunks":["a", "I bought", "black", "narrow", "table", "big", "white"],"correct_order":[1, 0, 3, 2, 4]}}'::jsonb,
+        '{"r":3, "p":"Él conduce un coche americano negro.", "p_de":"Er fährt ein schwarzes amerikanisches Auto.", "s":{"type":"scramble","chunks":["drives", "black", "a", "American", "He", "car", "red", "big"],"correct_order":[4, 0, 2, 1, 3, 5]}}'::jsonb,
+        '{"r":3, "p":"Ella tiene un jarrón español delgado.", "p_de":"Sie hat eine dünne spanische Vase.", "s":{"type":"scramble","chunks":["a", "vase", "Spanish", "She has", "thin", "fat", "French"],"correct_order":[3, 0, 4, 2, 1]}}'::jsonb,
+        '{"r":3, "p":"Es un plato blanco redondo.", "p_de":"Es ist ein rundes weißes Teller.", "s":{"type":"scramble","chunks":["It is", "plate", "a", "round", "white", "square", "black"],"correct_order":[0, 2, 3, 4, 1]}}'::jsonb,
+        '{"r":3, "p":"Ella vistió un vestido italiano rojo.", "p_de":"Sie trug ein rotes italienisches Kleid.", "s":{"type":"scramble","chunks":["red", "dress", "She", "Italian", "a", "wore", "blue", "French"],"correct_order":[2, 5, 4, 0, 3, 1]}}'::jsonb,
+        '{"r":3, "p":"Él bebió una cerveza alemana oscura.", "p_de":"Er trank ein dunkles deutsches Bier.", "s":{"type":"scramble","chunks":["German", "beer", "dark", "a", "He drank", "light", "French"],"correct_order":[4, 3, 2, 0, 1]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 4: Orden 3 (Material y Propósito) (20 Ejercicios)
@@ -117,12 +117,12 @@ DECLARE
         '{"r":4, "p":"El material (wooden, glass) se coloca antes que el propósito del objeto.", "p_de":"Das Material (wooden, glass) steht vor dem Zweck des Objekts.", "s":{"type":"true_false","answer":true}}'::jsonb,
         '{"r":4, "p":"La frase ''A running leather shoe'' está en el orden correcto.", "p_de":"Der Satz ''A running leather shoe'' ist in der richtigen Reihenfolge.", "s":{"type":"true_false","answer":false}}'::jsonb,
         -- Scramble (6)
-        '{"r":4, "p":"Ordena la frase: Es una herramienta de madera para el jardín.", "p_de":"Ordne den Satz: Es ist ein hölzernes Gartengerät.", "s":{"type":"scramble","chunks":["It is", "wooden", "tool", "gardening", "a"],"correct_order":[0, 4, 1, 3, 2]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Él compró una olla de hierro para cocinar.", "p_de":"Ordne den Satz: Er kaufte einen eisernen Kochtopf.", "s":{"type":"scramble","chunks":["He bought", "cooking", "iron", "an", "pot"],"correct_order":[0, 3, 2, 1, 4]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Ella necesita una bolsa de plástico para la compra.", "p_de":"Ordne den Satz: Sie braucht eine Plastik-Einkaufstasche.", "s":{"type":"scramble","chunks":["plastic", "a", "shopping", "bag", "needs", "She"],"correct_order":[5, 4, 1, 0, 2, 3]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Él usa zapatillas de cuero para correr.", "p_de":"Ordne den Satz: Er trägt Lauf-Lederschuhe.", "s":{"type":"scramble","chunks":["shoes", "wears", "running", "He", "leather"],"correct_order":[3, 1, 4, 2, 0]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Tengo una botella de cristal para beber.", "p_de":"Ordne den Satz: Ich habe eine Glas-Trinkflasche.", "s":{"type":"scramble","chunks":["I have", "glass", "bottle", "drinking", "a"],"correct_order":[0, 4, 1, 3, 2]}}'::jsonb,
-        '{"r":4, "p":"Ordena la frase: Usamos un cuchillo de acero para cortar.", "p_de":"Ordne den Satz: Wir benutzen ein Stahl-Schneidemesser.", "s":{"type":"scramble","chunks":["knife", "cutting", "We use", "steel", "a"],"correct_order":[2, 4, 3, 1, 0]}}'::jsonb,
+        '{"r":4, "p":"Es una herramienta de madera para el jardín.", "p_de":"Es ist ein hölzernes Gartengerät.", "s":{"type":"scramble","chunks":["It is", "wooden", "tool", "gardening", "a", "metal", "old"],"correct_order":[0, 4, 1, 3, 2]}}'::jsonb,
+        '{"r":4, "p":"Él compró una olla de hierro para cocinar.", "p_de":"Er kaufte einen eisernen Kochtopf.", "s":{"type":"scramble","chunks":["He bought", "cooking", "iron", "an", "pot", "a", "wooden"],"correct_order":[0, 3, 2, 1, 4]}}'::jsonb,
+        '{"r":4, "p":"Ella necesita una bolsa de plástico para la compra.", "p_de":"Sie braucht eine Plastik-Einkaufstasche.", "s":{"type":"scramble","chunks":["plastic", "a", "shopping", "bag", "needs", "She", "paper", "the"],"correct_order":[5, 4, 1, 0, 2, 3]}}'::jsonb,
+        '{"r":4, "p":"Él usa zapatillas de cuero para correr.", "p_de":"Er trägt Lauf-Lederschuhe.", "s":{"type":"scramble","chunks":["shoes", "wears", "running", "He", "leather", "rubber", "old"],"correct_order":[3, 1, 4, 2, 0]}}'::jsonb,
+        '{"r":4, "p":"Tengo una botella de cristal para beber.", "p_de":"Ich habe eine Glas-Trinkflasche.", "s":{"type":"scramble","chunks":["I have", "glass", "bottle", "drinking", "a", "plastic", "the"],"correct_order":[0, 4, 1, 3, 2]}}'::jsonb,
+        '{"r":4, "p":"Usamos un cuchillo de acero para cortar.", "p_de":"Wir benutzen ein Stahl-Schneidemesser.", "s":{"type":"scramble","chunks":["knife", "cutting", "We use", "steel", "a", "plastic", "old"],"correct_order":[2, 4, 3, 1, 0]}}'::jsonb,
 
         -- ==========================================
         -- REGLA 5: Adjetivos Predicativos (20 Ejercicios)
@@ -144,12 +144,12 @@ DECLARE
         '{"r":5, "p":"La frase ''The food smells well'' usa correctamente un adjetivo predicativo.", "p_de":"Der Satz ''The food smells well'' verwendet korrekt ein prädikatives Adjektiv.", "s":{"type":"true_false","answer":false}}'::jsonb,
         '{"r":5, "p":"En inglés se puede decir tanto ''a tired man'' como ''The man is tired''.", "p_de":"Im Englischen kann man sowohl ''a tired man'' als auch ''The man is tired'' sagen.", "s":{"type":"true_false","answer":true}}'::jsonb,
         -- Scramble (6)
-        '{"r":5, "p":"Ordena la frase: El coche es rápido.", "p_de":"Ordne den Satz: Das Auto ist schnell.", "s":{"type":"scramble","chunks":["is", "car", "fast", "The"],"correct_order":[3, 1, 0, 2]}}'::jsonb,
-        '{"r":5, "p":"Ordena la frase: Ella parece muy cansada.", "p_de":"Ordne den Satz: Sie sieht sehr müde aus.", "s":{"type":"scramble","chunks":["looks", "She", "very", "tired"],"correct_order":[1, 0, 2, 3]}}'::jsonb,
-        '{"r":5, "p":"Ordena la frase: La sopa huele bien.", "p_de":"Ordne den Satz: Die Suppe riecht gut.", "s":{"type":"scramble","chunks":["smells", "soup", "The", "good"],"correct_order":[2, 1, 0, 3]}}'::jsonb,
-        '{"r":5, "p":"Ordena la frase: Me siento muy feliz hoy.", "p_de":"Ordne den Satz: Ich fühle mich heute sehr glücklich.", "s":{"type":"scramble","chunks":["feel", "very", "today", "I", "happy"],"correct_order":[3, 0, 1, 4, 2]}}'::jsonb,
-        '{"r":5, "p":"Ordena la frase: Eso suena genial.", "p_de":"Ordne den Satz: Das klingt großartig.", "s":{"type":"scramble","chunks":["sounds", "That", "great"],"correct_order":[1, 0, 2]}}'::jsonb,
-        '{"r":5, "p":"Ordena la frase: El pastel sabe delicioso.", "p_de":"Ordne den Satz: Der Kuchen schmeckt köstlich.", "s":{"type":"scramble","chunks":["tastes", "cake", "delicious", "The"],"correct_order":[3, 1, 0, 2]}}'::jsonb
+        '{"r":5, "p":"El coche es rápido.", "p_de":"Das Auto ist schnell.", "s":{"type":"scramble","chunks":["is", "car", "fast", "The", "slow", "a"],"correct_order":[3, 1, 0, 2]}}'::jsonb,
+        '{"r":5, "p":"Ella parece muy cansada.", "p_de":"Sie sieht sehr müde aus.", "s":{"type":"scramble","chunks":["looks", "She", "very", "tired", "fresh", "happy"],"correct_order":[1, 0, 2, 3]}}'::jsonb,
+        '{"r":5, "p":"La sopa huele bien.", "p_de":"Die Suppe riecht gut.", "s":{"type":"scramble","chunks":["smells", "soup", "The", "good", "bad", "a"],"correct_order":[2, 1, 0, 3]}}'::jsonb,
+        '{"r":5, "p":"Me siento muy feliz hoy.", "p_de":"Ich fühle mich heute sehr glücklich.", "s":{"type":"scramble","chunks":["feel", "very", "today", "I", "happy", "sad", "the"],"correct_order":[3, 0, 1, 4, 2]}}'::jsonb,
+        '{"r":5, "p":"Eso suena genial.", "p_de":"Das klingt großartig.", "s":{"type":"scramble","chunks":["sounds", "That", "great", "bad", "This"],"correct_order":[1, 0, 2]}}'::jsonb,
+        '{"r":5, "p":"El pastel sabe delicioso.", "p_de":"Der Kuchen schmeckt köstlich.", "s":{"type":"scramble","chunks":["tastes", "cake", "delicious", "The", "awful", "a"],"correct_order":[3, 1, 0, 2]}}'::jsonb
     ];
 
 BEGIN
@@ -162,12 +162,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 150, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar1_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-    v_grammar1_id, 
-    'es', 
-    'Los Adjetivos', 
-    '', 
+    v_grammar1_id,
+    'es',
+    'Los Adjetivos',
     to_jsonb('## Los Adjetivos
 En inglés, los adjetivos tienen dos grandes reglas que los diferencian completamente del español: su posición y su inviabilidad. Además, cuando queremos usar varios adjetivos para describir una misma cosa, debemos seguir un estricto orden lógico.
 
@@ -210,12 +209,11 @@ Los adjetivos también pueden colocarse **después del verbo** (especialmente de
 );
 
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+INSERT INTO grammar_translation (grammar_uuid, language, title, content)
 VALUES (
     v_grammar1_id,
     'de',
     'Die Adjektive',
-    '',
     to_jsonb('## Die Adjektive
 Im Englischen gibt es zwei wichtige Regeln für Adjektive, die sich völlig vom Deutschen unterscheiden: ihre Position und ihre Unveränderlichkeit. Außerdem muss bei mehreren Adjektiven eine feste Reihenfolge eingehalten werden.
 

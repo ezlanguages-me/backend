@@ -32,13 +32,11 @@
         DELETE FROM reading WHERE step_order = 7380 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 7380, 'en', 'reading', 'social', 'On Saturday night, the host family took Leo to a neighborhood picnic in the square. Everyone brought one small dish and a story from the week. Leo planned to stay quiet, but then he spilled a little lemonade on his own shoe while trying to sit on a folding chair. The table laughed, and Leo laughed too.\n\nThat small accident gave him a story to tell. He explained that on his first day in town he had tried to greet every person with a cheek kiss, because that was normal at home. One neighbor stepped back in surprise, then offered a friendly wave instead. Later the same neighbor taught him the local style of greeting and brought him an extra napkin for the lemonade.\n\nBy the end of the picnic, people were sharing their own funny mistakes: wrong bus stops, strange translations, and confusing hand gestures. Leo understood that a good social anecdote does not need to be perfect. It only needs a small surprise, a bit of honesty, and a friendly ending that makes everyone want to tell another story.')
-        RETURNING uuid INTO v_reading_id;
+        VALUES (v_path_id, 7380, 'en', 'reading', 'social', 'On Saturday night, the host family took Leo to a neighborhood picnic in the square. Everyone brought one small dish and a story from the week. Leo planned to stay quiet, but then he spilled a little lemonade on his own shoe while trying to sit on a folding chair. The table laughed, and Leo laughed too.\n\nThat small accident gave him a story to tell. He explained that on his first day in town he had tried to greet every person with a cheek kiss, because that was normal at home. One neighbor stepped back in surprise, then offered a friendly wave instead. Later the same neighbor taught him the local style of greeting and brought him an extra napkin for the lemonade.\n\nBy the end of the picnic, people were sharing their own funny mistakes: wrong bus stops, strange translations, and confusing hand gestures. Leo understood that a good social anecdote does not need to be perfect. It only needs a small surprise, a bit of honesty, and a friendly ending that makes everyone want to tell another story.')RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una anécdota para compartir socialmente', 'Lee una historia breve y divertida sobre un picnic vecinal, saludos y pequeños malentendidos.'),
-            (v_reading_id, 'de', 'Lies eine Anekdote zum sozialen Teilen', 'Lies eine kurze und lustige Geschichte über ein Nachbarschaftspicknick, Begrüßungen und kleine Missverständnisse.');
+            (v_reading_id, 'es', 'Anécdota para compartir'), (v_reading_id, 'de', 'Anekdote zum sozialen Teilen');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

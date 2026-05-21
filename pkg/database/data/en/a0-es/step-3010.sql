@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 3010 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3010, 'en', 'dialogue', 'transport', '[{"name": "Clerk", "gender": "female", "avatarURL": "https://example.com/avatars/clerk.png"}, {"name": "Tourist", "gender": "male", "avatarURL": "https://example.com/avatars/tourist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 3010, 'en', 'dialogue', 'transport', '[{"name": "Clerk", "gender": "female", "avatarURL": "https://example.com/avatars/clerk.png"}, {"name": "Tourist", "gender": "male", "avatarURL": "https://example.com/avatars/tourist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Entiende el precio por hora y por día en un alquiler de bicicletas', 'Lee un diálogo simple en un puesto de alquiler de bicicletas con precio por hora, precio por día y devolución.'),
-        (v_dialogue_id, 'de', 'Verstehe den Preis pro Stunde und pro Tag bei einem Fahrradverleih', 'Lies einen einfachen Dialog an einem Fahrradverleih mit Stundenpreis, Tagespreis und Rückgabezeit.');
+        (v_dialogue_id, 'es', 'Hora y por día en un alquiler'), (v_dialogue_id, 'de', 'Verstehe den Preis pro Stunde');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

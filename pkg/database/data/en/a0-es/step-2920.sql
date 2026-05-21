@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2920 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2920, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    2920,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Ticket clerk at an airport bus desk
 ## "One Ticket to West Airport"
 
@@ -64,13 +70,12 @@ The recording focuses on one ticket, one destination, and one bus.
 [polite] Passenger: Can I pay by card?
 [reassuring] Clerk: Yes. Card or cash is fine.
 
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha cómo comprar un billete para el autobús del aeropuerto', 'Escucha una conversación breve en una taquilla de autobuses con destino, hora y precio.'),
-        (v_listening_id, 'de', 'Höre, wie man eine Fahrkarte für den Flughafenbus kauft', 'Höre ein kurzes Gespräch am Bus-Schalter mit Ziel, Uhrzeit und Preis.');
+        (v_listening_id, 'es', 'Billete para el autobús'), (v_listening_id, 'de', 'Fahrkarte für den Flughafenbus');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

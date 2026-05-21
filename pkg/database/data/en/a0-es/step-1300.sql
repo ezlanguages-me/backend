@@ -6,71 +6,50 @@ DO $seed$
 DECLARE
     v_path_id UUID;
     v_dialogue_id UUID;
-    v_line_uuid UUID;
-    v_ex_id UUID;
-    v_line_order SMALLINT := 0;
+    v_line_id UUID;
+    v_order SMALLINT := 1;
     line JSONB;
-    ex JSONB;
     v_lines JSONB[] := ARRAY[
-        '{"character": "Sales assistant", "text": "Hello. Are you choosing between these two backpacks?", "es": "Hola. ¿Está eligiendo entre estas dos mochilas?", "de": "Hallo. Wählen Sie zwischen diesen beiden Rucksäcken?"}'::jsonb,
-        '{"character": "Customer", "text": "Yes, please. What is the difference?", "es": "Sí, por favor. ¿Cuál es la diferencia?", "de": "Ja, bitte. Was ist der Unterschied?"}'::jsonb,
-        '{"character": "Sales assistant", "text": "This black backpack is smaller and lighter.", "es": "Esta mochila negra es más pequeña y más ligera.", "de": "Dieser schwarze Rucksack ist kleiner und leichter."}'::jsonb,
-        '{"character": "Sales assistant", "text": "This grey backpack is bigger and has three pockets.", "es": "Esta mochila gris es más grande y tiene tres bolsillos.", "de": "Dieser graue Rucksack ist größer und hat drei Taschen."}'::jsonb,
-        '{"character": "Customer", "text": "I carry books and sports clothes every day.", "es": "Llevo libros y ropa de deporte todos los días.", "de": "Ich trage jeden Tag Bücher und Sportsachen."}'::jsonb,
-        '{"character": "Sales assistant", "text": "Then the grey backpack is better for you.", "es": "Entonces la mochila gris es mejor para usted.", "de": "Dann ist der graue Rucksack besser für Sie."}'::jsonb,
-        '{"character": "Customer", "text": "Is it much more expensive?", "es": "¿Es mucho más cara?", "de": "Ist er viel teurer?"}'::jsonb,
-        '{"character": "Sales assistant", "text": "Not much. The black one is eighteen pounds, and the grey one is twenty-six.", "es": "No mucho. La negra cuesta dieciocho libras y la gris veintiséis.", "de": "Nicht viel. Der schwarze kostet achtzehn Pfund und der graue sechsundzwanzig."}'::jsonb,
-        '{"character": "Customer", "text": "I see. I think the grey backpack is the best option.", "es": "Ya veo. Creo que la mochila gris es la mejor opción.", "de": "Ich verstehe. Ich denke, der graue Rucksack ist die beste Option."}'::jsonb,
-        '{"character": "Sales assistant", "text": "Good choice. It is stronger too.", "es": "Buena elección. Además es más resistente.", "de": "Gute Wahl. Er ist auch stabiler."}'::jsonb
-    ];
-    v_exercises JSONB[] := ARRAY[
-        '{"es": "El cliente compara dos mochilas.", "de": "Der Kunde vergleicht zwei Rucksäcke.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "La mochila negra es más pequeña y más ligera.", "de": "Der schwarze Rucksack ist kleiner und leichter.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "La mochila gris tiene un solo bolsillo.", "de": "Der graue Rucksack hat nur eine Tasche.", "s_es": {"type": "true_false", "answer": false}, "s_de": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"es": "El cliente lleva libros y ropa de deporte cada día.", "de": "Der Kunde trägt jeden Tag Bücher und Sportsachen.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "La dependienta dice que la mochila gris también es más resistente.", "de": "Die Verkäuferin sagt, dass der graue Rucksack auch stabiler ist.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"es": "¿Qué color tiene la mochila pequeña?", "de": "Welche Farbe hat der kleine Rucksack?", "s_es": {"type": "multiple_choice", "options": ["Black", "Grey", "Blue"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Schwarz", "Grau", "Blau"], "answer": 0}}'::jsonb,
-        '{"es": "¿Cuántos bolsillos tiene la mochila gris?", "de": "Wie viele Taschen hat der graue Rucksack?", "s_es": {"type": "multiple_choice", "options": ["Three", "One", "Two"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Drei", "Eins", "Zwei"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué lleva el cliente cada día?", "de": "Was trägt der Kunde jeden Tag?", "s_es": {"type": "multiple_choice", "options": ["Books and sports clothes", "Only a wallet", "Food and flowers"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Bücher und Sportsachen", "Nur eine Geldbörse", "Essen und Blumen"], "answer": 0}}'::jsonb,
-        '{"es": "¿Cuánto cuesta la mochila negra?", "de": "Wie viel kostet der schwarze Rucksack?", "s_es": {"type": "multiple_choice", "options": ["Eighteen pounds", "Twenty-six pounds", "Twelve pounds"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Achtzehn Pfund", "Sechsundzwanzig Pfund", "Zwölf Pfund"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué mochila elige el cliente al final?", "de": "Welchen Rucksack wählt der Kunde am Ende?", "s_es": {"type": "multiple_choice", "options": ["The grey backpack", "The black backpack", "Neither backpack"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Den grauen Rucksack", "Den schwarzen Rucksack", "Keinen Rucksack"], "answer": 0}}'::jsonb
+        '{"character": "Sales assistant", "text": "Hello. Are you choosing between these two backpacks?", "es": "Hola. ¿Está eligiendo entre estas dos mochilas?", "pron": "/hé-lou. ar iu CHIIU-sing bi-TUIIN diiz tuu BÁK-paks/", "de": "Hallo. Wählen Sie zwischen diesen beiden Rucksäcken?", "pron_de": "/já-lo. UÄ-len zi TSVISH-en DÍ-zen TSVAI ROOK-zä-ken/"}'::jsonb,
+        '{"character": "Customer", "text": "Yes, please. What is the difference?", "es": "Sí, por favor. ¿Cuál es la diferencia?", "pron": "/ies, pliis. uat is de DÍF-rens/", "de": "Ja, bitte. Was ist der Unterschied?", "pron_de": "/ia, BÍ-te. uas ist der UN-ter-shíit/"}'::jsonb,
+        '{"character": "Sales assistant", "text": "This black backpack is smaller and lighter.", "es": "Esta mochila negra es más pequeña y más ligera.", "pron": "/dis blak BÁK-pak is SMO-ler and LAÍ-ter/", "de": "Dieser schwarze Rucksack ist kleiner und leichter.", "pron_de": "/DÍ-zer SHVARTS-e ROOK-zak ist KLÁI-ner und LAÍJ-ter/"}'::jsonb,
+        '{"character": "Sales assistant", "text": "This grey backpack is bigger and has three pockets.", "es": "Esta mochila gris es más grande y tiene tres bolsillos.", "pron": "/dis grei BÁK-pak is BÍ-ger and has thrii PO-kets/", "de": "Dieser graue Rucksack ist größer und hat drei Taschen.", "pron_de": "/DÍ-zer GRAU-e ROOK-zak ist GRÖ-ser und hat drai TA-shen/"}'::jsonb,
+        '{"character": "Customer", "text": "I carry books and sports clothes every day.", "es": "Llevo libros y ropa de deporte todos los días.", "pron": "/ai KÁ-ri buks and sports kloudz É-vri dei/", "de": "Ich trage jeden Tag Bücher und Sportsachen.", "pron_de": "/ij TRÁ-ge YÉ-den tag BÜ-cher und SPORT-za-chen/"}'::jsonb,
+        '{"character": "Sales assistant", "text": "Then the grey backpack is better for you.", "es": "Entonces la mochila gris es mejor para usted.", "pron": "/den de grei BÁK-pak is BÉ-ter for iu/", "de": "Dann ist der graue Rucksack besser für Sie.", "pron_de": "/dan ist der GRAU-e ROOK-zak BÉ-ser für zi/"}'::jsonb,
+        '{"character": "Customer", "text": "Is it much more expensive?", "es": "¿Es mucho más cara?", "pron": "/is it mach mor eks-PEN-siv/", "de": "Ist er viel teurer?", "pron_de": "/ist er fíil TÖI-rer/"}'::jsonb,
+        '{"character": "Sales assistant", "text": "Not much. The black one is eighteen pounds, and the grey one is twenty-six.", "es": "No mucho. La negra cuesta dieciocho libras y la gris veintiséis.", "pron": "/not mach. de blak uan is EI-TÍIN paunds, and de grei uan is TUEN-ti-siks/", "de": "Nicht viel. Der schwarze kostet achtzehn Pfund und der graue sechsundzwanzig.", "pron_de": "/niJt fíil. der SHVARTS-e kos-tet ACHT-tséen pfunt und der GRAU-e SECHS-und-TSVÁNTS-ij/"}'::jsonb,
+        '{"character": "Customer", "text": "I see. I think the grey backpack is the best option.", "es": "Ya veo. Creo que la mochila gris es la mejor opción.", "pron": "/ai sii. ai think de grei BÁK-pak is de best OP-shon/", "de": "Ich verstehe. Ich denke, der graue Rucksack ist die beste Option.", "pron_de": "/ij fer-SHTÉ-he. ij DEN-ke, der GRAU-e ROOK-zak ist di BES-te op-TSI-on/"}'::jsonb,
+        '{"character": "Sales assistant", "text": "Good choice. It is stronger too.", "es": "Buena elección. Además es más resistente.", "pron": "/gud chois. it is STRON-ger tuu/", "de": "Gute Wahl. Er ist auch stabiler.", "pron_de": "/GUU-te vaal. er ist auch shta-BÍ-ler/"}'::jsonb
     ];
 BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
+    DELETE FROM exercise_translation WHERE exercise_uuid IN (SELECT uuid FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id));
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id);
+    DELETE FROM dialogue_lines_translation WHERE dialogue_line_uuid IN (SELECT uuid FROM dialogue_lines WHERE dialogue_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id));
+    DELETE FROM dialogue_lines WHERE dialogue_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id);
+    DELETE FROM dialogue_translation WHERE dialogue_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id);
     DELETE FROM dialogue WHERE step_order = 1300 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
     VALUES (v_path_id, 1300, 'en', 'dialogue', 'shopping', '[{"name": "Sales assistant", "gender": "female", "avatarURL": "https://example.com/avatars/sales-assistant.png"}, {"name": "Customer", "gender": "male", "avatarURL": "https://example.com/avatars/customer.png"}]'::jsonb)
     RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Compara dos mochilas con el dependiente', 'Lee un diálogo en el que una dependienta explica la diferencia entre dos mochilas.'),
-        (v_dialogue_id, 'de', 'Vergleiche zwei Rucksäcke mit dem Verkäufer', 'Lies einen Dialog, in dem eine Verkäuferin den Unterschied zwischen zwei Rucksäcken erklärt.');
+        (v_dialogue_id, 'es', 'Mochilas con el dependiente'),
+        (v_dialogue_id, 'de', 'Rucksäcke mit dem Verkäufer');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
-        VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text')
-        RETURNING uuid INTO v_line_uuid;
+        VALUES (v_dialogue_id, v_order, line->>'character', line->>'text')
+        RETURNING uuid INTO v_line_id;
 
         INSERT INTO dialogue_lines_translation (dialogue_line_uuid, language, meaning)
         VALUES
-            (v_line_uuid, 'es', jsonb_build_object('translation', line->>'es')),
-            (v_line_uuid, 'de', jsonb_build_object('translation', line->>'de'));
+            (v_line_id, 'es', jsonb_build_object('translation', line->>'es', 'pronunciation', line->>'pron')),
+            (v_line_id, 'de', jsonb_build_object('translation', line->>'de', 'pronunciation', line->>'pron_de'));
 
-        v_line_order := v_line_order + 1;
-    END LOOP;
-
-    FOREACH ex IN ARRAY v_exercises LOOP
-        INSERT INTO exercise (target_uuid, grammar_rule_uuid)
-        VALUES (v_dialogue_id, NULL)
-        RETURNING uuid INTO v_ex_id;
-
-        INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
-        VALUES
-            (v_ex_id, 'es', ex->>'es', ex->'s_es'),
-            (v_ex_id, 'de', ex->>'de', ex->'s_de');
+        v_order := v_order + 1;
     END LOOP;
 END;
 $seed$;

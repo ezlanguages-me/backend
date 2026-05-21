@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 3960 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 3960 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 3960, 'en', 'dialogue', 'professional', '[{"name": "Client", "gender": "female", "avatarURL": "https://example.com/avatars/client.png"}, {"name": "Agent", "gender": "male", "avatarURL": "https://example.com/avatars/agent.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 3960, 'en', 'dialogue', 'professional', '[{"name": "Client", "gender": "female", "avatarURL": "https://example.com/avatars/client.png"}, {"name": "Agent", "gender": "male", "avatarURL": "https://example.com/avatars/agent.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Gestiona una queja de trabajo', 'Practica una respuesta profesional a una queja con disculpa, solución y plazo.'),
-        (v_dialogue_id, 'de', 'Bearbeite eine Arbeitsbeschwerde', 'Übe eine professionelle Antwort auf eine Beschwerde mit Entschuldigung, Lösung und Frist.');
+        (v_dialogue_id, 'es', 'Gestiona una queja de trabajo'), (v_dialogue_id, 'de', 'Arbeitsbeschwerde');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

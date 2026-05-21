@@ -86,6 +86,7 @@ type EvaluateRequest struct {
 	TargetLanguage string   // language the student is learning
 	Scenario       string   // situation description from the step prompt
 	Tasks          []string // tasks the student must fulfil
+	UserLevel      string   // CEFR level of the student (e.g. "A1", "B2")
 }
 
 // Evaluate proxies the call to Gemini and parses the JSON-as-text response.
@@ -119,15 +120,22 @@ func (a *AIApplication) Evaluate(req EvaluateRequest) (*AIFeedback, error) {
 		scenario = "(no scenario provided)"
 	}
 
+	userLevel := req.UserLevel
+	if userLevel == "" {
+		userLevel = "unknown"
+	}
+
 	userPrompt := fmt.Sprintf(
 		"Target language (the student must respond in this language): %s\n"+
-			"Student's native language (write the feedback in THIS language): %s\n\n"+
+			"Student's native language (write the feedback in THIS language): %s\n"+
+			"Student's CEFR level: %s\n\n"+
 			"Scenario:\n%s\n\n"+
 			"Tasks the student must accomplish:\n%s\n"+
 			"The student %s the following:\n\n\"%s\"\n\n"+
-			"Evaluate strictly. Verify every task. Reply with the JSON described in the system instruction.",
+			"Evaluate strictly. Verify every task. Adapt the correction depth to the student's level. Reply with the JSON described in the system instruction.",
 		req.TargetLanguage,
 		req.NativeLanguage,
+		userLevel,
 		scenario,
 		tasksList.String(),
 		studentVerbForKind(req.Kind),

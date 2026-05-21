@@ -22,16 +22,16 @@
         '{"character": "Student", "text": "Yes. Understanding humour in a second language is a sign of true fluency.", "es": "Sí. Entender el humor en una segunda lengua es señal de verdadera fluidez.", "de": "Ja. Humor in einer zweiten Sprache zu verstehen, ist ein Zeichen echter Sprachbeherrschung."}'::jsonb
         ];
         v_exercises JSONB[] := ARRAY[
-            '{"p": "Según el diálogo, marca verdadero o falso: The dialogue is about a foreign student catches a dry humour joke in a British TV comedy.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The dialogue is about a foreign student catches a dry humour joke in a British TV comedy.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: The speakers are planning a beach holiday.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: Student explains that the joke relies on a double meaning of the word ''right'' — correct versus a tag question.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: Student explains that the joke relies on a double meaning of the word ''right'' — correct versus a tag question.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: A counterpoint is that a friend explains that the same joke would not translate directly into other languages.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: A counterpoint is that a friend explains that the same joke would not translate directly into other languages.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, marca verdadero o falso: The conclusion is that the student writes down the phrase as an example of British colloquial English.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The conclusion is that the student writes down the phrase as an example of British colloquial English.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: What is the main focus?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What is the main focus?", "s": {"type": "multiple_choice", "options": ["a foreign student catches a dry humour joke in a British TV comedy", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Who gives the main explanation?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Student", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Which detail is named?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which detail is named?", "s": {"type": "multiple_choice", "options": ["the joke relies on a double meaning of the word ''right'' — correct versus a tag question", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: Which counterpoint appears?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["a friend explains that the same joke would not translate directly into other languages", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
-        '{"p": "Según el diálogo, elige la respuesta correcta: What conclusion do the speakers reach?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the student writes down the phrase as an example of British colloquial English", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
+            '{"p": "The dialogue is about a foreign student catches a dry humour joke in a British TV comedy.", "p_de": "The dialogue is about a foreign student catches a dry humour joke in a British TV comedy.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The speakers are planning a beach holiday.", "p_de": "The speakers are planning a beach holiday.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+        '{"p": "Student explains that the joke relies on a double meaning of the word ''right'' — correct versus a tag question.", "p_de": "Student explains that the joke relies on a double meaning of the word ''right'' — correct versus a tag question.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "A counterpoint is that a friend explains that the same joke would not translate directly into other languages.", "p_de": "A counterpoint is that a friend explains that the same joke would not translate directly into other languages.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "The conclusion is that the student writes down the phrase as an example of British colloquial English.", "p_de": "The conclusion is that the student writes down the phrase as an example of British colloquial English.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+        '{"p": "What is the main focus?", "p_de": "What is the main focus?", "s": {"type": "multiple_choice", "options": ["a foreign student catches a dry humour joke in a British TV comedy", "a broken bus stop", "a lost suitcase"], "answer": 0}}'::jsonb,
+        '{"p": "Who gives the main explanation?", "p_de": "Who gives the main explanation?", "s": {"type": "multiple_choice", "options": ["Student", "the cleaner", "the taxi driver"], "answer": 0}}'::jsonb,
+        '{"p": "Which detail is named?", "p_de": "Which detail is named?", "s": {"type": "multiple_choice", "options": ["the joke relies on a double meaning of the word ''right'' — correct versus a tag question", "the door is painted blue", "the train leaves at midnight"], "answer": 0}}'::jsonb,
+        '{"p": "Which counterpoint appears?", "p_de": "Which counterpoint appears?", "s": {"type": "multiple_choice", "options": ["a friend explains that the same joke would not translate directly into other languages", "nobody has a notebook", "the lesson is cancelled"], "answer": 0}}'::jsonb,
+        '{"p": "What conclusion do the speakers reach?", "p_de": "What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["the student writes down the phrase as an example of British colloquial English", "they forget the topic completely", "they decide to leave the room"], "answer": 0}}'::jsonb
         ];
     BEGIN
         SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -43,12 +43,11 @@ DELETE FROM listening WHERE step_order=9740 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=9740 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=9740 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=9740 AND path_uuid=v_path_id;
-        INSERT INTO dialogue (path_uuid,step_order,source_language,type,category,characters)
-        VALUES (v_path_id,9740,'en','dialogue','social','[{"name": "Speaker A", "gender": "neutral", "avatarURL": "https://example.com/avatars/speaker-a.png"}, {"name": "Student", "gender": "neutral", "avatarURL": "https://example.com/avatars/student.png"}]'::jsonb)
-        RETURNING uuid INTO v_dialogue_id;
+        INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+        VALUES (v_path_id, 9740, 'en', 'dialogue', 'social', '[{"name": "Speaker A", "gender": "neutral", "avatarURL": "https://example.com/avatars/speaker-a.png"}, {"name": "Student", "gender": "neutral", "avatarURL": "https://example.com/avatars/student.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'es','understand jokes, colloquial asides and cultural allusions','Lee el diálogo y responde.');
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'de','understand jokes, colloquial asides and cultural allusions','Lies den Dialog und beantworte die Fragen.');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'Diálogo coloquial');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'Umgangssprachlicher Dialog');
 
         FOREACH line IN ARRAY v_lines LOOP
             INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

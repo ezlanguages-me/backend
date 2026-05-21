@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3320 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3320, 'en', 'listening', 'emergency', $transcript$
+    VALUES (
+    v_path_id,
+    3320,
+    'en',
+    'listening',
+    'emergency',
+    $transcript$
 # AUDIO PROFILE: Rosa, reporting a theft to a police officer
 ## "My Backpack Was Stolen"
 
@@ -76,13 +82,12 @@ Learners practise describing the circumstances of a theft to the police.
 [remembering] Rosa: Yes, the café manager saw her and wrote down the time.
 [clear] Officer: Please come to South Police Desk with your ID.
 [ready] Rosa: I can be there in ten minutes.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una denuncia de robo a la policía', 'Escucha cómo una persona explica un robo, los objetos perdidos y la dirección del sospechoso.'),
-        (v_listening_id, 'de', 'Höre eine Diebstahlmeldung bei der Polizei', 'Höre, wie eine Person einen Diebstahl, die verlorenen Gegenstände und die Laufrichtung des Verdächtigen beschreibt.');
+        (v_listening_id, 'es', 'Denuncia de robo a la policía'), (v_listening_id, 'de', 'Diebstahlmeldung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

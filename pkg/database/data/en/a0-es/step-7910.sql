@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7910 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7910, 'en', 'reading', 'meetings', 'Speaker Preparation Checklist\n\nBefore the talk:
+    VALUES (
+    v_path_id,
+    7910,
+    'en',
+    'reading',
+    'meetings',
+    'Speaker Preparation Checklist\n\nBefore the talk:
 1. Check the room at 8:30.
 2. Test the laptop and projector.
 3. Put your name on the first slide.
@@ -41,13 +47,12 @@ BEGIN
 6. Keep the talk to 5 minutes.
 7. Prepare two easy examples.
 8. Leave 3 minutes for questions.
-9. Bring water and a pen.')
-    RETURNING uuid INTO v_reading_id;
+9. Bring water and a pen.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee una lista de preparación del ponente', 'Lee una lista breve de acciones antes de una presentación y reconoce instrucciones simples.'),
-        (v_reading_id, 'de', 'Lies eine Vorbereitungsliste für Vortragende', 'Lies eine kurze Liste mit Schritten vor einer Präsentation und erkenne einfache Anweisungen.');
+        (v_reading_id, 'es', 'Preparación del ponente'), (v_reading_id, 'de', 'Vorbereitungsliste');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

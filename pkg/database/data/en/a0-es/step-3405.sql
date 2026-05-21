@@ -14,7 +14,7 @@ BEGIN
   VALUES (v_path_uuid, 3405, 'en', 'deck')
   RETURNING uuid INTO v_deck_uuid;
 
-  INSERT INTO deck_translation (deck_uuid, language, title, description)
-  VALUES (v_deck_uuid, 'es', 'El Trabajo y la Oficina', 'Vocabulario del entorno laboral y la oficina: desk, computer, meeting, report, deadline, colleague, manager, project, etc.');
+  INSERT INTO deck_translation (deck_uuid, language, title)
+  VALUES (v_deck_uuid, 'es', 'El Trabajo y la Oficina');
 END;
 $seed$;

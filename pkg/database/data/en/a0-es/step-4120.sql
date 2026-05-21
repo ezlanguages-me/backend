@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 4120 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 4120 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 4120, 'en', 'dialogue', 'professional', '[{"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 4120, 'en', 'dialogue', 'professional', '[{"name": "Receptionist", "gender": "female", "avatarURL": "https://example.com/avatars/receptionist.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Ofrece ayuda a un visitante o cliente', 'Practica dar la bienvenida a un visitante, avisar al anfitrión y ofrecer asistencia básica.'),
-        (v_dialogue_id, 'de', 'Biete einem Besucher oder Kunden Hilfe an', 'Übe, einen Besucher zu begrüßen, den Gastgeber zu informieren und grundlegende Hilfe anzubieten.');
+        (v_dialogue_id, 'es', 'Ayuda a un visitante o cliente'), (v_dialogue_id, 'de', 'Besucher oder Kunden Hilfe');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

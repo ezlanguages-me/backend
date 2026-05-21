@@ -32,18 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2240 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2240, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2240,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 EMAIL ABOUT BILL 18
 Hello, I am writing about bill 18 from Saturday.
 We ordered two soups and two teas. On the bill, there are three teas and a service charge of 15%.
 
 The menu says service is not included at lunch.
 Please check the bill and refund the extra tea. Thank you.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer una reclamación sobre la cuenta');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine Reklamation über die Rechnung lesen');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Reclamación sobre la cuenta');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Reklamation über die Rechnung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

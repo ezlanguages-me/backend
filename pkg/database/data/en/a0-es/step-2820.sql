@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2820 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2820, 'en', 'listening', 'health', $transcript$
+    VALUES (
+    v_path_id,
+    2820,
+    'en',
+    'listening',
+    'health',
+    $transcript$
 # AUDIO PROFILE: A pharmacist helping a customer choose an over-the-counter product
 ## "Which Product Is Best?"
 
@@ -61,13 +67,12 @@ Learners hear how to ask about over-the-counter products and understand simple i
 [customer] Customer: Can my ten-year-old son take them too?
 [pharmacist] Pharmacist: No. They are for people over twelve.
 [pharmacist] Pharmacist: And do not take the cold tablets if you have high blood pressure.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha información sobre productos sin receta', 'Escucha a una farmacéutica comparar dos productos sin receta y dar una advertencia simple.'),
-        (v_listening_id, 'de', 'Höre Informationen über rezeptfreie Produkte', 'Höre eine Apothekerin, die zwei rezeptfreie Produkte vergleicht und eine einfache Warnung gibt.');
+        (v_listening_id, 'es', 'Audio de productos sin receta'), (v_listening_id, 'de', 'Audio zu rezeptfreien Mitteln');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

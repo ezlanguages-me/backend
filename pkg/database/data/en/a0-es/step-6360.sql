@@ -42,13 +42,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 6360 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 6360, 'en', 'dialogue', 'Convivencia', '[{"name": "Iris","gender": "female","avatarURL": "https://example.com/avatars/student-7.png"},{"name": "Marco","gender": "male","avatarURL": "https://example.com/avatars/student-8.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 6360, 'en', 'dialogue', 'social', '[{"name": "Iris","gender": "female","avatarURL": "https://example.com/avatars/student-7.png"},{"name": "Marco","gender": "male","avatarURL": "https://example.com/avatars/student-8.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'habla sobre costumbres culturales', 'Practica un diálogo respetuoso para comparar hábitos de casa, saludos y maneras de hablar.'),
-        (v_dialogue_id, 'de', 'sprich über kulturelle Gepflogenheiten', 'Übe einen respektvollen Dialog, um Gewohnheiten zu Hause, Begrüßungen und Sprechweisen zu vergleichen.');
+        (v_dialogue_id, 'es', 'Habla sobre costumbres'), (v_dialogue_id, 'de', 'Kulturelle Gepflogenheiten');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4190 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4190 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4190, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4190,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Mr Park, a client giving detailed service instructions
 ## "Cleaning Service Instructions – Site Walkthrough"
 
@@ -56,12 +62,11 @@ Accent: Neutral accent.
 [keys] Mr Park: You will collect the keys from reception each morning. Please return them before 9 AM.
 [reporting] Mr Park: I would like a monthly report listing all visits, times, and any issues found.
 [emergency] Mr Park: For any emergency, please call me directly on my mobile. My number is on the contract.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha instrucciones de un cliente', 'Escucha instrucciones detalladas de limpieza por planta con horarios, productos especiales y requisitos de informe.'),
-            (v_listening_id, 'de', 'Höre Kundenanweisungen', 'Höre detaillierte Reinigungsanweisungen nach Stockwerk mit Zeiten, Spezialprodukten und Berichtsanforderungen.');
+            (v_listening_id, 'es', 'Instrucciones de un cliente'), (v_listening_id, 'de', 'Höre Kundenanweisungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

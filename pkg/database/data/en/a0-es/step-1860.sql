@@ -32,15 +32,21 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1860 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1860, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1860,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 STORE GUIDE
 Floor 0: Entrance, tills, bakery, and customer service. Lifts are next to customer service. Escalators are in the middle of the store.
 
 Floor 1: Men's clothing and shoes. Floor 2: Women's clothing, handbags, and accessories. Floor 3: Children's wear and toys.
 
 Floor 4: Home, kitchen, and bathroom products. Toilets are on Floor 2 near the lifts.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Guía de una tienda por plantas');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Wegweiser in einem Kaufhaus');

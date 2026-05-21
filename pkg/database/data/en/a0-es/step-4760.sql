@@ -44,7 +44,13 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4760, 'en', 'reading', 'professional', $content$Telephone Message Note
+        VALUES (
+    v_path_id,
+    4760,
+    'en',
+    'reading',
+    'professional',
+    $content$Telephone Message Note
 
 Message taken at 9:45 am on Monday 6 November.
 For: Mr. James Wright, Finance Director.
@@ -53,13 +59,12 @@ Phone: 020-7843-9201.
 Email: akowalski@bluehorizon.com.
 
 Message:
-Ms. Kowalski called about the financial review arranged for Thursday 9 November at 2pm. She needs to move the meeting to Friday 10 November at 10am because she has an urgent client visit on Thursday. She also asked for the Q3 financial figures to be sent to her by Wednesday evening at the latest. She said she will send the revised agenda by the end of today. Please call her back to confirm the new time.$content$)
-        RETURNING uuid INTO v_reading_id;
+Ms. Kowalski called about the financial review arranged for Thursday 9 November at 2pm. She needs to move the meeting to Friday 10 November at 10am because she has an urgent client visit on Thursday. She also asked for the Q3 financial figures to be sent to her by Wednesday evening at the latest. She said she will send the revised agenda by the end of today. Please call her back to confirm the new time.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un recado de teléfono complejo', 'Lee una nota telefónica detallada sobre cambios de reunión y documentos urgentes.'),
-            (v_reading_id, 'de', 'Lies eine komplexe Telefonnotiz', 'Lies eine detaillierte Telefonnotiz über eine Terminänderung und dringende Unterlagen.');
+            (v_reading_id, 'es', 'Un recado de teléfono complejo'), (v_reading_id, 'de', 'Eine komplexe Telefonnotiz');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

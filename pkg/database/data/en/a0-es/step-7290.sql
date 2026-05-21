@@ -32,13 +32,11 @@
             DELETE FROM reading WHERE step_order = 7290 AND path_uuid = v_path_id;
 
             INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-            VALUES (v_path_id, 7290, 'en', 'reading', 'communication', 'Formal and informal writing have different styles. Formal messages are common when you write to a teacher, an older neighbour, or someone you do not know well. Informal messages are common when you write to friends, brothers, or close classmates.\n\nA formal message often begins with Dear Ms Green and uses full forms like I am or I would like. It is polite and careful. An informal message can begin with Hi Sam and may use short forms like I''''m or I''''d like.\n\nIn formal writing, it is better to avoid slang and very short answers. Clear sentences and polite expressions are important. In informal writing, the tone can be warmer and more relaxed, but the message should still be clear.\n\nBefore you send any message, think about the reader. Ask yourself: How well do I know this person? What tone is right for this situation? The answer helps you choose the best style.')
-            RETURNING uuid INTO v_reading_id;
+            VALUES (v_path_id, 7290, 'en', 'reading', 'communication', 'Formal and informal writing have different styles. Formal messages are common when you write to a teacher, an older neighbour, or someone you do not know well. Informal messages are common when you write to friends, brothers, or close classmates.\n\nA formal message often begins with Dear Ms Green and uses full forms like I am or I would like. It is polite and careful. An informal message can begin with Hi Sam and may use short forms like I''''m or I''''d like.\n\nIn formal writing, it is better to avoid slang and very short answers. Clear sentences and polite expressions are important. In informal writing, the tone can be warmer and more relaxed, but the message should still be clear.\n\nBefore you send any message, think about the reader. Ask yourself: How well do I know this person? What tone is right for this situation? The answer helps you choose the best style.')RETURNING uuid INTO v_reading_id;
 
-            INSERT INTO reading_translation (reading_uuid, language, title, description)
+            INSERT INTO reading_translation (reading_uuid, language, title)
             VALUES
-                (v_reading_id, 'es', 'Lee sobre estilos de escritura formal e informal', 'Lee una explicación sencilla sobre cómo cambia el tono según la persona y la situación.'),
-                (v_reading_id, 'de', 'Lies über formelle und informelle Schreibstile', 'Lies eine einfache Erklärung dazu, wie sich der Ton je nach Person und Situation verändert.');
+                (v_reading_id, 'es', 'Estilos de escritura formal'), (v_reading_id, 'de', 'Formelle und informelle');
 
             FOREACH ex IN ARRAY v_exercises LOOP
                 INSERT INTO exercise (target_uuid, grammar_rule_uuid)

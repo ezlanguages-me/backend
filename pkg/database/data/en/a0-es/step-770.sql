@@ -19,16 +19,14 @@ BEGIN
         'en',
         'writing',
         'communication'
-    )
-    RETURNING uuid INTO v_writing_uuid;
+    )RETURNING uuid INTO v_writing_uuid;
 
-    INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+    INSERT INTO writing_translation (writing_uuid, language, title, prompt)
     VALUES
         (
             v_writing_uuid,
             'es',
-            'Deja una nota sencilla en la oficina',
-            'Escribe un mensaje breve para decir dónde has ido y cuándo vuelves.',
+            'Nota sencilla en la oficina',
             '{
                 "scenario": "Estás en una oficina y tienes que salir un momento. Tu compañero llegará pronto y necesita saber dónde estás. Escribe una nota corta y sencilla para dejarla en tu mesa.",
                 "tasks": [
@@ -41,11 +39,10 @@ BEGIN
                 ]
             }'::jsonb
         ),
-        (
+(
             v_writing_uuid,
             'de',
-            'Hinterlasse eine einfache Notiz im Büro',
-            'Schreibe eine kurze Nachricht, um zu sagen, wohin du gegangen bist und wann du zurückkommst.',
+            'Hinterlasse eine Büronotiz',
             '{
                 "scenario": "Du bist in einem Büro und musst kurz weg. Dein Kollege kommt bald und muss wissen, wo du bist. Schreib eine kurze und einfache Notiz und lass sie auf deinem Schreibtisch.",
                 "tasks": [

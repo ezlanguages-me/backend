@@ -36,7 +36,13 @@
         DELETE FROM reading WHERE step_order = 3550 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3550, 'en', 'reading', 'professional', $content$Subject: Request for updated price list
+        VALUES (
+    v_path_id,
+    3550,
+    'en',
+    'reading',
+    'professional',
+    $content$Subject: Request for updated price list
 
 Dear Ms Lane,
 
@@ -50,13 +56,12 @@ Thank you for your help.
 Best regards,
 Rosa Vega
 Office Assistant
-Green Line Travel$content$)
-        RETURNING uuid INTO v_reading_id;
+Green Line Travel$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una solicitud por email profesional', 'Lee un email corto de oficina para pedir precios, disponibilidad y tiempo de entrega.'),
-            (v_reading_id, 'de', 'Lies eine professionelle E-Mail-Anfrage', 'Lies eine kurze Büro-E-Mail mit Bitte um Preise, Verfügbarkeit und Lieferzeit.');
+            (v_reading_id, 'es', 'Solicitud por email'), (v_reading_id, 'de', 'Eine professionelle E');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 5860 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 5860, 'en', 'dialogue', 'Gestión del Estudio y Trámites', '[{"name": "Staff", "gender": "neutral", "avatarURL": "https://example.com/avatars/staff.png"}, {"name": "Learner", "gender": "neutral", "avatarURL": "https://example.com/avatars/learner.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 5860, 'en', 'dialogue', 'academic', '[{"name": "Staff", "gender": "neutral", "avatarURL": "https://example.com/avatars/staff.png"}, {"name": "Learner", "gender": "neutral", "avatarURL": "https://example.com/avatars/learner.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pregunta por recursos de la biblioteca', 'Lee un diálogo en el que un estudiante pregunta por libros, revistas y ordenadores.'),
-        (v_dialogue_id, 'de', 'Frag nach Bibliotheksressourcen', 'Lies einen Dialog, in dem ein Student nach Büchern, Zeitschriften und Computern fragt.');
+        (v_dialogue_id, 'es', 'Recursos de la biblioteca'), (v_dialogue_id, 'de', 'Nach Bibliotheksressourcen');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

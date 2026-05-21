@@ -66,12 +66,28 @@ DECLARE
         '{"v":"never","es":"nunca / jamás","de":"nie","ex":"I never drink alcohol.","pron":"/né-ver/","pron_de":"/NIE/"}',
         -- Clock & calendar expressions
         '{"v":"o''clock","es":"en punto (hora exacta)","de":"Uhr (genau)","ex":"The meeting is at three o''clock.","pron":"/o-klók/","pron_de":"/UUR/"}',
-        '{"v":"half past","es":"y media","de":"halb (+ hora siguiente)","ex":"We leave at half past eight – that''s 8:30.","pron":"/jaf past/","pron_de":"/HALB/"}',
+        '{"v":"half past","es":"y media","de":"halb (+ hora siguiente)","ex":"We leave at half past eight – that''s 8:30.","pron":"/haf past/","pron_de":"/HALB/"}',
         '{"v":"weekend","es":"fin de semana","de":"Wochenende","ex":"What are you doing this weekend?","pron":"/uíik-end/","pron_de":"/WO-chön-en-de/"}',
         '{"v":"weekday","es":"día de la semana (laboral)","de":"Werktag","ex":"The bank is only open on weekdays.","pron":"/uíik-dei/","pron_de":"/WERK-taak/"}',
         '{"v":"on time","es":"a tiempo / puntual","de":"pünktlich","ex":"Please be on time for the meeting.","pron":"/on táim/","pron_de":"/PÜNKT-lich/"}',
         '{"v":"early","es":"temprano / pronto","de":"früh","ex":"I try to arrive early to avoid the traffic.","pron":"/ér-li/","pron_de":"/FRÜÜ/"}',
-        '{"v":"late","es":"tarde / con retraso","de":"spät / zu spät","ex":"Sorry, the train was late.","pron":"/léit/","pron_de":"/SCHPÄT/"}'
+        '{"v":"late","es":"tarde / con retraso","de":"spät / zu spät","ex":"Sorry, the train was late.","pron":"/léit/","pron_de":"/SCHPÄT/"}',
+        -- Additional A0 time vocabulary
+        '{"v":"second","es":"segundo","de":"Sekunde","ex":"Wait a second, please.","pron":"/sé-kond/","pron_de":"/se-KUN-de/"}',
+        '{"v":"quarter past","es":"y cuarto","de":"Viertel nach","ex":"The class starts at quarter past nine.","pron":"/kuór-ter past/","pron_de":"/FIÖ-töl nach/"}',
+        '{"v":"quarter to","es":"menos cuarto","de":"Viertel vor","ex":"It''s quarter to five – time to go!","pron":"/kuór-ter tu/","pron_de":"/FIÖ-töl for/"}',
+        '{"v":"a.m.","es":"de la mañana (antes del mediodía)","de":"morgens / vormittags","ex":"The flight departs at 7 a.m.","pron":"/éi em/","pron_de":"/AH em/"}',
+        '{"v":"p.m.","es":"de la tarde/noche (después del mediodía)","de":"nachmittags / abends","ex":"School finishes at 3 p.m.","pron":"/pi em/","pron_de":"/PIE em/"}',
+        '{"v":"once","es":"una vez","de":"einmal","ex":"I go to the gym once a week.","pron":"/uans/","pron_de":"/AIN-mal/"}',
+        '{"v":"twice","es":"dos veces","de":"zweimal","ex":"I brush my teeth twice a day.","pron":"/tuáis/","pron_de":"/TSVAI-mal/"}',
+        '{"v":"every day","es":"todos los días","de":"jeden Tag / täglich","ex":"She walks her dog every day.","pron":"/é-vri dei/","pron_de":"/YE-dön TAAK/"}',
+        '{"v":"last week","es":"la semana pasada","de":"letzte Woche","ex":"I went to the doctor last week.","pron":"/last uíik/","pron_de":"/LETS-te WO-che/"}',
+        '{"v":"next week","es":"la semana que viene","de":"nächste Woche","ex":"We have an important meeting next week.","pron":"/nekst uíik/","pron_de":"/NÄCHS-te WO-che/"}',
+        '{"v":"this week","es":"esta semana","de":"diese Woche","ex":"Are you free this week?","pron":"/dis uíik/","pron_de":"/DIE-se WO-che/"}',
+        '{"v":"ago","es":"hace (tiempo pasado)","de":"vor (+ Zeitangabe)","ex":"I moved here two years ago.","pron":"/a-góu/","pron_de":"/for/"}',
+        '{"v":"in a while","es":"en un rato","de":"in einer Weile","ex":"Don''t worry, she will be here in a while.","pron":"/in a uáil/","pron_de":"/in AI-nö WAI-le/"}',
+        '{"v":"sunrise","es":"amanecer","de":"Sonnenaufgang","ex":"We got up early to watch the sunrise.","pron":"/sán-raiz/","pron_de":"/SO-nön-auf-gang/"}',
+        '{"v":"sunset","es":"atardecer","de":"Sonnenuntergang","ex":"They sat on the beach to enjoy the sunset.","pron":"/sán-set/","pron_de":"/SO-nön-un-tö-gang/"}'
     ];
 BEGIN
 
@@ -81,21 +97,18 @@ BEGIN
     VALUES (v_path_id, 155, 'en', 'deck')
     RETURNING uuid INTO v_deck_id;
 
-    INSERT INTO deck_translation (deck_uuid, language, title, description)
+    INSERT INTO deck_translation (deck_uuid, language, title)
     VALUES (
         v_deck_id,
         'es',
-        'El Tiempo, Fechas, Horas y Frecuencia',
-        ''
+        'Fechas, Horas y Frecuencia'
     );
 
-    INSERT INTO deck_translation (deck_uuid, language, title, description)
-    VALUES (v_deck_id, 'de', 'Zeit, Daten, Uhrzeiten und Häufigkeit', '');
+    INSERT INTO deck_translation (deck_uuid, language, title)
+    VALUES (v_deck_id, 'de', 'Uhrzeiten und Häufigkeit');
     FOREACH v_item IN ARRAY v_time_vocab
     LOOP
-        INSERT INTO word (term, is_root, source_language, example)
-        VALUES (v_item->>'v', TRUE, 'en', v_item->>'ex')
-        RETURNING uuid INTO v_root_id;
+        SELECT get_or_create_word(v_item->>'v', 'en', v_item->>'ex') INTO v_root_id;
 
         INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
         VALUES (
@@ -103,13 +116,16 @@ BEGIN
             'es',
             jsonb_build_object('translation', v_item->>'es'),
             v_item->>'pron'
-        );
+        )
+    ON CONFLICT DO NOTHING;
 
         INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-        VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+        VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
         INSERT INTO deck_words (deck_uuid, word_uuid)
-        VALUES (v_deck_id, v_root_id);
+        VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
     END LOOP;
 
 END;

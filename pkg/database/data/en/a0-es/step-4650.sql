@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4650, 'en', 'reading', 'professional', $content$Quick-Start Guide – ProPrint 400
+        VALUES (
+    v_path_id,
+    4650,
+    'en',
+    'reading',
+    'professional',
+    $content$Quick-Start Guide – ProPrint 400
 
 To set up the ProPrint 400, first remove all packaging materials and place the printer on a flat, stable surface. Next, connect the power cable to the printer and then to a wall socket. Press the power button and wait until the ready light turns green before continuing.
 
 Open the paper tray and load up to 250 sheets of A4 paper. The printer driver is supplied on the USB drive included in the box. Install the driver before connecting the machine to your computer. You can choose either a USB connection or WiFi, depending on your workspace.
 
-To confirm that installation is complete, print a test page from the printer menu. If the page does not print, check all cable connections and restart the printer before requesting support.$content$)
-        RETURNING uuid INTO v_reading_id;
+To confirm that installation is complete, print a test page from the printer menu. If the page does not print, check all cable connections and restart the printer before requesting support.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee la guía de inicio rápido de una impresora', 'Lee instrucciones de inicio rápido para instalar y probar una impresora.'),
-            (v_reading_id, 'de', 'Lies den Schnellstartleitfaden eines Druckers', 'Lies eine Schnellstartanleitung zur Installation und Prüfung eines Druckers.');
+            (v_reading_id, 'es', 'Inicio rápido de una impresora'), (v_reading_id, 'de', 'Schnellstartleitfaden eines');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

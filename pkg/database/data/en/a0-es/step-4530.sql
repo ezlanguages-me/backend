@@ -15,21 +15,13 @@
               AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 4530, 'en', 'writing', 'professional')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 4530, 'en', 'writing', 'professional')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'es',
-                'Escribe una carta de consulta rutinaria',
-                '',
+                'Carta de consulta rutinaria',
                 '{
     "scenario": "Trabaja en una empresa de oficinas y necesita solicitar información sobre un proveedor de material de oficina. Escribe una carta formal de consulta donde preguntes por productos, precios y condiciones de entrega.",
     "tasks": [
@@ -45,18 +37,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'de',
-                'Schreibe einen einfachen Anfragebriefs',
-                '',
+                'Einen einfachen Anfragebriefs',
                 '{
     "scenario": "Sie arbeiten in einem Büro und möchten Informationen bei einem Büromateriallieferanten anfragen. Schreiben Sie einen formellen Anfragebriefs mit Fragen zu Produkten, Preisen und Lieferbedingungen.",
     "tasks": [

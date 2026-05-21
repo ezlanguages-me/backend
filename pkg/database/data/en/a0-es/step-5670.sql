@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5670 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5670, 'en', 'reading', 'academic', 'Abstract A reports a study on sleep and academic performance. It says students who slept seven to eight hours before an exam scored higher on average than students with shorter sleep. The main idea is that regular sleep supports academic performance.
+    VALUES (
+    v_path_id,
+    5670,
+    'en',
+    'reading',
+    'academic',
+    'Abstract A reports a study on sleep and academic performance. It says students who slept seven to eight hours before an exam scored higher on average than students with shorter sleep. The main idea is that regular sleep supports academic performance.
 
 Abstract B reports a study on exercise and memory. It explains that students who did moderate exercise three times a week showed better short term memory in simple recall tasks. The central idea is that regular physical activity may improve memory.
 
-When reading abstracts, look for four elements: topic, method, main finding, and conclusion. You do not need every detail first. If you can identify what was studied and what result was found, you can already follow the central idea.')
-    RETURNING uuid INTO v_reading_id;
+When reading abstracts, look for four elements: topic, method, main finding, and conclusion. You do not need every detail first. If you can identify what was studied and what result was found, you can already follow the central idea.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Seguir las ideas centrales en resúmenes académicos', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Zentrale Ideen in Abstracts erkennen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Ideas centrales en resúmenes');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Zentrale Ideen in Abstracts');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

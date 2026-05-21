@@ -23,9 +23,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,8640,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Be Used To / Get Used To / Used To', 'Diferencias entre estado habitual, proceso de adaptación, hábito pasado y las formas negativas o interrogativas.', to_jsonb('# Be Used To / Get Used To / Used To
+        (
+    v_grammar_id,
+    'es',
+    'Used To / Get Used To / Used',
+    to_jsonb('# Be Used To / Get Used To / Used To
 
 Estas tres expresiones parecen parecidas, pero hablan de cosas distintas.
 
@@ -50,8 +54,13 @@ Habla de hábitos o estados del pasado que ya no son normales ahora.
 - Are you **used to** spicy food?
 
 ### Recordatorio
-Después de **be used to** y **get used to**, si viene verbo usamos **-ing**. Después de **used to** para hábito pasado usamos **infinitivo base**.'::text)),
-        (v_grammar_id, 'de', 'Be Used To / Get Used To / Used To', 'Unterschiede zwischen Gewöhnung, Anpassungsprozess, früheren Gewohnheiten und negativen oder fragenden Formen.', to_jsonb('# Be Used To / Get Used To / Used To
+Después de **be used to** y **get used to**, si viene verbo usamos **-ing**. Después de **used to** para hábito pasado usamos **infinitivo base**.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Used To / Get Used To / Used',
+    to_jsonb('# Be Used To / Get Used To / Used To
 
 Diese drei Ausdrücke sehen ähnlich aus, sprechen aber über verschiedene Dinge.
 
@@ -76,7 +85,8 @@ Das beschreibt Gewohnheiten oder Zustände in der Vergangenheit, die heute nicht
 - Are you **used to** spicy food?
 
 ### Merksatz
-Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. Nach **used to** für frühere Gewohnheiten folgt der **Infinitiv ohne to**.'::text));
+Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. Nach **used to** für frühere Gewohnheiten folgt der **Infinitiv ohne to**.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_rule1_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -87,14 +97,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: I ___ early.', '{"type": "typing", "correct_answers": ["am used to waking up"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: I ___ early.', '{"type": "typing", "correct_answers": ["am used to waking up"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I ___ early.', '{"type": "typing", "correct_answers": ["am used to waking up"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I ___ early.', '{"type": "typing", "correct_answers": ["am used to waking up"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: I ___ early.', '{"type": "multiple_choice", "options": ["am used to waking up", "am used to wake up", "used to waking up"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: I ___ early.', '{"type": "multiple_choice", "options": ["am used to waking up", "am used to wake up", "used to waking up"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I ___ early.', '{"type": "multiple_choice", "options": ["am used to waking up", "am used to wake up", "used to waking up"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I ___ early.', '{"type": "multiple_choice", "options": ["am used to waking up", "am used to wake up", "used to waking up"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -111,14 +121,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: She ___ late.', '{"type": "typing", "correct_answers": ["is used to working"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: She ___ late.', '{"type": "typing", "correct_answers": ["is used to working"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She ___ late.', '{"type": "typing", "correct_answers": ["is used to working"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She ___ late.', '{"type": "typing", "correct_answers": ["is used to working"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: She ___ late.', '{"type": "multiple_choice", "options": ["is used to working", "is used to work", "used to working"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: She ___ late.', '{"type": "multiple_choice", "options": ["is used to working", "is used to work", "used to working"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ late.', '{"type": "multiple_choice", "options": ["is used to working", "is used to work", "used to working"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ late.', '{"type": "multiple_choice", "options": ["is used to working", "is used to work", "used to working"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -135,14 +145,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: We ___ the cold here.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: We ___ the cold here.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We ___ the cold here.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We ___ the cold here.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: We ___ the cold here.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: We ___ the cold here.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We ___ the cold here.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We ___ the cold here.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -159,14 +169,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: He ___ on the left.', '{"type": "typing", "correct_answers": ["is used to driving"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: He ___ on the left.', '{"type": "typing", "correct_answers": ["is used to driving"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He ___ on the left.', '{"type": "typing", "correct_answers": ["is used to driving"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He ___ on the left.', '{"type": "typing", "correct_answers": ["is used to driving"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: He ___ on the left.', '{"type": "multiple_choice", "options": ["is used to driving", "is used to drive", "used to driving"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: He ___ on the left.', '{"type": "multiple_choice", "options": ["is used to driving", "is used to drive", "used to driving"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He ___ on the left.', '{"type": "multiple_choice", "options": ["is used to driving", "is used to drive", "used to driving"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He ___ on the left.', '{"type": "multiple_choice", "options": ["is used to driving", "is used to drive", "used to driving"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -183,14 +193,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: They ___ long meetings.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: They ___ long meetings.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'They ___ long meetings.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'They ___ long meetings.', '{"type": "typing", "correct_answers": ["are used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: They ___ long meetings.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: They ___ long meetings.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'They ___ long meetings.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'They ___ long meetings.', '{"type": "multiple_choice", "options": ["are used to", "used to", "get used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -207,14 +217,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: My parents ___ in the city.', '{"type": "typing", "correct_answers": ["are used to living"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: My parents ___ in the city.', '{"type": "typing", "correct_answers": ["are used to living"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'My parents ___ in the city.', '{"type": "typing", "correct_answers": ["are used to living"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'My parents ___ in the city.', '{"type": "typing", "correct_answers": ["are used to living"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: My parents ___ in the city.', '{"type": "multiple_choice", "options": ["are used to living", "are used to live", "used to living"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: My parents ___ in the city.', '{"type": "multiple_choice", "options": ["are used to living", "are used to live", "used to living"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'My parents ___ in the city.', '{"type": "multiple_choice", "options": ["are used to living", "are used to live", "used to living"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'My parents ___ in the city.', '{"type": "multiple_choice", "options": ["are used to living", "are used to live", "used to living"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -231,14 +241,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura correcta: The students ___ homework online.', '{"type": "typing", "correct_answers": ["are used to doing"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die richtige Struktur: The students ___ homework online.', '{"type": "typing", "correct_answers": ["are used to doing"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The students ___ homework online.', '{"type": "typing", "correct_answers": ["are used to doing"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The students ___ homework online.', '{"type": "typing", "correct_answers": ["are used to doing"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: The students ___ homework online.', '{"type": "multiple_choice", "options": ["are used to doing", "are used to do", "used to doing"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: The students ___ homework online.', '{"type": "multiple_choice", "options": ["are used to doing", "are used to do", "used to doing"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The students ___ homework online.', '{"type": "multiple_choice", "options": ["are used to doing", "are used to do", "used to doing"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The students ___ homework online.', '{"type": "multiple_choice", "options": ["are used to doing", "are used to do", "used to doing"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule1_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -261,14 +271,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: I ___ my new schedule.', '{"type": "typing", "correct_answers": ["am getting used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: I ___ my new schedule.', '{"type": "typing", "correct_answers": ["am getting used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I ___ my new schedule.', '{"type": "typing", "correct_answers": ["am getting used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I ___ my new schedule.', '{"type": "typing", "correct_answers": ["am getting used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: I ___ my new schedule.', '{"type": "multiple_choice", "options": ["am getting used to", "am used to", "used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: I ___ my new schedule.', '{"type": "multiple_choice", "options": ["am getting used to", "am used to", "used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I ___ my new schedule.', '{"type": "multiple_choice", "options": ["am getting used to", "am used to", "used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I ___ my new schedule.', '{"type": "multiple_choice", "options": ["am getting used to", "am used to", "used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -285,14 +295,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: She ___ from home.', '{"type": "typing", "correct_answers": ["got used to working"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: She ___ from home.', '{"type": "typing", "correct_answers": ["got used to working"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She ___ from home.', '{"type": "typing", "correct_answers": ["got used to working"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She ___ from home.', '{"type": "typing", "correct_answers": ["got used to working"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: She ___ from home.', '{"type": "multiple_choice", "options": ["got used to working", "got used to work", "was used to working"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: She ___ from home.', '{"type": "multiple_choice", "options": ["got used to working", "got used to work", "was used to working"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ from home.', '{"type": "multiple_choice", "options": ["got used to working", "got used to work", "was used to working"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ from home.', '{"type": "multiple_choice", "options": ["got used to working", "got used to work", "was used to working"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -309,14 +319,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: We ___ the rain.', '{"type": "typing", "correct_answers": ["are getting used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: We ___ the rain.', '{"type": "typing", "correct_answers": ["are getting used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We ___ the rain.', '{"type": "typing", "correct_answers": ["are getting used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We ___ the rain.', '{"type": "typing", "correct_answers": ["are getting used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: We ___ the rain.', '{"type": "multiple_choice", "options": ["are getting used to", "are used to", "get used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: We ___ the rain.', '{"type": "multiple_choice", "options": ["are getting used to", "are used to", "get used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We ___ the rain.', '{"type": "multiple_choice", "options": ["are getting used to", "are used to", "get used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We ___ the rain.', '{"type": "multiple_choice", "options": ["are getting used to", "are used to", "get used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -333,14 +343,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: He ___ glasses.', '{"type": "typing", "correct_answers": ["got used to wearing"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: He ___ glasses.', '{"type": "typing", "correct_answers": ["got used to wearing"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He ___ glasses.', '{"type": "typing", "correct_answers": ["got used to wearing"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He ___ glasses.', '{"type": "typing", "correct_answers": ["got used to wearing"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: He ___ glasses.', '{"type": "multiple_choice", "options": ["got used to wearing", "got used to wear", "was used to wearing"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: He ___ glasses.', '{"type": "multiple_choice", "options": ["got used to wearing", "got used to wear", "was used to wearing"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He ___ glasses.', '{"type": "multiple_choice", "options": ["got used to wearing", "got used to wear", "was used to wearing"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He ___ glasses.', '{"type": "multiple_choice", "options": ["got used to wearing", "got used to wear", "was used to wearing"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -357,14 +367,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: They will ___ the new teacher.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: They will ___ the new teacher.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'They will ___ the new teacher.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'They will ___ the new teacher.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: They will ___ the new teacher.', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: They will ___ the new teacher.', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'They will ___ the new teacher.', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'They will ___ the new teacher.', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -381,14 +391,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: The baby ___ alone.', '{"type": "typing", "correct_answers": ["is getting used to sleeping"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: The baby ___ alone.', '{"type": "typing", "correct_answers": ["is getting used to sleeping"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The baby ___ alone.', '{"type": "typing", "correct_answers": ["is getting used to sleeping"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The baby ___ alone.', '{"type": "typing", "correct_answers": ["is getting used to sleeping"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: The baby ___ alone.', '{"type": "multiple_choice", "options": ["is getting used to sleeping", "is getting used to sleep", "is used to sleeping"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: The baby ___ alone.', '{"type": "multiple_choice", "options": ["is getting used to sleeping", "is getting used to sleep", "is used to sleeping"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The baby ___ alone.', '{"type": "multiple_choice", "options": ["is getting used to sleeping", "is getting used to sleep", "is used to sleeping"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The baby ___ alone.', '{"type": "multiple_choice", "options": ["is getting used to sleeping", "is getting used to sleep", "is used to sleeping"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -405,14 +415,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la estructura de adaptación: You ___ the noise after a few days.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die Gewöhnungsstruktur: You ___ the noise after a few days.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'You ___ the noise after a few days.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'You ___ the noise after a few days.', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: You ___ the noise after a few days.', '{"type": "multiple_choice", "options": ["get used to", "are used to", "used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: You ___ the noise after a few days.', '{"type": "multiple_choice", "options": ["get used to", "are used to", "used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'You ___ the noise after a few days.', '{"type": "multiple_choice", "options": ["get used to", "are used to", "used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'You ___ the noise after a few days.', '{"type": "multiple_choice", "options": ["get used to", "are used to", "used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule2_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -435,14 +445,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: I ___ to school.', '{"type": "typing", "correct_answers": ["used to walk"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: I ___ to school.', '{"type": "typing", "correct_answers": ["used to walk"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I ___ to school.', '{"type": "typing", "correct_answers": ["used to walk"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I ___ to school.', '{"type": "typing", "correct_answers": ["used to walk"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: I ___ to school.', '{"type": "multiple_choice", "options": ["used to walk", "am used to walking", "use to walk"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: I ___ to school.', '{"type": "multiple_choice", "options": ["used to walk", "am used to walking", "use to walk"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I ___ to school.', '{"type": "multiple_choice", "options": ["used to walk", "am used to walking", "use to walk"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I ___ to school.', '{"type": "multiple_choice", "options": ["used to walk", "am used to walking", "use to walk"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -459,14 +469,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: She ___ the piano every day.', '{"type": "typing", "correct_answers": ["used to play"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: She ___ the piano every day.', '{"type": "typing", "correct_answers": ["used to play"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She ___ the piano every day.', '{"type": "typing", "correct_answers": ["used to play"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She ___ the piano every day.', '{"type": "typing", "correct_answers": ["used to play"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: She ___ the piano every day.', '{"type": "multiple_choice", "options": ["used to play", "used to playing", "use to play"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: She ___ the piano every day.', '{"type": "multiple_choice", "options": ["used to play", "used to playing", "use to play"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ the piano every day.', '{"type": "multiple_choice", "options": ["used to play", "used to playing", "use to play"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ the piano every day.', '{"type": "multiple_choice", "options": ["used to play", "used to playing", "use to play"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -483,14 +493,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: We ___ near the sea.', '{"type": "typing", "correct_answers": ["used to live"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: We ___ near the sea.', '{"type": "typing", "correct_answers": ["used to live"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'We ___ near the sea.', '{"type": "typing", "correct_answers": ["used to live"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'We ___ near the sea.', '{"type": "typing", "correct_answers": ["used to live"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: We ___ near the sea.', '{"type": "multiple_choice", "options": ["used to live", "are used to living", "use to live"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: We ___ near the sea.', '{"type": "multiple_choice", "options": ["used to live", "are used to living", "use to live"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'We ___ near the sea.', '{"type": "multiple_choice", "options": ["used to live", "are used to living", "use to live"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'We ___ near the sea.', '{"type": "multiple_choice", "options": ["used to live", "are used to living", "use to live"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -507,14 +517,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: He ___, but he quit.', '{"type": "typing", "correct_answers": ["used to smoke"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: He ___, but he quit.', '{"type": "typing", "correct_answers": ["used to smoke"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He ___, but he quit.', '{"type": "typing", "correct_answers": ["used to smoke"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He ___, but he quit.', '{"type": "typing", "correct_answers": ["used to smoke"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: He ___, but he quit.', '{"type": "multiple_choice", "options": ["used to smoke", "used to smoking", "use to smoke"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: He ___, but he quit.', '{"type": "multiple_choice", "options": ["used to smoke", "used to smoking", "use to smoke"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He ___, but he quit.', '{"type": "multiple_choice", "options": ["used to smoke", "used to smoking", "use to smoke"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He ___, but he quit.', '{"type": "multiple_choice", "options": ["used to smoke", "used to smoking", "use to smoke"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -531,14 +541,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: They ___ their grandparents every summer.', '{"type": "typing", "correct_answers": ["used to visit"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: They ___ their grandparents every summer.', '{"type": "typing", "correct_answers": ["used to visit"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'They ___ their grandparents every summer.', '{"type": "typing", "correct_answers": ["used to visit"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'They ___ their grandparents every summer.', '{"type": "typing", "correct_answers": ["used to visit"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: They ___ their grandparents every summer.', '{"type": "multiple_choice", "options": ["used to visit", "used to visiting", "use to visit"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: They ___ their grandparents every summer.', '{"type": "multiple_choice", "options": ["used to visit", "used to visiting", "use to visit"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'They ___ their grandparents every summer.', '{"type": "multiple_choice", "options": ["used to visit", "used to visiting", "use to visit"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'They ___ their grandparents every summer.', '{"type": "multiple_choice", "options": ["used to visit", "used to visiting", "use to visit"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -555,14 +565,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: My brother ___ vegetables.', '{"type": "typing", "correct_answers": ["used to hate"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: My brother ___ vegetables.', '{"type": "typing", "correct_answers": ["used to hate"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'My brother ___ vegetables.', '{"type": "typing", "correct_answers": ["used to hate"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'My brother ___ vegetables.', '{"type": "typing", "correct_answers": ["used to hate"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: My brother ___ vegetables.', '{"type": "multiple_choice", "options": ["used to hate", "is used to hating", "use to hate"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: My brother ___ vegetables.', '{"type": "multiple_choice", "options": ["used to hate", "is used to hating", "use to hate"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'My brother ___ vegetables.', '{"type": "multiple_choice", "options": ["used to hate", "is used to hating", "use to hate"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'My brother ___ vegetables.', '{"type": "multiple_choice", "options": ["used to hate", "is used to hating", "use to hate"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -579,14 +589,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa el hábito del pasado: The town ___ much quieter.', '{"type": "typing", "correct_answers": ["used to be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die frühere Gewohnheit: The town ___ much quieter.', '{"type": "typing", "correct_answers": ["used to be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'The town ___ much quieter.', '{"type": "typing", "correct_answers": ["used to be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'The town ___ much quieter.', '{"type": "typing", "correct_answers": ["used to be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: The town ___ much quieter.', '{"type": "multiple_choice", "options": ["used to be", "was used to being", "use to be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: The town ___ much quieter.', '{"type": "multiple_choice", "options": ["used to be", "was used to being", "use to be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'The town ___ much quieter.', '{"type": "multiple_choice", "options": ["used to be", "was used to being", "use to be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'The town ___ much quieter.', '{"type": "multiple_choice", "options": ["used to be", "was used to being", "use to be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule3_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -609,14 +619,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: I ___ coffee.', '{"type": "typing", "correct_answers": ["didn''t use to drink"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: I ___ coffee.', '{"type": "typing", "correct_answers": ["didn''t use to drink"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'I ___ coffee.', '{"type": "typing", "correct_answers": ["didn''t use to drink"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'I ___ coffee.', '{"type": "typing", "correct_answers": ["didn''t use to drink"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: I ___ coffee.', '{"type": "multiple_choice", "options": ["didn''t use to drink", "didn''t used to drink", "don''t use to drink"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: I ___ coffee.', '{"type": "multiple_choice", "options": ["didn''t use to drink", "didn''t used to drink", "don''t use to drink"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'I ___ coffee.', '{"type": "multiple_choice", "options": ["didn''t use to drink", "didn''t used to drink", "don''t use to drink"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'I ___ coffee.', '{"type": "multiple_choice", "options": ["didn''t use to drink", "didn''t used to drink", "don''t use to drink"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -633,14 +643,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: ___ football after school?', '{"type": "typing", "correct_answers": ["Did you use to play"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: ___ football after school?', '{"type": "typing", "correct_answers": ["Did you use to play"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', '___ football after school?', '{"type": "typing", "correct_answers": ["Did you use to play"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', '___ football after school?', '{"type": "typing", "correct_answers": ["Did you use to play"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: ___ football after school?', '{"type": "multiple_choice", "options": ["Did you use to play", "Did you used to play", "Do you use to play"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: ___ football after school?', '{"type": "multiple_choice", "options": ["Did you use to play", "Did you used to play", "Do you use to play"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', '___ football after school?', '{"type": "multiple_choice", "options": ["Did you use to play", "Did you used to play", "Do you use to play"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', '___ football after school?', '{"type": "multiple_choice", "options": ["Did you use to play", "Did you used to play", "Do you use to play"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -657,14 +667,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: She ___ in public.', '{"type": "typing", "correct_answers": ["isn''t used to speaking"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: She ___ in public.', '{"type": "typing", "correct_answers": ["isn''t used to speaking"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'She ___ in public.', '{"type": "typing", "correct_answers": ["isn''t used to speaking"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'She ___ in public.', '{"type": "typing", "correct_answers": ["isn''t used to speaking"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: She ___ in public.', '{"type": "multiple_choice", "options": ["isn''t used to speaking", "doesn''t used to speak", "isn''t used to speak"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: She ___ in public.', '{"type": "multiple_choice", "options": ["isn''t used to speaking", "doesn''t used to speak", "isn''t used to speak"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'She ___ in public.', '{"type": "multiple_choice", "options": ["isn''t used to speaking", "doesn''t used to speak", "isn''t used to speak"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'She ___ in public.', '{"type": "multiple_choice", "options": ["isn''t used to speaking", "doesn''t used to speak", "isn''t used to speak"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -681,14 +691,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: ___ at night?', '{"type": "typing", "correct_answers": ["Are they used to working"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: ___ at night?', '{"type": "typing", "correct_answers": ["Are they used to working"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', '___ at night?', '{"type": "typing", "correct_answers": ["Are they used to working"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', '___ at night?', '{"type": "typing", "correct_answers": ["Are they used to working"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: ___ at night?', '{"type": "multiple_choice", "options": ["Are they used to working", "Do they used to work", "Are they used to work"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: ___ at night?', '{"type": "multiple_choice", "options": ["Are they used to working", "Do they used to work", "Are they used to work"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', '___ at night?', '{"type": "multiple_choice", "options": ["Are they used to working", "Do they used to work", "Are they used to work"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', '___ at night?', '{"type": "multiple_choice", "options": ["Are they used to working", "Do they used to work", "Are they used to work"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -705,14 +715,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: He ___ so patient.', '{"type": "typing", "correct_answers": ["didn''t use to be"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: He ___ so patient.', '{"type": "typing", "correct_answers": ["didn''t use to be"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'He ___ so patient.', '{"type": "typing", "correct_answers": ["didn''t use to be"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'He ___ so patient.', '{"type": "typing", "correct_answers": ["didn''t use to be"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: He ___ so patient.', '{"type": "multiple_choice", "options": ["didn''t use to be", "didn''t used to be", "wasn''t used to be"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: He ___ so patient.', '{"type": "multiple_choice", "options": ["didn''t use to be", "didn''t used to be", "wasn''t used to be"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'He ___ so patient.', '{"type": "multiple_choice", "options": ["didn''t use to be", "didn''t used to be", "wasn''t used to be"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'He ___ so patient.', '{"type": "multiple_choice", "options": ["didn''t use to be", "didn''t used to be", "wasn''t used to be"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -729,14 +739,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: Will you ___ the new keyboard?', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: Will you ___ the new keyboard?', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Will you ___ the new keyboard?', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Will you ___ the new keyboard?', '{"type": "typing", "correct_answers": ["get used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: Will you ___ the new keyboard?', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: Will you ___ the new keyboard?', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Will you ___ the new keyboard?', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Will you ___ the new keyboard?', '{"type": "multiple_choice", "options": ["get used to", "be used to", "used to"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
@@ -753,14 +763,14 @@ Nach **be used to** und **get used to** folgt bei einem Verb die **-ing-Form**. 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Completa la forma negativa o interrogativa: Are you ___ the new apartment?', '{"type": "typing", "correct_answers": ["getting used to"], "case_sensitive": false}'::jsonb),
-        (v_ex_id, 'de', 'Ergänze die negative oder fragende Form: Are you ___ the new apartment?', '{"type": "typing", "correct_answers": ["getting used to"], "case_sensitive": false}'::jsonb);
+        (v_ex_id, 'es', 'Are you ___ the new apartment?', '{"type": "typing", "correct_answers": ["getting used to"], "case_sensitive": false}'::jsonb),
+        (v_ex_id, 'de', 'Are you ___ the new apartment?', '{"type": "typing", "correct_answers": ["getting used to"], "case_sensitive": false}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
     VALUES
-        (v_ex_id, 'es', 'Elige la forma correcta: Are you ___ the new apartment?', '{"type": "multiple_choice", "options": ["getting used to", "used to", "get used"], "answer": 0}'::jsonb),
-        (v_ex_id, 'de', 'Wähle die richtige Form: Are you ___ the new apartment?', '{"type": "multiple_choice", "options": ["getting used to", "used to", "get used"], "answer": 0}'::jsonb);
+        (v_ex_id, 'es', 'Are you ___ the new apartment?', '{"type": "multiple_choice", "options": ["getting used to", "used to", "get used"], "answer": 0}'::jsonb),
+        (v_ex_id, 'de', 'Are you ___ the new apartment?', '{"type": "multiple_choice", "options": ["getting used to", "used to", "get used"], "answer": 0}'::jsonb);
 
     INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_rule4_id) RETURNING uuid INTO v_ex_id;
     INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

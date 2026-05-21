@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3080 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3080, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    3080,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Sam, a petrol station worker
 ## "Drive to Green Beach Car Park"
 
@@ -62,13 +68,12 @@ The recording focuses on road landmarks and a simple correction point.
 [informative] Worker: The car park is on the right, after the big supermarket.
 [warning] Worker: If you reach the tunnel, you have gone too far.
 [grateful] Driver: Great, thank you.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha indicaciones básicas para ir en coche', 'Escucha una ruta sencilla hasta un aparcamiento de playa con rotonda, puente, semáforos y referencia final.'),
-        (v_listening_id, 'de', 'Höre einfache Wegbeschreibungen zum Fahren', 'Höre eine einfache Route zu einem Strandparkplatz mit Kreisverkehr, Brücke, Ampel und letzter Orientierung.');
+        (v_listening_id, 'es', 'Indicaciones básicas para ir'), (v_listening_id, 'de', 'Wegbeschreibungen zum Fahren');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

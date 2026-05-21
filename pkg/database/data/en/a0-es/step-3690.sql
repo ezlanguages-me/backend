@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3690 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3690 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3690, 'en', 'reading', 'tourism', $content$Visit River City this weekend. Walk through the Old Town and see the clock tower. Free city maps are available at the Tourist Office on King Street.
+        VALUES (
+    v_path_id,
+    3690,
+    'en',
+    'reading',
+    'tourism',
+    $content$Visit River City this weekend. Walk through the Old Town and see the clock tower. Free city maps are available at the Tourist Office on King Street.
 
 Boat tours leave from the central bridge at 11 AM and 3 PM every day. The market in Market Square is open on Saturday from 9 AM to 4 PM.
 
-Buy a City Pass for £12. It includes the history museum and one boat tour. The Tourist Office is open from 9 AM to 6 PM. The last bus to Hill Park leaves at 7:30 PM.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Buy a City Pass for £12. It includes the history museum and one boat tour. The Tourist Office is open from 9 AM to 6 PM. The last bus to Hill Park leaves at 7:30 PM.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee folletos turísticos', 'Lee un folleto con lugares, horarios y servicios para visitantes en una ciudad.'),
-            (v_reading_id, 'de', 'Lies Tourismusbroschüren', 'Lies einen Prospekt mit Orten, Zeiten und Angeboten für Besucher einer Stadt.');
+            (v_reading_id, 'es', 'Lee folletos turísticos'), (v_reading_id, 'de', 'Lies Tourismusbroschüren');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

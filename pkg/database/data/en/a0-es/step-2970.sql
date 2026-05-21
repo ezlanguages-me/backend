@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2970 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2970, 'en', 'dialogue', 'transport', '[{"name": "Clerk", "gender": "female", "avatarURL": "https://example.com/avatars/clerk.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2970, 'en', 'dialogue', 'transport', '[{"name": "Clerk", "gender": "female", "avatarURL": "https://example.com/avatars/clerk.png"}, {"name": "Visitor", "gender": "male", "avatarURL": "https://example.com/avatars/visitor.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Pregunta por el próximo tren en una taquilla', 'Lee un diálogo breve para preguntar por el próximo tren, la duración y las paradas.'),
-        (v_dialogue_id, 'de', 'Frage am Schalter nach dem nächsten Zug', 'Lies einen kurzen Dialog über den nächsten Zug, die Fahrtdauer und Halte.');
+        (v_dialogue_id, 'es', 'Pregunta por el próximo tren'), (v_dialogue_id, 'de', 'Schalter nach dem nächsten Zug');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

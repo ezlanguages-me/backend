@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5610 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5610, 'en', 'reading', 'academic-essay', 'An academic essay has three main sections: the introduction, the body, and the conclusion. The introduction presents the topic, provides background information, and ends with a thesis statement that tells the reader the main argument of the essay.
+    VALUES (
+    v_path_id,
+    5610,
+    'en',
+    'reading',
+    'academic_essay',
+    'An academic essay has three main sections: the introduction, the body, and the conclusion. The introduction presents the topic, provides background information, and ends with a thesis statement that tells the reader the main argument of the essay.
 
 The body is divided into paragraphs, and each paragraph develops one idea. It begins with a topic sentence that states the paragraph''s main point. This is followed by evidence from sources, examples, and explanation that support the claim. Using multiple body paragraphs allows the writer to build a layered and persuasive argument.
 
-The conclusion does not introduce new arguments. Instead, it synthesises the key points from the body paragraphs and reinforces the thesis. A strong conclusion also suggests the wider significance of the argument or points to areas for further research.')
-    RETURNING uuid INTO v_reading_id;
+The conclusion does not introduce new arguments. Instead, it synthesises the key points from the body paragraphs and reinforces the thesis. A strong conclusion also suggests the wider significance of the argument or points to areas for further research.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Comprender la estructura de un ensayo académico', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Die Struktur eines akademischen Aufsatzes verstehen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Comprender la estructura');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Eines akademischen Aufsatzes');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

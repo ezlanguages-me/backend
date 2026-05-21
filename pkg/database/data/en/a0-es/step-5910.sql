@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5910 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5910, 'en', 'reading', 'Alojamiento', $reading$
+    VALUES (
+    v_path_id,
+    5910,
+    'en',
+    'reading',
+    'alojamiento',
+    $reading$
 Riverside Hotel booking confirmation
 
 Guest name: Maria Ruiz
@@ -45,13 +51,12 @@ Breakfast: included
 Wi-Fi: free in all rooms
 Parking: available for £8 per night
 Late arrival: please call reception after 8 PM
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee la confirmación de reserva del hotel', 'Lee una confirmación con fechas, tipo de habitación y servicios incluidos.'),
-        (v_reading_id, 'de', 'Lies die Hotelbuchungsbestätigung', 'Lies eine Bestätigung mit Daten, Zimmerart und enthaltenen Leistungen.');
+        (v_reading_id, 'es', 'Confirmación de reserva'), (v_reading_id, 'de', 'Die Hotelbuchungsbestätigung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

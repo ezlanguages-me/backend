@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2960 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2960, 'en', 'listening', 'transport', $transcript$
+    VALUES (
+    v_path_id,
+    2960,
+    'en',
+    'listening',
+    'transport',
+    $transcript$
 # AUDIO PROFILE: Automated station phone service
 ## "Trains to Airport Central"
 
@@ -63,13 +69,12 @@ The recording helps with departures, platforms, cancellations, and journey lengt
 [important] Today the 2:00 train is cancelled.
 [guiding] Please use the 2:30 train or ask at the information desk.
 
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha un servicio telefónico de horarios de tren', 'Escucha un mensaje grabado con salidas, andenes y una cancelación.'),
-        (v_listening_id, 'de', 'Höre einen telefonischen Zugfahrplan-Service', 'Höre eine aufgezeichnete Nachricht mit Abfahrten, Bahnsteigen und einer Ausfallmeldung.');
+        (v_listening_id, 'es', 'Horario de tren (teléfono)'), (v_listening_id, 'de', 'Zugfahrplan per Telefon');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

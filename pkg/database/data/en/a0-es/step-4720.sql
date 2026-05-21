@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4720, 'en', 'reading', 'professional', $content$NEW EMPLOYEE ONBOARDING CHECKLIST – HR Department
+        VALUES (
+    v_path_id,
+    4720,
+    'en',
+    'reading',
+    'professional',
+    $content$NEW EMPLOYEE ONBOARDING CHECKLIST – HR Department
 
 Before the employee’s start date, HR must send a welcome email with the start time and office location. IT equipment must be prepared in advance, the user account must be created and the building access pass must be ready. These steps ensure that the employee can begin work without delay.
 
 On Day 1, HR and the line manager introduce the new employee to the team, carry out a health and safety induction, set up payroll and pension details, issue IT equipment and login credentials, and provide the employee handbook. During Week 1, a one-to-one meeting with the line manager must be arranged, mandatory GDPR and Health and Safety training must be completed, and 3-month probation objectives must be agreed.
 
-At the end of probation, performance is reviewed and the company either confirms permanent employment or extends probation if necessary.$content$)
-        RETURNING uuid INTO v_reading_id;
+At the end of probation, performance is reviewed and the company either confirms permanent employment or extends probation if necessary.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una lista de verificación de incorporación de RRHH', 'Lee una lista de incorporación con tareas antes del inicio, el primer día y la primera semana.'),
-            (v_reading_id, 'de', 'Lies eine HR-Onboarding-Checkliste', 'Lies eine Onboarding-Checkliste mit Aufgaben vor dem Start, am ersten Tag und in der ersten Woche.');
+            (v_reading_id, 'es', 'Verificación de incorporación'), (v_reading_id, 'de', 'Eine HR-Onboarding-Checkliste');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

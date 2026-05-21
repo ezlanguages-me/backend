@@ -32,14 +32,19 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3810 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3810 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3810, 'en', 'reading', 'professional', $content$Work Order 5412. Client: Green Tower Offices. Task: clean air filters in rooms 201 to 208 on Tuesday, 14 May. Technician: Alex Neri. Start at 9 AM and finish by 4 PM.
+        VALUES (
+    v_path_id,
+    3810,
+    'en',
+    'reading',
+    'professional',
+    $content$Work Order 5412. Client: Green Tower Offices. Task: clean air filters in rooms 201 to 208 on Tuesday, 14 May. Technician: Alex Neri. Start at 9 AM and finish by 4 PM.
 
-Bring a ladder, gloves, and one safety mask. After the job, give the report to Supervisor Marta Lopez in office 3. The client contact signs the form before you leave.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Bring a ladder, gloves, and one safety mask. After the job, give the report to Supervisor Marta Lopez in office 3. The client contact signs the form before you leave.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una orden de trabajo', 'Lee una orden de trabajo con tarea, fecha, herramientas y persona responsable.'),
-            (v_reading_id, 'de', 'Lies einen Arbeitsauftrag', 'Lies einen Arbeitsauftrag mit Aufgabe, Datum, Werkzeugen und verantwortlicher Person.');
+            (v_reading_id, 'es', 'Lee una orden de trabajo'), (v_reading_id, 'de', 'Lies einen Arbeitsauftrag');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM reading_translation WHERE reading_uuid IN (SELECT uuid FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6110 AND source_language = 'en');
   DELETE FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6110 AND source_language = 'en';
   INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-  VALUES (v_path_uuid, 6110, 'en', 'reading', 'Alquileres', $content$
+  VALUES (
+    v_path_uuid,
+    6110,
+    'en',
+    'reading',
+    'accommodation',
+    $content$
 Maintenance request form: Flat 3B. Issue: the bedroom radiator is not working. The problem is urgent because the room is cold.
 
 Contact time: mornings between 9 and 11. The repair team can enter with a spare key. Photos are attached.
 
 Reference number: 4582. Send the form to maintenance@example.com.
-$content$)
-  RETURNING uuid INTO v_reading_uuid;
-  INSERT INTO reading_translation (reading_uuid, language, title, description)
-  VALUES (v_reading_uuid, 'es', 'Lee un formulario de solicitud de mantenimiento', 'Lee un formulario breve sobre una avería en una vivienda alquilada.'),
-         (v_reading_uuid, 'de', 'Lies ein Wartungsformular', 'Lies ein kurzes Formular zu einem Schaden in einer Mietwohnung.');
+$content$
+)RETURNING uuid INTO v_reading_uuid;
+  INSERT INTO reading_translation (reading_uuid, language, title)
+  VALUES (v_reading_uuid, 'es', 'Solicitud de mantenimiento'), (v_reading_uuid, 'de', 'Lies ein Wartungsformular');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

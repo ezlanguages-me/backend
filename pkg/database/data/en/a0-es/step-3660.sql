@@ -34,7 +34,13 @@
         );
         DELETE FROM listening WHERE step_order = 3660 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 3660, 'en', 'listening', 'accommodation', $transcript$
+        VALUES (
+    v_path_id,
+    3660,
+    'en',
+    'listening',
+    'accommodation',
+    $transcript$
 # AUDIO PROFILE: Sara, a receptionist giving practical hotel information
 ## "Facilities at the Grand Palm"
 
@@ -58,12 +64,11 @@ Accent: Neutral accent.
 [practical] Receptionist: If you leave laundry before 9 AM, you get it back the same day.
 [clear] Receptionist: The rooftop bar is closed on Monday.
 [warm] Receptionist: The children's room is next to the lobby.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha una descripción de las instalaciones del hotel', 'Escucha información sobre gimnasio, piscina, desayuno, lavandería y otras zonas del hotel.'),
-            (v_listening_id, 'de', 'Höre eine Beschreibung der Hoteleinrichtungen', 'Höre Informationen zu Fitnessraum, Pool, Frühstück, Wäscherei und anderen Hotelbereichen.');
+            (v_listening_id, 'es', 'Instalaciones del hotel'), (v_listening_id, 'de', 'Hoteleinrichtungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

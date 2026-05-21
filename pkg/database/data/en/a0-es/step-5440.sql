@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5440 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5440, 'en', 'reading', 'academic', 'Discussion norms. Raise your hand or give a clear signal before speaking. Keep each turn to about one minute so more people can join.
+    VALUES (
+    v_path_id,
+    5440,
+    'en',
+    'reading',
+    'academic',
+    'Discussion norms. Raise your hand or give a clear signal before speaking. Keep each turn to about one minute so more people can join.
 
 When you disagree, say so politely and refer to the previous speaker''s idea, not to the person. Keep phones silent and write short notes if you want to ask something later.
 
-The moderator may close one topic before moving to the next. Try to include quieter voices and listen fully before you respond.')
-    RETURNING uuid INTO v_reading_id;
+The moderator may close one topic before moving to the next. Try to include quieter voices and listen fully before you respond.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Normas para una discusión académica', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Regeln für eine akademische Diskussion', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Normas para una discusión');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Regeln für eine akademische');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

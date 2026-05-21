@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4670, 'en', 'reading', 'professional', $content$Cloud Storage for Businesses
+        VALUES (
+    v_path_id,
+    4670,
+    'en',
+    'reading',
+    'professional',
+    $content$Cloud Storage for Businesses
 
 Cloud storage allows businesses to store, manage and access data remotely through the internet instead of relying only on on-premises servers. One major advantage is scalability: storage capacity can increase as business needs grow, without requiring the company to install more physical hardware. Well-known providers include Microsoft Azure, Amazon Web Services and Google Cloud.
 
 Security remains a major concern, so data should be encrypted both in transit and at rest. Access should also be protected through multi-factor authentication, often shortened to MFA. In addition, providers usually offer a Service Level Agreement, or SLA, that promises around 99.9% uptime.
 
-Even with cloud services, businesses still need a clear data recovery plan in case of cyberattack or system outage. Costs are commonly subscription-based, which helps companies predict monthly spending more easily.$content$)
-        RETURNING uuid INTO v_reading_id;
+Even with cloud services, businesses still need a clear data recovery plan in case of cyberattack or system outage. Costs are commonly subscription-based, which helps companies predict monthly spending more easily.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un artículo sobre almacenamiento en la nube', 'Lee un artículo profesional sobre almacenamiento en la nube, seguridad y continuidad.'),
-            (v_reading_id, 'de', 'Lies einen Artikel über Cloud-Speicher', 'Lies einen Fachtext über Cloud-Speicher, Sicherheit und Ausfallschutz.');
+            (v_reading_id, 'es', 'Artículo sobre almacenamiento'), (v_reading_id, 'de', 'Einen Artikel über Cloud');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

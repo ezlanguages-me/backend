@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5360 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5360, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    5360,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Student giving feedback
 ## THE SCENE: One student comments on another student's presentation
 A student gives constructive feedback on a class presentation.
@@ -56,13 +62,13 @@ Learners practise understanding peer feedback about structure, speaking pace, an
 [positive] Your answer about the budget was very clear.
 [practical] Maybe add one stronger final sentence in the conclusion.
 [supportive] Overall, it was a good presentation with useful data.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Escuchar feedback de un compañero', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Peer-Feedback anhören', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Feedback de un compañero');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Peer-Feedback anhören');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

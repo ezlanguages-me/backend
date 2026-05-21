@@ -41,12 +41,10 @@ BEGIN
     DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM dialogue WHERE step_order = 4080 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue');
     DELETE FROM dialogue WHERE step_order = 4080 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'dialogue';
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 4080, 'en', 'dialogue', 'professional', '[{"name": "Caller", "gender": "female", "avatarURL": "https://example.com/avatars/caller.png"}, {"name": "Receptionist", "gender": "male", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    VALUES (v_path_id, 4080, 'en', 'dialogue', 'professional', '[{"name": "Caller", "gender": "female", "avatarURL": "https://example.com/avatars/caller.png"}, {"name": "Receptionist", "gender": "male", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Toma y transmite un mensaje rutinario', 'Practica una llamada para dejar un mensaje con referencia, retraso y número de contacto.'),
-        (v_dialogue_id, 'de', 'Nimm eine Routinenachricht auf und gib sie weiter', 'Übe einen Anruf, um eine Nachricht mit Referenz, Verspätung und Kontaktnummer zu hinterlassen.');
+        (v_dialogue_id, 'es', 'Transmite un mensaje rutinario'), (v_dialogue_id, 'de', 'Routinenachricht auf und gib');
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES (v_dialogue_id, v_line_order, line->>'character', line->>'text') RETURNING uuid INTO v_line_uuid;

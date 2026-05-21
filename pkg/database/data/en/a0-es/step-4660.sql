@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4660, 'en', 'reading', 'professional', $content$Data Protection and GDPR
+        VALUES (
+    v_path_id,
+    4660,
+    'en',
+    'reading',
+    'professional',
+    $content$Data Protection and GDPR
 
 The General Data Protection Regulation, usually called GDPR, came into force in the UK in 2018. It sets legal rules for how organisations collect, store and use personal data. The regulation is built around several principles, including lawfulness, fairness and transparency, purpose limitation, data minimisation, accuracy, storage limitation, and integrity and confidentiality.
 
 Organisations that fail to comply with GDPR can face significant penalties. The maximum fine is £17.5 million or 4% of global annual turnover, whichever amount is higher. This means that data protection is a major legal and financial risk for businesses that handle personal information.
 
-Not every organisation must appoint a Data Protection Officer. However, a DPO is required when an organisation processes large amounts of sensitive personal data or systematically monitors individuals as part of its operations.$content$)
-        RETURNING uuid INTO v_reading_id;
+Not every organisation must appoint a Data Protection Officer. However, a DPO is required when an organisation processes large amounts of sensitive personal data or systematically monitors individuals as part of its operations.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un artículo sobre protección de datos', 'Lee un artículo informativo sobre el RGPD, sus principios y sanciones.'),
-            (v_reading_id, 'de', 'Lies einen Artikel über Datenschutz', 'Lies einen Fachtext über die DSGVO, ihre Grundsätze und Sanktionen.');
+            (v_reading_id, 'es', 'Artículo sobre protección'), (v_reading_id, 'de', 'Einen Artikel über Datenschutz');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

@@ -6,16 +6,16 @@
     DECLARE
         v_path_id UUID; v_dialogue_id UUID; v_ex_id UUID; ex JSONB;
         v_exercises JSONB[] := ARRAY[
-            '{"p": "Según el diálogo, marca verdadero o falso: The dialogue is about a researcher rebutting a counter-argument with evidence at a symposium.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The dialogue is about a researcher rebutting a counter-argument with evidence at a symposium.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: The speakers are debating travel plans for next month.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The speakers are debating travel plans for next month.", "s": {"type": "true_false", "answer": false}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: The researcher refers to data showing long-term savings for larger institutions.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The researcher refers to data showing long-term savings for larger institutions.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: The critic argues that the short-term cost remains too high for many organisations.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: The critic argues that the short-term cost remains too high for many organisations.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, marca verdadero o falso: Both speakers accept that the proposal is strongest when supported by clear evidence.", "p_de": "Laut dem Dialog, markiere wahr oder falsch: Both speakers accept that the proposal is strongest when supported by clear evidence.", "s": {"type": "true_false", "answer": true}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: What is the main focus?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What is the main focus?", "s": {"type": "multiple_choice", "options": ["a researcher answers a counter-argument about short-term costs", "an unrelated social chat", "a routine travel update"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Who provides the supporting data?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Who provides the supporting data?", "s": {"type": "multiple_choice", "options": ["Researcher", "the cleaner", "the driver"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Which detail is named?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which detail is named?", "s": {"type": "multiple_choice", "options": ["data showing long-term savings", "the room is too cold", "the event starts late"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: Which objection appears?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: Which objection appears?", "s": {"type": "multiple_choice", "options": ["the short-term cost is too high for many organisations", "the sound system fails", "the audience falls asleep"], "answer": 0}}'::jsonb,
-            '{"p": "Según el diálogo, elige la respuesta correcta: What conclusion do the speakers reach?", "p_de": "Laut dem Dialog, wähle die richtige Antwort: What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["clear evidence makes the proposal stronger", "the topic is cancelled", "everyone leaves without speaking"], "answer": 0}}'::jsonb
+            '{"p": "The dialogue is about a researcher rebutting a counter-argument with evidence at a symposium.", "p_de": "The dialogue is about a researcher rebutting a counter-argument with evidence at a symposium.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "The speakers are debating travel plans for next month.", "p_de": "The speakers are debating travel plans for next month.", "s": {"type": "true_false", "answer": false}}'::jsonb,
+            '{"p": "The researcher refers to data showing long-term savings for larger institutions.", "p_de": "The researcher refers to data showing long-term savings for larger institutions.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "The critic argues that the short-term cost remains too high for many organisations.", "p_de": "The critic argues that the short-term cost remains too high for many organisations.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "Both speakers accept that the proposal is strongest when supported by clear evidence.", "p_de": "Both speakers accept that the proposal is strongest when supported by clear evidence.", "s": {"type": "true_false", "answer": true}}'::jsonb,
+            '{"p": "What is the main focus?", "p_de": "What is the main focus?", "s": {"type": "multiple_choice", "options": ["a researcher answers a counter-argument about short-term costs", "an unrelated social chat", "a routine travel update"], "answer": 0}}'::jsonb,
+            '{"p": "Who provides the supporting data?", "p_de": "Who provides the supporting data?", "s": {"type": "multiple_choice", "options": ["Researcher", "the cleaner", "the driver"], "answer": 0}}'::jsonb,
+            '{"p": "Which detail is named?", "p_de": "Which detail is named?", "s": {"type": "multiple_choice", "options": ["data showing long-term savings", "the room is too cold", "the event starts late"], "answer": 0}}'::jsonb,
+            '{"p": "Which objection appears?", "p_de": "Which objection appears?", "s": {"type": "multiple_choice", "options": ["the short-term cost is too high for many organisations", "the sound system fails", "the audience falls asleep"], "answer": 0}}'::jsonb,
+            '{"p": "What conclusion do the speakers reach?", "p_de": "What conclusion do the speakers reach?", "s": {"type": "multiple_choice", "options": ["clear evidence makes the proposal stronger", "the topic is cancelled", "everyone leaves without speaking"], "answer": 0}}'::jsonb
         ];
     BEGIN
         SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -27,11 +27,10 @@ DELETE FROM listening WHERE step_order=9480 AND path_uuid=v_path_id;
 DELETE FROM dialogue WHERE step_order=9480 AND path_uuid=v_path_id;
 DELETE FROM speaking WHERE step_order=9480 AND path_uuid=v_path_id;
 DELETE FROM writing WHERE step_order=9480 AND path_uuid=v_path_id;
-        INSERT INTO dialogue (path_uuid,step_order,source_language,type,category,characters)
-        VALUES (v_path_id,9480,'en','dialogue','academic','[{"name": "Researcher", "gender": "neutral", "avatarURL": "https://example.com/avatars/researcher.png"}, {"name": "Critic", "gender": "neutral", "avatarURL": "https://example.com/avatars/critic.png"}]'::jsonb)
-        RETURNING uuid INTO v_dialogue_id;
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'es','rebut counter-arguments','Lee el diálogo y responde.');
-        INSERT INTO dialogue_translation (dialogue_uuid,language,title,description) VALUES (v_dialogue_id,'de','rebut counter-arguments','Lies den Dialog und beantworte die Fragen.');
+        INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
+        VALUES (v_path_id, 9480, 'en', 'dialogue', 'academic', '[{"name": "Researcher", "gender": "neutral", "avatarURL": "https://example.com/avatars/researcher.png"}, {"name": "Critic", "gender": "neutral", "avatarURL": "https://example.com/avatars/critic.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'es', 'rebut counter-arguments');
+        INSERT INTO dialogue_translation (dialogue_uuid, language, title) VALUES (v_dialogue_id, 'de', 'rebut counter-arguments');
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
         VALUES
             (v_dialogue_id, 0, 'Researcher', 'I understand the concern about cost, but the long-term data tells a more complete story.'),

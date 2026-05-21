@@ -9,25 +9,25 @@ DECLARE
     v_ex_id UUID;
     ex JSONB;
     v_exercises JSONB[] := ARRAY[
-        -- TRUE / FALSE (8 exercises)
+        -- TRUE / FALSE (8 exercises, 4T/4F)
         '{"p":"David es el propietario del piso.","p_de":"David ist der Vermieter der Wohnung.","s":{"type":"true_false","answer":true}}'::jsonb,
-        '{"p":"El alquiler cuesta 650 libras al mes.","p_de":"Die Miete kostet 650 Pfund pro Monat.","s":{"type":"true_false","answer":true}}'::jsonb,
+        '{"p":"El alquiler cuesta 800 libras al mes.","p_de":"Die Miete kostet 800 Pfund pro Monat.","s":{"type":"true_false","answer":false}}'::jsonb,
         '{"p":"El agua está incluida en el precio.","p_de":"Wasser ist im Preis enthalten.","s":{"type":"true_false","answer":true}}'::jsonb,
         '{"p":"La electricidad y el internet están incluidos.","p_de":"Strom und Internet sind inklusive.","s":{"type":"true_false","answer":false}}'::jsonb,
-        '{"p":"El depósito es de un mes de alquiler.","p_de":"Die Kaution beträgt eine Monatsmiete.","s":{"type":"true_false","answer":true}}'::jsonb,
+        '{"p":"El depósito es de dos meses de alquiler.","p_de":"Die Kaution beträgt zwei Monatsmieten.","s":{"type":"true_false","answer":false}}'::jsonb,
         '{"p":"El contrato mínimo es de seis meses.","p_de":"Die Mindestvertragsdauer beträgt sechs Monate.","s":{"type":"true_false","answer":true}}'::jsonb,
         '{"p":"Se permiten mascotas en el edificio.","p_de":"Haustiere sind im Gebäude erlaubt.","s":{"type":"true_false","answer":false}}'::jsonb,
         '{"p":"Hay que avisar con un mes si quieres irte.","p_de":"Man muss einen Monat vorher Bescheid geben, wenn man ausziehen will.","s":{"type":"true_false","answer":true}}'::jsonb,
 
-        -- MULTIPLE CHOICE (8 exercises)
-        '{"p":"¿Cuánto cuesta el piso al mes?","p_de":"Wie viel kostet die Wohnung pro Monat?","s":{"type":"multiple_choice","options":["650 libras","500 libras","800 libras"],"answer":0}}'::jsonb,
+        -- MULTIPLE CHOICE (8 exercises, distribution {0:3, 1:3, 2:2})
+        '{"p":"¿Cuánto cuesta el piso al mes?","p_de":"Wie viel kostet die Wohnung pro Monat?","s":{"type":"multiple_choice","options":["500 libras","800 libras","650 libras"],"answer":2}}'::jsonb,
         '{"p":"¿Qué gasto está incluido?","p_de":"Welche Kosten sind enthalten?","s":{"type":"multiple_choice","options":["El agua","La electricidad","El internet"],"answer":0}}'::jsonb,
-        '{"p":"¿Qué gastos no están incluidos?","p_de":"Welche Kosten sind nicht enthalten?","s":{"type":"multiple_choice","options":["La electricidad y el internet","Solo el agua","Nada"],"answer":0}}'::jsonb,
+        '{"p":"¿Qué gastos no están incluidos?","p_de":"Welche Kosten sind nicht enthalten?","s":{"type":"multiple_choice","options":["Solo el agua","La electricidad y el internet","Nada"],"answer":1}}'::jsonb,
         '{"p":"¿Cuánto es el depósito?","p_de":"Wie hoch ist die Kaution?","s":{"type":"multiple_choice","options":["Un mes de alquiler","Dos meses de alquiler","100 libras"],"answer":0}}'::jsonb,
-        '{"p":"¿Cuál es la duración mínima del contrato?","p_de":"Wie lang ist die Mindestvertragsdauer?","s":{"type":"multiple_choice","options":["Seis meses","Tres meses","Un año"],"answer":0}}'::jsonb,
-        '{"p":"¿Qué dice David sobre las mascotas?","p_de":"Was sagt David über Haustiere?","s":{"type":"multiple_choice","options":["No están permitidas","Solo se permiten gatos","Se permiten animales pequeños"],"answer":0}}'::jsonb,
+        '{"p":"¿Cuál es la duración mínima del contrato?","p_de":"Wie lang ist die Mindestvertragsdauer?","s":{"type":"multiple_choice","options":["Tres meses","Un año","Seis meses"],"answer":2}}'::jsonb,
+        '{"p":"¿Qué dice David sobre las mascotas?","p_de":"Was sagt David über Haustiere?","s":{"type":"multiple_choice","options":["Solo se permiten gatos","No están permitidas","Se permiten animales pequeños"],"answer":1}}'::jsonb,
         '{"p":"¿Cuándo empiezan las horas de silencio?","p_de":"Wann beginnt die Ruhezeit?","s":{"type":"multiple_choice","options":["Después de las 10 PM","Después de las 8 PM","A medianoche"],"answer":0}}'::jsonb,
-        '{"p":"¿Cuánto aviso debe dar Maria si quiere marcharse?","p_de":"Wie viel Kündigungsfrist muss Maria geben, wenn sie ausziehen will?","s":{"type":"multiple_choice","options":["Un mes","Una semana","Dos meses"],"answer":0}}'::jsonb
+        '{"p":"¿Cuánto aviso debe dar Maria si quiere marcharse?","p_de":"Wie viel Kündigungsfrist muss Maria geben?","s":{"type":"multiple_choice","options":["Una semana","Un mes","Dos meses"],"answer":1}}'::jsonb
     ];
 BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -38,7 +38,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 470 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 470, 'en', 'listening', 'accommodation', $transcript$
+    VALUES (
+        v_path_id,
+        470,
+        'en',
+        'listening',
+        'accommodation',
+        $transcript$
 # AUDIO PROFILE: David and Maria, landlord and prospective tenant
 ## "A Flat Viewing"
 
@@ -63,27 +69,29 @@ first visit to a room or flat.
 
 #### TRANSCRIPT
 David [welcomingly] Hi Maria. Thanks for coming. This is the flat I told you about.
-Maria [pleasantly] Thanks, David. It looks bright.
-David [clearly] The rent is £650 a month.
-Maria [checking] Does that include the bills?
-David [explaining] Water is included, but electricity and internet are not.
-Maria [thoughtfully] Okay. And how much is the deposit?
-David [matter-of-factly] The deposit is one month's rent.
-Maria [curious] What is the minimum contract?
-David [clearly] The minimum contract is six months.
+Maria [pleasantly] Thanks, David. It looks bright and clean.
+David [clearly] The rent is £650 a month. That includes water, but not electricity or internet.
+Maria [checking] And how much is the deposit?
+David [matter-of-factly] The deposit is one month's rent. So that's £650 upfront.
+Maria [curious] What is the minimum contract length?
+David [clearly] The minimum contract is six months. After that, you give one month's notice if you want to leave.
 Maria [asking] Are pets allowed?
-David [firm but polite] No, sorry. Pets are not allowed in the building.
-Maria [continuing] Are there any house rules?
-David [helpfully] Yes. Quiet hours start after 10 PM, and if you want to leave, you need to give one month's notice.
-Maria [warmly] That all sounds very clear. Thank you.
-    $transcript$)
-    RETURNING uuid INTO v_listening_id;
+David [firm but polite] No, sorry. Pets are not allowed in the building. It's a house rule.
+Maria [continuing] Are there any other rules I should know?
+David [helpfully] Yes. Quiet hours start after 10 PM. No loud music or parties after that.
+Maria [nodding] That sounds reasonable. What about visitors?
+David [explaining] Visitors are fine during the day. Overnight guests are not allowed, though.
+Maria [satisfied] I understand. This all sounds very clear. Thank you, David.
+David [smiling] You are welcome. Do you have any other questions about the flat?
+Maria [deciding] No, I think that is everything. I will send you a message tomorrow.
+        $transcript$
+    ) RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Visita a un piso en alquiler', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Visita a un piso en alquiler');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Besichtigung einer Mietwohnung', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Besichtigung einer Mietwohnung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

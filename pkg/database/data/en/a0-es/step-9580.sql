@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9580,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'Alone, Lonely, Only and Single', 'Cómo distinguir estado, emoción, exclusividad y cantidad con alone, lonely, only y single.', to_jsonb('# Alone, Lonely, Only and Single
+        (
+    v_grammar_id,
+    'es',
+    'Alone / Only / Lonely / Single',
+    to_jsonb('# Alone, Lonely, Only and Single
 
 Estas cuatro palabras pueden parecer parecidas, pero expresan ideas distintas.
 
@@ -57,8 +61,13 @@ Estas cuatro palabras pueden parecer parecidas, pero expresan ideas distintas.
 - a single ticket
 
 ### Consejo
-Si hablas de una emoción, piensa en **lonely**. Si hablas simplemente de estar sin otros, usa **alone**. Si quieres decir “único”, usa **only**. Si quieres enfatizar una sola unidad, usa **single**.'::text)),
-        (v_grammar_id, 'de', 'Alone, Lonely, Only and Single', 'Wie man Zustand, Gefühl, Ausschließlichkeit und Anzahl mit alone, lonely, only und single unterscheidet.', to_jsonb('# Alone, Lonely, Only and Single
+Si hablas de una emoción, piensa en **lonely**. Si hablas simplemente de estar sin otros, usa **alone**. Si quieres decir “único”, usa **only**. Si quieres enfatizar una sola unidad, usa **single**.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'Alone / Only / Lonely / Single',
+    to_jsonb('# Alone, Lonely, Only and Single
 
 Diese vier Wörter können ähnlich wirken, drücken aber unterschiedliche Ideen aus.
 
@@ -93,7 +102,8 @@ Diese vier Wörter können ähnlich wirken, drücken aber unterschiedliche Ideen
 - a single ticket
 
 ### Tipp
-Wenn du über ein Gefühl sprichst, denke an **lonely**. Wenn du nur ausdrücken willst, dass niemand sonst da ist, nimm **alone**. Für „einzig“ verwende **only**. Wenn du eine einzelne Einheit betonen willst, nimm **single**.'::text));
+Wenn du über ein Gefühl sprichst, denke an **lonely**. Wenn du nur ausdrücken willst, dass niemand sonst da ist, nimm **alone**. Für „einzig“ verwende **only**. Wenn du eine einzelne Einheit betonen willst, nimm **single**.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -104,13 +114,13 @@ Wenn du über ein Gefühl sprichst, denke an **lonely**. Wenn du nur ausdrücken
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She prefers to work ___ when she needs to concentrate.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She prefers to work ___ when she needs to concentrate.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She prefers to work ___ when she needs to concentrate.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She prefers to work ___ when she needs to concentrate.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She prefers to work ___ when she needs to concentrate.', '{"type": "multiple_choice", "options": ["alone", "lonely", "single"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She prefers to work ___ when she needs to concentrate.', '{"type": "multiple_choice", "options": ["alone", "lonely", "single"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She prefers to work ___ when she needs to concentrate.', '{"type": "multiple_choice", "options": ["alone", "lonely", "single"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She prefers to work ___ when she needs to concentrate.', '{"type": "multiple_choice", "options": ["alone", "lonely", "single"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -124,13 +134,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: He was ___ in the house for the whole weekend.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: He was ___ in the house for the whole weekend.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'He was ___ in the house for the whole weekend.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'He was ___ in the house for the whole weekend.', '{"type": "typing", "correct_answers": ["alone"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: He was ___ in the house for the whole weekend.', '{"type": "multiple_choice", "options": ["alone", "lonely", "only"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: He was ___ in the house for the whole weekend.', '{"type": "multiple_choice", "options": ["alone", "lonely", "only"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'He was ___ in the house for the whole weekend.', '{"type": "multiple_choice", "options": ["alone", "lonely", "only"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'He was ___ in the house for the whole weekend.', '{"type": "multiple_choice", "options": ["alone", "lonely", "only"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -151,13 +161,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She felt ___ after moving to a new city.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She felt ___ after moving to a new city.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She felt ___ after moving to a new city.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She felt ___ after moving to a new city.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She felt ___ after moving to a new city.', '{"type": "multiple_choice", "options": ["lonely", "alone", "single"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She felt ___ after moving to a new city.', '{"type": "multiple_choice", "options": ["lonely", "alone", "single"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She felt ___ after moving to a new city.', '{"type": "multiple_choice", "options": ["lonely", "alone", "single"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She felt ___ after moving to a new city.', '{"type": "multiple_choice", "options": ["lonely", "alone", "single"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -171,13 +181,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: The ___ old man sat by the window every day.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The ___ old man sat by the window every day.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The ___ old man sat by the window every day.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The ___ old man sat by the window every day.', '{"type": "typing", "correct_answers": ["lonely"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The ___ old man sat by the window every day.', '{"type": "multiple_choice", "options": ["lonely", "alone", "only"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The ___ old man sat by the window every day.', '{"type": "multiple_choice", "options": ["lonely", "alone", "only"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The ___ old man sat by the window every day.', '{"type": "multiple_choice", "options": ["lonely", "alone", "only"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The ___ old man sat by the window every day.', '{"type": "multiple_choice", "options": ["lonely", "alone", "only"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -198,13 +208,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: That was the ___ option available to us.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: That was the ___ option available to us.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'That was the ___ option available to us.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'That was the ___ option available to us.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: That was the ___ option available to us.', '{"type": "multiple_choice", "options": ["only", "single", "alone"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: That was the ___ option available to us.', '{"type": "multiple_choice", "options": ["only", "single", "alone"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'That was the ___ option available to us.', '{"type": "multiple_choice", "options": ["only", "single", "alone"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'That was the ___ option available to us.', '{"type": "multiple_choice", "options": ["only", "single", "alone"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -218,13 +228,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She is the ___ person who knows the answer.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She is the ___ person who knows the answer.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She is the ___ person who knows the answer.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She is the ___ person who knows the answer.', '{"type": "typing", "correct_answers": ["only"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She is the ___ person who knows the answer.', '{"type": "multiple_choice", "options": ["only", "single", "lonely"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She is the ___ person who knows the answer.', '{"type": "multiple_choice", "options": ["only", "single", "lonely"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She is the ___ person who knows the answer.', '{"type": "multiple_choice", "options": ["only", "single", "lonely"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She is the ___ person who knows the answer.', '{"type": "multiple_choice", "options": ["only", "single", "lonely"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -245,13 +255,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I haven''t received a ___ reply to my emails.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I haven''t received a ___ reply to my emails.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I haven''t received a ___ reply to my emails.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I haven''t received a ___ reply to my emails.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I haven''t received a ___ reply to my emails.', '{"type": "multiple_choice", "options": ["single", "only", "alone"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I haven''t received a ___ reply to my emails.', '{"type": "multiple_choice", "options": ["single", "only", "alone"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I haven''t received a ___ reply to my emails.', '{"type": "multiple_choice", "options": ["single", "only", "alone"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I haven''t received a ___ reply to my emails.', '{"type": "multiple_choice", "options": ["single", "only", "alone"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -265,13 +275,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: The form must be completed on a ___ page.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: The form must be completed on a ___ page.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'The form must be completed on a ___ page.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'The form must be completed on a ___ page.', '{"type": "typing", "correct_answers": ["single"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: The form must be completed on a ___ page.', '{"type": "multiple_choice", "options": ["single", "only", "lonely"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: The form must be completed on a ___ page.', '{"type": "multiple_choice", "options": ["single", "only", "lonely"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'The form must be completed on a ___ page.', '{"type": "multiple_choice", "options": ["single", "only", "lonely"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'The form must be completed on a ___ page.', '{"type": "multiple_choice", "options": ["single", "only", "lonely"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

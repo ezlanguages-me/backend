@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4580, 'en', 'reading', 'professional', $content$Quarterly Performance Report – Q3
+        VALUES (
+    v_path_id,
+    4580,
+    'en',
+    'reading',
+    'professional',
+    $content$Quarterly Performance Report – Q3
 
 The company delivered stable growth during Q3. Revenue reached £130,000, which is 8% higher than in Q2. Expenses for the quarter totalled £95,000, leaving a net profit of £35,000. These figures show improved control over operating costs despite pressure from suppliers.
 
 At the end of the quarter, the business employed 24 full-time staff and 3 part-time staff. Customer satisfaction remained strong at 87%, reflecting positive feedback on delivery speed and service quality. During Q3, the product team launched two new products and discontinued one older product with weak demand.
 
-The main operational challenge was supply chain delays from one of our main suppliers. Management is now reviewing alternative suppliers to reduce the risk of future disruption.$content$)
-        RETURNING uuid INTO v_reading_id;
+The main operational challenge was supply chain delays from one of our main suppliers. Management is now reviewing alternative suppliers to reduce the risk of future disruption.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee un informe trimestral de rendimiento', 'Lee un informe trimestral con ingresos, gastos, plantilla y retos.'),
-            (v_reading_id, 'de', 'Lies einen vierteljährlichen Leistungsbericht', 'Lies einen Quartalsbericht mit Umsatz, Kosten, Personal und Herausforderungen.');
+            (v_reading_id, 'es', 'Trimestral de rendimiento'), (v_reading_id, 'de', 'Vierteljährlichen');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

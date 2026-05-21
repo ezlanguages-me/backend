@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3290 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 3290, 'en', 'reading', 'emergency', $content$
+    VALUES (
+    v_path_id,
+    3290,
+    'en',
+    'reading',
+    'emergency',
+    $content$
 Police Incident Report Form. Date: Tuesday 12 March. Time: 7:40 PM. Place: North Bus Station, Gate 4.
 
 Type of report: Stolen phone. Item: black Samsung mobile phone in a blue case. The phone disappeared from a seat near the coffee machine.
@@ -54,13 +60,12 @@ Type of report: Stolen phone. Item: black Samsung mobile phone in a blue case. T
 Person reporting: Laura Pérez. Contact number: 07700 889 114. Witness: bus driver Mr Evans.
 
 Suspect details: young man, green jacket, black cap, small backpack. Last seen running towards King Street. Please sign at the bottom and keep report number P-2046.
-$content$)
-    RETURNING uuid INTO v_reading_id;
+$content$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Comprende un formulario de denuncia policial', 'Lee un formulario policial con fecha, lugar, objeto robado y datos del sospechoso.'),
-        (v_reading_id, 'de', 'Verstehe ein Polizeiberichtsformular', 'Lies ein Polizeiformular mit Datum, Ort, gestohlenem Gegenstand und Angaben zum Verdächtigen.');
+        (v_reading_id, 'es', 'Comprende un formulario'), (v_reading_id, 'de', 'Polizeiberichtsformular');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

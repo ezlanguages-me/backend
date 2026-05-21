@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 4940 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 4940, 'en', 'reading', 'academic', 'Seminar handout: Student Bicycle Survey. The class survey included 60 university students. Forty students said they ride a bicycle to campus at least twice a week.
+    VALUES (
+    v_path_id,
+    4940,
+    'en',
+    'reading',
+    'academic',
+    'Seminar handout: Student Bicycle Survey. The class survey included 60 university students. Forty students said they ride a bicycle to campus at least twice a week.
 
 The two main reasons were health and cost. The biggest problem was rain, and the second problem was a lack of safe bike parking near the library.
 
-In today''s seminar, students compare bicycle use with bus use. Each group should bring one question about the survey results and one practical idea for the campus transport office.')
-    RETURNING uuid INTO v_reading_id;
+In today''s seminar, students compare bicycle use with bus use. Each group should bring one question about the survey results and one practical idea for the campus transport office.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Material de seminario sobre transporte en bicicleta', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Seminarunterlagen zum Radverkehr', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Seminario sobre transporte');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Seminarunterlagen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

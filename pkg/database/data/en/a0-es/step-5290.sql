@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5290 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5290, 'en', 'listening', 'academic', $transcript$
+    VALUES (
+    v_path_id,
+    5290,
+    'en',
+    'listening',
+    'academic',
+    $transcript$
 # AUDIO PROFILE: Presenter describing a chart
 ## THE SCENE: A visual presentation with a simple graph
 A speaker describes a chart about library visits and explains the key pattern.
@@ -56,13 +62,13 @@ Learners practise matching spoken explanations to information shown in a visual 
 [explaining] The quiet room is the most used area in every part of the week.
 [practical] Weekend visits are much lower, so they are shown in a separate small chart.
 [concluding] The main message is simple: midweek afternoons are the busiest study time.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Presentación con gráfico sobre visitas a la biblioteca', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Präsentation mit Diagramm über Bibliotheksbesuche', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Presentación con gráfico');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Präsentation mit Diagramm');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

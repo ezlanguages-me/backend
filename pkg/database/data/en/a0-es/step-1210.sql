@@ -19,12 +19,12 @@ DECLARE
         '{"es": "Los dos clientes tienen la tarjeta preparada.", "de": "Beide Kunden haben ihre Karte bereit.", "s_es": {"type": "true_false", "answer": true}, "s_de": {"type": "true_false", "answer": true}}'::jsonb,
         '{"es": "¿Qué pregunta hace Elena al principio?", "de": "Was fragt Elena am Anfang?", "s_es": {"type": "multiple_choice", "options": ["Are you next?", "Where is the milk?", "Do you work here?"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Are you next?", "Where is the milk?", "Do you work here?"], "answer": 0}}'::jsonb,
         '{"es": "¿Cuántos productos tiene Mark?", "de": "Wie viele Artikel hat Mark?", "s_es": {"type": "multiple_choice", "options": ["Three", "Five", "Ten"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Drei", "Fünf", "Zehn"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué lleva Elena?", "de": "Was hat Elena dabei?", "s_es": {"type": "multiple_choice", "options": ["A full basket", "A blue bag", "A shopping cart"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Einen vollen Korb", "Eine blaue Tasche", "Einen Einkaufswagen"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué ofrece Mark?", "de": "Was bietet Mark an?", "s_es": {"type": "multiple_choice", "options": ["Elena can go first", "A discount card", "A second basket"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Elena kann zuerst gehen", "Eine Rabattkarte", "Einen zweiten Korb"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué dice Elena al final sobre el ofrecimiento?", "de": "Was sagt Elena am Ende zu dem Angebot?", "s_es": {"type": "multiple_choice", "options": ["Please go first", "I will go first", "I will leave the queue"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Bitte gehen Sie zuerst", "Ich gehe zuerst", "Ich verlasse die Schlange"], "answer": 0}}'::jsonb,
+        '{"es": "¿Qué lleva Elena?", "de": "Was hat Elena dabei?", "s_es": {"type": "multiple_choice", "options": ["A blue bag", "A full basket", "A shopping cart"], "answer": 1}, "s_de": {"type": "multiple_choice", "options": ["Eine blaue Tasche", "Einen vollen Korb", "Einen Einkaufswagen"], "answer": 1}}'::jsonb,
+        '{"es": "¿Qué ofrece Mark?", "de": "Was bietet Mark an?", "s_es": {"type": "multiple_choice", "options": ["A discount card", "Elena can go first", "A second basket"], "answer": 1}, "s_de": {"type": "multiple_choice", "options": ["Eine Rabattkarte", "Elena kann zuerst gehen", "Einen zweiten Korb"], "answer": 1}}'::jsonb,
+        '{"es": "¿Qué dice Elena al final sobre el ofrecimiento?", "de": "Was sagt Elena am Ende zu dem Angebot?", "s_es": {"type": "multiple_choice", "options": ["I will go first", "I will leave the queue", "Please go first"], "answer": 2}, "s_de": {"type": "multiple_choice", "options": ["Ich gehe zuerst", "Ich verlasse die Schlange", "Bitte gehen Sie zuerst"], "answer": 2}}'::jsonb,
         '{"es": "¿Qué va lento hoy?", "de": "Was ist heute langsam?", "s_es": {"type": "multiple_choice", "options": ["The line", "The lift", "The bakery"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Die Schlange", "Der Aufzug", "Die Bäckerei"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué máquina va lenta?", "de": "Welche Maschine ist langsam?", "s_es": {"type": "multiple_choice", "options": ["The card machine", "The coffee machine", "The ticket machine"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Das Kartenlesegerät", "Die Kaffeemaschine", "Der Ticketautomat"], "answer": 0}}'::jsonb,
-        '{"es": "¿Qué tienen preparado los clientes?", "de": "Was haben die Kunden vorbereitet?", "s_es": {"type": "multiple_choice", "options": ["Their card", "Their passport", "Their umbrella"], "answer": 0}, "s_de": {"type": "multiple_choice", "options": ["Ihre Karte", "Ihren Ausweis", "Ihren Regenschirm"], "answer": 0}}'::jsonb
+        '{"es": "¿Qué máquina va lenta?", "de": "Welche Maschine ist langsam?", "s_es": {"type": "multiple_choice", "options": ["The coffee machine", "The ticket machine", "The card machine"], "answer": 2}, "s_de": {"type": "multiple_choice", "options": ["Die Kaffeemaschine", "Der Ticketautomat", "Das Kartenlesegerät"], "answer": 2}}'::jsonb,
+        '{"es": "¿Qué tienen preparado los clientes?", "de": "Was haben die Kunden vorbereitet?", "s_es": {"type": "multiple_choice", "options": ["Their passport", "Their card", "Their umbrella"], "answer": 1}, "s_de": {"type": "multiple_choice", "options": ["Ihren Ausweis", "Ihre Karte", "Ihren Regenschirm"], "answer": 1}}'::jsonb
     ];
 BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
@@ -32,8 +32,14 @@ BEGIN
     DELETE FROM listening WHERE step_order = 1210 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 1210, 'en', 'listening', 'shopping', $transcript$
-# AUDIO PROFILE: Elena and Mark, two customers waiting in line
+    VALUES (
+    v_path_id,
+    1210,
+    'en',
+    'listening',
+    'shopping',
+    $transcript$
+# AUDIO PROFILE: Elena and Mark, two customers chatting in a supermarket checkout queue
 ## "Are You Next?"
 
 ## THE SCENE: A supermarket checkout with a short but slow queue
@@ -54,23 +60,28 @@ Learners hear basic language for waiting in line and speaking politely to other 
 The audio is useful for turns, places, and simple offers.
 
 #### TRANSCRIPT
-[quietly] Elena: Excuse me, are you next?
-[polite] Mark: Yes, I am next, but I only have three items.
-[friendly] Elena: I have a full basket.
+[polite] Elena: Excuse me, are you next?
+[friendly] Mark: Yes, I am next, but I only have three items.
+[noticing] Elena: I have a full basket.
 [helpful] Mark: You can go first if you are in a hurry.
-[thankful] Elena: That is kind, but you are fine. Please go first.
-[small laugh] Mark: Thank you.
+[polite] Elena: That is kind, but you are fine. Please go first.
+[thankful] Mark: Thank you.
 [noticing] Elena: The line is slow today.
 [agreeing] Mark: Yes, the card machine is a little slow.
 [practical] Elena: I have my card ready.
-[calm] Mark: Me too. That helps a lot.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+[agreeing] Mark: Me too. That helps a lot.
+[checking] Elena: Are there many people in front?
+[reassuring] Mark: Just two more. We are almost there.
+[small laugh] Elena: Good. I have a lot of shopping today.
+[agreeing] Mark: Me too. It is always busy on Fridays.
+[calm] Elena: Yes. I hope the card machine is working today.
+[reassuring] Mark: I think it is fine. I can see the screen.
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una conversación en la cola del supermercado', 'Escucha a dos clientes que hablan de su turno y de cuántos productos llevan.'),
-        (v_listening_id, 'de', 'Höre ein Gespräch in der Supermarktschlange', 'Höre zwei Kunden, die über ihren Platz in der Schlange und ihre Artikel sprechen.');
+        (v_listening_id, 'es', 'Conversación en la cola'), (v_listening_id, 'de', 'Supermarktschlange');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

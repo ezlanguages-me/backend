@@ -41,13 +41,12 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 4860 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 4860, 'en', 'dialogue', 'professional', '[{"name": "Nina", "gender": "female", "avatarURL": "https://example.com/avatars/nina.png"}, {"name": "Oliver", "gender": "male", "avatarURL": "https://example.com/avatars/oliver.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 4860, 'en', 'dialogue', 'professional', '[{"name": "Nina", "gender": "female", "avatarURL": "https://example.com/avatars/nina.png"}, {"name": "Oliver", "gender": "male", "avatarURL": "https://example.com/avatars/oliver.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Responder a un mensaje de voz', '');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Auf eine Voicemail antworten', '');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Responder a un mensaje de voz');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Auf eine Voicemail antworten');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

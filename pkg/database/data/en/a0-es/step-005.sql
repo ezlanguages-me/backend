@@ -32,12 +32,11 @@ BEGIN
   )
   RETURNING uuid INTO v_grammar_uuid;
 
-  INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+  INSERT INTO grammar_translation (grammar_uuid, language, title, content)
 VALUES (
   v_grammar_uuid,
   'es',
   'Los Números',
-  '',
   to_jsonb('## Los Números
 
 ¡Domina los números en inglés para manejar dinero, dar tu edad o compartir tu teléfono! Aprenderemos los patrones clave para que puedas construirlos lógicamente sin tener que memorizarlos todos de golpe.
@@ -110,12 +109,11 @@ VALUES (
 '::text)
 );
 
-  INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+  INSERT INTO grammar_translation (grammar_uuid, language, title, content)
   VALUES (
     v_grammar_uuid,
     'de',
     'Die Zahlen',
-    '',
     to_jsonb('## Die Zahlen
 
 Lerne englische Zahlen, um Geld zu handhaben, dein Alter anzugeben oder deine Telefonnummer zu teilen! Wir lernen die wichtigsten Muster, damit du sie logisch aufbauen kannst, ohne alle auswendig lernen zu müssen.
@@ -425,72 +423,72 @@ Lerne englische Zahlen, um Geld zu handhaben, dein Alter anzugeben oder deine Te
 
   -- Regla 1: Guiones (21-99) — 5 ejercicios (chunks siempre desordenados: [guion, unidad, decena])
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule1_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 24:', '{"type":"scramble","chunks":["-","four","twenty"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 24 zu schreiben:', '{"type":"scramble","chunks":["-","four","twenty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 24:', '{"type":"scramble","chunks":["-","four","twenty","three","eight"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 24 zu schreiben:', '{"type":"scramble","chunks":["-","four","twenty","three","eight"],"correct_order":[2,0,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule1_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 37:', '{"type":"scramble","chunks":["-","seven","thirty"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 37 zu schreiben:', '{"type":"scramble","chunks":["-","seven","thirty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 37:', '{"type":"scramble","chunks":["-","seven","thirty","two","forty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 37 zu schreiben:', '{"type":"scramble","chunks":["-","seven","thirty","two","forty"],"correct_order":[2,0,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule1_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 56:', '{"type":"scramble","chunks":["-","six","fifty"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 56 zu schreiben:', '{"type":"scramble","chunks":["-","six","fifty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 56:', '{"type":"scramble","chunks":["-","six","fifty","seven","sixty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 56 zu schreiben:', '{"type":"scramble","chunks":["-","six","fifty","seven","sixty"],"correct_order":[2,0,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule1_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 72:', '{"type":"scramble","chunks":["-","two","seventy"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 72 zu schreiben:', '{"type":"scramble","chunks":["-","two","seventy"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 72:', '{"type":"scramble","chunks":["-","two","seventy","three","sixty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 72 zu schreiben:', '{"type":"scramble","chunks":["-","two","seventy","three","sixty"],"correct_order":[2,0,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule1_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 85:', '{"type":"scramble","chunks":["-","five","eighty"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 85 zu schreiben:', '{"type":"scramble","chunks":["-","five","eighty"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 85:', '{"type":"scramble","chunks":["-","five","eighty","four","ninety"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 85 zu schreiben:', '{"type":"scramble","chunks":["-","five","eighty","four","ninety"],"correct_order":[2,0,1]}'::jsonb);
 
   -- Regla 2: Cientos/Miles sin "s" — 3 ejercicios
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule2_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «cuatrocientos»:', '{"type":"scramble","chunks":["hundred","four"],"correct_order":[1,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «vierhundert»:', '{"type":"scramble","chunks":["hundred","four"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «cuatrocientos»:', '{"type":"scramble","chunks":["hundred","four","thousand","five"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «vierhundert»:', '{"type":"scramble","chunks":["hundred","four","thousand","five"],"correct_order":[1,0]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule2_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «seis mil»:', '{"type":"scramble","chunks":["thousand","six"],"correct_order":[1,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «sechstausend»:', '{"type":"scramble","chunks":["thousand","six"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «seis mil»:', '{"type":"scramble","chunks":["thousand","six","hundred","seven"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «sechstausend»:', '{"type":"scramble","chunks":["thousand","six","hundred","seven"],"correct_order":[1,0]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule2_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «novecientas personas»:', '{"type":"scramble","chunks":["people","nine","hundred"],"correct_order":[1,2,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «neunhundert Personen»:', '{"type":"scramble","chunks":["people","nine","hundred"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para «novecientas personas»:', '{"type":"scramble","chunks":["people","nine","hundred","seven","thousand"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne für «neunhundert Personen»:', '{"type":"scramble","chunks":["people","nine","hundred","seven","thousand"],"correct_order":[1,2,0]}'::jsonb);
 
   -- Regla 3: Omisión de "and" — 3 ejercicios
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule3_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 120:', '{"type":"scramble","chunks":["twenty","one","hundred"],"correct_order":[1,2,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 120 zu schreiben:', '{"type":"scramble","chunks":["twenty","one","hundred"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 120:', '{"type":"scramble","chunks":["twenty","one","hundred","two","thirty"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 120 zu schreiben:', '{"type":"scramble","chunks":["twenty","one","hundred","two","thirty"],"correct_order":[1,2,0]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule3_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 350:', '{"type":"scramble","chunks":["three","fifty","hundred"],"correct_order":[0,2,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 350 zu schreiben:', '{"type":"scramble","chunks":["three","fifty","hundred"],"correct_order":[0,2,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 350:', '{"type":"scramble","chunks":["three","fifty","hundred","four","sixty"],"correct_order":[0,2,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 350 zu schreiben:', '{"type":"scramble","chunks":["three","fifty","hundred","four","sixty"],"correct_order":[0,2,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule3_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 614:', '{"type":"scramble","chunks":["fourteen","six","hundred"],"correct_order":[1,2,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 614 zu schreiben:', '{"type":"scramble","chunks":["fourteen","six","hundred"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para escribir 614:', '{"type":"scramble","chunks":["fourteen","six","hundred","seven","thousand"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um 614 zu schreiben:', '{"type":"scramble","chunks":["fourteen","six","hundred","seven","thousand"],"correct_order":[1,2,0]}'::jsonb);
 
   -- Regla 4: Teléfonos — 2 ejercicios (chunks desordenados)
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule4_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para dictar «408»:', '{"type":"scramble","chunks":["O","eight","four"],"correct_order":[2,0,1]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um «408» zu nennen:', '{"type":"scramble","chunks":["O","eight","four"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para dictar «408»:', '{"type":"scramble","chunks":["O","eight","four","zero","six"],"correct_order":[2,0,1]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um «408» zu nennen:', '{"type":"scramble","chunks":["O","eight","four","zero","six"],"correct_order":[2,0,1]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule4_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para dictar «305»:', '{"type":"scramble","chunks":["five","three","O"],"correct_order":[1,2,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um «305» zu nennen:', '{"type":"scramble","chunks":["five","three","O"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para dictar «305»:', '{"type":"scramble","chunks":["five","three","O","zero","two"],"correct_order":[1,2,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um «305» zu nennen:', '{"type":"scramble","chunks":["five","three","O","zero","two"],"correct_order":[1,2,0]}'::jsonb);
 
   -- Regla 5: Precios y Años — 3 ejercicios (2 chunks intercambiados)
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule5_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para decir $9.50:', '{"type":"scramble","chunks":["fifty","nine"],"correct_order":[1,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um $9.50 zu sagen:', '{"type":"scramble","chunks":["fifty","nine"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para decir $9.50:', '{"type":"scramble","chunks":["fifty","nine","sixty","eight"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um $9.50 zu sagen:', '{"type":"scramble","chunks":["fifty","nine","sixty","eight"],"correct_order":[1,0]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule5_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para leer el año 1997:', '{"type":"scramble","chunks":["ninety-seven","nineteen"],"correct_order":[1,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um das Jahr 1997 zu lesen:', '{"type":"scramble","chunks":["ninety-seven","nineteen"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para leer el año 1997:', '{"type":"scramble","chunks":["ninety-seven","nineteen","twenty","eighty"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um das Jahr 1997 zu lesen:', '{"type":"scramble","chunks":["ninety-seven","nineteen","twenty","eighty"],"correct_order":[1,0]}'::jsonb);
 
   INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_uuid, v_rule5_uuid) RETURNING uuid INTO v_ex_uuid;
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para leer el año 2015:', '{"type":"scramble","chunks":["fifteen","twenty"],"correct_order":[1,0]}'::jsonb);
-  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um das Jahr 2015 zu lesen:', '{"type":"scramble","chunks":["fifteen","twenty"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'es', 'Ordena para leer el año 2015:', '{"type":"scramble","chunks":["fifteen","twenty","nineteen","sixteen"],"correct_order":[1,0]}'::jsonb);
+  INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_uuid, 'de', 'Ordne, um das Jahr 2015 zu lesen:', '{"type":"scramble","chunks":["fifteen","twenty","nineteen","sixteen"],"correct_order":[1,0]}'::jsonb);
 
   -- ==============================================================================
   -- TIPO 4: TRUE/FALSE (Verdadero o Falso)

@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7850 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7850, 'en', 'reading', 'meetings', 'Conference Summary\n\nSession: Simple Conference Wrap-Ups
+    VALUES (
+    v_path_id,
+    7850,
+    'en',
+    'reading',
+    'meetings',
+    'Conference Summary\n\nSession: Simple Conference Wrap-Ups
 Speaker: Ana Lopez
 Time: Monday morning
 Main idea: a wrap-up should say the topic, three key points, and one next step.
@@ -40,13 +46,12 @@ The speaker used three short slides and two simple examples.
 Audience: 24 people.
 Questions were about meeting length and note sharing.
 Feedback was positive because the checklist was clear and the examples were easy.
-Next action: the team will try a 10 minute Friday update next month.')
-    RETURNING uuid INTO v_reading_id;
+Next action: the team will try a 10 minute Friday update next month.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Entiende un resumen de una conferencia', 'Lee un resumen breve de una sesión de conferencia con ideas clave, preguntas y una próxima acción.'),
-        (v_reading_id, 'de', 'Verstehe eine Konferenzzusammenfassung', 'Lies eine kurze Zusammenfassung einer Konferenzsitzung mit Kernideen, Fragen und einem nächsten Schritt.');
+        (v_reading_id, 'es', 'Resumen de una conferencia'), (v_reading_id, 'de', 'Konferenzzusammenfassung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

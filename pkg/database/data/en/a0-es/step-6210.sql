@@ -33,13 +33,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 6210 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 6210, 'en', 'reading', 'Convivencia', 'Hi, you''re invited to my flat this Friday evening for tea and snacks. We will start at 6 PM and sit outside if the weather is nice. Please bring a drink or a small snack to share. If you want to come, reply by Thursday so I know how many people to expect. Bring a blanket if you want to sit on the grass.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 6210, 'en', 'reading', 'social', 'Hi, you''re invited to my flat this Friday evening for tea and snacks. We will start at 6 PM and sit outside if the weather is nice. Please bring a drink or a small snack to share. If you want to come, reply by Thursday so I know how many people to expect. Bring a blanket if you want to sit on the grass.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'lee una invitación social', 'Lee una invitación sencilla a una merienda con compañeros y responde a los detalles principales.'),
-        (v_reading_id, 'de', 'lies eine soziale Einladung', 'Lies eine einfache Einladung zu einem Treffen mit Mitschülern und beantworte die wichtigsten Details.');
+        (v_reading_id, 'es', 'lee una invitación social'), (v_reading_id, 'de', 'lies eine soziale Einladung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

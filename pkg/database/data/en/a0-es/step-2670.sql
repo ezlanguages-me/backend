@@ -41,13 +41,11 @@ BEGIN
     DELETE FROM dialogue WHERE step_order = 2670 AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 2670, 'en', 'dialogue', 'health', '[{"name": "Doctor", "gender": "female", "avatarURL": "https://example.com/avatars/doctor.png"}, {"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 2670, 'en', 'dialogue', 'health', '[{"name": "Doctor", "gender": "female", "avatarURL": "https://example.com/avatars/doctor.png"}, {"name": "Patient", "gender": "neutral", "avatarURL": "https://example.com/avatars/patient.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
     VALUES
-        (v_dialogue_id, 'es', 'Comprende y confirma los consejos del médico', 'Lee un diálogo entre médico y paciente en el que se repasan los consejos principales de la consulta.'),
-        (v_dialogue_id, 'de', 'Verstehe und bestätige die Ratschläge des Arztes', 'Lies einen Dialog zwischen Arzt und Patient, in dem die wichtigsten Ratschläge der Untersuchung wiederholt werden.');
+        (v_dialogue_id, 'es', 'Confirma los consejos'), (v_dialogue_id, 'de', 'Bestätige die Ratschläge');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

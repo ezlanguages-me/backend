@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 7600 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 7600, 'en', 'listening', 'meetings', $transcript$
+    VALUES (
+    v_path_id,
+    7600,
+    'en',
+    'listening',
+    'meetings',
+    $transcript$
 # AUDIO PROFILE: A chair, Ravi, and Dana in a meeting about training plans
 ## "Monday or Wednesday?"
 
@@ -64,13 +70,12 @@ The audio practises opinion, clarification, and summary language in meetings.
 [balancing] Chair: So one option gives better timing, and the other gives better materials.
 [suggesting] Ravi: If we keep Monday, we can add a short update session on Thursday.
 [concluding] Chair: Good. Let us keep Monday and add the Thursday update.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una discusión con argumentos y una aclaración breve', 'Escucha cómo un equipo compara dos opciones, aclara un punto y toma una decisión final.'),
-        (v_listening_id, 'de', 'Höre eine Diskussion mit Argumenten und kurzer Klärung', 'Höre, wie ein Team zwei Optionen vergleicht, einen Punkt klärt und eine Entscheidung trifft.');
+        (v_listening_id, 'es', 'Argumentos y una aclaración'), (v_listening_id, 'de', 'Argumenten und kurzer Klärung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

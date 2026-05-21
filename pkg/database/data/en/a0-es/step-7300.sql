@@ -32,13 +32,11 @@
         DELETE FROM reading WHERE step_order = 7300 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 7300, 'en', 'reading', 'social', 'Sunday dinner at the host family house is long and relaxed. Lucia asks Mateo about a street art tour at school, and he explains that the murals show the history of the neighborhood. The grandparents join in and compare the tour with festivals from their own town.\n\nLater, the conversation moves to music, humor, and the idea of personal space. Lucia says that in her family people often speak at the same time, but here everyone waits longer before answering. Mateo laughs and says the silence is not cold. It often means people are thinking.\n\nThe family keeps talking after dessert. They discuss why some guests bring flowers, why some people arrive exactly on time, and why others prefer to come a little late. No one tries to win the discussion. They ask follow-up questions and share small stories from daily life.\n\nBy the end of the evening, Lucia feels more confident. She notices that a long casual conversation can include opinions, memories, and cultural habits, as long as everyone listens and stays curious.')
-        RETURNING uuid INTO v_reading_id;
+        VALUES (v_path_id, 7300, 'en', 'reading', 'social', 'Sunday dinner at the host family house is long and relaxed. Lucia asks Mateo about a street art tour at school, and he explains that the murals show the history of the neighborhood. The grandparents join in and compare the tour with festivals from their own town.\n\nLater, the conversation moves to music, humor, and the idea of personal space. Lucia says that in her family people often speak at the same time, but here everyone waits longer before answering. Mateo laughs and says the silence is not cold. It often means people are thinking.\n\nThe family keeps talking after dessert. They discuss why some guests bring flowers, why some people arrive exactly on time, and why others prefer to come a little late. No one tries to win the discussion. They ask follow-up questions and share small stories from daily life.\n\nBy the end of the evening, Lucia feels more confident. She notices that a long casual conversation can include opinions, memories, and cultural habits, as long as everyone listens and stays curious.')RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una conversación larga y casual sobre convivencia y cultura', 'Lee una cena con familia anfitriona donde se comentan costumbres, festivales y maneras de conversar.'),
-            (v_reading_id, 'de', 'Lies ein längeres lockeres Gespräch über Zusammenleben und Kultur', 'Lies eine Szene beim Abendessen in einer Gastfamilie über Gewohnheiten, Feste und Gesprächsstile.');
+            (v_reading_id, 'es', 'Conversación larga y casual'), (v_reading_id, 'de', 'Gespräch über Zusammenleben');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

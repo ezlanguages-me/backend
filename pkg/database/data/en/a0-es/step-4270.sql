@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4270 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4270 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4270, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4270,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: David, a certified technician, giving maintenance instructions
 ## "Air Conditioning Maintenance – Step-by-Step Instructions"
 
@@ -57,12 +63,11 @@ Accent: Neutral accent.
 [frequency] David: I recommend carrying out this maintenance twice a year.
 [record] David: After each visit, note the date and any findings in the maintenance log.
 [offer] David: I will leave a written instruction manual here for your records.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha instrucciones técnicas de mantenimiento', 'Escucha las instrucciones paso a paso de un técnico para el mantenimiento de un sistema de climatización.'),
-            (v_listening_id, 'de', 'Höre technische Wartungsanweisungen', 'Höre Schritt-für-Schritt-Anweisungen eines Technikers für die Wartung einer Klimaanlage.');
+            (v_listening_id, 'es', 'Técnicas de mantenimiento'), (v_listening_id, 'de', 'Technische Wartungsanweisungen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

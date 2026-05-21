@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4310 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4310 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4310, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4310,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Helen, an office manager dictating a formal business letter
 ## "Dictation – Service Contract Confirmation Letter"
 
@@ -59,12 +65,11 @@ Accent: Neutral accent.
 [close] Helen: We look forward to working with you full stop
 [sign off] Helen: Yours sincerely comma new paragraph – Helen Marsh comma Operations Manager full stop
 [check] Helen: Can you read that back to me when you''re done?
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha un texto de negocios dictado', 'Escucha un dictado de una carta formal de negocios con confirmación de contrato, fecha e importe.'),
-            (v_listening_id, 'de', 'Höre einen diktierten Geschäftstext', 'Höre das Diktat eines formellen Geschäftsbriefs mit Vertragsbestätigung, Datum und Betrag.');
+            (v_listening_id, 'es', 'Un texto de negocios dictado'), (v_listening_id, 'de', 'Einen diktierten Geschäftstext');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

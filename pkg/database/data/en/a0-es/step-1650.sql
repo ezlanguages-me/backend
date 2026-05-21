@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1650 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1650, 'en', 'reading', 'Viajes y Transporte', $reading$
+    VALUES (
+    v_path_id,
+    1650,
+    'en',
+    'reading',
+    'transport',
+    $reading$
 Directions to Oak Hall: Start at Central Bus Station and walk along Market Street for 300 metres. Pass the bookshop and the police station.
 
 At the traffic lights, cross the road and turn right into Hill Avenue. Walk uphill until you see St Anne's Church.
 
 Take the first street on the left after the church. Oak Hall is at number 18, between the pharmacy and the flower shop. The entrance is at the back.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Direcciones impresas para llegar a Oak Hall');
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Gedruckte Wegbeschreibung zu Oak Hall');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Impresas para llegar a Oak');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Wegbeschreibung zu Oak Hall');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

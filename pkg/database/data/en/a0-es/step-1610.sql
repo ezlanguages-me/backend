@@ -32,16 +32,22 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1610 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1610, 'en', 'reading', 'Viajes y Transporte', $reading$
+    VALUES (
+    v_path_id,
+    1610,
+    'en',
+    'reading',
+    'transport',
+    $reading$
 From Green Street Station, go out of the main door and turn right into King Street. Walk straight past the bakery and the small bank.
 
 At the end of the road, turn left into River Road. Go over the little bridge and keep walking for two minutes.
 
 The city museum is on the right, next to the park gate. The ticket office is in front of the blue door.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Nota sencilla para llegar al museo');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Sencilla para llegar al museo');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Einfache Wegnotiz zum Museum');
 
     FOREACH ex IN ARRAY v_exercises LOOP

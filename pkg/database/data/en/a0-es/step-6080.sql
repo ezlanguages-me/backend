@@ -35,17 +35,22 @@ BEGIN
   DELETE FROM reading_translation WHERE reading_uuid IN (SELECT uuid FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6080 AND source_language = 'en');
   DELETE FROM reading WHERE path_uuid = v_path_uuid AND step_order = 6080 AND source_language = 'en';
   INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-  VALUES (v_path_uuid, 6080, 'en', 'reading', 'Alquileres', $content$
+  VALUES (
+    v_path_uuid,
+    6080,
+    'en',
+    'reading',
+    'accommodation',
+    $content$
 The property is a small flat in near the old town. The rent is £780 a month and the deposit is £900.
 
 Bills are not included. The place is unfurnished and has an inventory check on day one.
 
 The contract is 12 months, and you can move in on 1 November. Subletting is not allowed and contents insurance is recommended.
-$content$)
-  RETURNING uuid INTO v_reading_uuid;
-  INSERT INTO reading_translation (reading_uuid, language, title, description)
-  VALUES (v_reading_uuid, 'es', 'Comprende las nociones básicas del contrato de alquiler', 'Lee un resumen sencillo de las reglas principales del contrato.'),
-         (v_reading_uuid, 'de', 'Verstehe die Grundlagen des Mietvertrags', 'Lies eine einfache Zusammenfassung der wichtigsten Regeln im Mietvertrag.');
+$content$
+)RETURNING uuid INTO v_reading_uuid;
+  INSERT INTO reading_translation (reading_uuid, language, title)
+  VALUES (v_reading_uuid, 'es', 'Nociones básicas'), (v_reading_uuid, 'de', 'Grundlagen');
 
   FOREACH ex IN ARRAY v_exercises LOOP
     INSERT INTO exercise (target_uuid, grammar_rule_uuid)

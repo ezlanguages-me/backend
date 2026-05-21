@@ -34,17 +34,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5780 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5780, 'en', 'reading', 'study-management', 'Email 1: A student writes to the science administrator to ask for access to the microbiology lab on Wednesday evening. The administrator replies that the student must complete the online safety form first and can collect the access card from the department office between 09:00 and 11:00.
+    VALUES (
+    v_path_id,
+    5780,
+    'en',
+    'reading',
+    'study_management',
+    'Email 1: A student writes to the science administrator to ask for access to the microbiology lab on Wednesday evening. The administrator replies that the student must complete the online safety form first and can collect the access card from the department office between 09:00 and 11:00.
 
 Email 2: The same student writes to a lecturer to arrange a short meeting about project feedback. The lecturer answers that Thursday at 14:30 is free and suggests Room 3.12, but also offers an online meeting if the student is on placement that day.
 
-Both emails are polite and practical. The student explains the reason for the request, asks clearly for times or access, and thanks the staff member. The replies give next steps, times, and locations so the arrangements are easy to follow.')
-    RETURNING uuid INTO v_reading_id;
+Both emails are polite and practical. The student explains the reason for the request, asks clearly for times or access, and thanks the staff member. The replies give next steps, times, and locations so the arrangements are easy to follow.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Organizar acceso al laboratorio y una reunión', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Laborzugang und ein Treffen organisieren', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Laboratorio y una reunión');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Laborzugang und ein Treffen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2040 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2040, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2040,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 LUNCH REVIEW
 I had lunch at Sunny Café on Tuesday. The vegetable pasta was delicious and the sauce was light. The tomato soup was too salty for me.
 
 My lemon drink was fresh and cold. The chocolate cake was good, but the slice was small.
 
 The service was friendly, so I want to come back next week.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Una reseña sencilla sobre la comida');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Sencilla sobre la comida');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Eine einfache Essensrezension');
 
     FOREACH ex IN ARRAY v_exercises LOOP

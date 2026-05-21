@@ -32,15 +32,21 @@ BEGIN
     DELETE FROM reading WHERE step_order = 1780 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 1780, 'en', 'reading', 'Compras y Transacciones', $reading$
+    VALUES (
+    v_path_id,
+    1780,
+    'en',
+    'reading',
+    'shopping',
+    $reading$
 SATURDAY MARKET TODAY
 Tomatoes £2 a kilo. Bananas 80p a bunch. Small water £1. Big water £1.50.
 
 Ask for 2 kilos of tomatoes and pay £3. Two big waters cost £2.50.
 
 You can point to the item and show the number with your fingers. Cash only at this stall.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Precios básicos en el mercado');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Einfache Marktpreise');

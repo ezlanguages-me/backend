@@ -24,12 +24,11 @@ INSERT INTO grammar (path_uuid, step_order, source_language, type)
 VALUES (v_path_id, 20, 'en', 'grammar') 
 RETURNING uuid INTO v_grammar14_id;
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-  v_grammar14_id, 
-  'es', 
-  'Verbo To Be', 
-  '', 
+  v_grammar14_id,
+  'es',
+  'Verbo To Be',
   to_jsonb('# Verbo To Be (Ser o Estar)
 
 El verbo **To Be** es el verbo más importante y utilizado en el idioma inglés. Se traduce al español principalmente como **SER** o **ESTAR**, indistintamente. Además, funciona como verbo auxiliar para formar tiempos verbales compuestos.
@@ -101,15 +100,14 @@ Para preguntar, se **invierte** el orden: el verbo va antes del sujeto.
 *   **Medidas y Distancias:** *How wide / long / deep / far is ...?*
 *   **Origen:** *Where are they from?*
 *   **Información Personal:** *What''s his name? / What''s your address?*
-*   **Estado:** *What''s the matter with her? / What''s his car like?*'::text) 
+*   **Estado:** *What''s the matter with her? / What''s his car like?*'::text)
 );
 
-INSERT INTO grammar_translation (grammar_uuid, language, title, description, content) 
+INSERT INTO grammar_translation (grammar_uuid, language, title, content) 
 VALUES (
-  v_grammar14_id, 
-  'de', 
-  'Das Verb To Be', 
-  '', 
+  v_grammar14_id,
+  'de',
+  'Das Verb To Be',
   to_jsonb('# Das Verb To Be (Sein oder Sein/Sich befinden)
 
 Das Verb **To Be** ist das wichtigste und am häufigsten verwendete Verb der englischen Sprache. Es wird ins Deutsche als **SEIN** übersetzt. Es dient auch als Hilfsverb zur Bildung zusammengesetzter Zeitformen.
@@ -182,7 +180,7 @@ Für Fragen wird die Reihenfolge **umgekehrt**: das Verb steht vor dem Subjekt.
 *   **Herkunft:** *Where are they from?*
 *   **Persönliche Informationen:** *What''s his name? / What''s your address?*
 *   **Zustand:** *What''s the matter with her? / What''s his car like?*
-'::text) 
+'::text)
 );
 
 -- Regla 1: Forma Afirmativa y Conjugación
@@ -336,54 +334,54 @@ INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VA
 -- ==============================================================================
 
 -- (Regla 1 - Afirmativa)
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena la frase: Yo soy feliz.', '{"type":"scramble","chunks":["am","I","happy"],"correct_order":[1,0,2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Ich bin glücklich.', '{"type":"scramble","chunks":["am","I","happy"],"correct_order":[1,0,2]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena la frase: Ella es doctora.', '{"type":"scramble","chunks":["doctor","is","She","a"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Sie ist Ärztin.', '{"type":"scramble","chunks":["doctor","is","She","a"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena la frase: Él es muy alto.', '{"type":"scramble","chunks":["tall","He","very","is"],"correct_order":[1,3,2,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Er ist sehr groß.', '{"type":"scramble","chunks":["tall","He","very","is"],"correct_order":[1,3,2,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena la frase: Es un perro grande.', '{"type":"scramble","chunks":["a","It","big","is","dog"],"correct_order":[1,3,0,2,4]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Es ist ein großer Hund.', '{"type":"scramble","chunks":["a","It","big","is","dog"],"correct_order":[1,3,0,2,4]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Yo soy feliz.', '{"type":"scramble","chunks":["am","I","happy","sad","You"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Ich bin glücklich.', '{"type":"scramble","chunks":["am","I","happy","sad","You"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ella es doctora.', '{"type":"scramble","chunks":["doctor","is","She","a","He","teacher"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Sie ist Ärztin.', '{"type":"scramble","chunks":["doctor","is","She","a","He","teacher"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Él es muy alto.', '{"type":"scramble","chunks":["tall","He","very","is","She","short"],"correct_order":[1,3,2,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Er ist sehr groß.', '{"type":"scramble","chunks":["tall","He","very","is","She","short"],"correct_order":[1,3,2,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule1_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Es un perro grande.', '{"type":"scramble","chunks":["a","It","big","is","dog","small","cat"],"correct_order":[1,3,0,2,4]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne den Satz: Es ist ein großer Hund.', '{"type":"scramble","chunks":["a","It","big","is","dog","small","cat"],"correct_order":[1,3,0,2,4]}'::jsonb);
 
 -- (Regla 2 - Negativa)
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Él no está en casa.', '{"type":"scramble","chunks":["home","isn''t","He","at"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Er ist nicht zu Hause.', '{"type":"scramble","chunks":["home","isn''t","He","at"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Yo no estoy cansado.', '{"type":"scramble","chunks":["not","tired","I","am"],"correct_order":[2,3,0,1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ich bin nicht müde.', '{"type":"scramble","chunks":["not","tired","I","am"],"correct_order":[2,3,0,1]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Ellos no están tristes.', '{"type":"scramble","chunks":["sad","aren''t","They"],"correct_order":[2,1,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sie sind nicht traurig.', '{"type":"scramble","chunks":["sad","aren''t","They"],"correct_order":[2,1,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: No estamos en clase hoy.', '{"type":"scramble","chunks":["class","We","in","today","aren''t"],"correct_order":[1,4,2,0,3]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wir sind heute nicht im Unterricht.', '{"type":"scramble","chunks":["class","We","in","today","aren''t"],"correct_order":[1,4,2,0,3]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Él no está en casa.', '{"type":"scramble","chunks":["home","isn''t","He","at","She","work"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Er ist nicht zu Hause.', '{"type":"scramble","chunks":["home","isn''t","He","at","She","work"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Yo no estoy cansado.', '{"type":"scramble","chunks":["not","tired","I","am","You","hungry"],"correct_order":[2,3,0,1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ich bin nicht müde.', '{"type":"scramble","chunks":["not","tired","I","am","You","hungry"],"correct_order":[2,3,0,1]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ellos no están tristes.', '{"type":"scramble","chunks":["sad","aren''t","They","We","happy"],"correct_order":[2,1,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sie sind nicht traurig.', '{"type":"scramble","chunks":["sad","aren''t","They","We","happy"],"correct_order":[2,1,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule2_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'No estamos en clase hoy.', '{"type":"scramble","chunks":["class","We","in","today","aren''t","They","school"],"correct_order":[1,4,2,0,3]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wir sind heute nicht im Unterricht.', '{"type":"scramble","chunks":["class","We","in","today","aren''t","They","school"],"correct_order":[1,4,2,0,3]}'::jsonb);
 
 -- (Regla 3 - Interrogativa)
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Es ella tu hermana?', '{"type":"scramble","chunks":["your","Is","she","sister?"],"correct_order":[1,2,0,3]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ist sie deine Schwester?', '{"type":"scramble","chunks":["your","Is","she","sister?"],"correct_order":[1,2,0,3]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Están ellos en el colegio?', '{"type":"scramble","chunks":["school?","they","Are","at"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sind sie in der Schule?', '{"type":"scramble","chunks":["school?","they","Are","at"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Es él médico? — Sí, lo es.', '{"type":"scramble","chunks":["he","Is","a","Yes,","doctor?","is","he"],"correct_order":[1,0,2,4,3,6,5]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ist er Arzt? — Ja, er ist es.', '{"type":"scramble","chunks":["he","Is","a","Yes,","doctor?","is","he"],"correct_order":[1,0,2,4,3,6,5]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Llegas tarde? — No, no llego.', '{"type":"scramble","chunks":["late?","No,","Are","you","not","I''m"],"correct_order":[2,3,0,1,5,4]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Kommst du zu spät? — Nein, ich nicht.', '{"type":"scramble","chunks":["late?","No,","Are","you","not","I''m"],"correct_order":[2,3,0,1,5,4]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Es ella tu hermana?', '{"type":"scramble","chunks":["your","Is","she","sister?","he","brother?"],"correct_order":[1,2,0,3]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ist sie deine Schwester?', '{"type":"scramble","chunks":["your","Is","she","sister?","he","brother?"],"correct_order":[1,2,0,3]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Están ellos en el colegio?', '{"type":"scramble","chunks":["school?","they","Are","at","we","home?"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sind sie in der Schule?', '{"type":"scramble","chunks":["school?","they","Are","at","we","home?"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Es él médico? — Sí, lo es.', '{"type":"scramble","chunks":["he","Is","a","Yes,","doctor?","is","he","she","No,"],"correct_order":[1,0,2,4,3,6,5]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ist er Arzt? — Ja, er ist es.', '{"type":"scramble","chunks":["he","Is","a","Yes,","doctor?","is","he","she","No,"],"correct_order":[1,0,2,4,3,6,5]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule3_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Llegas tarde? — No, no llego.', '{"type":"scramble","chunks":["late?","No,","Are","you","not","I''m","Yes,","early?"],"correct_order":[2,3,0,1,5,4]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Kommst du zu spät? — Nein, ich nicht.', '{"type":"scramble","chunks":["late?","No,","Are","you","not","I''m","Yes,","early?"],"correct_order":[2,3,0,1,5,4]}'::jsonb);
 
 -- (Regla 4 - Usos)
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Un diamante es una piedra.', '{"type":"scramble","chunks":["stone","is","A diamond","a"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ein Diamant ist ein Stein.', '{"type":"scramble","chunks":["stone","is","A diamond","a"],"correct_order":[2,1,3,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Los gatos son animales.', '{"type":"scramble","chunks":["are","animals","Cats"],"correct_order":[2,0,1]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Katzen sind Tiere.', '{"type":"scramble","chunks":["are","animals","Cats"],"correct_order":[2,0,1]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Tengo 25 años.', '{"type":"scramble","chunks":["years old","am","25","I"],"correct_order":[3,1,2,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ich bin 25 Jahre alt.', '{"type":"scramble","chunks":["years old","am","25","I"],"correct_order":[3,1,2,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: Ella es muy alta y simpática.', '{"type":"scramble","chunks":["tall","She","very","is","and friendly"],"correct_order":[1,3,2,0,4]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sie ist sehr groß und freundlich.', '{"type":"scramble","chunks":["tall","She","very","is","and friendly"],"correct_order":[1,3,2,0,4]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Un diamante es una piedra.', '{"type":"scramble","chunks":["stone","is","A diamond","a","gem","was"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ein Diamant ist ein Stein.', '{"type":"scramble","chunks":["stone","is","A diamond","a","gem","was"],"correct_order":[2,1,3,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Los gatos son animales.', '{"type":"scramble","chunks":["are","animals","Cats","Dogs","plants"],"correct_order":[2,0,1]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Katzen sind Tiere.', '{"type":"scramble","chunks":["are","animals","Cats","Dogs","plants"],"correct_order":[2,0,1]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Tengo 25 años.', '{"type":"scramble","chunks":["years old","am","25","I","30","You"],"correct_order":[3,1,2,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Ich bin 25 Jahre alt.', '{"type":"scramble","chunks":["years old","am","25","I","30","You"],"correct_order":[3,1,2,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule4_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ella es muy alta y simpática.', '{"type":"scramble","chunks":["tall","She","very","is","and friendly","He","short"],"correct_order":[1,3,2,0,4]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Sie ist sehr groß und freundlich.', '{"type":"scramble","chunks":["tall","She","very","is","and friendly","He","short"],"correct_order":[1,3,2,0,4]}'::jsonb);
 
 -- (Regla 5 - Preguntas How/Where/What)
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Cuántos años tienes?', '{"type":"scramble","chunks":["are","How old","you?"],"correct_order":[1,0,2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie alt bist du?', '{"type":"scramble","chunks":["are","How old","you?"],"correct_order":[1,0,2]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿De dónde son ellos?', '{"type":"scramble","chunks":["from?","they","Where","are"],"correct_order":[2,3,1,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Woher kommen sie?', '{"type":"scramble","chunks":["from?","they","Where","are"],"correct_order":[2,3,1,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿Cuánto mide ella?', '{"type":"scramble","chunks":["she?","is","How tall"],"correct_order":[2,1,0]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie groß ist sie?', '{"type":"scramble","chunks":["she?","is","How tall"],"correct_order":[2,1,0]}'::jsonb);
-INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', 'Ordena: ¿A qué distancia está la parada?', '{"type":"scramble","chunks":["is","How far","the stop?"],"correct_order":[1,0,2]}'::jsonb);
-INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie weit ist die Haltestelle?', '{"type":"scramble","chunks":["is","How far","the stop?"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Cuántos años tienes?', '{"type":"scramble","chunks":["are","How old","you?","is","How far"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie alt bist du?', '{"type":"scramble","chunks":["are","How old","you?","is","How far"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿De dónde son ellos?', '{"type":"scramble","chunks":["from?","they","Where","are","we","when?"],"correct_order":[2,3,1,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Woher kommen sie?', '{"type":"scramble","chunks":["from?","they","Where","are","we","when?"],"correct_order":[2,3,1,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿Cuánto mide ella?', '{"type":"scramble","chunks":["she?","is","How tall","he?","How far"],"correct_order":[2,1,0]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie groß ist sie?', '{"type":"scramble","chunks":["she?","is","How tall","he?","How far"],"correct_order":[2,1,0]}'::jsonb);
+INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar14_id, v_rule5_id) RETURNING uuid INTO v_ex_id; INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'es', '¿A qué distancia está la parada?', '{"type":"scramble","chunks":["is","How far","the stop?","How old","the school?"],"correct_order":[1,0,2]}'::jsonb);
+INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics) VALUES (v_ex_id, 'de', 'Ordne: Wie weit ist die Haltestelle?', '{"type":"scramble","chunks":["is","How far","the stop?","How old","the school?"],"correct_order":[1,0,2]}'::jsonb);
 
 
 -- ==============================================================================

@@ -48,13 +48,12 @@ BEGIN
       AND path_uuid = v_path_id;
 
     INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-    VALUES (v_path_id, 4780, 'en', 'dialogue', 'professional', '[{"name": "Caller", "gender": "female", "avatarURL": "https://example.com/avatars/caller.png"}, {"name": "Receptionist", "gender": "male", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)
-    RETURNING uuid INTO v_dialogue_id;
+    VALUES (v_path_id, 4780, 'en', 'dialogue', 'professional', '[{"name": "Caller", "gender": "female", "avatarURL": "https://example.com/avatars/caller.png"}, {"name": "Receptionist", "gender": "male", "avatarURL": "https://example.com/avatars/receptionist.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_id;
 
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'es', 'Dialoga para tomar un recado telefónico complejo', 'Sigue un diálogo en el que recepción anota un cambio de firma, lugar y datos de contacto.');
-    INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-    VALUES (v_dialogue_id, 'de', 'Führe einen Dialog zum Aufnehmen einer komplexen Telefonnachricht', 'Verfolge einen Dialog, in dem der Empfang eine Terminänderung, einen Ort und Kontaktdaten notiert.');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'es', 'Dialoga para tomar un recado');
+    INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+    VALUES (v_dialogue_id, 'de', 'Komplexen Telefonnachricht');
 
     FOREACH line IN ARRAY v_lines LOOP
         INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)

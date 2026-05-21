@@ -13,12 +13,13 @@
             DELETE FROM writing WHERE step_order = 310 AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 310, 'en', 'writing', 'correspondence')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 310, 'en', 'writing', 'correspondence')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'es', 'Contar hechos y eventos en una carta', '',
+                v_writing_id,
+                'es',
+                'Hechos y eventos en una carta',
                 '{
     "scenario": "Quieres contar a un amigo un hecho reciente, como una salida, una visita o un pequeño problema. Describe lo que pasó con frases cortas y en orden.",
     "tasks": [
@@ -32,9 +33,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (writing_uuid, language, title, description, prompt)
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
-                v_writing_id, 'de', 'Ereignisse in einem einfachen Brief erzählen', '',
+                v_writing_id,
+                'de',
+                'Ereignisse in einem einfachen Brief',
                 '{
     "scenario": "Du möchtest einem Freund von einem kurzen Ereignis erzählen, zum Beispiel von einem Ausflug, einem Besuch oder einem kleinen Problem. Beschreibe mit kurzen Sätzen, was passiert ist.",
     "tasks": [

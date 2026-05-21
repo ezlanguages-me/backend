@@ -20,9 +20,13 @@ BEGIN
 
     INSERT INTO grammar (path_uuid,step_order,source_language,type) VALUES (v_path_id,9570,'en','grammar') RETURNING uuid INTO v_grammar_id;
 
-    INSERT INTO grammar_translation (grammar_uuid, language, title, description, content)
+    INSERT INTO grammar_translation (grammar_uuid, language, title, content)
     VALUES
-        (v_grammar_id, 'es', 'See, Watch and Look', 'Cómo distinguir ver de forma pasiva, observar deliberadamente y dirigir la mirada.', to_jsonb('# See, Watch and Look
+        (
+    v_grammar_id,
+    'es',
+    'See, Watch and Look',
+    to_jsonb('# See, Watch and Look
 
 **See**, **watch** y **look** se relacionan con la vista, pero no significan exactamente lo mismo.
 
@@ -55,8 +59,13 @@ BEGIN
 - **see you** = nos vemos
 
 ### Consejo rápido
-Si la vista es pasiva, usa **see**. Si observas algo durante un tiempo, usa **watch**. Si diriges la mirada, usa **look (at)**.'::text)),
-        (v_grammar_id, 'de', 'See, Watch and Look', 'Wie man passives Sehen, bewusstes Beobachten und gezieltes Hinschauen unterscheidet.', to_jsonb('# See, Watch and Look
+Si la vista es pasiva, usa **see**. Si observas algo durante un tiempo, usa **watch**. Si diriges la mirada, usa **look (at)**.'::text)
+),
+(
+    v_grammar_id,
+    'de',
+    'See, Watch and Look',
+    to_jsonb('# See, Watch and Look
 
 **See**, **watch** und **look** haben alle mit dem Sehen zu tun, bedeuten aber nicht genau dasselbe.
 
@@ -89,7 +98,8 @@ Si la vista es pasiva, usa **see**. Si observas algo durante un tiempo, usa **wa
 - **see you** = bis später
 
 ### Schneller Tipp
-Wenn das Sehen passiv ist, nimm **see**. Wenn du etwas eine Zeit lang beobachtest, nimm **watch**. Wenn du den Blick gezielt richtest, nimm **look (at)**.'::text));
+Wenn das Sehen passiv ist, nimm **see**. Wenn du etwas eine Zeit lang beobachtest, nimm **watch**. Wenn du den Blick gezielt richtest, nimm **look (at)**.'::text)
+);
 
     INSERT INTO grammar_rule (grammar_uuid, source_language) VALUES (v_grammar_id, 'en') RETURNING uuid INTO v_current_rule_id;
     INSERT INTO grammar_rule_translation (grammar_rule_uuid, language, title, failure_feedback)
@@ -100,13 +110,13 @@ Wenn das Sehen passiv ist, nimm **see**. Wenn du etwas eine Zeit lang beobachtes
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: I can ___ the mountains from my window.', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: I can ___ the mountains from my window.', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'I can ___ the mountains from my window.', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'I can ___ the mountains from my window.', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: I can ___ the mountains from my window.', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: I can ___ the mountains from my window.', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'I can ___ the mountains from my window.', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'I can ___ the mountains from my window.', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -120,13 +130,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Did you ___ what happened?', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Did you ___ what happened?', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Did you ___ what happened?', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Did you ___ what happened?', '{"type": "typing", "correct_answers": ["see"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Did you ___ what happened?', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Did you ___ what happened?', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Did you ___ what happened?', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Did you ___ what happened?', '{"type": "multiple_choice", "options": ["see", "watch", "look"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -147,13 +157,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: We love to ___ football on Saturday evenings.', '{"type": "typing", "correct_answers": ["watch"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: We love to ___ football on Saturday evenings.', '{"type": "typing", "correct_answers": ["watch"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'We love to ___ football on Saturday evenings.', '{"type": "typing", "correct_answers": ["watch"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'We love to ___ football on Saturday evenings.', '{"type": "typing", "correct_answers": ["watch"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: We love to ___ football on Saturday evenings.', '{"type": "multiple_choice", "options": ["watch", "see", "look"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: We love to ___ football on Saturday evenings.', '{"type": "multiple_choice", "options": ["watch", "see", "look"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'We love to ___ football on Saturday evenings.', '{"type": "multiple_choice", "options": ["watch", "see", "look"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'We love to ___ football on Saturday evenings.', '{"type": "multiple_choice", "options": ["watch", "see", "look"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -167,13 +177,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: She ___ the children playing in the garden.', '{"type": "typing", "correct_answers": ["watched"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: She ___ the children playing in the garden.', '{"type": "typing", "correct_answers": ["watched"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'She ___ the children playing in the garden.', '{"type": "typing", "correct_answers": ["watched"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'She ___ the children playing in the garden.', '{"type": "typing", "correct_answers": ["watched"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: She ___ the children playing in the garden.', '{"type": "multiple_choice", "options": ["watched", "saw", "looked"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: She ___ the children playing in the garden.', '{"type": "multiple_choice", "options": ["watched", "saw", "looked"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'She ___ the children playing in the garden.', '{"type": "multiple_choice", "options": ["watched", "saw", "looked"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'She ___ the children playing in the garden.', '{"type": "multiple_choice", "options": ["watched", "saw", "looked"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -194,13 +204,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: ___ at this photograph — isn''t it beautiful?', '{"type": "typing", "correct_answers": ["Look"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: ___ at this photograph — isn''t it beautiful?', '{"type": "typing", "correct_answers": ["Look"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', '___ at this photograph — isn''t it beautiful?', '{"type": "typing", "correct_answers": ["Look"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', '___ at this photograph — isn''t it beautiful?', '{"type": "typing", "correct_answers": ["Look"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: ___ at this photograph — isn''t it beautiful?', '{"type": "multiple_choice", "options": ["Look", "See", "Watch"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: ___ at this photograph — isn''t it beautiful?', '{"type": "multiple_choice", "options": ["Look", "See", "Watch"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', '___ at this photograph — isn''t it beautiful?', '{"type": "multiple_choice", "options": ["Look", "See", "Watch"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', '___ at this photograph — isn''t it beautiful?', '{"type": "multiple_choice", "options": ["Look", "See", "Watch"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -214,13 +224,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Please ___ at the board while I explain.', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Please ___ at the board while I explain.', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Please ___ at the board while I explain.', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Please ___ at the board while I explain.', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Please ___ at the board while I explain.', '{"type": "multiple_choice", "options": ["look", "see", "watch"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Please ___ at the board while I explain.', '{"type": "multiple_choice", "options": ["look", "see", "watch"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Please ___ at the board while I explain.', '{"type": "multiple_choice", "options": ["look", "see", "watch"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Please ___ at the board while I explain.', '{"type": "multiple_choice", "options": ["look", "see", "watch"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -241,13 +251,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: Could you ___ after my cat while I''m away?', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: Could you ___ after my cat while I''m away?', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', 'Could you ___ after my cat while I''m away?', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', 'Could you ___ after my cat while I''m away?', '{"type": "typing", "correct_answers": ["look"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: Could you ___ after my cat while I''m away?', '{"type": "multiple_choice", "options": ["look", "watch", "see"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: Could you ___ after my cat while I''m away?', '{"type": "multiple_choice", "options": ["look", "watch", "see"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', 'Could you ___ after my cat while I''m away?', '{"type": "multiple_choice", "options": ["look", "watch", "see"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', 'Could you ___ after my cat while I''m away?', '{"type": "multiple_choice", "options": ["look", "watch", "see"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
@@ -261,13 +271,13 @@ VALUES
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Completa con la palabra correcta: ___ out! There''s a car coming!', '{"type": "typing", "correct_answers": ["Watch"], "case_sensitive": false}'::jsonb),
-    (v_ex_id, 'de', 'Ergänze mit dem richtigen Wort: ___ out! There''s a car coming!', '{"type": "typing", "correct_answers": ["Watch"], "case_sensitive": false}'::jsonb);
+    (v_ex_id, 'es', '___ out! There''s a car coming!', '{"type": "typing", "correct_answers": ["Watch"], "case_sensitive": false}'::jsonb),
+    (v_ex_id, 'de', '___ out! There''s a car coming!', '{"type": "typing", "correct_answers": ["Watch"], "case_sensitive": false}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES
-    (v_ex_id, 'es', 'Elige la opción correcta: ___ out! There''s a car coming!', '{"type": "multiple_choice", "options": ["Watch", "Look", "See"], "answer": 0}'::jsonb),
-    (v_ex_id, 'de', 'Wähle die richtige Option: ___ out! There''s a car coming!', '{"type": "multiple_choice", "options": ["Watch", "Look", "See"], "answer": 0}'::jsonb);
+    (v_ex_id, 'es', '___ out! There''s a car coming!', '{"type": "multiple_choice", "options": ["Watch", "Look", "See"], "answer": 0}'::jsonb),
+    (v_ex_id, 'de', '___ out! There''s a car coming!', '{"type": "multiple_choice", "options": ["Watch", "Look", "See"], "answer": 0}'::jsonb);
 INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_grammar_id, v_current_rule_id) RETURNING uuid INTO v_ex_id;
 INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)
 VALUES

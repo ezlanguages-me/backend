@@ -52,13 +52,13 @@ BEGIN
     SELECT uuid INTO v_path_id FROM path WHERE source_language = 'en' LIMIT 1;
     DELETE FROM deck WHERE step_order = 1910 AND path_uuid = v_path_id;
     INSERT INTO deck (path_uuid, step_order, source_language, type) VALUES (v_path_id, 1910, 'en', 'deck') RETURNING uuid INTO v_deck_id;
-    INSERT INTO deck_translation (deck_uuid, language, title, description) VALUES (v_deck_id, 'es', 'Supervivencia I (Comida, Bebida y La Cocina)', 'Vocabulario básico de cocina, utensilios, sabores y comida de supervivencia.');
-    INSERT INTO deck_translation (deck_uuid, language, title, description) VALUES (v_deck_id, 'de', 'Überleben I (Essen, Trinken und die Küche)', 'Grundwortschatz zu Küche, Utensilien, Geschmäckern und einfachem Essen für den Alltag.');
+    INSERT INTO deck_translation (deck_uuid, language, title) VALUES (v_deck_id, 'es', 'Comida, Bebida y La Cocina');
+    INSERT INTO deck_translation (deck_uuid, language, title) VALUES (v_deck_id, 'de', 'Essen, Trinken und die Küche');
     FOREACH card IN ARRAY v_cards LOOP
-        INSERT INTO word (term, is_root, source_language, example) VALUES (card->>'term', TRUE, 'en', card->>'ex') RETURNING uuid INTO v_word_id;
-        INSERT INTO word_translation (word_uuid, language, meaning, pronunciation) VALUES (v_word_id, 'es', jsonb_build_object('translation', card->>'meaning'), card->>'pron');
-        INSERT INTO word_translation (word_uuid, language, meaning, pronunciation) VALUES (v_word_id, 'de', jsonb_build_object('translation', card->>'de'), card->>'pron_de');
-        INSERT INTO deck_words (deck_uuid, word_uuid) VALUES (v_deck_id, v_word_id);
+        SELECT get_or_create_word(card->>'term', 'en', card->>'ex') INTO v_word_id;
+        INSERT INTO word_translation (word_uuid, language, meaning, pronunciation) VALUES (v_word_id, 'es', jsonb_build_object('translation', card->>'meaning'), card->>'pron') ON CONFLICT DO NOTHING;
+        INSERT INTO word_translation (word_uuid, language, meaning, pronunciation) VALUES (v_word_id, 'de', jsonb_build_object('translation', card->>'de'), card->>'pron_de') ON CONFLICT DO NOTHING;
+        INSERT INTO deck_words (deck_uuid, word_uuid) VALUES (v_deck_id, v_word_id) ON CONFLICT DO NOTHING;
     END LOOP;
 END;
 $seed$;

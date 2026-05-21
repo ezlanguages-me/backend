@@ -11,11 +11,10 @@ BEGIN
   SELECT uuid INTO v_path_uuid FROM path WHERE source_language = 'en' LIMIT 1;
 
   INSERT INTO dialogue (path_uuid, step_order, source_language, type, category, characters)
-  VALUES (v_path_uuid, 4360, 'en', 'dialogue', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)
-  RETURNING uuid INTO v_dialogue_uuid;
+  VALUES (v_path_uuid, 4360, 'en', 'dialogue', 'practice', '[{"name":"Guide","gender":"neutral","avatarURL":"https://example.com/avatars/guide.png"},{"name":"Learner","gender":"neutral","avatarURL":"https://example.com/avatars/learner.png"}]'::jsonb)RETURNING uuid INTO v_dialogue_uuid;
 
-  INSERT INTO dialogue_translation (dialogue_uuid, language, title, description)
-  VALUES (v_dialogue_uuid, 'es', 'take and pass on most messages that are likely to require attention during a normal working day (Servicios Laborales (Petición y Prestación))', 'Práctica guiada de diálogo: take and pass on most messages that are likely to require attention during a normal working day (Servicios Laborales (Petición y Prestación)).');
+  INSERT INTO dialogue_translation (dialogue_uuid, language, title)
+  VALUES (v_dialogue_uuid, 'es', 'Recados telefónicos');
 
   INSERT INTO dialogue_lines (dialogue_uuid, line_order, character_name, text)
   VALUES

@@ -24,7 +24,7 @@ DECLARE
         '{"v":"what is more","es":"lo que es más / además","de":"überdies / noch dazu","ex":"The car is fast. What is more, it uses very little fuel.","pron":"/uát is mor/","pron_de":"/WAT is moo/"}',
         '{"v":"but","es":"pero","de":"aber","ex":"I wanted to go, but I was too tired.","pron":"/bat/","pron_de":"/BAT/"}',
         '{"v":"however","es":"sin embargo","de":"jedoch / allerdings","ex":"I studied hard. However, the exam was very difficult.","pron":"/hau-é-ver/","pron_de":"/hau-EW-wö/"}',
-        '{"v":"yet","es":"aún / sin embargo","de":"dennoch / trotzdem","ex":"She is young, yet she is very wise.","pron":"/iet/","pron_de":"/JET/"}',
+        '{"v":"yet","es":"aún / sin embargo","de":"dennoch / trotzdem","ex":"She is young, yet she is very wise.","pron":"/yet/","pron_de":"/JET/"}',
         '{"v":"although","es":"aunque","de":"obwohl / obgleich","ex":"Although it was raining, we went for a walk.","pron":"/ol-dóu/","pron_de":"/ool-DOU/"}',
         '{"v":"though","es":"aunque","de":"obwohl / wenn auch","ex":"I enjoyed the film, though the ending was a bit slow.","pron":"/dóu/","pron_de":"/DOU/"}',
         '{"v":"even though","es":"aunque","de":"auch wenn / obwohl","ex":"Even though she was tired, she finished the report.","pron":"/í-ven dóu/","pron_de":"/IE-wön DOU/"}',
@@ -84,7 +84,7 @@ DECLARE
         '{"v":"as soon as","es":"en cuanto / tan pronto como","de":"sobald","ex":"As soon as I got home, I made a cup of tea.","pron":"/as sun as/","pron_de":"/äs SUUN äs/"}',
         '{"v":"now that","es":"ahora que","de":"jetzt wo / nun da","ex":"Now that you''re back, we can start the meeting.","pron":"/nau dat/","pron_de":"/NAU dät/"}',
         '{"v":"firstly","es":"en primer lugar","de":"erstens / zunächst","ex":"Firstly, I want to thank everyone for coming today.","pron":"/férst-li/","pron_de":"/FÖRST-lie/"}',
-        '{"v":"the following","es":"el siguiente / los siguientes","de":"das Folgende / die Folgenden","ex":"Please read the following instructions carefully.","pron":"/de fó-lo-uin/","pron_de":"/dö FO-löu-ing/"}',
+        '{"v":"the following","es":"el siguiente / los siguientes","de":"das Folgende / die Folgenden","ex":"Please read the following instructions carefully.","pron":"/de fó-lo-uing/","pron_de":"/dö FO-löu-ing/"}',
         '{"v":"meanwhile","es":"mientras tanto","de":"unterdessen / inzwischen","ex":"She cooked dinner. Meanwhile, he set the table.","pron":"/mín-uáil/","pron_de":"/MIEN-wail/"}',
         '{"v":"subsequently","es":"posteriormente","de":"anschließend / danach","ex":"He left the company. Subsequently, he started his own business.","pron":"/sáb-si-kuent-li/","pron_de":"/SAB-si-kwönt-lie/"}',
         '{"v":"eventually","es":"finalmente / a la larga","de":"schließlich / letztendlich","ex":"Eventually, she got the job she had always wanted.","pron":"/i-vén-chu-a-li/","pron_de":"/i-WEN-tschü-ö-lie/"}',
@@ -131,7 +131,16 @@ DECLARE
         '{"v":"to sum up","es":"para resumir","de":"zusammenfassend","ex":"To sum up, we need more time, more resources, and a clear plan.","pron":"/tu sam ap/","pron_de":"/tö SAM ap/"}',
         '{"v":"in short / brief","es":"en resumen","de":"kurz gesagt","ex":"In short, the answer is no.","pron":"/in short / brif/","pron_de":"/in SCHOOT / brief/"}',
         '{"v":"finally","es":"finalmente","de":"schließlich / endlich","ex":"Finally, don''t forget to save your work before closing.","pron":"/fái-na-li/","pron_de":"/FAI-nö-lie/"}',
-        '{"v":"in closing","es":"para terminar","de":"abschließend","ex":"In closing, I want to express my gratitude to the entire team.","pron":"/in klóu-sin/","pron_de":"/in KLOU-sing/"}'
+        '{"v":"in closing","es":"para terminar","de":"abschließend","ex":"In closing, I want to express my gratitude to the entire team.","pron":"/in klóu-sin/","pron_de":"/in KLOU-sing/"}',
+        '{"v":"also","es":"también","de":"auch","ex":"She speaks French and also a little Italian.","pron":"/ól-sou/","pron_de":"/AUCH/"}',
+        '{"v":"or","es":"o","de":"oder","ex":"Would you like tea or coffee?","pron":"/or/","pron_de":"/O-dö/"}',
+        '{"v":"either...or","es":"o...o / ya sea...o","de":"entweder...oder","ex":"Either you call me or I''ll call you.","pron":"/í-der...or/","pron_de":"/ENT-we-dö...O-dö/"}',
+        '{"v":"neither...nor","es":"ni...ni","de":"weder...noch","ex":"She speaks neither French nor German.","pron":"/ní-der...nor/","pron_de":"/WE-dö...NOCH/"}',
+        '{"v":"as well","es":"también","de":"auch / ebenfalls","ex":"I would like some water as well, please.","pron":"/as uel/","pron_de":"/äs WEL/"}',
+        '{"v":"in contrast","es":"en cambio / en contraste","de":"im Gegensatz dazu","ex":"In contrast, the second group showed no improvement.","pron":"/in kón-trast/","pron_de":"/in GE-gön-sats/"}',
+        '{"v":"secondly","es":"en segundo lugar","de":"zweitens","ex":"Firstly, wash your hands. Secondly, put on gloves.","pron":"/sé-kond-li/","pron_de":"/SWAI-töns/"}',
+        '{"v":"thirdly","es":"en tercer lugar","de":"drittens","ex":"Thirdly, make sure the area is clean and dry.","pron":"/zérd-li/","pron_de":"/DRI-töns/"}',
+        '{"v":"lastly","es":"por último","de":"zuletzt / abschließend","ex":"Lastly, I would like to thank you all for attending.","pron":"/lást-li/","pron_de":"/TSULETS-t/"}'
     ];
 
 BEGIN
@@ -145,35 +154,35 @@ VALUES (v_path_id, 40, 'en', 'deck')
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck [8, 9]
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'Puentes de ideas', 
-    ''
+    v_deck_id,
+    'es',
+    'Puentes de ideas'
 );
 
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
-VALUES (v_deck_id, 'de', 'Verbindungswörter', '');
+INSERT INTO deck_translation (deck_uuid, language, title) 
+VALUES (v_deck_id, 'de', 'Verbindungswörter');
 
 -- 4. Bucle para insertar los conectores [7, 9]
 FOREACH v_item IN ARRAY v_connectors
 LOOP
     -- Insertar el conector (siempre es raíz porque no se conjuga) [7]
-    INSERT INTO word (term, is_root, source_language, example) 
-    VALUES (v_item->>'v', TRUE, 'en', v_item->>'ex') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en', v_item->>'ex') INTO v_root_id;
 
     -- Insertar la traducción y pronunciación [7]
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron');
+    VALUES (v_root_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron')
+    ON CONFLICT DO NOTHING;
 
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de')
+    ON CONFLICT DO NOTHING;
 
     -- Vincular la palabra al mazo [9]
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
 END LOOP;
 

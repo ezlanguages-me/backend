@@ -15,21 +15,13 @@
               AND path_uuid = v_path_id;
 
             INSERT INTO writing (path_uuid, step_order, source_language, type, category)
-            VALUES (v_path_id, 4550, 'en', 'writing', 'professional')
-            RETURNING uuid INTO v_writing_id;
+            VALUES (v_path_id, 4550, 'en', 'writing', 'professional')RETURNING uuid INTO v_writing_id;
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'es',
-                'Escribe una carta de seguimiento',
-                '',
+                'Una carta de seguimiento',
                 '{
     "scenario": "Escribiste una carta de consulta hace dos semanas pero no has recibido respuesta. Escribe una carta de seguimiento amable pero directa para preguntar si recibieron tu mensaje anterior y pedir una respuesta.",
     "tasks": [
@@ -45,18 +37,11 @@
 }'::jsonb
             );
 
-            INSERT INTO writing_translation (
-                writing_uuid,
-                language,
-                title,
-                description,
-                prompt
-            )
+            INSERT INTO writing_translation (writing_uuid, language, title, prompt)
             VALUES (
                 v_writing_id,
                 'de',
                 'Schreibe ein Nachfassschreiben',
-                '',
                 '{
     "scenario": "Sie haben vor zwei Wochen einen Anfragebriefs geschickt, aber keine Antwort erhalten. Schreiben Sie ein freundliches, aber direktes Nachfassschreiben.",
     "tasks": [

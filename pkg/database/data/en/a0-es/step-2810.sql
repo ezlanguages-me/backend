@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2810 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2810, 'en', 'reading', 'health', 'Pharmacy Shelf Guide
+    VALUES (
+    v_path_id,
+    2810,
+    'en',
+    'reading',
+    'health',
+    'Pharmacy Shelf Guide
 
 Cold tablets help with a blocked nose. Take one every eight hours. Do not use them if you have high blood pressure.
 
 Allergy tablets help with sneezing and itchy eyes. Take one tablet a day. They are not for children under 12.
 
-Pain gel is for muscles and back pain. Use it on the skin three times a day. Do not use it on broken skin. Ask the pharmacist if you are pregnant.')
-    RETURNING uuid INTO v_reading_id;
+Pain gel is for muscles and back pain. Use it on the skin three times a day. Do not use it on broken skin. Ask the pharmacist if you are pregnant.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee información sobre productos sin receta', 'Lee una guía simple de farmacia sobre productos sin receta y sus usos básicos.'),
-        (v_reading_id, 'de', 'Lies Informationen über rezeptfreie Produkte', 'Lies einen einfachen Apothekenhinweis über rezeptfreie Produkte und ihre grundlegende Verwendung.');
+        (v_reading_id, 'es', 'Productos sin receta'), (v_reading_id, 'de', 'Rezeptfreie Produkte');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

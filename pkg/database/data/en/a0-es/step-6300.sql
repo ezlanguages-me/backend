@@ -33,17 +33,22 @@ BEGIN
     DELETE FROM reading WHERE step_order = 6300 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 6300, 'en', 'reading', 'Convivencia', 'When you visit someone, arrive on time and bring a small gift if you can. Say hello clearly and thank the host for the invitation.
+    VALUES (
+    v_path_id,
+    6300,
+    'en',
+    'reading',
+    'social',
+    'When you visit someone, arrive on time and bring a small gift if you can. Say hello clearly and thank the host for the invitation.
 
 When you are hosting, offer a drink first and ask if anyone has allergies or special food needs. Show guests where to leave their coats and shoes if necessary.
 
-During the visit, keep the conversation friendly and simple. If you want to leave, say thank you before you go. A short message later is also polite.')
-    RETURNING uuid INTO v_reading_id;
+During the visit, keep the conversation friendly and simple. If you want to leave, say thank you before you go. A short message later is also polite.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'lee cómo recibir o visitar a alguien', 'Lee una guía sencilla sobre cómo comportarse cuando visitas a alguien o recibes visitas.'),
-        (v_reading_id, 'de', 'lies, wie man jemanden bewirtet oder zu Besuch geht', 'Lies einen einfachen Leitfaden, wie man sich als Gast oder Gastgeber verhält.');
+        (v_reading_id, 'es', 'Recibir o visitar a alguien'), (v_reading_id, 'de', 'Bewirtet oder zu Besuch geht');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

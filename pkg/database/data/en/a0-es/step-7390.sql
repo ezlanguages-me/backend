@@ -32,13 +32,11 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7390 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7390, 'en', 'reading', 'meetings', 'Monday Team Meeting Agenda\n\n9:00 Welcome and attendance\n9:05 Review last week tasks\n9:10 Discuss the lunch menu for visitor day\n9:20 Talk about the broken printer in Room B\n9:30 Choose one idea for the Friday coffee break\n9:40 Confirm the next meeting\n\nPlease bring your notebook. Each person gives one short opinion. Use simple phrases like I agree, I do not agree, or Good idea.')
-    RETURNING uuid INTO v_reading_id;
+    VALUES (v_path_id, 7390, 'en', 'reading', 'meetings', 'Monday Team Meeting Agenda\n\n9:00 Welcome and attendance\n9:05 Review last week tasks\n9:10 Discuss the lunch menu for visitor day\n9:20 Talk about the broken printer in Room B\n9:30 Choose one idea for the Friday coffee break\n9:40 Confirm the next meeting\n\nPlease bring your notebook. Each person gives one short opinion. Use simple phrases like I agree, I do not agree, or Good idea.')RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee una agenda de reunión sencilla', 'Lee una agenda breve con horas, temas y una nota para dar opiniones cortas en una reunión.'),
-        (v_reading_id, 'de', 'Lies eine einfache Meeting-Agenda', 'Lies eine kurze Agenda mit Uhrzeiten, Themen und einem Hinweis für kurze Meinungen im Meeting.');
+        (v_reading_id, 'es', 'Agenda de reunión'), (v_reading_id, 'de', 'Besprechungsagenda');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

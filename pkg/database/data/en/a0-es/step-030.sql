@@ -28,7 +28,7 @@ DECLARE
         '{"v":"blow","p":"blew","pp":"blown","es":"soplar","ex":"The wind blew all the leaves off the tree.","pron_v":"/blou/","pron_p":"/blu/","pron_pp":"/bloun/","de":"blasen","pron_de_v":"/BLOU/","pron_de_p":"/BLUU/","pron_de_pp":"/BLOUN/"}'::jsonb,
         '{"v":"break","p":"broke","pp":"broken","es":"romper","ex":"She broke a glass while washing dishes.","pron_v":"/breik/","pron_p":"/brouk/","pron_pp":"/bróu-ken/","de":"brechen","pron_de_v":"/BREJK/","pron_de_p":"/BROUK/","pron_de_pp":"/BROU-kön/"}'::jsonb,
         '{"v":"breed","p":"bred","pp":"bred","es":"criar / reproducir","ex":"Farmers breed cows and pigs here.","pron_v":"/brid/","pron_p":"/bred/","pron_pp":"/bred/","de":"züchten / aufziehen","pron_de_v":"/BRIED/","pron_de_p":"/BRED/","pron_de_pp":"/BRED/"}'::jsonb,
-        '{"v":"bring","p":"brought","pp":"brought","es":"traer","ex":"Can you bring me a glass of water, please?","pron_v":"/brin/","pron_p":"/brot/","pron_pp":"/brot/","de":"bringen","pron_de_v":"/BRING/","pron_de_p":"/BROOT/","pron_de_pp":"/BROOT/"}'::jsonb,
+        '{"v":"bring","p":"brought","pp":"brought","es":"traer","ex":"Can you bring me a glass of water, please?","pron_v":"/bring/","pron_p":"/brot/","pron_pp":"/brot/","de":"bringen","pron_de_v":"/BRING/","pron_de_p":"/BROOT/","pron_de_pp":"/BROOT/"}'::jsonb,
         '{"v":"broadcast","p":"broadcast","pp":"broadcast","es":"transmitir / emitir","ex":"The news is broadcast live every evening.","pron_v":"/bród-kast/","pron_p":"/bród-kast/","pron_pp":"/bród-kast/","de":"senden / ausstrahlen","pron_de_v":"/BROOD-käst/","pron_de_p":"/BROOD-käst/","pron_de_pp":"/BROOD-käst/"}'::jsonb,
         '{"v":"build","p":"built","pp":"built","es":"construir / edificar","ex":"They are building a new school in the town.","pron_v":"/bild/","pron_p":"/bilt/","pron_pp":"/bilt/","de":"bauen","pron_de_v":"/BILD/","pron_de_p":"/BILT/","pron_de_pp":"/BILT/"}'::jsonb,
         '{"v":"burn","p":"burnt / burned","pp":"burnt / burned","es":"quemar / arder","ex":"I burned my finger on the hot pan.","pron_v":"/bern/","pron_p":"/bernt / bernd/","pron_pp":"/bernt / bernd/","de":"brennen / verbrennen","pron_de_v":"/BÖRN/","pron_de_p":"/BÖRNT/","pron_de_pp":"/BÖRNT/"}'::jsonb,
@@ -41,7 +41,7 @@ DECLARE
         '{"v":"cost","p":"cost","pp":"cost","es":"costar","ex":"How much does this shirt cost?","pron_v":"/kost/","pron_p":"/kost/","pron_pp":"/kost/","de":"kosten","pron_de_v":"/KOST/","pron_de_p":"/KOST/","pron_de_pp":"/KOST/"}'::jsonb,
         '{"v":"creep","p":"crept","pp":"crept","es":"arrastrarse / avanzar sigiloso","ex":"The cat crept slowly towards the bird.","pron_v":"/krip/","pron_p":"/krept/","pron_pp":"/krept/","de":"kriechen","pron_de_v":"/KRIEP/","pron_de_p":"/KREPT/","pron_de_pp":"/KREPT/"}'::jsonb,
         '{"v":"cut","p":"cut","pp":"cut","es":"cortar","ex":"She cut the bread into slices.","pron_v":"/kat/","pron_p":"/kat/","pron_pp":"/kat/","de":"schneiden","pron_de_v":"/KAT/","pron_de_p":"/KAT/","pron_de_pp":"/KAT/"}'::jsonb,
-        '{"v":"cling","p":"clung","pp":"clung","es":"aferrarse / pegarse","ex":"The wet shirt clung to his skin.","pron_v":"/klin/","pron_p":"/klan/","pron_pp":"/klan/","de":"sich klammern / festhalten","pron_de_v":"/KLING/","pron_de_p":"/KLANG/","pron_de_pp":"/KLANG/"}'::jsonb,
+        '{"v":"cling","p":"clung","pp":"clung","es":"aferrarse / pegarse","ex":"The wet shirt clung to his skin.","pron_v":"/kling/","pron_p":"/klang/","pron_pp":"/klang/","de":"sich klammern / festhalten","pron_de_v":"/KLING/","pron_de_p":"/KLANG/","pron_de_pp":"/KLANG/"}'::jsonb,
         '{"v":"deal","p":"dealt","pp":"dealt","es":"tratar / repartir / gestionar","ex":"The manager dealt with the complaint quickly.","pron_v":"/dil/","pron_p":"/delt/","pron_pp":"/delt/","de":"handeln / umgehen mit","pron_de_v":"/DIEL/","pron_de_p":"/DELT/","pron_de_pp":"/DELT/"}'::jsonb,
         '{"v":"do","p":"did","pp":"done","es":"hacer","ex":"What did you do last weekend?","pron_v":"/du/","pron_p":"/did/","pron_pp":"/dan/","de":"tun / machen","pron_de_v":"/DUU/","pron_de_p":"/DID/","pron_de_pp":"/DAN/"}'::jsonb,
         '{"v":"dig","p":"dug","pp":"dug","es":"cavar / excavar","ex":"The dog dug a hole in the garden.","pron_v":"/dig/","pron_p":"/dag/","pron_pp":"/dag/","de":"graben","pron_de_v":"/DIG/","pron_de_p":"/DAG/","pron_de_pp":"/DAG/"}'::jsonb,
@@ -67,7 +67,7 @@ DECLARE
         '{"v":"go","p":"went","pp":"gone","es":"ir","ex":"We go to the gym three times a week.","pron_v":"/gou/","pron_p":"/uent/","pron_pp":"/gon/","de":"gehen / fahren","pron_de_v":"/GOU/","pron_de_p":"/WENT/","pron_de_pp":"/GOON/"}'::jsonb,
         '{"v":"grind","p":"ground","pp":"ground","es":"moler / triturar","ex":"She grinds fresh coffee beans every morning.","pron_v":"/gráind/","pron_p":"/graund/","pron_pp":"/graund/","de":"mahlen / schleifen","pron_de_v":"/GRAIND/","pron_de_p":"/GRAUND/","pron_de_pp":"/GRAUND/"}'::jsonb,
         '{"v":"grow","p":"grew","pp":"grown","es":"crecer / cultivar","ex":"Children grow so fast. They grow tomatoes in the garden.","pron_v":"/grou/","pron_p":"/gru/","pron_pp":"/groun/","de":"wachsen / züchten","pron_de_v":"/GROU/","pron_de_p":"/GRUU/","pron_de_pp":"/GROUN/"}'::jsonb,
-        '{"v":"hang","p":"hung","pp":"hung","es":"colgar","ex":"She hung her coat on the hook by the door.","pron_v":"/han/","pron_p":"/han/","pron_pp":"/han/","de":"hängen","pron_de_v":"/HÄNG/","pron_de_p":"/HANG/","pron_de_pp":"/HANG/"}'::jsonb,
+        '{"v":"hang","p":"hung","pp":"hung","es":"colgar","ex":"She hung her coat on the hook by the door.","pron_v":"/hang/","pron_p":"/hang/","pron_pp":"/hang/","de":"hängen","pron_de_v":"/HÄNG/","pron_de_p":"/HANG/","pron_de_pp":"/HANG/"}'::jsonb,
         '{"v":"have","p":"had","pp":"had","es":"tener / haber","ex":"I have two brothers and a sister.","pron_v":"/hav/","pron_p":"/had/","pron_pp":"/had/","de":"haben","pron_de_v":"/HÄW/","pron_de_p":"/HÄD/","pron_de_pp":"/HÄD/"}'::jsonb,
         '{"v":"hear","p":"heard","pp":"heard","es":"oír / escuchar","ex":"Did you hear that noise outside?","pron_v":"/hir/","pron_p":"/herd/","pron_pp":"/herd/","de":"hören","pron_de_v":"/HIÖ/","pron_de_p":"/HÖRD/","pron_de_pp":"/HÖRD/"}'::jsonb,
         '{"v":"hide","p":"hid","pp":"hidden","es":"esconder / esconderse","ex":"The kids hid behind the sofa.","pron_v":"/háid/","pron_p":"/hid/","pron_pp":"/hí-den/","de":"verstecken / sich verstecken","pron_de_v":"/HAID/","pron_de_p":"/HID/","pron_de_pp":"/HI-dön/"}'::jsonb,
@@ -97,7 +97,7 @@ DECLARE
         '{"v":"quit","p":"quit/quitted","pp":"quit/quitted","es":"dejar / renunciar / parar","ex":"He quit his job to start his own business.","pron_v":"/kuit/","pron_p":"/kuit/","pron_pp":"/kuit/","de":"aufhören / kündigen","pron_de_v":"/KWIT/","pron_de_p":"/KWIT/","pron_de_pp":"/KWIT/"}'::jsonb,
         '{"v":"read","p":"read","pp":"read","es":"leer","ex":"She reads a book before going to bed every night.","pron_v":"/rid/","pron_p":"/red/","pron_pp":"/red/","de":"lesen","pron_de_v":"/RIED/","pron_de_p":"/RED/","pron_de_pp":"/RED/"}'::jsonb,
         '{"v":"ride","p":"rode","pp":"ridden","es":"montar / ir en","ex":"He rode his bike to school.","pron_v":"/ráid/","pron_p":"/roud/","pron_pp":"/rí-den/","de":"reiten / fahren","pron_de_v":"/RAID/","pron_de_p":"/ROUD/","pron_de_pp":"/RI-dön/"}'::jsonb,
-        '{"v":"ring","p":"rang","pp":"rung","es":"sonar / llamar (por telefono)","ex":"The phone rang three times before she answered.","pron_v":"/rin/","pron_p":"/ran/","pron_pp":"/ran/","de":"klingeln / anrufen","pron_de_v":"/RING/","pron_de_p":"/RÄNG/","pron_de_pp":"/RANG/"}'::jsonb,
+        '{"v":"ring","p":"rang","pp":"rung","es":"sonar / llamar (por telefono)","ex":"The phone rang three times before she answered.","pron_v":"/ring/","pron_p":"/rang/","pron_pp":"/rang/","de":"klingeln / anrufen","pron_de_v":"/RING/","pron_de_p":"/RÄNG/","pron_de_pp":"/RANG/"}'::jsonb,
         '{"v":"rise","p":"rose","pp":"risen","es":"levantarse / subir / aumentar","ex":"The sun rises in the east. Prices rose again.","pron_v":"/ráis/","pron_p":"/rous/","pron_pp":"/rí-sen/","de":"aufsteigen / steigen","pron_de_v":"/RAIS/","pron_de_p":"/ROUS/","pron_de_pp":"/RI-sön/"}'::jsonb,
         '{"v":"run","p":"ran","pp":"run","es":"correr / funcionar","ex":"I run five kilometers every morning.","pron_v":"/ran/","pron_p":"/ran/","pron_pp":"/ran/","de":"laufen / rennen","pron_de_v":"/RAN/","pron_de_p":"/RÄÄN/","pron_de_pp":"/RAN/"}'::jsonb,
         '{"v":"say","p":"said","pp":"said","es":"decir","ex":"She said goodbye and walked out.","pron_v":"/sei/","pron_p":"/sed/","pron_pp":"/sed/","de":"sagen","pron_de_v":"/SEJ/","pron_de_p":"/SED/","pron_de_pp":"/SED/"}'::jsonb,
@@ -112,7 +112,7 @@ DECLARE
         '{"v":"show","p":"showed","pp":"shown/showed","es":"mostrar / enseñar","ex":"Can you show me the way to the station?","pron_v":"/shou/","pron_p":"/shoud/","pron_pp":"/shoun/","de":"zeigen","pron_de_v":"/SCHOU/","pron_de_p":"/SCHOUD/","pron_de_pp":"/SCHOUN/"}'::jsonb,
         '{"v":"shrink","p":"shrank/shrunk","pp":"shrunk","es":"encoger / reducirse","ex":"My shirt shrank after I washed it hot.","pron_v":"/shrink/","pron_p":"/shrank/","pron_pp":"/shrank/","de":"schrumpfen / einlaufen","pron_de_v":"/SCHRINK/","pron_de_p":"/SCHRÄNK/","pron_de_pp":"/SCHRANK/"}'::jsonb,
         '{"v":"shut","p":"shut","pp":"shut","es":"cerrar","ex":"Please shut the door when you leave.","pron_v":"/shat/","pron_p":"/shat/","pron_pp":"/shat/","de":"schließen / zumachen","pron_de_v":"/SCHÄT/","pron_de_p":"/SCHÄT/","pron_de_pp":"/SCHÄT/"}'::jsonb,
-        '{"v":"sing","p":"sang","pp":"sung","es":"cantar","ex":"She sang a beautiful song at the concert.","pron_v":"/sin/","pron_p":"/san/","pron_pp":"/san/","de":"singen","pron_de_v":"/SING/","pron_de_p":"/SÄNG/","pron_de_pp":"/SANG/"}'::jsonb,
+        '{"v":"sing","p":"sang","pp":"sung","es":"cantar","ex":"She sang a beautiful song at the concert.","pron_v":"/sing/","pron_p":"/sang/","pron_pp":"/sang/","de":"singen","pron_de_v":"/SING/","pron_de_p":"/SÄNG/","pron_de_pp":"/SANG/"}'::jsonb,
         '{"v":"sink","p":"sank","pp":"sunk","es":"hundirse / irse a pique","ex":"The ship sank in the middle of the ocean.","pron_v":"/sink/","pron_p":"/sank/","pron_pp":"/sank/","de":"sinken / versinken","pron_de_v":"/SINK/","pron_de_p":"/SÄNK/","pron_de_pp":"/SANK/"}'::jsonb,
         '{"v":"sit","p":"sat","pp":"sat","es":"sentarse","ex":"Please sit down and make yourself comfortable.","pron_v":"/sit/","pron_p":"/sat/","pron_pp":"/sat/","de":"sitzen / sich setzen","pron_de_v":"/SIT/","pron_de_p":"/SÄT/","pron_de_pp":"/SÄT/"}'::jsonb,
         '{"v":"sleep","p":"slept","pp":"slept","es":"dormir","ex":"I slept eight hours and feel much better.","pron_v":"/slip/","pron_p":"/slept/","pron_pp":"/slept/","de":"schlafen","pron_de_v":"/SLIEP/","pron_de_p":"/SLEPT/","pron_de_pp":"/SLEPT/"}'::jsonb,
@@ -129,11 +129,11 @@ DECLARE
         '{"v":"split","p":"split","pp":"split","es":"dividir / partir","ex":"They split the bill equally between the four of them.","pron_v":"/split/","pron_p":"/split/","pron_pp":"/split/","de":"spalten / teilen","pron_de_v":"/SPLIT/","pron_de_p":"/SPLIT/","pron_de_pp":"/SPLIT/"}'::jsonb,
         '{"v":"spoil","p":"spoilt/spoiled","pp":"spoilt/spoiled","es":"estropear / echar a perder","ex":"Don''t spoil the surprise--she doesn''t know yet.","pron_v":"/spóil/","pron_p":"/spóilt / spóild/","pron_pp":"/spóilt / spóild/","de":"verderben / verwöhnen","pron_de_v":"/SPOIL/","pron_de_p":"/SPOILT/","pron_de_pp":"/SPOILT/"}'::jsonb,
         '{"v":"spread","p":"spread","pp":"spread","es":"extender / untar / propagar","ex":"She spread butter on the toast.","pron_v":"/spred/","pron_p":"/spred/","pron_pp":"/spred/","de":"verbreiten / ausbreiten","pron_de_v":"/SPRED/","pron_de_p":"/SPRED/","pron_de_pp":"/SPRED/"}'::jsonb,
-        '{"v":"spring","p":"sprang","pp":"sprung","es":"saltar / brotar / surgir de repente","ex":"He sprang out of bed when he heard the alarm.","pron_v":"/sprin/","pron_p":"/spran/","pron_pp":"/spran/","de":"springen / entspringen","pron_de_v":"/SPRING/","pron_de_p":"/SPRÄNG/","pron_de_pp":"/SPRANG/"}'::jsonb,
+        '{"v":"spring","p":"sprang","pp":"sprung","es":"saltar / brotar / surgir de repente","ex":"He sprang out of bed when he heard the alarm.","pron_v":"/spring/","pron_p":"/sprang/","pron_pp":"/sprang/","de":"springen / entspringen","pron_de_v":"/SPRING/","pron_de_p":"/SPRÄNG/","pron_de_pp":"/SPRANG/"}'::jsonb,
         '{"v":"stand","p":"stood","pp":"stood","es":"estar de pie / soportar","ex":"We stood in line for an hour.","pron_v":"/stand/","pron_p":"/stud/","pron_pp":"/stud/","de":"stehen / ertragen","pron_de_v":"/STÄND/","pron_de_p":"/STÜD/","pron_de_pp":"/STÜD/"}'::jsonb,
         '{"v":"steal","p":"stole","pp":"stolen","es":"robar / hurtar","ex":"Someone stole my bicycle from outside the shop.","pron_v":"/stil/","pron_p":"/stoul/","pron_pp":"/stóu-len/","de":"stehlen","pron_de_v":"/STIEL/","pron_de_p":"/STOUL/","pron_de_pp":"/STOU-lön/"}'::jsonb,
         '{"v":"stick","p":"stuck","pp":"stuck","es":"pegar / clavar / quedarse pegado","ex":"Stick the stamp on the envelope.","pron_v":"/stik/","pron_p":"/stak/","pron_pp":"/stak/","de":"kleben / stecken","pron_de_v":"/STIK/","pron_de_p":"/STAK/","pron_de_pp":"/STAK/"}'::jsonb,
-        '{"v":"sting","p":"stung","pp":"stung","es":"picar / escocer","ex":"A bee stung me on the arm at the park.","pron_v":"/stin/","pron_p":"/stan/","pron_pp":"/stan/","de":"stechen / brennen","pron_de_v":"/STING/","pron_de_p":"/STANG/","pron_de_pp":"/STANG/"}'::jsonb,
+        '{"v":"sting","p":"stung","pp":"stung","es":"picar / escocer","ex":"A bee stung me on the arm at the park.","pron_v":"/sting/","pron_p":"/stang/","pron_pp":"/stang/","de":"stechen / brennen","pron_de_v":"/STING/","pron_de_p":"/STANG/","pron_de_pp":"/STANG/"}'::jsonb,
         '{"v":"stink","p":"stank/stunk","pp":"stunk","es":"apestar / oler muy mal","ex":"These wet socks stink!","pron_v":"/stink/","pron_p":"/stank/","pron_pp":"/stank/","de":"stinken / übel riechen","pron_de_v":"/STINK/","pron_de_p":"/STÄNK/","pron_de_pp":"/STANK/"}'::jsonb,
         '{"v":"stride","p":"strode","pp":"stridden","es":"caminar a zancadas","ex":"He strode confidently into the room.","pron_v":"/stráid/","pron_p":"/stroud/","pron_pp":"/strí-den/","de":"mit großen Schritten gehen","pron_de_v":"/STRAID/","pron_de_p":"/STROUD/","pron_de_pp":"/STRI-dön/"}'::jsonb,
         '{"v":"swear","p":"swore","pp":"sworn","es":"jurar / maldecir","ex":"She swore to tell the truth.","pron_v":"/suér/","pron_p":"/suor/","pron_pp":"/suorn/","de":"schwören / fluchen","pron_de_v":"/SWEÖ/","pron_de_p":"/SWOO/","pron_de_pp":"/SWOON/"}'::jsonb,
@@ -141,7 +141,7 @@ DECLARE
         '{"v":"sweep","p":"swept","pp":"swept","es":"barrer","ex":"She swept the kitchen floor after dinner.","pron_v":"/suíp/","pron_p":"/suept/","pron_pp":"/suept/","de":"fegen / kehren","pron_de_v":"/SWIEP/","pron_de_p":"/SWEPT/","pron_de_pp":"/SWEPT/"}'::jsonb,
         '{"v":"swell","p":"swelled","pp":"swollen","es":"hincharse / inflamarse","ex":"His ankle swelled up after the fall.","pron_v":"/suél/","pron_p":"/suéld/","pron_pp":"/suóu-len/","de":"anschwellen / zunehmen","pron_de_v":"/SWEL/","pron_de_p":"/SWELD/","pron_de_pp":"/SWOU-lön/"}'::jsonb,
         '{"v":"swim","p":"swam","pp":"swum","es":"nadar","ex":"She swam across the lake on a hot summer day.","pron_v":"/suím/","pron_p":"/suam/","pron_pp":"/suam/","de":"schwimmen","pron_de_v":"/SWIM/","pron_de_p":"/SWÄM/","pron_de_pp":"/SWAM/"}'::jsonb,
-        '{"v":"swing","p":"swung","pp":"swung","es":"balancearse / mecer","ex":"The children were swinging in the park.","pron_v":"/suín/","pron_p":"/suan/","pron_pp":"/suan/","de":"schwingen / schaukeln","pron_de_v":"/SWING/","pron_de_p":"/SWANG/","pron_de_pp":"/SWANG/"}'::jsonb,
+        '{"v":"swing","p":"swung","pp":"swung","es":"balancearse / mecer","ex":"The children were swinging in the park.","pron_v":"/suíng/","pron_p":"/suang/","pron_pp":"/suang/","de":"schwingen / schaukeln","pron_de_v":"/SWING/","pron_de_p":"/SWANG/","pron_de_pp":"/SWANG/"}'::jsonb,
         '{"v":"take","p":"took","pp":"taken","es":"tomar / coger / llevar","ex":"Take an umbrella--it looks like rain.","pron_v":"/teik/","pron_p":"/tuk/","pron_pp":"/téi-ken/","de":"nehmen / mitnehmen","pron_de_v":"/TEJK/","pron_de_p":"/TÜK/","pron_de_pp":"/TEJ-kön/"}'::jsonb,
         '{"v":"teach","p":"taught","pp":"taught","es":"enseñar / dar clase de","ex":"She teaches mathematics at the local school.","pron_v":"/tich/","pron_p":"/tot/","pron_pp":"/tot/","de":"unterrichten / lehren","pron_de_v":"/TIETSCH/","pron_de_p":"/TOT/","pron_de_pp":"/TOT/"}'::jsonb,
         '{"v":"tear","p":"tore","pp":"torn","es":"rasgar / desgarrar","ex":"He tore the letter open impatiently.","pron_v":"/ter/","pron_p":"/tor/","pron_pp":"/torn/","de":"reißen / zerreißen","pron_de_v":"/TEÖ/","pron_de_p":"/TOO/","pron_de_pp":"/TOON/"}'::jsonb,
@@ -158,7 +158,7 @@ DECLARE
         '{"v":"weep","p":"wept","pp":"wept","es":"llorar / sollozar","ex":"She wept when she heard the sad news.","pron_v":"/uíp/","pron_p":"/uept/","pron_pp":"/uept/","de":"weinen / schluchzen","pron_de_v":"/WIEP/","pron_de_p":"/WEPT/","pron_de_pp":"/WEPT/"}'::jsonb,
         '{"v":"wet","p":"wet","pp":"wet","es":"mojar / humedecer","ex":"Don''t wet the floor--I just cleaned it!","pron_v":"/uet/","pron_p":"/uet/","pron_pp":"/uet/","de":"befeuchten / nass machen","pron_de_v":"/WET/","pron_de_p":"/WET/","pron_de_pp":"/WET/"}'::jsonb,
         '{"v":"win","p":"won","pp":"won","es":"ganar","ex":"Spain won the championship last year.","pron_v":"/uin/","pron_p":"/uan/","pron_pp":"/uan/","de":"gewinnen","pron_de_v":"/WIN/","pron_de_p":"/WAN/","pron_de_pp":"/WAN/"}'::jsonb,
-        '{"v":"wring","p":"wrung","pp":"wrung","es":"retorcer / escurrir","ex":"She wrung out the wet towel after washing it.","pron_v":"/rin/","pron_p":"/ran/","pron_pp":"/ran/","de":"wringen / auswringen","pron_de_v":"/RING/","pron_de_p":"/RANG/","pron_de_pp":"/RANG/"}'::jsonb,
+        '{"v":"wring","p":"wrung","pp":"wrung","es":"retorcer / escurrir","ex":"She wrung out the wet towel after washing it.","pron_v":"/ring/","pron_p":"/rang/","pron_pp":"/rang/","de":"wringen / auswringen","pron_de_v":"/RING/","pron_de_p":"/RANG/","pron_de_pp":"/RANG/"}'::jsonb,
         '{"v":"write","p":"wrote","pp":"written","es":"escribir","ex":"He wrote a long letter to his old friend.","pron_v":"/ráit/","pron_p":"/rout/","pron_pp":"/rí-ten/","de":"schreiben","pron_de_v":"/RAIT/","pron_de_p":"/ROUT/","pron_de_pp":"/RI-tön/"}'::jsonb,
         '{"v":"accept","p":"accepted","pp":"accepted","es":"aceptar","ex":"She accepted the job offer immediately.","pron_v":"/ak-sépt/","pron_p":"/ak-sép-tid/","pron_pp":"/ak-sép-tid/","de":"akzeptieren / annehmen","pron_de_v":"/äk-SEPT/","pron_de_p":"/äk-SEP-tid/","pron_de_pp":"/äk-SEP-tid/"}'::jsonb,
         '{"v":"achieve","p":"achieved","pp":"achieved","es":"lograr / alcanzar","ex":"He achieved his goal of running a marathon.","pron_v":"/a-chív/","pron_p":"/a-chívd/","pron_pp":"/a-chívd/","de":"erreichen / erzielen","pron_de_v":"/ö-TSCHIEW/","pron_de_p":"/ö-TSCHIWD/","pron_de_pp":"/ö-TSCHIWD/"}'::jsonb,
@@ -354,7 +354,11 @@ DECLARE
         '{"v":"raise","p":"raised","pp":"raised","es":"levantar / subir / criar","ex":"She raised her hand to ask a question.","pron_v":"/reis/","pron_p":"/reist/","pron_pp":"/reist/","de":"anheben / aufziehen","pron_de_v":"/REJS/","pron_de_p":"/REJSD/","pron_de_pp":"/REJSD/"}'::jsonb,
         '{"v":"reduce","p":"reduced","pp":"reduced","es":"reducir / disminuir","ex":"We need to reduce our energy consumption.","pron_v":"/ri-diús/","pron_p":"/ri-diúst/","pron_pp":"/ri-diúst/","de":"reduzieren / verringern","pron_de_v":"/ri-DIUUS/","pron_de_p":"/ri-DIUUST/","pron_de_pp":"/ri-DIUUST/"}'::jsonb,
         '{"v":"release","p":"released","pp":"released","es":"liberar / lanzar / soltar","ex":"The band released their new album last Friday.","pron_v":"/ri-lís/","pron_p":"/ri-líst/","pron_pp":"/ri-líst/","de":"freigeben / veröffentlichen","pron_de_v":"/ri-LIES/","pron_de_p":"/ri-LIEST/","pron_de_pp":"/ri-LIEST/"}'::jsonb,
-        '{"v":"seem","p":"seemed","pp":"seemed","es":"parecer","ex":"You seem tired today. Did you sleep well?","pron_v":"/sim/","pron_p":"/simd/","pron_pp":"/simd/","de":"scheinen / wirken","pron_de_v":"/SIEM/","pron_de_p":"/SIEMD/","pron_de_pp":"/SIEMD/"}'::jsonb
+        '{"v":"seem","p":"seemed","pp":"seemed","es":"parecer","ex":"You seem tired today. Did you sleep well?","pron_v":"/sim/","pron_p":"/simd/","pron_pp":"/simd/","de":"scheinen / wirken","pron_de_v":"/SIEM/","pron_de_p":"/SIEMD/","pron_de_pp":"/SIEMD/"}'::jsonb,
+        '{"v":"fling","p":"flung","pp":"flung","es":"lanzar / arrojar con fuerza","ex":"She flung her keys on the table and collapsed on the sofa.","pron_v":"/fling/","pron_p":"/flang/","pron_pp":"/flang/","de":"schleudern / werfen","pron_de_v":"/FLING/","pron_de_p":"/FLANG/","pron_de_pp":"/FLANG/"}'::jsonb,
+        '{"v":"lie","p":"lay","pp":"lain","es":"estar tumbado / yacer","ex":"She lay on the bed and stared at the ceiling.","pron_v":"/lái/","pron_p":"/lei/","pron_pp":"/lein/","de":"liegen","pron_de_v":"/LAI/","pron_de_p":"/LEJ/","pron_de_pp":"/LEJN/"}'::jsonb,
+        '{"v":"strike","p":"struck","pp":"struck","es":"golpear / atacar / hacer huelga","ex":"Lightning struck the tree in the garden.","pron_v":"/straik/","pron_p":"/strak/","pron_pp":"/strak/","de":"streiken / schlagen","pron_de_v":"/STRAIK/","pron_de_p":"/STRÄK/","pron_de_pp":"/STRÄK/"}'::jsonb,
+        '{"v":"withdraw","p":"withdrew","pp":"withdrawn","es":"retirar / sacar / retirarse","ex":"She withdrew money from the ATM before catching the train.","pron_v":"/uid-dró/","pron_p":"/uid-dru/","pron_pp":"/uid-drón/","de":"zurückziehen / abheben","pron_de_v":"/wid-DROO/","pron_de_p":"/wid-DRUU/","pron_de_pp":"/wid-DROON/"}'::jsonb
     ];
 
 BEGIN
@@ -367,24 +371,22 @@ DELETE FROM deck WHERE step_order = 30 AND path_uuid = v_path_id;
 
 -- 2. Insertar el Deck
 INSERT INTO deck (path_uuid, step_order, source_language, type) 
-VALUES (v_path_id, 30, 'en', 'vocabulary') 
+VALUES (v_path_id, 30, 'en', 'deck') 
 RETURNING uuid INTO v_deck_id;
 
 -- 3. Insertar Traducción y Metadata del Deck
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'es', 
-    'Los Verbos', 
-    ''
+    v_deck_id,
+    'es',
+    'Los Verbos'
 );
 
-INSERT INTO deck_translation (deck_uuid, language, title, description) 
+INSERT INTO deck_translation (deck_uuid, language, title) 
 VALUES (
-    v_deck_id, 
-    'de', 
-    'Die Verben', 
-    ''
+    v_deck_id,
+    'de',
+    'Die Verben'
 );
 
 -- 4. Bucle para insertar los verbos y sus inflexiones
@@ -393,20 +395,21 @@ LOOP
     -- ==================================================
     -- A) Insertar el verbo raíz (Infinitive)
     -- ==================================================
-    INSERT INTO word (term, is_root, source_language, example) 
-    VALUES (v_item->>'v', TRUE, 'en', v_item->>'ex') 
-    RETURNING uuid INTO v_root_id;
+    SELECT get_or_create_word(v_item->>'v', 'en', v_item->>'ex') INTO v_root_id;
 
     -- A.1) Traducción y pronunciación de la raíz
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_v');
+    VALUES (v_root_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_v')
+    ON CONFLICT DO NOTHING;
 
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_v');
+    VALUES (v_root_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_v')
+    ON CONFLICT DO NOTHING;
 
     -- A.2) Vincular el verbo raíz al deck
     INSERT INTO deck_words (deck_uuid, word_uuid) 
-    VALUES (v_deck_id, v_root_id);
+    VALUES (v_deck_id, v_root_id)
+    ON CONFLICT DO NOTHING;
 
     -- ==================================================
     -- B) Insertar la inflexión en Pasado Simple (Past)
@@ -417,10 +420,12 @@ LOOP
 
     -- B.1) Traducción y PRONUNCIACIÓN del Pasado Simple
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_past_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_p');
+    VALUES (v_past_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_p')
+    ON CONFLICT DO NOTHING;
 
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_past_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_p');
+    VALUES (v_past_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_p')
+    ON CONFLICT DO NOTHING;
 
     -- B.2) Vincular Inflexión
     INSERT INTO word_inflection (word_uuid, inflection_uuid) 
@@ -435,10 +440,12 @@ LOOP
 
     -- C.1) Traducción y PRONUNCIACIÓN del Participio Pasado
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_pp_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_pp');
+    VALUES (v_pp_id, 'es', jsonb_build_object('translation', v_item->>'es'), v_item->>'pron_pp')
+    ON CONFLICT DO NOTHING;
 
     INSERT INTO word_translation (word_uuid, language, meaning, pronunciation)
-    VALUES (v_pp_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_pp');
+    VALUES (v_pp_id, 'de', jsonb_build_object('translation', v_item->>'de'), v_item->>'pron_de_pp')
+    ON CONFLICT DO NOTHING;
 
     -- C.2) Vincular Inflexión
     INSERT INTO word_inflection (word_uuid, inflection_uuid) 

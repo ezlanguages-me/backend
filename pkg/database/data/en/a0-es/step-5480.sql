@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5480 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5480, 'en', 'reading', 'academic', 'Position statements. Ana supports recording lectures because students can review difficult parts after class. Ben does not support full recordings because he thinks attendance may fall.
+    VALUES (
+    v_path_id,
+    5480,
+    'en',
+    'reading',
+    'academic',
+    'Position statements. Ana supports recording lectures because students can review difficult parts after class. Ben does not support full recordings because he thinks attendance may fall.
 
 Carla accepts recordings only in a limited form. She prefers short summary clips instead of complete videos. The department now plans a trial in one course before making a final decision.
 
-The three statements show different views: full support, clear concern, and partial support with limits.')
-    RETURNING uuid INTO v_reading_id;
+The three statements show different views: full support, clear concern, and partial support with limits.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Posiciones escritas sobre grabar clases', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Schriftliche Positionen zum Aufzeichnen von Vorlesungen', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Escritas sobre grabar clases');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Aufzeichnen von Vorlesungen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

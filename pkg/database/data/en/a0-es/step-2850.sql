@@ -32,19 +32,24 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2850 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2850, 'en', 'reading', 'health', 'Treatment Options for a Mild Rash
+    VALUES (
+    v_path_id,
+    2850,
+    'en',
+    'reading',
+    'health',
+    'Treatment Options for a Mild Rash
 
 Option A: Use the anti-itch cream twice a day for seven days. This is good if the rash is small and the itching is light.
 
 Option B: Take one allergy tablet a day if the itching is strong or if the rash covers more skin.
 
-If the rash spreads or there is no change after one week, come back. The doctor may send you to a skin specialist. Avoid hot showers and perfumed soap.')
-    RETURNING uuid INTO v_reading_id;
+If the rash spreads or there is no change after one week, come back. The doctor may send you to a skin specialist. Avoid hot showers and perfumed soap.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee opciones de tratamiento', 'Lee una nota breve del médico con dos alternativas de tratamiento para una erupción leve.'),
-        (v_reading_id, 'de', 'Lies Behandlungsoptionen', 'Lies eine kurze ärztliche Notiz mit zwei Behandlungsalternativen für einen leichten Ausschlag.');
+        (v_reading_id, 'es', 'Lee opciones de tratamiento'), (v_reading_id, 'de', 'Lies Behandlungsoptionen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

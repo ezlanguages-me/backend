@@ -34,7 +34,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 5790 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 5790, 'en', 'listening', 'study-management', $transcript$
+    VALUES (
+    v_path_id,
+    5790,
+    'en',
+    'listening',
+    'study_management',
+    $transcript$
 # AUDIO PROFILE: Elena Ruiz, undergraduate student; Mr Becker, library services assistant
 ## "Study Room Booking Call"
 ## THE SCENE: A student calls the university library help desk to arrange a group study room and ask about equipment booking. She needs a space for a presentation rehearsal before Friday. The staff member explains the exact procedure, access method, and equipment rules.
@@ -64,13 +70,13 @@ Learners practise arranging practical study logistics, confirming requirements, 
 [guiding] Library Assistant: In that case, choose the silent media room on the second floor. That room must be booked at least twenty four hours in advance.
 [grateful] Student: Perfect, thank you. I will book Room B2 first and then contact the media desk.
 [friendly] Library Assistant: You are welcome. If you have any problems, call us again or visit the help desk.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Llamada para reservar una sala de estudio', '');
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Anruf zur Buchung eines Lernraums', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Llamada para reservar sala');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Anruf zur Raumbuchung');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

@@ -44,19 +44,24 @@
           AND type = 'reading';
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 4620, 'en', 'reading', 'professional', $content$Product Description – ErgoDesk Pro Chair
+        VALUES (
+    v_path_id,
+    4620,
+    'en',
+    'reading',
+    'professional',
+    $content$Product Description – ErgoDesk Pro Chair
 
 The ErgoDesk Pro Chair is designed for daily office use and long working sessions. It features a breathable mesh back and a padded seat for improved comfort during the day. Users can adjust the seat height between 40 and 55 cm, as well as the armrest height, armrest width and lumbar support position to match individual needs.
 
 The maximum recommended weight is 120 kg. The chair is available in black, grey and navy, which makes it suitable for most office interiors. Assembly is required, but the process takes only around 15 minutes and all tools are included in the box.
 
-The frame is covered by a 5-year warranty, while the padding has a 2-year warranty. The standard price is £189 per unit, and orders of 20 or more qualify for a 10% volume discount.$content$)
-        RETURNING uuid INTO v_reading_id;
+The frame is covered by a 5-year warranty, while the padding has a 2-year warranty. The standard price is £189 per unit, and orders of 20 or more qualify for a 10% volume discount.$content$
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee una descripción de producto de mobiliario', 'Lee una descripción breve de una silla ergonómica con medidas, garantía y descuento.'),
-            (v_reading_id, 'de', 'Lies eine Produktbeschreibung für Möbel', 'Lies eine kurze Produktbeschreibung eines ergonomischen Stuhls mit Maßen, Garantie und Rabatt.');
+            (v_reading_id, 'es', 'Descripción de producto'), (v_reading_id, 'de', 'Produktbeschreibung für Möbel');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid)

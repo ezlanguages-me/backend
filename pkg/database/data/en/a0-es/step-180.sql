@@ -42,7 +42,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 180 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 180, 'en', 'listening', 'social', $transcript$
+    VALUES (
+  v_path_id,
+  180,
+  'en',
+  'listening',
+  'social',
+  $transcript$
 # AUDIO PROFILE: Tom, host dad
 ## "The Welcome Tour"
 
@@ -76,14 +82,14 @@ everyday information a host family gives to a new student.
 [reassuringly] You will be sharing the full bathroom at the end of the hall with Jake. Don't worry, he keeps it pretty clean.
 [helpfully] The laundry room is down in the basement. We usually do our laundry on Sundays. If you have dirty clothes, just put them in the basket.
 [welcomingly] We have dinner around 7 PM every night. If you're going to be late, just text us. Make yourself at home!
-    $transcript$)
-    RETURNING uuid INTO v_listening_id;
+    $transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Llegada a la familia anfitriona', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Llegada a la familia');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Ankunft bei der Gastfamilie', '');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Ankunft bei der Gastfamilie');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

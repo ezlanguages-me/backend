@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 2580 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 2580, 'en', 'listening', 'health', $transcript$
+    VALUES (
+    v_path_id,
+    2580,
+    'en',
+    'listening',
+    'health',
+    $transcript$
 # AUDIO PROFILE: Sofia, a triage nurse speaking with a patient at urgent care
 ## "Where Does It Hurt?"
 
@@ -62,13 +68,12 @@ Learners hear how to say where a health problem is and how a nurse may check the
 [patient] Patient: Nausea, yes. Cough, no.
 [nurse] Nurse: Can you walk?
 [patient] Patient: Yes, but slowly.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha cómo indicar dónde te duele', 'Escucha a una enfermera que hace preguntas muy básicas sobre el dolor y los síntomas.'),
-        (v_listening_id, 'de', 'Höre, wie man zeigt, wo es weh tut', 'Höre eine Krankenschwester, die sehr einfache Fragen zu Schmerzen und Symptomen stellt.');
+        (v_listening_id, 'es', 'Indicar dónde te duele'), (v_listening_id, 'de', 'Man zeigt, wo es weh tut');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

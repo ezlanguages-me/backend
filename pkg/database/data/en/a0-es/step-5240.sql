@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5240 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5240, 'en', 'reading', 'academic', 'Presentation outline. Slide 1 introduces the topic with one opening question. Slide 2 explains the problem and why it matters for students.
+    VALUES (
+    v_path_id,
+    5240,
+    'en',
+    'reading',
+    'academic',
+    'Presentation outline. Slide 1 introduces the topic with one opening question. Slide 2 explains the problem and why it matters for students.
 
 Slide 3 gives the method in three short steps. Slide 4 presents the main result with one chart. Slide 5 mentions one limit of the study, and Slide 6 gives the conclusion and one recommendation.
 
-The final slide invites questions from the audience. The speaker notes say that each main section should be short and easy to follow.')
-    RETURNING uuid INTO v_reading_id;
+The final slide invites questions from the audience. The speaker notes say that each main section should be short and easy to follow.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Estructura de una presentación', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Struktur einer Präsentation', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Estructura de una presentación');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Struktur einer Präsentation');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

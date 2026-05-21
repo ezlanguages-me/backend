@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 3360 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3360, 'en', 'listening', 'nature', $transcript$# AUDIO PROFILE: Neighbour at the café
+    VALUES (
+    v_path_id,
+    3360,
+    'en',
+    'listening',
+    'nature',
+    $transcript$# AUDIO PROFILE: Neighbour at the café
 ## "Today's Weather Talk"
 
 ## THE SCENE: Two neighbours speak outside a small café near the sea.
@@ -56,14 +62,14 @@ Learners practise understanding basic weather conditions, temperatures, wind, an
 [helpful] Around midday, the sky gets brighter and the temperature rises to eighteen degrees.
 [practical] Light rain starts after four o'clock.
 [cautious] The evening stays wet, and the roads may be slippery.
-[optimistic] Tomorrow looks sunny and dry.$transcript$)
-    RETURNING uuid INTO v_listening_id;
+[optimistic] Tomorrow looks sunny and dry.$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'es', 'Hablar del tiempo que hace', 'Escucha a dos vecinos comentar el tiempo, la temperatura, el viento y la lluvia.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'es', 'Hablar del tiempo que hace');
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
-    VALUES (v_listening_id, 'de', 'Über das Wetter sprechen', 'Höre zwei Nachbarn, die über Wetter, Temperatur, Wind und Regen sprechen.');
+    INSERT INTO listening_translation (listening_uuid, language, title)
+    VALUES (v_listening_id, 'de', 'Über das Wetter sprechen');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;

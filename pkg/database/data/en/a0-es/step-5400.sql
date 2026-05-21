@@ -32,17 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 5400 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 5400, 'en', 'reading', 'academic', 'Presentation advice sheet. Start by saying the topic and aim of your talk. Use three main points so your audience can follow the structure easily.
+    VALUES (
+    v_path_id,
+    5400,
+    'en',
+    'reading',
+    'academic',
+    'Presentation advice sheet. Start by saying the topic and aim of your talk. Use three main points so your audience can follow the structure easily.
 
 When you show a chart, explain only the most important number or trend. If someone asks a factual question, repeat the question first and answer with one clear sentence. If you do not know the answer, say so honestly and offer to check later.
 
-Finish on time and invite one or two final questions. A clear ending helps the audience remember the main idea.')
-    RETURNING uuid INTO v_reading_id;
+Finish on time and invite one or two final questions. A clear ending helps the audience remember the main idea.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'es', 'Consejos para presentar y responder preguntas', '');
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
-    VALUES (v_reading_id, 'de', 'Tipps zum Präsentieren und Fragenbeantworten', '');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'es', 'Consejos para presentar');
+    INSERT INTO reading_translation (reading_uuid, language, title)
+    VALUES (v_reading_id, 'de', 'Tipps zum Präsentieren');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

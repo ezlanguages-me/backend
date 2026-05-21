@@ -32,16 +32,21 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM reading WHERE step_order = 3710 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading');
         DELETE FROM reading WHERE step_order = 3710 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'reading';
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 3710, 'en', 'reading', 'tourism', $content$City Art Gallery is open from Tuesday to Sunday, 10 AM to 6 PM. It is closed on Monday.
+        VALUES (
+    v_path_id,
+    3710,
+    'en',
+    'reading',
+    'tourism',
+    $content$City Art Gallery is open from Tuesday to Sunday, 10 AM to 6 PM. It is closed on Monday.
 
 Tickets cost £8 for adults and £5 for students. An audio guide is available for £2.
 
-Please do not use flash photography. The bag room is on the ground floor. The café closes at 5:30 PM.$content$)
-        RETURNING uuid INTO v_reading_id;
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
+Please do not use flash photography. The bag room is on the ground floor. The café closes at 5:30 PM.$content$
+)RETURNING uuid INTO v_reading_id;
+        INSERT INTO reading_translation (reading_uuid, language, title)
         VALUES
-            (v_reading_id, 'es', 'Lee información de un museo o galería', 'Lee horarios, precios y normas básicas para visitar una galería.'),
-            (v_reading_id, 'de', 'Lies Informationen zu Museum oder Galerie', 'Lies Öffnungszeiten, Preise und einfache Regeln für einen Galeriebesuch.');
+            (v_reading_id, 'es', 'Información del museo'), (v_reading_id, 'de', 'Museumsinformationen');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

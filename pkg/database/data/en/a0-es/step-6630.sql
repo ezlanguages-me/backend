@@ -15,11 +15,10 @@ BEGIN
     DELETE FROM dialogue WHERE step_order=6630 AND path_uuid=v_path_id;
     DELETE FROM speaking WHERE step_order=6630 AND path_uuid=v_path_id;
     DELETE FROM writing WHERE step_order=6630 AND path_uuid=v_path_id;
-    INSERT INTO speaking (path_uuid,step_order,source_language,type,category)
-    VALUES (v_path_id,6630,'en','speaking','tourism')
-    RETURNING uuid INTO v_speaking_id;
-    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-    VALUES (v_speaking_id,'es','Pedir aclaraciones sobre Colors of the Sea','Haz preguntas para aclarar información.','{"scenario": "Estás hablando sobre Colors of the Sea Exhibition con otra persona.", "tasks": ["Di dónde está el lugar.", "Di cuándo empieza la visita.", "Di dónde empieza.", "Di cuánto dura.", "Di el precio o coste.", "Nombra el primer punto destacado.", "Nombra el segundo punto destacado.", "Da un consejo útil para visitantes."]}'::jsonb);
-    INSERT INTO speaking_translation (speaking_uuid,language,title,description,prompt)
-    VALUES (v_speaking_id,'de','Nach Erklärungen zu Colors of the Sea fragen','Stelle Fragen, um Informationen zu klären.','{"scenario": "Du sprichst mit einer anderen Person über Colors of the Sea Exhibition.", "tasks": ["Sage, wo der Ort ist.", "Sage, wann der Besuch beginnt.", "Sage, wo er beginnt.", "Sage, wie lange er dauert.", "Nenne den Preis oder die Kosten.", "Nenne den ersten Höhepunkt.", "Nenne den zweiten Höhepunkt.", "Gib einen nützlichen Tipp für Besucher."]}'::jsonb);
+    INSERT INTO speaking (path_uuid, step_order, source_language, type, category)
+    VALUES (v_path_id, 6630, 'en', 'speaking', 'tourism')RETURNING uuid INTO v_speaking_id;
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+    VALUES (v_speaking_id, 'es', 'Aclaraciones sobre Colors of', '{"scenario": "Estás hablando sobre Colors of the Sea Exhibition con otra persona.", "tasks": ["Di dónde está el lugar.", "Di cuándo empieza la visita.", "Di dónde empieza.", "Di cuánto dura.", "Di el precio o coste.", "Nombra el primer punto destacado.", "Nombra el segundo punto destacado.", "Da un consejo útil para visitantes."]}'::jsonb);
+    INSERT INTO speaking_translation (speaking_uuid, language, title, prompt)
+    VALUES (v_speaking_id, 'de', 'Nach Erklärungen zu Colors of', '{"scenario": "Du sprichst mit einer anderen Person über Colors of the Sea Exhibition.", "tasks": ["Sage, wo der Ort ist.", "Sage, wann der Besuch beginnt.", "Sage, wo er beginnt.", "Sage, wie lange er dauert.", "Nenne den Preis oder die Kosten.", "Nenne den ersten Höhepunkt.", "Nenne den zweiten Höhepunkt.", "Gib einen nützlichen Tipp für Besucher."]}'::jsonb);
 END; $seed$;

@@ -32,7 +32,13 @@
         DELETE FROM reading WHERE step_order = 1400 AND path_uuid = v_path_id;
 
         INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-        VALUES (v_path_id, 1400, 'en', 'reading', 'banking', 'Easy Start Account
+        VALUES (
+    v_path_id,
+    1400,
+    'en',
+    'reading',
+    'banking',
+    'Easy Start Account
 
 Open a basic account in ten minutes at Account Services. Bring your passport or national ID and one proof of address, for example a utility bill or a rental letter.
 
@@ -40,14 +46,14 @@ Please complete one short form with your name, address, phone number, and email.
 
 The account has no monthly fee. You receive a debit card in five working days, and you can use online banking and the ATM on the same day.
 
-Statements arrive by email every month. You can ask for a paper statement at the branch.')
-        RETURNING uuid INTO v_reading_id;
+Statements arrive by email every month. You can ask for a paper statement at the branch.'
+)RETURNING uuid INTO v_reading_id;
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'es', 'Abrir una cuenta bancaria sencilla', 'Lee un folleto bancario sencillo con requisitos, depósito inicial y servicios básicos.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'es', 'Abrir una cuenta bancaria');
 
-        INSERT INTO reading_translation (reading_uuid, language, title, description)
-        VALUES (v_reading_id, 'de', 'Ein einfaches Bankkonto eröffnen', 'Lies einen einfachen Bankprospekt mit Voraussetzungen, erster Einzahlung und Basisleistungen.');
+        INSERT INTO reading_translation (reading_uuid, language, title)
+        VALUES (v_reading_id, 'de', 'Einfaches Bankkonto eröffnen');
 
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_reading_id, NULL) RETURNING uuid INTO v_ex_id;

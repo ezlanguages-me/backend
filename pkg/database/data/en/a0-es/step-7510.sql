@@ -32,18 +32,23 @@ BEGIN
     DELETE FROM reading WHERE step_order = 7510 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 7510, 'en', 'reading', 'meetings', 'Project Proposal: Quiet Corner for Visitors\n\nGoal: Make a small waiting corner near reception.
+    VALUES (
+    v_path_id,
+    7510,
+    'en',
+    'reading',
+    'meetings',
+    'Project Proposal: Quiet Corner for Visitors\n\nGoal: Make a small waiting corner near reception.
 Materials: two chairs, one small table, three magazines, and a plant.
 Cost: 120 euros.
 Work plan: buy the items on Friday and set them up on Monday morning.
 Benefit: visitors wait in one clear place and staff can help them easily.
-Team request: approve the plan this week.')
-    RETURNING uuid INTO v_reading_id;
+Team request: approve the plan this week.'
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title, description)
+    INSERT INTO reading_translation (reading_uuid, language, title)
     VALUES
-        (v_reading_id, 'es', 'Lee una propuesta de proyecto sencilla', 'Lee una propuesta breve con objetivo, materiales, coste, plan y beneficio para el equipo.'),
-        (v_reading_id, 'de', 'Lies einen einfachen Projektvorschlag', 'Lies einen kurzen Vorschlag mit Ziel, Material, Kosten, Plan und Nutzen für das Team.');
+        (v_reading_id, 'es', 'Propuesta de proyecto'), (v_reading_id, 'de', 'Projektvorschlag');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

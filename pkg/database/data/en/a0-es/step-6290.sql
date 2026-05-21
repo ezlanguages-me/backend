@@ -33,7 +33,13 @@ BEGIN
     DELETE FROM listening WHERE step_order = 6290 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 6290, 'en', 'listening', 'Convivencia', $transcript$
+    VALUES (
+    v_path_id,
+    6290,
+    'en',
+    'listening',
+    'social',
+    $transcript$
 # AUDIO PROFILE: Oliver, talking about a neighbour's birthday party
 ## "A Small Story About Meeting New People"
 
@@ -64,13 +70,12 @@ The audio focuses on people, places, and a simple sequence of events.
 [turn] Friend: That sounds easy enough.
 [ending] Oliver: Yes, and now they have invited me for tea next week.
 [closing] Friend: Nice. That is a good start.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'escucha una anécdota social', 'Escucha una breve historia social sobre una fiesta y cómo surge una nueva amistad.'),
-        (v_listening_id, 'de', 'höre eine soziale Anekdote', 'Höre eine kurze soziale Geschichte über eine Party und wie eine neue Bekanntschaft entsteht.');
+        (v_listening_id, 'es', 'escucha una anécdota social'), (v_listening_id, 'de', 'höre eine soziale Anekdote');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)

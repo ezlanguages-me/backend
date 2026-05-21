@@ -32,7 +32,13 @@
         DELETE FROM exercise WHERE target_uuid IN (SELECT uuid FROM listening WHERE step_order = 4230 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening');
         DELETE FROM listening WHERE step_order = 4230 AND path_uuid = v_path_id AND source_language = 'en' AND type = 'listening';
         INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-        VALUES (v_path_id, 4230, 'en', 'listening', 'professional', $transcript$
+        VALUES (
+    v_path_id,
+    4230,
+    'en',
+    'listening',
+    'professional',
+    $transcript$
 # AUDIO PROFILE: Linda, Head of Operations, running a departmental briefing
 ## "Operations Department – Quarterly Briefing"
 
@@ -57,12 +63,11 @@ Accent: Neutral British accent.
 [systems] Linda: The new management system will be installed by end of this month.
 [training] Linda: There will be a training session next Monday to help everyone use it.
 [closing] Linda: Any questions, please come and see me after the briefing. Thank you.
-$transcript$)
-        RETURNING uuid INTO v_listening_id;
-        INSERT INTO listening_translation (listening_uuid, language, title, description)
+$transcript$
+)RETURNING uuid INTO v_listening_id;
+        INSERT INTO listening_translation (listening_uuid, language, title)
         VALUES
-            (v_listening_id, 'es', 'Escucha un briefing de departamento', 'Escucha una reunión de equipo con resultados del trimestre, objetivos, plazos y próximos eventos.'),
-            (v_listening_id, 'de', 'Höre ein Abteilungsmeeting', 'Höre ein Teammeeting mit Quartalsergebnissen, Zielen, Fristen und bevorstehenden Ereignissen.');
+            (v_listening_id, 'es', 'Un briefing de departamento'), (v_listening_id, 'de', 'Höre ein Abteilungsmeeting');
         FOREACH ex IN ARRAY v_exercises LOOP
             INSERT INTO exercise (target_uuid, grammar_rule_uuid) VALUES (v_listening_id, NULL) RETURNING uuid INTO v_ex_id;
             INSERT INTO exercise_translation (exercise_uuid, language, prompt, specifics)

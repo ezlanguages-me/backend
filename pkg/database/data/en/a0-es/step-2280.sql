@@ -32,7 +32,13 @@ BEGIN
     DELETE FROM reading WHERE step_order = 2280 AND path_uuid = v_path_id;
 
     INSERT INTO reading (path_uuid, step_order, source_language, type, category, content)
-    VALUES (v_path_id, 2280, 'en', 'reading', 'Restauración', $reading$
+    VALUES (
+    v_path_id,
+    2280,
+    'en',
+    'reading',
+    'dining',
+    $reading$
 TONIGHT'S TASTING MENU
 Starter: roasted beet salad with goat cheese.
 Main: sea bass with a lemon butter sauce.
@@ -43,10 +49,10 @@ NOTES
 Roasted means cooked in the oven.
 Sea bass is a white fish.
 Panna cotta is a cold milk dessert.
-$reading$)
-    RETURNING uuid INTO v_reading_id;
+$reading$
+)RETURNING uuid INTO v_reading_id;
 
-    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer descripciones de platos y aclaraciones');
+    INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'es', 'Leer descripciones de platos');
     INSERT INTO reading_translation (reading_uuid, language, title) VALUES (v_reading_id, 'de', 'Gerichte und Erklärungen lesen');
 
     FOREACH ex IN ARRAY v_exercises LOOP

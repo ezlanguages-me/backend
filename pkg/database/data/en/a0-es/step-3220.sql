@@ -46,7 +46,13 @@ BEGIN
     DELETE FROM writing WHERE step_order = 3220 AND path_uuid = v_path_id;
 
     INSERT INTO listening (path_uuid, step_order, source_language, type, category, transcript)
-    VALUES (v_path_id, 3220, 'en', 'listening', 'emergency', $transcript$
+    VALUES (
+    v_path_id,
+    3220,
+    'en',
+    'listening',
+    'emergency',
+    $transcript$
 # AUDIO PROFILE: Nina, a calm caller outside her flat
 ## "Fire Service, Please"
 
@@ -77,13 +83,12 @@ Learners practise asking for emergency help, saying the address, and understandi
 [helpful] Caller: Yes, the red front door is open, and we are waiting by the bus stop.
 [reassuring] Operator: Stay outside. Firefighters and an ambulance are on the way.
 [calmer] Caller: Thank you. My phone number is 07700 451 300.
-$transcript$)
-    RETURNING uuid INTO v_listening_id;
+$transcript$
+)RETURNING uuid INTO v_listening_id;
 
-    INSERT INTO listening_translation (listening_uuid, language, title, description)
+    INSERT INTO listening_translation (listening_uuid, language, title)
     VALUES
-        (v_listening_id, 'es', 'Escucha una llamada a emergencias por un incendio en una cocina', 'Escucha cómo una persona llama a emergencias, da la dirección y sigue instrucciones simples.'),
-        (v_listening_id, 'de', 'Höre einen Notruf wegen eines Küchenbrands', 'Höre, wie jemand den Notruf wählt, die Adresse nennt und einfachen Anweisungen folgt.');
+        (v_listening_id, 'es', 'Emergencias por un incendio'), (v_listening_id, 'de', 'Wegen eines Küchenbrands');
 
     FOREACH ex IN ARRAY v_exercises LOOP
         INSERT INTO exercise (target_uuid, grammar_rule_uuid)
