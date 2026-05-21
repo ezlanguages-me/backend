@@ -16,8 +16,8 @@ type PostgresClient struct {
 func NewPostgresClient(ctx context.Context) (*PostgresClient, error) {
 	env := environment.Env
 	url := fmt.Sprintf(
-		"postgres://%s:%s@%s:5432/%s?statement_timeout=10000&lock_timeout=5000",
-		env.DB_USER, env.DB_PASSWORD, env.MASTER_POSTGRES_DNS, env.DB_NAME,
+		"postgres://%s:%s@%s:%s/%s?statement_timeout=10000&lock_timeout=5000",
+		env.DB_USER, env.DB_PASSWORD, env.MASTER_POSTGRES_DNS, env.DB_PORT, env.DB_NAME,
 	)
 
 	config, err := pgxpool.ParseConfig(url)

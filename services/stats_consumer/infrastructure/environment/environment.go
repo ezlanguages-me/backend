@@ -11,6 +11,7 @@ type Environment struct {
 	DB_PASSWORD         string
 	DB_NAME             string
 	MASTER_POSTGRES_DNS string
+	DB_PORT             string
 }
 
 var Env Environment
@@ -22,6 +23,11 @@ func Load() error {
 		DB_PASSWORD:         os.Getenv("DB_PASSWORD"),
 		DB_NAME:             os.Getenv("DB_NAME"),
 		MASTER_POSTGRES_DNS: os.Getenv("MASTER_POSTGRES_DNS"),
+		DB_PORT:             os.Getenv("DB_PORT"),
+	}
+
+	if Env.DB_PORT == "" {
+		Env.DB_PORT = "6432" // default to pgbouncer port
 	}
 
 	if Env.NATS_URL == "" {
