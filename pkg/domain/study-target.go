@@ -16,15 +16,16 @@ func (tb *TargetBase) GetUUID() string {
 
 type Word struct {
 	TargetBase
-	Term           string           `json:"term"`
-	IsRoot         bool             `json:"is_root"`
-	SourceLanguage string           `json:"source_language"`
-	Meaning        []*WordMeaning   `json:"meaning"`
-	RootWord       *Word            `json:"root_word"`
-	Inflections    []*Word          `json:"inflections"`
-	InflectionType string           `json:"inflection_type"`
-	Pronunciation  []*Pronunciation `json:"pronunciation"`
-	AudioURL       string           `json:"audio_url"`
+	Term            string   `json:"term"`
+	IsRoot          bool     `json:"is_root"`
+	SourceLanguage  string   `json:"source_language"`
+	TranslationUUID string   `json:"translation_uuid,omitempty"`
+	Translation     *Word    `json:"translation,omitempty"` // target word in learner's language
+	Pronunciation   string   `json:"pronunciation,omitempty"`
+	RootWord        *Word    `json:"root_word,omitempty"`
+	Inflections     []*Word  `json:"inflections,omitempty"`
+	InflectionType  string   `json:"inflection_type,omitempty"`
+	AudioURL        string   `json:"audio_url,omitempty"`
 }
 
 type Deck struct {

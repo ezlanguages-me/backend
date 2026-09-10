@@ -52,4 +52,120 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_year INT;
 SQL
 ok "Done"
 
+# ── Migration: word_translation → bridge table ────────────────────────────────
+step "Migration: word_translation → bridge table (source_word_uuid / target_word_uuid)"
+"${PSQL[@]}" "$DB_NAME" <<'SQL' \
+    || fail "Migration failed."
+DO $$
+DECLARE
+    has_word_uuid BOOLEAN;
+    has_source_word_uuid BOOLEAN;
+BEGIN
+    SELECT EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'word_translation' AND column_name = 'word_uuid'
+    ) INTO has_word_uuid;
+
+    SELECT EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'word_translation' AND column_name = 'source_word_uuid'
+    ) INTO has_source_word_uuid;
+
+    IF has_source_word_uuid THEN
+        RAISE NOTICE 'word_translation already migrated to bridge table — skipping';
+        RETURN;
+    END IF;
+
+    IF has_word_uuid THEN
+        -- Drop old primary key / unique constraints
+        ALTER TABLE word_translation DROP CONSTRAINT IF EXISTS word_translation_pkey;
+        ALTER TABLE word_translation DROP CONSTRAINT IF EXISTS word_translation_word_lang_unique;
+        ALTER TABLE word_translation DROP CONSTRAINT IF EXISTS word_translation_word_uuid_language_key;
+
+        -- Drop old columns that no longer apply
+        ALTER TABLE word_translation DROP COLUMN IF EXISTS language;
+        ALTER TABLE word_translation DROP COLUMN IF EXISTS meaning;
+
+        -- Rename word_uuid → source_word_uuid
+        ALTER TABLE word_translation RENAME COLUMN word_uuid TO source_word_uuid;
+
+        -- Add target_word_uuid (nullable first, then NOT NULL after data migration)
+        ALTER TABLE word_translation ADD COLUMN IF NOT EXISTS target_word_uuid UUID REFERENCES word(uuid) ON DELETE CASCADE;
+
+        -- Add uuid PK if not present
+        IF NOT EXISTS (
+            SELECT 1 FROM information_schema.columns
+            WHERE table_name = 'word_translation' AND column_name = 'uuid'
+        ) THEN
+            ALTER TABLE word_translation ADD COLUMN uuid UUID NOT NULL DEFAULT gen_random_uuid();
+        END IF;
+
+        -- NOTE: target_word_uuid rows will be NULL until seed data is migrated.
+        -- Rows with NULL target_word_uuid should be cleaned up after seed migration.
+
+        ALTER TABLE word_translation ADD PRIMARY KEY (uuid);
+        ALTER TABLE word_translation ADD CONSTRAINT word_translation_pair_unique
+            UNIQUE (source_word_uuid, target_word_uuid);
+
+        RAISE NOTICE 'Migrated word_translation to bridge table';
+    ELSE
+        RAISE NOTICE 'word_translation has neither word_uuid nor source_word_uuid — assuming already bridged or empty';
+
+        -- Ensure the bridge structure exists from scratch
+        CREATE TABLE IF NOT EXISTS word_translation (
+            uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            source_word_uuid UUID NOT NULL REFERENCES word(uuid) ON DELETE CASCADE,
+            target_word_uuid UUID NOT NULL REFERENCES word(uuid) ON DELETE CASCADE,
+            pronunciation TEXT NOT NULL DEFAULT '',
+            UNIQUE (source_word_uuid, target_word_uuid)
+        );
+    END IF;
+
+    -- Ensure pronunciation column exists with correct type
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'word_translation' AND column_name = 'pronunciation'
+    ) THEN
+        ALTER TABLE word_translation ADD COLUMN pronunciation TEXT NOT NULL DEFAULT '';
+    END IF;
+END $$;
+SQL
+ok "Done"
+
+# ── Migration: user_languages ─────────────────────────────────────────────────
+step "Migration: create user_languages table"
+"${PSQL[@]}" "$DB_NAME" <<'SQL' \
+    || fail "Migration failed."
+CREATE TABLE IF NOT EXISTS user_languages (
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_uuid UUID NOT NULL REFERENCES users(uuid) ON DELETE CASCADE,
+    language TEXT NOT NULL,
+    cefr_level TEXT NOT NULL CHECK (cefr_level IN ('A0','A1','A2','B1','B2','C1','C2','native')),
+    is_native BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (user_uuid, language)
+);
+CREATE INDEX IF NOT EXISTS idx_user_languages_user ON user_languages(user_uuid);
+SQL
+ok "Done"
+
+# ── Migration: user_path_settings ─────────────────────────────────────────────
+step "Migration: create user_path_settings table"
+"${PSQL[@]}" "$DB_NAME" <<'SQL' \
+    || fail "Migration failed."
+CREATE TABLE IF NOT EXISTS user_path_settings (
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_uuid UUID NOT NULL REFERENCES users(uuid) ON DELETE CASCADE,
+    path_uuid UUID NOT NULL REFERENCES path(uuid) ON DELETE CASCADE,
+    polyglot_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    polyglot_until_cefr TEXT CHECK (polyglot_until_cefr IN ('A0','A1','A2','B1','B2','C1','C2')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (user_uuid, path_uuid)
+);
+CREATE INDEX IF NOT EXISTS idx_user_path_settings_user ON user_path_settings(user_uuid);
+SQL
+ok "Done"
+
 printf '\n\033[1;32m✅  All migrations applied.\033[0m\n\n'

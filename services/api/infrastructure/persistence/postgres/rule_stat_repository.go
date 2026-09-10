@@ -2,6 +2,8 @@ package postgres
 
 import (
 	"context"
+	"errors"
+	"log/slog"
 	"pkg/domain"
 
 	"github.com/jackc/pgx/v5"
@@ -46,8 +48,11 @@ func (rsr *RuleStatRepository) Batch(stats []*domain.RuleStat) ([]*domain.RuleSt
 
 	batch := &pgx.Batch{}
 	for _, rs := range stats {
-		// Use a CTE to guard against orphaned grammar_rule_uuid values (FK violation).
-		// If the referenced grammar_rule no longer exists the INSERT is skipped silently.
+		// CTE guards against orphaned grammar_rule_uuid values (FK violation).
+		// If the referenced grammar_rule no longer exists, the INSERT is skipped.
+		// We surface those orphans via ErrOrphanGrammarRule below so the handler
+		// can return a 422 instead of silently swallowing client-side stale data
+		// (typical when persisted React Query path cache survives a DB reset).
 		batch.Queue(`
 			WITH valid AS (SELECT 1 FROM grammar_rule WHERE uuid = $2)
 			INSERT INTO rule_stat (user_uuid, grammar_rule_uuid, correct_count, incorrect_count, last_mistake, proficiency, created_at, updated_at)
@@ -68,8 +73,13 @@ func (rsr *RuleStatRepository) Batch(stats []*domain.RuleStat) ([]*domain.RuleSt
 	br := pool.SendBatch(context.Background(), batch)
 	defer br.Close()
 
-	var inserted []*domain.RuleStat
-	for range stats {
+	var (
+		inserted       []*domain.RuleStat
+		skippedUUIDs   []string
+		requestedUUIDs []string
+	)
+	for _, rs := range stats {
+		requestedUUIDs = append(requestedUUIDs, rs.GrammarRuleUUID)
 		rows, err := br.Query()
 		if err != nil {
 			return nil, err
@@ -88,5 +98,30 @@ func (rsr *RuleStatRepository) Batch(stats []*domain.RuleStat) ([]*domain.RuleSt
 		}
 	}
 
+	// Detect orphans: requested UUIDs that didn't make it into `inserted`.
+	if len(requestedUUIDs) > len(inserted) {
+		insertedSet := make(map[string]struct{}, len(inserted))
+		for _, rs := range inserted {
+			insertedSet[rs.GrammarRuleUUID] = struct{}{}
+		}
+		for _, u := range requestedUUIDs {
+			if _, ok := insertedSet[u]; !ok {
+				skippedUUIDs = append(skippedUUIDs, u)
+			}
+		}
+		slog.Warn(
+			"rule_stat.Batch skipped orphan grammar_rule_uuid values",
+			"skipped", skippedUUIDs,
+			"requested", len(requestedUUIDs),
+			"inserted", len(inserted),
+		)
+		return inserted, ErrOrphanGrammarRule
+	}
+
 	return inserted, nil
 }
+
+// ErrOrphanGrammarRule is returned when one or more grammar_rule_uuid values
+// in the batch don't exist. Caller should map this to HTTP 422 so the client
+// can react (e.g. drop persisted path cache and refetch).
+var ErrOrphanGrammarRule = errors.New("one or more grammar_rule_uuid values do not exist")

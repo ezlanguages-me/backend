@@ -43,13 +43,16 @@ SELECT
                             (
                                 SELECT jsonb_agg(
                                     jsonb_strip_nulls(jsonb_build_object(
-                                        'uuid',            w.uuid,
-                                        'term',            w.term,
-                                        'is_root',         w.is_root,
-                                        'inflection_type', w.inflection_type,
-                                        'example',         w.example,
-                                        'meaning',         wt.meaning,
-                                        'pronunciation',   wt.pronunciation,
+                                        'uuid',              w.uuid,
+                                        'term',              w.term,
+                                        'is_root',           w.is_root,
+                                        'inflection_type',   w.inflection_type,
+                                        'example',           w.example,
+                                        'translation_uuid',  wt.uuid,
+                                        'translation',       CASE WHEN tw.uuid IS NOT NULL THEN
+                                            jsonb_build_object('uuid', tw.uuid, 'term', tw.term)
+                                        END,
+                                        'pronunciation',     wt.pronunciation,
                                         'root_word', CASE WHEN w.root_word IS NOT NULL THEN
                                             (
                                                 SELECT jsonb_build_object(
@@ -63,16 +66,20 @@ SELECT
                                         'inflections', NULLIF(COALESCE(
                                             (
                                                 SELECT jsonb_agg(jsonb_strip_nulls(jsonb_build_object(
-                                                    'uuid',            iw.uuid,
-                                                    'term',            iw.term,
-                                                    'inflection_type', iw.inflection_type,
-                                                    'meaning',         iwt.meaning,
-                                                    'pronunciation',   iwt.pronunciation
+                                                    'uuid',             iw.uuid,
+                                                    'term',             iw.term,
+                                                    'inflection_type',  iw.inflection_type,
+                                                    'translation_uuid', iwt.uuid,
+                                                    'translation',      CASE WHEN tiw.uuid IS NOT NULL THEN
+                                                        jsonb_build_object('uuid', tiw.uuid, 'term', tiw.term)
+                                                    END,
+                                                    'pronunciation',    iwt.pronunciation
                                                 )))
-                                                FROM word_inflection wi
+                                                 FROM word_inflection wi
                                                 JOIN word iw ON iw.uuid = wi.inflection_uuid
-                                                LEFT JOIN word_translation iwt ON iwt.word_uuid = iw.uuid 
-                                                    AND iwt.language = tl.language
+                                                LEFT JOIN word_translation iwt ON iwt.source_word_uuid = iw.uuid
+                                                LEFT JOIN word tiw ON tiw.uuid = iwt.target_word_uuid
+                                                    AND tiw.source_language = tl.language
                                                 WHERE wi.word_uuid = w.uuid
                                             ),
                                             '[]'::jsonb
@@ -81,8 +88,9 @@ SELECT
                                 )
                                 FROM deck_words dw
                                 JOIN word w ON w.uuid = dw.word_uuid
-                                LEFT JOIN word_translation wt ON wt.word_uuid = w.uuid 
-                                    AND wt.language = tl.language
+                                LEFT JOIN word_translation wt ON wt.source_word_uuid = w.uuid
+                                LEFT JOIN word tw ON tw.uuid = wt.target_word_uuid
+                                    AND tw.source_language = tl.language
                                 WHERE dw.deck_uuid = d.uuid
                             ),
                             '[]'::jsonb

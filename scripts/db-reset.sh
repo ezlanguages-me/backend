@@ -151,9 +151,18 @@ if [[ "$SEED" == true ]]; then
         SEED_DIRS=("$DB_DIR/data/$SEED_PATH")
         [[ -d "${SEED_DIRS[0]}" ]] || fail "Seed directory not found: ${SEED_DIRS[0]}"
     else
-        # Auto-discover all leaf language/path directories
+        # Auto-discover all language directories (depth 1: en/, es/, …) and
+        # their immediate subdirectories (depth 2). Skip any directory whose
+        # last segment is `legacy` or sits under one — those are deprecated
+        # seed archives kept for reference only and use a schema that no
+        # longer matches (see data/en/legacy/README.md for the marker
+        # comment). To load them explicitly: --seed=en/legacy.
         mapfile -t SEED_DIRS < <(
-            find "$DB_DIR/data" -mindepth 2 -maxdepth 2 -type d | sort
+            find "$DB_DIR/data" -mindepth 1 -maxdepth 2 -type d \
+                ! -name 'legacy' \
+                ! -path '*/legacy' \
+                ! -path '*/legacy/*' \
+                | sort
         )
         [[ ${#SEED_DIRS[@]} -gt 0 ]] || fail "No seed directories found under $DB_DIR/data"
     fi
@@ -189,6 +198,17 @@ if [[ "$SEED_ONLY" == false ]]; then
     "${PSQL[@]}" "$DB_NAME" < "$DB_DIR/views.sql" \
         || fail "Views failed — check $DB_DIR/views.sql"
     ok "Views applied"
+
+    # ── 6b. Refresh materialized views ─────────────────────────────────────────
+    # Required so /paths returns content immediately after seeding. Without this,
+    # the materialized views are populated by views.sql *before* seed data exists
+    # and /paths returns empty until something manually calls fn_refresh_*.
+    if [[ "$SEED" == true ]]; then
+        step "Refreshing materialized views (mv_path_full, v_grammar, …)…"
+        "${PSQL[@]}" "$DB_NAME" -c "SELECT fn_refresh_all_materialized_views();" \
+            || fail "Materialized view refresh failed"
+        ok "Materialized views refreshed"
+    fi
 fi
 
 # ── 7. Grant access to app user ────────────────────────────────────────────────

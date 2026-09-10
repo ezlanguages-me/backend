@@ -129,11 +129,11 @@ CREATE TABLE word (
 );
 
 CREATE TABLE word_translation (
-    word_uuid UUID NOT NULL REFERENCES word(uuid) ON DELETE CASCADE,
-    language TEXT NOT NULL,
-    meaning JSONB,
-    pronunciation TEXT NOT NULL,
-    PRIMARY KEY (word_uuid, language)
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    source_word_uuid UUID NOT NULL REFERENCES word(uuid) ON DELETE CASCADE,
+    target_word_uuid UUID NOT NULL REFERENCES word(uuid) ON DELETE CASCADE,
+    pronunciation TEXT NOT NULL DEFAULT '',
+    UNIQUE (source_word_uuid, target_word_uuid)
 );
 
 CREATE TABLE word_inflection (
@@ -424,3 +424,35 @@ CREATE TABLE IF NOT EXISTS user_subscriptions (
 );
 
 CREATE INDEX IF NOT EXISTS idx_user_subscriptions_user ON user_subscriptions(user_uuid);
+
+-- Languages the user knows (native + other learned languages with CEFR levels).
+-- The polyglot mode uses this to decide which languages to present questions in.
+CREATE TABLE IF NOT EXISTS user_languages (
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_uuid UUID NOT NULL REFERENCES users(uuid) ON DELETE CASCADE,
+    language TEXT NOT NULL,
+    cefr_level TEXT NOT NULL CHECK (cefr_level IN ('A0','A1','A2','B1','B2','C1','C2','native')),
+    is_native BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (user_uuid, language)
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_languages_user ON user_languages(user_uuid);
+
+-- Per-user, per-path settings. Stores whether polyglot mode is active for a
+-- given learning path and up to which CEFR level of the target language it
+-- should remain active. Once the user's proficiency in the target language
+-- reaches polyglot_until_cefr the system switches to native-only questions.
+CREATE TABLE IF NOT EXISTS user_path_settings (
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_uuid UUID NOT NULL REFERENCES users(uuid) ON DELETE CASCADE,
+    path_uuid UUID NOT NULL REFERENCES path(uuid) ON DELETE CASCADE,
+    polyglot_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    polyglot_until_cefr TEXT CHECK (polyglot_until_cefr IN ('A0','A1','A2','B1','B2','C1','C2')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (user_uuid, path_uuid)
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_path_settings_user ON user_path_settings(user_uuid);
